@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+	<TITLE>Help</TITLE>
+<STYLE TYPE="text/css">
+<!--
+
+BODY 
+	{
+		padding: 10px;
+		font-family: Arial;
+		font-size: 12px;
+	}
+
+A 
+	{ 
+		text-decoration: none; 
+	}
+
+.helpSet 
+	{
+		background-color: #CCFFCC;
+		padding: 5px;
+		border: 2px;
+		width: 200px;
+		font: normal 10pt Arial;
+		text-align: left;
+	}
+
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="help.js"></SCRIPT>
+</HEAD>
+<BODY>
+<B>Multiple SELECT Lists</B>
+<BR><BR>
+The code in this section populates one of three SELECT lists according to the selected OPTIONs of 
+the other two. Using the <TT>
+<A HREF="javascript: void(0);" 
+	onMouseOver="helpDisplay('changeEvt', true);" 
+	onMouseOut="helpDisplay('changeEvt', false);">
+	onChange</A></TT> 
+event and the <TT> 
+<A HREF="javascript: void(0);" 
+	onMouseOver="helpDisplay('selIdx', true);" 
+	onMouseOut="helpDisplay('selIdx', false);">
+	selectedIndex</A></TT> 
+property, JavaScript accesses elements of corresponding arrays, named <TT>days</TT>, 
+<TT>numbers</TT>, or <TT>zodiac</TT>. 
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+var helpOne = "<SPAN CLASS='helpSet'>An event handler spawned from execution of the <TT>Change</TT> event.</SPAN>";
+var helpTwo = "<SPAN CLASS='helpSet'>A property that returns an integer representing the OPTION currently selected.</SPAN>";
+
+genLayer("changeEvt", 0, 0, helpWdh, helpHgt, hideName, helpOne);
+genLayer("selIdx", 0, 0, helpWdh, helpHgt, hideName, helpTwo);
+
+//-->
+</SCRIPT>
+</BODY>
+</HTML>

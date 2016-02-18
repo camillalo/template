@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>The Slideshow</TITLE>
+<!-- Define style sheet for simple height control //-->
+
+<STYLE TYPE="text/css">
+#menuConstraint { height: 800; }
+</STYLE>
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Set window- and layer-related variables
+var dWidLyr  = 450;
+var dHgtLyr  = 450;
+var curSlide = 0;
+var zIdx 	 = -1;
+var isVis 	 = false;
+
+// Set browser-determined global variables
+var NN 		 = (document.layers ? true : false);
+var sWidPos  = ((NN ? outerWidth  : screen.availWidth)  / 2) - (dWidLyr / 2);
+var sHgtPos  = ((NN ? outerHeight : screen.availHeight) / 2) - (dHgtLyr / 2);
+var hideName = (NN ? 'hide' : 'hidden');
+var showName = (NN ? 'show' : 'visible');
+
+
+//Set image-related variables
+var img = new Array();
+var imgOut = new Array();
+var imgOver = new Array();
+var layerList = new Array();
+var imgPath = 'images/';
+
+// Set tour-realted variables
+var showSpeed = 3500;
+var tourOn = false;
+
+// Define a function to generate layers
+function genLayer(sName, sLeft, sTop, sWdh, sHgt, sVis, copy) {
+	if (NN) {
+		document.writeln('<LAYER NAME="' + sName + '" LEFT=' + sLeft + ' TOP=' + sTop + 
+		' WIDTH=' + sWdh + ' HEIGHT=' + sHgt + ' VISIBILITY="' + sVis + '"' + 
+		' z-Index=' + (++zIdx) + '>' + copy + '</LAYER>');
+		}
+	else {
+		document.writeln('<DIV ID="' + sName + '" STYLE="position:absolute; overflow:none; left:' + 
+			sLeft + 'px; top:' + sTop + 'px; width:' + sWdh + 'px; height:' + sHgt + 'px;' + 
+			' visibility:' + sVis + '; z-Index=' + (++zIdx) + '">' + 
+			copy + '</DIV>'
+			);
+		}
+	}
+
+// Define an object constructor for each slide
+function slide(imgStr, scientific, copy) {
+	this.name    = imgStr;
+	this.copy    = copy;
+	this.structure = 
+		'<TABLE WIDTH=500 CELLPADDING=10><TR><TD WIDTH=60% VALIGN=TOP>' + 
+		'<IMG SRC=' + imgPath + imgStr + '.gif></TD>' + 
+		'<TD WIDTH=40% VALIGN=TOP><H2>Common Name:</H2><H2><I>' + 
+		camelCap(imgStr) + '</I></H2><H3>Scientific Name: </H3><H3><I>' + 
+		scientific + '</I></H3>' + '<B>Abstract:</B><BR>' + copy + '</TD></TR></TABLE>';
+
+	// Preload corresponding images while we're at it
+	imagePreLoad(imgStr);
+
+	return this;
+	}
+
+// Define a function to preload the images
+function imagePreLoad(imgStr) {
+	// Images for the slides
+	img[img.length]	= new Image();
+	img[img.length - 1].src = imgPath + imgStr + '.gif';
+
+	// Primary images for the slide menu
+	imgOut[imgOut.length] = new Image();
+	imgOut[imgOut.length - 1].src = imgPath + imgStr + 'out.gif';
+
+	// Rollover images for the slide menu
+	imgOver[imgOver.length] = new Image();
+	imgOver[imgOver.length - 1].src = imgPath + imgStr + 'over.gif';
+	}
+
+// Define an array to store all of the slide objects
+var slideShow  = new Array(
+			new slide('bird', 'Bomb-zis Car-zes', 'This winged creature has been known to seek out and soil freshly-washed vehicles.'),
+			new slide('walrus', 'Verius Clueless', 'These big fellas good fishers, but toothbrushing is another story.'), 
+			new slide('gator', 'Couldbeus Luggajus', 'These reptiles often play mascots for large college sporting events.'), 
+			new slide('dog', 'Makus Messus', 'Man\'s best friend? Yeah, right. No wonder these mammals get a bad rep.'), 
+			new slide('pig', 'Oinkus Lotsus', 'Humans with questionable eating habits are often compared to these farm creatures.'), 
+			new slide('snake', 'Groovius Dudis', 'Slick and sly with a watchful eye.'),
+			new slide('reindeer', 'Redius Nosius', 'Though co-workers used to laugh and call him names, he eventually won the respect of the entire team.'),
+			new slide('turkey', 'Goosius Is Cooktis', 'Celebrated and revered for an entire year, then served as dinner shortly after.'),
+			new slide('cow', 'Gotius Milkus', 'This animal is considered a moover and shaker, and tends to milk things for all they\'re worth. Utterly shameful.'),
+			new slide('crane', 'Whooping It Upus', 'Not to be confused with a piece of heavy construction equipment. Rumored as the source of the nickname <I>birdlegs</I>.')
+			);
+
+// Capitalize the first letter of the word passed
+// Makes for better looking copy
+function camelCap(str) {
+	return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
+
+// This generates all layers (or styles) to display for the screen
+function genScreen() {
+	var menuStr = '';
+	for (var i = 0; i < slideShow.length; i++) {
+		// Create all of the animal slide layers
+		genLayer('slide' + i, sWidPos, 45, dWidLyr, dHgtLyr, (i == 0 ? showName : hideName), slideShow[i].structure);
+
+		// While iterating, build the HTML string for the menu layer
+		menuStr += '<A HREF="" onMouseOver="hideStatus(); if(!tourOn) { setSlide(' + i + ');' + 
+			' imageSwap(\'' + slideShow[i].name + '\', ' + i + ', true)}; return true;"' + 
+			' onMouseOut="hideStatus(); if(!tourOn) { setSlide(' + i + ');' + 
+			' imageSwap(\'' + slideShow[i].name + '\', ' + i + ', false)}; return true;"' + 
+			' onClick="return false;"><IMG NAME="' + slideShow[i].name + '" SRC="' + imgPath + slideShow[i].name + 'out.gif" BORDER=0></A><BR>'; 
+		}
+
+	// Create the automation layer
+	genLayer('automation', sWidPos - 100, 11, 100, 200, showName, 
+		'<DIV ID="menuConstraint">' +  
+		'<A HREF="javascript: autoPilot();"  onMouseOver="hideStatus(); return true;">' + 
+		'<IMG SRC="images/automate.gif" BORDER=0></A>' + 
+		'</DIV>'
+		);
+
+	// Create the guide layer (with the arrows)
+	genLayer('guide', sWidPos - 100, 30, 100, 200, showName, 
+		'<DIV ID="menuConstraint">' + 
+		'<A HREF="javascript: if(!tourOn) { changeSlide(-1); }" onMouseOver="hideStatus(); return true;">' + 
+		'<IMG SRC="images/leftout.gif" BORDER=0></A>' + 
+		'<A HREF="javascript: if(!tourOn) { menuManager(); }" onMouseOver="hideStatus(); return true;">' + 
+		'<IMG SRC="images/guideout.gif" BORDER=0></A>' + 
+		'<A HREF="javascript: if(!tourOn) { changeSlide(1); }" onMouseOver="hideStatus(); return true;">' + 
+		'<IMG SRC="images/rightout.gif" BORDER=0></A></DIV>'
+		);
+
+	// Create the menu
+	genLayer('menu', sWidPos - 104, 43, 100, 200, hideName, 
+		'<DIV ID="menuConstraint"><TABLE><TD>' + 
+		menuStr + '</TD></TABLE></DIV>'
+		);
+	}
+
+// Define a function to hide layers
+function hideLayer(name) {
+	refLayer(name).visibility = hideName;
+	}
+
+// Define a function to reveal layers
+function showLayer(name) {
+	refLayer(name).visibility = showName;
+	}
+
+// Define a central function to reference layers
+function refLayer(name) {
+	if (NN) { return document.layers[name]; }
+	else { return eval('document.all.' + name + '.style'); }
+	}
+
+// Hide or show the animal guide
+function menuManager() {
+	if (isVis) {	hideLayer('menu'); }
+	else { showLayer('menu'); }
+	isVis = !isVis;
+	}
+
+// Function to change slides if the user navigates with the arrows
+function changeSlide(offset) {
+	// Hide the existing Layer
+	hideLayer('slide' + curSlide);
+
+	// Calculate the next layer index number
+	curSlide = (curSlide + offset < 0 ? slideShow.length - 1 : 
+		(curSlide + offset == slideShow.length ? 0 : curSlide + offset));
+
+	// Show the desired layer
+	showLayer('slide' + curSlide);
+	}
+
+// Function to change the slide if user navigates with the menu
+function setSlide(ref) {
+	if (tourOn) { return; }
+	hideLayer('slide' + curSlide);
+	curSlide = ref;
+	showLayer('slide' + curSlide);
+	}
+
+// Image rollover function
+function imageSwap(imagePrefix, imageIndex, isOver) {
+	if (isOver) { document[imagePrefix].src = imgOver[imageIndex].src; }
+	else { document[imagePrefix].src = imgOut[imageIndex].src; }
+	}
+
+// Places an empty string in the status bar to avoid annoying URL displays
+function hideStatus() { window.status = ''; }
+
+// Start or stop the automated tour
+function autoPilot() {
+	// Stop the tour if it is running
+	if (tourOn) { 
+		clearInterval(auto); 
+		imageSwap(slideShow[curSlide].name, curSlide, false);
+		}
+	// Otherwise begin the tour from the currently viewed slide
+	else {
+		auto = setInterval('automate()', showSpeed);
+		imageSwap(slideShow[curSlide].name, curSlide, true);		
+
+		// Show the menu if it is not currrently visible
+		showLayer('menu');
+		visible = true;
+		}
+	tourOn = !tourOn;
+	}
+
+// Automate the slideshow
+function automate() {
+	// Incite the image rollver
+	imageSwap(slideShow[curSlide].name, curSlide, false);
+
+	// Incite the slide change
+	changeSlide(1);
+
+	// Incite the image rollver
+	imageSwap(slideShow[curSlide].name, curSlide, true);
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR=WHITE>
+<CENTER>
+<FONT FACE=Arial>
+<H2>Animal Kingdom Slideshow</H2>
+</FONT>
+</CENTER>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+genScreen();
+//-->
+</SCRIPT>
+</FONT>
+</BODY>
+</HTML>

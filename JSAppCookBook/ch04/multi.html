@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+	<TITLE>Multi-Engine Menu</TITLE>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Reset the blank white document in the results frame
+parent.frames[2].location.href  = 'javascript: parent.white';
+
+// Set browser-determined global variables
+var NN 		 = (document.layers ? true : false);
+var curSlide = 0;
+var hideName = (NN ? 'hide' : 'hidden');
+var showName = (NN ? 'show' : 'visible');
+
+// Set stylesheet positioning variables
+var perLyr 		= 4;
+var engWdh 		= 90;
+var engHgt 		= 20;
+var left 		= 375;
+var top 		= 10;
+var zIdx 		= -1;
+
+// Set image variables
+var imgPath 	= 'images/';
+var arrayHandles = new Array('out', 'over');
+
+// Dynamically create image arrays
+for (var i = 0; i < arrayHandles.length; i++) {
+	eval('var ' + arrayHandles[i] + ' = new Array()');
+	}
+
+// Define each search engine as a three-element array
+var engines = new Array( 
+			new Array('HotBot', 'http://www.hotbot.com/?MT=', 'http://www.hotbot.com/'), 
+			new Array('InfoSeek', 'http://www.infoseek.com/Titles?col=WW&sv=IS&lk=noframes&qt=', 'http://www.infoseek.com/'), 
+			new Array('Yahoo', 'http://search.yahoo.com/bin/search?p=', 'http://www.yahoo.com/'), 
+			new Array('AltaVista', 'http://www.altavista.com/cgi-bin/query?pg=q&kl=XX&q=', 'http://www.altavista.digital.com/'),  
+			new Array('Lycos', 'http://www.lycos.com/cgi-bin/pursuit?matchmode=and&cat=lycos&query=', 'http://www.lycos.com/'),
+			new Array('Money.com', 'http://jcgi.pathfinder.com/money/plus/news/searchResults.oft?vcs_sortby=DATE&search=', 'http://www.money.com/'),  
+			new Array('DejaNews', 'http://www.dejanews.com/dnquery.xp?QRY=', 'http://www.dejanews.com/'), 
+			new Array('Insight', 'http://www.insight.com/cgi-bin/bp/870762397/web/result.html?a=s&f=p&t=A&d=', 'http://www.insight.com/'), 
+			new Array('Scientific American', 'http://www.sciam.com/cgi-bin/search.cgi?searchby=strict&groupby=confidence&docs=100&query=', 'http://www.sciam.com/cgi-bin/search.cgi'), 
+			new Array('Image Surfer', 'http://isurf.interpix.com/cgi-bin/isurf/keyword_search.cgi?q=', 'http://www.interpix.com/'), 
+			new Array('MovieFinder.com', 'http://www.moviefinder.com/search/results/1,10,,00.html?simple=true&type=movie&mpos=begin&spat=', 'http://www.moviefinder.com/'), 
+			new Array('Monster Board', 'http://www.monsterboard.com/pf/search/USresult.htm?loc=&EmploymentType=F&KEYWORDS=', 'http://www.monsterboard.com/'), 
+			new Array('MusicSearch.com', 'http://www.musicsearch.com/global/search/search.cgi?QUERY=', 'http://www.musicsearch.com/'), 
+			new Array('ZD Net', 'http://xlink.zdnet.com/cgi-bin/texis/xlink/xlink/search.html?Utext=', 'http://www.zdnet.com/'), 
+			new Array('Biography.com', 'http://www.biography.com/cgi-bin/biomain.cgi?search=FIND&field=', 'http://www.biography.com/'), 
+			new Array('Entertainment Weekly', 'http://cgi.pathfinder.com/cgi-bin/ew/cg/pshell?venue=pathfinder&q=', 'http://www.entertainmentweekly.com/'), 
+			new Array('SavvySearch', 'http://numan.cs.colostate.edu:1969/nph-search?classic=on&Boolean=OR&Hits=10&Mode=MakePlan&df=normal&AutoStep=on&KW=', 'http://www.savvysearch.com/'), 
+			new Array('Discovery Online', 'http://www.discovery.com/cgi-bin/searcher/-?output=title&exclude=/search&search=', 'http://www.discovery.com/'), 
+			new Array('Borders.com', 'http://www.borders.com:8080/fcgi-bin/db2www/search/search.d2w/QResults?doingQuickSearch=1&srchPage=QResults&mediaType=Book&keyword=', 'http://www.borders.com/'), 
+			new Array('Life Magazine', 'http://cgi.pathfinder.com/cgi-bin/life/cg/pshell?venue=life&pg=q&date=all&x=15&y=16&q=', 'http://www.life.com/')
+			);
+
+// Sort the engines lexicographically
+engines = engines.sort();
+
+// Define a function to preload the images
+function imagePreLoad(imgName, idx) {
+	for(var j = 0; j < arrayHandles.length; j++) {
+		eval(arrayHandles[j] + "[" + idx + "] = new Image()");
+		eval(arrayHandles[j] + "[" + idx + "].src = '" + imgPath + imgName + arrayHandles[j] + ".jpg'");
+		}
+	}
+
+// Define a function to manage the layer generation
+function engineLinks() {
+		genLayer('sliderule', left - 20, top + 2, 25, engHgt, showName, 
+			'<A HREF="javascript: changeSlide(1);" onMouseOver="hideStatus(); return true;">' + 
+			'<IMG SRC="images/ahead.gif" BORDER=0></A><BR>' + 
+			'<A HREF="javascript: changeSlide(-1);" onMouseOver="hideStatus(); return true;">' + 
+			'<IMG SRC="images/back.gif" BORDER=0></A>');	
+	lyrCount = (engines.length % perLyr == 0 ? engines.length / perLyr : Math.ceil(engines.length / perLyr));	
+	for (var i = 0; i < lyrCount; i++) {
+		var engLinkStr = '<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0><TR>';
+		for (var j = 0; j < perLyr; j++) {
+			var imgIdx 	= (i * perLyr) + j;
+			if (imgIdx >= engines.length) { break; }
+			var imgName	= nameFormat(engines[imgIdx][0]);
+			imagePreLoad(imgName, imgIdx);
+			engLinkStr += '<TD><A HREF="javascript: callSearch(document.forms[0].elements[0].value, ' + imgIdx + ');" ' + 
+				'onMouseOver="hideStatus(); imageSwap(\'' + imgName + '\', ' + imgIdx + ', 1); return true" ' + 
+				'onMouseOut="imageSwap(\'' + imgName + '\', ' + imgIdx + ', 0);">' + 
+				'<IMG NAME="' + imgName + '" SRC="' + imgPath + imgName + "out.jpg" + '" BORDER=0></A></TD>';
+			}
+		engLinkStr += '</TR></TABLE>';
+		genLayer('slide' + i, left, top, engWdh, engHgt, hideName, engLinkStr);
+		}	
+	}
+
+// Define a function to remove all whitespaces and 
+// convert all uppercase letters to lowercase
+function nameFormat(str) {
+	var tempArray = str.split(' ');
+	return tempArray.join('').toLowerCase();
+	}
+
+// Define a function to perform the image rollovers
+function imageSwap(imagePrefix, imageIndex, arrayIdx) {
+	document[imagePrefix].src = eval(arrayHandles[arrayIdx] + "[" + imageIndex + "].src");
+	}
+
+// Define a function a generate the layers
+function genLayer(sName, sLeft, sTop, sWdh, sHgt, sVis, copy) {
+	if (NN) {
+		document.writeln('<LAYER NAME="' + sName + '" LEFT=' + sLeft + ' TOP=' + sTop + 
+		' WIDTH=' + sWdh + ' HEIGHT=' + sHgt + ' VISIBILITY="' + sVis + '"' + 
+		' z-Index=' + zIdx + '>' + copy + '</LAYER>');
+		}
+	else {
+		document.writeln('<DIV ID="' + sName + '" STYLE="position:absolute; overflow:none; left:' + 
+			sLeft + 'px; top:' + sTop + 'px; width:' + sWdh + 'px; height:' + sHgt + 'px;' + 
+			' visibility:' + sVis + '; z-Index=' + (++zIdx) + '">' + 
+			copy + '</DIV>'
+			);
+		}
+	}
+
+// Define a function to hide layers
+function hideSlide(name) {
+	refSlide(name).visibility = hideName;
+	}
+
+// Define a function to reveal layers
+function showSlide(name) {
+	refSlide(name).visibility = showName;
+	}
+
+// Define a central function to reference layers
+function refSlide(name) {
+	if (NN) { return document.layers[name]; }
+	else { return eval('document.all.' + name + '.style'); }
+	}
+
+// Function to change slides if the user navigates with the arrows
+function changeSlide(offset) {
+	// Hide the existing Layer
+	hideSlide('slide' + curSlide);
+
+	// Calculate the next layer index number
+	curSlide = (curSlide + offset < 0 || curSlide + offset >= lyrCount ?
+			(curSlide + offset < 0 ? lyrCount - 1 : 0)	: curSlide + offset);
+
+	// Show the desired layer
+	showSlide('slide' + curSlide);
+	}
+
+// This function calls the default page of the search engine if no text is entered, 
+// Otherwise the search engine clicked will reccive the search text
+function callSearch(searchTxt, idx) {
+	if (searchTxt == "") { parent.frames[2].location.href = engines[idx][2] + escape(searchTxt); }
+	else { parent.frames[2].location.href = engines[idx][1] + escape(searchTxt); }
+	}
+
+// Clear the unnecessary status bar messsages
+function hideStatus() { window.status = ''; }
+
+//-->
+</SCRIPT>
+
+</HEAD>
+<BODY BGCOLOR="BLACK" onLoad="showSlide('slide0');">
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+engineLinks();
+//-->
+</SCRIPT>
+<FORM onSubmit="return false;">
+<TABLE CELLPADDING=0>
+	<TR>
+		<TD>
+		<FONT FACE=Arial>
+		<IMG SRC="images/searchtext.jpg">
+		</TD>
+		<TD>
+		<INPUT TYPE=TEXT SIZE=25>
+		</TD>
+	</TR>
+</TABLE>
+</FORM>
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+	<TITLE>Help</TITLE>
+<STYLE TYPE="text/css">
+<!--
+
+BODY 
+	{
+		padding: 10px;
+		font-family: Arial;
+		font-size: 12px;
+	}
+
+A 
+	{ 
+		text-decoration: none; 
+	}
+
+.helpSet 
+	{
+		background-color: #CCFFCC;
+		padding: 5px;
+		border: 2px;
+		width: 200px;
+		font: normal 10pt Arial;
+		text-align: left;
+	}
+
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="help.js"></SCRIPT>
+</HEAD>
+<BODY>
+<B>The URL Directory</B>
+<BR><BR>
+This SELECT list displays several URLs of popular search engines. The TEXT value of 
+each OPTION is used to create a valid 
+<A HREF="javascript: void(0);" 
+	onMouseOver="void(helpDisplay('URL', true));" 
+	onMouseOut="void(helpDisplay('URL', false));">
+	URL</A>. 
+This particular application is in a frameset with two frames. JavaScript concatenates 
+the text of the OPTION currently selected with 'http://' and '.com/' to 
+<A HREF="javascript: void(0);" 
+	onMouseOver="helpDisplay('create', true);" 
+	onMouseOut="helpDisplay('create', false);">
+	create</A> 
+the URL of the corresponding search engine. The frame to the right is then 
+loaded with the document at that URL.
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+var helpOne = "<SPAN CLASS='helpSet'>A 3-letter acronym for Uniform Resource Locator.</SPAN>";
+var helpTwo = "<SPAN CLASS='helpSet'>For example, an OPTION with HotBot as the TEXT would form http://www.hotbot.com/</SPAN>";
+
+genLayer("URL", 0, 0, helpWdh, helpHgt, hideName, helpOne);
+genLayer("create", 0, 0, helpWdh, helpHgt, hideName, helpTwo);
+
+//-->
+</SCRIPT>
+</BODY>
+</HTML>

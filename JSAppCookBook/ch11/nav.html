@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+	<TITLE>nav.html</TITLE>
+</HEAD>
+<STYLE TYPE="text/css">
+<!--
+
+A 
+	{
+		text-decoration: none;
+	}
+
+BODY
+	{
+		font-family: Arial;
+		text-align: center;
+	}
+
+//-->
+</STYLE>
+<SCRIPT>
+<!--
+var helpWin;
+
+function inContext(currFile) {
+	var start = currFile.lastIndexOf('/') + 1;
+	var stop  = currFile.lastIndexOf('.');
+	var helpName = currFile.substring(start, stop);
+	helpWin = open('help/' + helpName + '.html', 'helpFile', 'width=' 
+		+ top.wdh + ',height=' + top.hgt + ',left=100,top=100,scrollbars=no');
+	/* Bug Report: 
+	   Some versions of MSIE 4 have problems with the opening 
+	   window calling the remote window and vice versa (the remote 
+	   window referencing the opening window). Doing so often 
+	   throws the MSIE "Class doesn't support Automation" error. 
+	   
+	   As a workaround, this function has been modified to remove any 
+	   calls to the remote window such as helpWin.focus(). Applying 
+	   focus to the remote window is instead performed by adding 
+	   
+	   self.focus();
+	   
+	   To the JavaScript source file help.js. See help.js for more details.
+	*/
+	}
+
+//-->
+</SCRIPT>
+<BODY>
+
+<A HREF="background.html" TARGET="WorkArea">Background Colors</A> &nbsp;&nbsp;&nbsp;
+<A HREF="urldirectory.html" TARGET="WorkArea">URL Directory</A> &nbsp;&nbsp;&nbsp;
+<A HREF="multiselect.html" TARGET="WorkArea">Multiple SELECT Lists</A> &nbsp;&nbsp;&nbsp;
+<A HREF="javascript: inContext(parent.WorkArea.location.href);">Help</A>
+
+</BODY>
+</HTML>

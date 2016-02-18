@@ -1,0 +1,30 @@
+<HTML>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var hexPairs = new Array("33","66","99","AA","CC","FF");
+var str = '';
+
+// Strike up a table
+document.writeln('<H2>Web Safe Colors</H2><TABLE BORDER=1 CELLSPACING=0>');
+for (var i = 0; i < hexPairs.length; i++) {
+	// Create a row
+	document.writeln('<TR>');
+	for (var j = 0; j < hexPairs.length; j++) {
+		for (var k = 0; k < hexPairs.length; k++) {
+		// Create a string of data cells for the row with whitespace in each
+		// Notice each background color is made with three hexPairs elements
+str += '<TD BGCOLOR="' + hexPairs[i]  + hexPairs[j] + hexPairs[k] + '">' + '&nbsp;&nbsp;&nbsp</TD>';
+			}
+		// Write the row of data cells and "reset" str
+		document.writeln(str);
+		str = '';
+		}
+	// End the row
+	document.writeln('</TR>');
+	} 
+// End the table
+document.writeln('</TABLE>');
+//-->
+</SCRIPT>
+</HTML>

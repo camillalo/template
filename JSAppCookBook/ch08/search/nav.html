@@ -1,0 +1,158 @@
+<HTML>
+<HEAD>
+<TITLE>Search Nav Page</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// You can find the original version of 
+// this client-side search engine in Chapter 1
+
+var showMatches  = 10;
+var currentMatch = 0;
+var copyArray    = new Array();
+var docObj       = parent.frames[1].document;
+var ref      	  = top.frames[1];
+var prodProfiles = new Array();
+
+// Create an array of two integer arrays to 
+// "plot" the "location" of each product by a
+// cateogry/product number pair
+function genProfile() {
+	for (var i = 0; i < ref.categorySet.length; i++) {
+   	for (var j = 0; j < ref.categorySet[i].prodLine.length; j++) {
+      	prodProfiles[prodProfiles.length] = new Array(i, j);
+         }
+		}
+	}	
+
+function validate(entry) { 
+	if(entry == "") {
+		copyArray = prodProfiles;
+		formatResults(prodProfiles, currentMatch, showMatches); 
+		return;	     
+		}
+	while (entry.charAt(0) == ' ') {                                        
+		entry = entry.substring(1,entry.length);
+			} 
+	while (entry.charAt(entry.length - 1) == ' ') {
+		entry = entry.substring(0,entry.length - 1);
+			document.forms[0].query.value = entry;
+			}
+	allowAny(entry.split(" "));
+	}
+
+// Define a function to assemble a string of the product
+// name, description, price, and PLU number. Then search 
+// that string for any terms the user entered.
+function allowAny(t) {
+	var findings = new Array();
+	for (var i = 0; i < prodProfiles.length; i++) {
+		var compareElement  = ref.categorySet[prodProfiles[i][0]].prodLine[prodProfiles[i][1]].name + " " +
+			ref.categorySet[prodProfiles[i][0]].prodLine[prodProfiles[i][1]].description + " " +
+			ref.categorySet[prodProfiles[i][0]].prodLine[prodProfiles[i][1]].price.toString() + " " +
+			ref.categorySet[prodProfiles[i][0]].prodLine[prodProfiles[i][1]].plu;
+			compareElement = compareElement.toUpperCase();
+		for (var j = 0; j < t.length; j++) {
+			var compareString = t[j].toUpperCase();
+
+			// If there is a match, capture the 
+			// corresponding category/product number pair
+			if (compareElement.indexOf(compareString) != -1) {
+				findings[findings.length] = new Array(prodProfiles[i][0], prodProfiles[i][1]);
+				break;
+				}
+			}
+		}
+	verifyManage(findings);
+	}
+
+function verifyManage(resultSet) {
+	if (resultSet.length == 0) { noMatch(); }
+	else {
+		copyArray = resultSet;
+		formatResults(copyArray, currentMatch, showMatches);
+		}    
+	}
+
+function noMatch() {
+	docObj.open();
+	docObj.writeln('<HTML><HEAD><TITLE>Search Results</TITLE></HEAD>' + 
+		'<BODY BGCOLOR=WHITE TEXT=BLACK>' + 
+		'<TABLE WIDTH=90% BORDER=0 ALIGN=CENTER><TR><TD VALIGN=TOP><B><DL>' + 
+		'<HR NOSHADE WIDTH=100%>"' + document.forms[0].query.value + 
+		'" returned no results.<HR NOSHADE WIDTH=100%></TD></TR></TABLE></BODY></HTML>');
+		docObj.close();
+		document.forms[0].query.select();
+	}
+function formatResults(results, reference, offset) {
+	docObj.open();
+	docObj.writeln('<HTML>\n<HEAD>\n<TITLE>Search Results</TITLE>\n</HEAD>' + 
+		'<BODY BGCOLOR=WHITE TEXT=BLACK>' + 
+		'<TABLE WIDTH=780 BORDER=0 ALIGN=CENTER CELLPADDING=3><TR><TD>' + 
+		'<HR NOSHADE WIDTH=100%></TD></TR><TR><TD VALIGN=TOP><B>' +  
+		'Search Query: <I>' + parent.frames[0].document.forms[0].query.value + '</I><BR>\n' + 
+		'Search Results: <I>' + (reference + 1) + ' - ' + 
+		(reference + offset > results.length ? results.length : reference + offset) + 
+		' of ' + results.length + '</I><BR><BR>' + '<B>' + 
+		'\n\n<!- Begin result set //-->\n\n\t<DL>'); 
+	var currentRecord = (results.length < reference + offset ? results.length : reference + offset);
+
+	// Use the recorded category/product number 
+	// pairs to access the same information searched 
+	// to print to the screen as linked results
+	for (var i = reference; i < currentRecord; i++) {     
+		docObj.writeln('\n\n\t<DT>' + '<FONT SIZE=4>' + 
+			'<A HREF="javascript: top.frames[1].reCall(' + results[i][0]+ ', ' + results[i][1] + ')">' + 
+			ref.categorySet[results[i][0]].prodLine[results[i][1]].name + '</A></FONT>' + 
+			'\t<DD>' + ref.categorySet[results[i][0]].prodLine[results[i][1]].description + 
+			'\t<DD>' + 'Price: <I>$' + ref.numberFormat(ref.categorySet[results[i][0]].prodLine[results[i][1]].price) + 
+			'</I> &nbsp; &nbsp; &nbsp; ' + 'PLU Number: <I>' + 
+			ref.categorySet[results[i][0]].prodLine[results[i][1]].plu + '</I><P>');
+		}
+	docObj.writeln('\n\t</DL>\n\n<!- End result set //-->\n\n');
+	prevNextResults(results.length, reference, offset);			
+	docObj.writeln('<HR NOSHADE WIDTH=100%>' + 
+		'</TD>\n</TR>\n</TABLE>\n</BODY>\n</HTML>');
+	docObj.close();
+	document.forms[0].query.select();
+	}
+
+function prevNextResults(ceiling, reference, offset) {
+	docObj.writeln('<CENTER><FORM>');
+	if(reference > 0) {
+		docObj.writeln('<INPUT TYPE=BUTTON VALUE="Prev ' + offset + ' Results" ' + 
+			'onclick="parent.frames[0].formatResults(parent.frames[0].copyArray, ' + 
+			(reference - offset) + ', ' + offset + ')">');
+		}
+	if(reference >= 0 && reference + offset < ceiling) {
+		var trueTop = ((ceiling - (offset + reference) < offset) ? ceiling - (reference + offset) : offset);
+		var howMany = (trueTop > 1 ? "s" : "");
+		docObj.writeln('<INPUT TYPE=BUTTON VALUE="Next ' + trueTop + ' Result' + howMany + '" ' + 
+			'onclick="parent.frames[0].formatResults(parent.frames[0].copyArray, ' + 
+			(reference + offset) + ', ' + offset + ')">');
+		}
+	docObj.writeln('</CENTER>');
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="WHITE" onLoad="genProfile();">
+<TABLE WIDTH="780" BORDER="0" ALIGN="CENTER">
+	<TR>
+		<TD VALIGN=MIDDLE>
+		<H3>Shopping Bag Search</H3>
+		</TD>
+		<TD VALIGN=ABSMIDDLE>
+		<FORM NAME="search" onsubmit="validate(document.forms[0].query.value); return false;">
+		<INPUT TYPE=TEXT NAME="query" SIZE="33">
+		</FORM>
+		</TD>
+		<TD VALIGN=ABSMIDDLE>
+		<B><A HREF="main.html" TARGET="main">Help</A></B>
+		</TD>
+	</TR>
+</TABLE>
+</BODY>
+</HTML>

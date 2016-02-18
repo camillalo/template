@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+	<TITLE>background.html</TITLE>
+</HEAD>
+<SCRIPT>
+<!--
+
+function bgChange(selObj) {
+	newColor = selObj.options[selObj.selectedIndex].text;
+	document.bgColor = newColor;
+	selObj.selectedIndex = -1;
+	}
+
+//-->
+</SCRIPT>
+<BODY STYLE="font-family:Arial">
+<B>Changing Background Colors</B>
+<BR>
+ <FORM>
+	 <SELECT SIZE="8" onChange="bgChange(this);">
+	 <OPTION>Red
+	 <OPTION>Orange
+	 <OPTION>Yellow
+	 <OPTION>Green
+	 <OPTION>Blue
+	 <OPTION>Indigo
+	 <OPTION>Violet
+	 <OPTION>White
+	 </SELECT>
+ </FORM>
+</BODY>
+</HTML>

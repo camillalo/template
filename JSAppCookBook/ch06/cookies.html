@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<TITLE>cookie.js Example</TITLE>
+<SCRIPT LANUAGE="JavaScript" SRC="cookies.js"></SCRIPT>
+
+</HEAD>
+<BODY BGCOLOR=WHITE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+if (GetCookie('user_id') == null) {
+	var getName = prompt('Hi... First time, huh?? We all have to  through it. Please enter your name.', '');
+	document.writeln('<H2>Welcome, ' + (getName != '' ? getName : 'Anonymous user') + '</H2>' + 
+		'This is your first visit.');
+	SetCookie('user_id', (getName != '' ? getName : 'Anonymous user'), expiry);
+	SetCookie('hit_count', '2', expiry);
+	}
+else {
+	var getName = GetCookie('user_id');
+	var getHits = GetCookie('hit_count');
+	document.writeln('<H2>Welcome Back, ' + getName + '</H2>' + 
+		'You have visited ' + getHits + ' times.');
+	getHits = parseInt(getHits) + 1;
+	SetCookie('hit_count', '' + getHits + '', expiry);
+	}
+
+//-->
+</SCRIPT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<TITLE>Shopping Bag Frameset</TITLE>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Define a function set the variable 
+// associated with this window to null
+function resetOpener() {
+	opener.shopWin = null;
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<FRAMESET ROWS="80%,20%" FRAMEBORDER=0 BORDER=0 onLoad="self.focus();" onUnLoad="resetOpener();">
+<FRAME SRC="intro.html" NORESIZE>
+<FRAME SRC="manager.html" NORESIZE>
+</FRAMESET>
+</HTML>

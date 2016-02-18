@@ -1,0 +1,417 @@
+<HTML>
+<HEAD>
+<TITLE>Shopping Bag Manager</TITLE>
+<STYLE TYPE="text/css">
+<!--
+TD {font-weight: bold; margin-left: 20; margin-right: 20; padding: 10}
+//-->
+</STYLE>
+</HEAD>
+<BODY onLoad="freshStart(); makeProducts();" LINK=BLUE ALINK=BLUE VLINK=BLUE>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="inventory.js"></SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Define control variables
+var gimmeControl = false;
+var browseControl = false;
+var curCLoc = -1;
+var curPLoc = -1;
+var infoStr = '';
+var shoppingBag;
+
+// Define a shopping bag constructor 
+// then create a new Bag
+function Bag() {
+	this.taxRate 	= .06;
+	this.taxTotal 	= 0;
+	this.shipRate 	= .02;
+	this.shipTotal	= 0;
+	this.subTotal 	= 0;
+	this.bagTotal 	= 0;
+	this.things 	= new Array();
+	}
+
+shoppingBag = new Bag();
+
+// This function displays links to 
+// all the available categories
+function showStore() {
+	gimmeControl = false;
+	var header = '<HTML><TITLE>Category</TITLE><BODY BGCOLOR=FFFFFF>';
+	var intro = '<H2>Shopping Bag Product Categories</H2><B>';
+	var footer = '</DL></BLOCKQUOTE></BODY></HTML>';
+	var storeStr = '<BLOCKQUOTE><DL>';
+	for (var i = 0; i < categorySet.length; i++) {
+		storeStr += '<DT><A HREF="javascript: parent.frames[1].reCall(' + i + ', 0);">' + 
+			categorySet[i].name + '</A>' + 
+			'<DD>' + categorySet[i].description + '<BR><BR>';
+		}
+	infoStr = header + intro + storeStr + footer;
+	parent.frames[0].location.replace("javascript: parent.frames[1].infoStr");
+	}
+
+// Define a function to manage 
+// opening the product search
+function portal() {
+	gimmeControl = false;
+	parent.frames[0].location.href = "search/index.html";
+	}
+
+// Display a product depending on the current values of the 
+// category number (curCLoc) and product number (curPLoc)
+function display(cOffset, pOffset) {
+	if(!browseControl) {
+		alert("Start shopping by selecting a product category from Show All Categories or " + 
+			"searching products from Product Search.");
+		return;
+		}
+	gimmeControl = true;
+	if (curPLoc + pOffset < 0 || curPLoc + pOffset == categorySet[curCLoc].prodLine.length) {
+		if (curPLoc + pOffset < 0) { 		
+			if (curCLoc - 1 < 0) { curCLoc = categorySet.length - 1; }
+			else { curCLoc--; }
+			curPLoc = categorySet[curCLoc].prodLine.length - 1;		
+			}
+		else if (curPLoc + pOffset == categorySet[curCLoc].prodLine.length) {
+			if (curCLoc + 1 == categorySet.length) { curCLoc = 0; }
+			else { curCLoc++; }
+			curPLoc = 0;
+			}
+		}
+	else {
+		if (curCLoc + cOffset < 0 || curCLoc + cOffset == categorySet.length) {
+			curCLoc = (curCLoc + cOffset < 0 ? categorySet.length - 1 : 0);
+			}
+		else { curCLoc += cOffset; }
+
+		if (cOffset == -1 || cOffset == 1) { curPLoc = 0; }
+		else if (pOffset == 0) {
+			curPLoc = (curPLoc >= categorySet[curCLoc].prodLine.length ? 0 : curPLoc)
+			}
+		else { curPLoc = curPLoc + pOffset; }
+		}
+	infoStr = '<HTML><HEAD><TITLE>Product Name</TITLE></HEAD>' +
+		'<BODY><TABLE CELLPADDING=3><TR><TD VALIGN=TOP COLSPAN=2>' + 
+		'<FONT FACE=Tahoma><H2>Shopping Bag: <I>' + categorySet[curCLoc].name + '</I></H2>' +
+		'<TR>' + 
+		'<TD VALIGN=TOP><IMG SRC="' + categorySet[curCLoc].prodLine[curPLoc].icon.src +  
+		'"></TD><TD VALIGN=TOP><FONT FACE=Tahoma>' + 
+		'<B>Name: </B>' +  categorySet[curCLoc].prodLine[curPLoc].name + '<BR>' +
+		'<B>Description: </B>' +  categorySet[curCLoc].prodLine[curPLoc].description + '<BR>' +
+		'<B>Price: </B> $' + numberFormat(categorySet[curCLoc].prodLine[curPLoc].price) + '/' + 
+		categorySet[curCLoc].prodLine[curPLoc].unit + '<BR>' + 
+		'<B>PLU: </B>' + categorySet[curCLoc].prodLine[curPLoc].plu + '</TD></TR></TABLE></BODY></HTML>';
+
+	parent.frames[0].location.href = "javascript: parent.frames[1].infoStr";
+	}
+
+// Used for navigation by setting values 
+// curCLoc and curPLoc independently instead 
+// of setting them according to their current 
+// value as done in display()
+function reCall(cReset, pReset) {
+	browseControl = true; 
+	curCLoc = cReset;
+	curPLoc = pReset;
+	display(0, 0);
+	} 
+
+// This function adds a product to a user's 
+// bag only if it is not there already
+function gimmeOne() {
+	if (!gimmeControl) { 
+		alert("Nothing on this screen to give you.");
+		return;
+		}
+
+	for (var i = 0; i < shoppingBag.things.length; i++) { 
+		if (categorySet[curCLoc].prodLine[curPLoc].plu == shoppingBag.things[i].plu) {
+			alert("That's already in your bag. You can change the quantity by choosing View/Change Bag.");
+			return;
+			} 
+		}
+	shoppingBag.things[shoppingBag.things.length] = categorySet[curCLoc].prodLine[curPLoc];
+	shoppingBag.things[shoppingBag.things.length - 1].itemQty = 1;
+	shoppingBag.things[shoppingBag.things.length - 1].category = categorySet[curCLoc].name;
+	alert("OK. You put the " + shoppingBag.things[shoppingBag.things.length - 1].name + " in your bag.");
+	}
+
+// Define a function to iterate through all the 
+// products in the user's bag and display them 
+// in a form for user changes
+function showBag() {
+	if (shoppingBag.things.length == 0) { 
+		alert("Your bag is currently empty. Put some stuff in.");
+		return;
+		}
+	gimmeControl = false;
+	var header = '<HTML><HEAD><TITLE>Your Shopping Bag</TITLE>' +
+		'</HEAD><BODY BGCOLOR=FFFFFF onLoad="parent.frames[1].runningTab(document.forms[0]);">';
+	var intro = '<H2>Your Shopping Bag!!!</H2><FORM onReset="setTimeout(\'parent.frames[1].runningTab(document.forms[0])\', 25);">';
+	var tableTop = '<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=5>' + 
+		'<TR><TH><B>Index' + 
+		'<TH><B>Product<TH><B>Category' + 
+		'<TH><B>PLU<TH><B>Unit Price' + 
+		'<TH><B>Quantity<TH><B>Product Total' + 
+		'<TH><B>Remove' + 
+		'</TR>';
+	var itemStr = '';
+	for (var i = 0; i < shoppingBag.things.length; i++) {
+		itemStr += '<TR>' + 
+			'<TD ALIGN=CENTER>' + (i + 1) + '</TD>' + 
+			'<TD>' + shoppingBag.things[i].name + '</TD>' + 
+			'<TD>' + shoppingBag.things[i].category + '</TD>' + 
+			'<TD>' + shoppingBag.things[i].plu + '</TD>' + 
+			'<TD ALIGN=RIGHT>$' + parent.frames[1].numberFormat(shoppingBag.things[i].price) + '</TD>' + 
+			'<TD ALIGN=CENTER>' + parent.frames[1].genSelect(shoppingBag.things[i].price, shoppingBag.things[i].itemQty, i) + '</TD>' + 
+			'<TD ALIGN=CENTER><INPUT TYPE=TEXT SIZE=10 VALUE="' + parent.frames[1].numberFormat(shoppingBag.things[i].price * shoppingBag.things[i].itemQty) + '" onFocus="this.blur();"></TD>' +
+			'<TD ALIGN=CENTER><INPUT TYPE=CHECKBOX></TD>' + 
+			'</TR>';
+		}
+	var tableBottom = '<TR>' + 
+		'<TD ALIGN=RIGHT COLSPAN=6>SubTotal:</TD>' + 
+		'<TD ALIGN=CENTER><INPUT TYPE=TEXT SIZE=10 NAME="subtotal" onFocus="this.blur();"></TD></TR>' +
+		'<TR>' + 
+		'<TD ALIGN=RIGHT COLSPAN=6> + 6% Tax:</TD>' + 
+		'<TD ALIGN=CENTER><INPUT TYPE=TEXT SIZE=10 NAME="tax" onFocus="this.blur();"></TD></TR>' + 
+		'<TR>' + 
+		'<TD ALIGN=RIGHT COLSPAN=6> + 2% Shipping:</TD>' + 
+		'<TD ALIGN=CENTER><INPUT TYPE=TEXT SIZE=10 NAME="ship" onFocus="this.blur();"></TD></TR>' + 
+		'<TR>' +
+		'<TD ALIGN=RIGHT COLSPAN=3><INPUT TYPE=BUTTON VALUE="Check Out" onClick="parent.frames[1].checkOut(this.form);"></TD>' +  
+		'<TD ALIGN=RIGHT><INPUT TYPE=RESET VALUE="Reset Qtys"></TD>' + 
+		'<TD ALIGN=RIGHT><INPUT TYPE=BUTTON VALUE="Change Bag" onClick="parent.frames[1].changeBag(this.form, true);"></TD>' + 
+		'<TD ALIGN=RIGHT>Total:</TD>' + 
+		'<TD ALIGN=CENTER><INPUT TYPE=TEXT NAME="total" SIZE=10 onFocus="this.blur();"></TD></TR>';
+
+	var footer = '</TABLE></FORM></BODY></HTML>';
+	infoStr = header + intro + tableTop + itemStr + tableBottom + footer;
+	parent.frames[0].location.replace('javascript: parent.frames[1].infoStr');
+	}
+
+// Generate dynamic SELECT lists according 
+// to a price aggregate, and set the OPTION
+// that matches the qty as SELECTED
+function genSelect(priceAgr, qty, idx) {
+	var selStr = '<SELECT onChange="this.form.elements[' + (idx * 3 + 1) + 
+			'].value = this.options[this.selectedIndex].value; parent.frames[1].runningTab(this.form);">';
+	for (var i = 1; i <= 10; i++) {
+		selStr += '<OPTION VALUE="' + numberFormat(i * priceAgr) + '"' + (i == qty ? ' SELECTED' : '') + '>' + i; 
+		}
+	selStr += '</SELECT>';
+	return selStr;
+	}
+
+// Define a function to compute shopping totals
+function runningTab(formObj) {
+	var subTotal = 0;
+	for (var i = 0; i < shoppingBag.things.length; i++) {
+		subTotal += parseFloat(formObj.elements[(i * 3) + 1].value); 
+		}
+	formObj.subtotal.value = numberFormat(subTotal);
+	formObj.tax.value = numberFormat(subTotal * shoppingBag.taxRate);
+	formObj.ship.value = numberFormat(subTotal * shoppingBag.shipRate); 
+	formObj.total.value = numberFormat(subTotal + 
+			round(subTotal * shoppingBag.taxRate) + round(subTotal * shoppingBag.shipRate));
+	shoppingBag.subTotal = formObj.subtotal.value;
+	shoppingBag.taxTotal = formObj.tax.value;
+	shoppingBag.shipTotal = formObj.ship.value;
+	shoppingBag.bagTotal = formObj.total.value;
+	}
+
+// Ensure that each number printed as a string 
+// is in 0.00 format
+function numberFormat(amount) {
+	var rawNumStr = round(amount) + '';
+	rawNumStr = (rawNumStr.charAt(0) == '.' ? '0' + rawNumStr : rawNumStr);
+	if (rawNumStr.charAt(rawNumStr.length - 3) == '.') {
+		return rawNumStr
+		}
+	else if (rawNumStr.charAt(rawNumStr.length - 2) == '.') {
+		return rawNumStr + '0';
+		}
+	else { return rawNumStr + '.00'; }
+	}
+
+// Round all passed numbers to two 
+// decimal places (hundredths place)
+function round(number,decPlace) {
+	decPlace = (!decPlace ? 2 : decPlace);
+	return Math.round(number * Math.pow(10,decPlace)) / Math.pow(10,decPlace);
+	}
+
+// Define a function to change product quantities
+// or remove product selections from the 
+// things array
+function changeBag(formObj, showAgain) {
+	var tempBagArray = new Array();
+	for (var i = 0; i < shoppingBag.things.length; i++) {
+		if (!formObj.elements[(i * 3) + 2].checked) {
+			tempBagArray[tempBagArray.length] = shoppingBag.things[i];
+			tempBagArray[tempBagArray.length - 1].itemQty = formObj.elements[i * 3].selectedIndex + 1;
+			}
+		}
+	shoppingBag.things = tempBagArray;
+	if(shoppingBag.things.length == 0) { 
+		alert("You've emptied your bag. Put some stuff in.");
+		parent.frames[1].showStore();
+		}
+	else { showBag(); }
+	}
+
+// Generate the check out form so the 
+// user can enter payment information
+function checkOut(formObj) {
+	gimmeControl = false;
+	if(!confirm("Do you have every product in the right quantity " + 
+		"you need? Remember that you have to choose Change Bag to remove products or change quantities. If so, choose OK to check out.")) { 
+		return; 
+		}
+	if(shoppingBag.things.length == 0) { 
+		showStore(); 
+		return;
+		}
+	var header = '<HTML><TITLE>Shopping Bag Check Out</TITLE>' + 
+		'<BODY BGCOLOR=FFFFFF>';
+	var intro = '<H2>Shopping Bag Check Out</H2>' + 
+		'<FORM METHOD=POST ACTION="http://www.serve.com/hotsyte/cgi-bin/bag.cgi" onSubmit="return parent.frames[1].cheapCheck(this);">'; 
+	var shipInfo = '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>' + 
+		'<TR>' + 
+		'<TD><B>Shipping Information</TD></TR>'+
+		'<TR>' + 
+		'<TD>First Name</TD>' + '<TD><INPUT TYPE=TEXT NAME="fname"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Last Name</TD>' + '<TD><INPUT TYPE=TEXT NAME="lname"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Company Name</TD>' + '<TD><INPUT TYPE=TEXT NAME="cname"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Street Address1</TD>' + '<TD><INPUT TYPE=TEXT NAME="saddress1"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Street Address2</TD>' + '<TD><INPUT TYPE=TEXT NAME="saddress2"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>City</TD>' + '<TD><INPUT TYPE=TEXT NAME="city"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>State/Province</TD>' + '<TD><INPUT TYPE=TEXT NAME="stpro"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Country</TD>' + '<TD><INPUT TYPE=TEXT NAME="country"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Zip/Mail Code</TD>' + '<TD><INPUT TYPE=TEXT NAME="zip"></TD>' + '</TR>' +
+		'<TR><TD><BR><BR></TD></TR></TABLE>';
+
+	var payInfo = '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>' + 
+		'<TR>' + 
+		'<TD><B>Payment Information</TD></TR>'+
+		'<TR>' + 
+		'<TD>Credit Card Type: &nbsp; &nbsp; &nbsp; </TD>' + 
+		'<TD>' + 
+		'Visa <INPUT TYPE=RADIO NAME="ctype" VALUE="visa" CHECKED> &nbsp; &nbsp; &nbsp; ' + 
+		'Amex <INPUT TYPE=RADIO NAME="ctype" VALUE="amex"> &nbsp; &nbsp; &nbsp; ' + 
+		'Discover <INPUT TYPE=RADIO NAME="ctype" VALUE="disc"> &nbsp; &nbsp; &nbsp; </TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Credit Card Number</TD>' + '<TD><INPUT TYPE=TEXT NAME="cnumb"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD>Expiration Date</TD>' + '<TD><INPUT TYPE=TEXT NAME="edate"></TD>' + '</TR>' +
+		'<TR>' + 
+		'<TD><INPUT TYPE=SUBMIT VALUE="Send Order"></TD>' + '<TD><INPUT TYPE=RESET VALUE="Clear Info"></TD>' + '</TR>' +
+		'</TABLE>';
+
+	// Generate a hidden field for each product selected
+	// that includes the PLU and quantity. Then add
+	// hidden fields to include the subtotal, tax totals, 
+	// and grand total
+	var itemInfo = '';
+
+	for (var i = 0; i < shoppingBag.things.length; i++) {
+		itemInfo += '<INPUT TYPE=HIDDEN NAME="prod' + i + 
+			'" VALUE="' + shoppingBag.things[i].plu + '-' + shoppingBag.things[i].itemQty + '">';
+		}
+
+	var totalInfo = '<INPUT TYPE=HIDDEN NAME="subtotal" VALUE="' + shoppingBag.subTotal + '">' + 
+		'<INPUT TYPE=HIDDEN NAME="taxtotal" VALUE="' + shoppingBag.taxTotal + '">' + 
+		'<INPUT TYPE=HIDDEN NAME="shiptotal" VALUE="' + shoppingBag.shipTotal + '">' + 
+		'<INPUT TYPE=HIDDEN NAME="bagtotal" VALUE="' + shoppingBag.bagTotal + '">';
+
+	var footer = '</FORM></BODY></HTML>';
+
+	infoStr = header + intro + shipInfo + payInfo + itemInfo + totalInfo + footer;
+	parent.frames[0].location.replace('javascript: parent.frames[1].infoStr');		
+	}
+
+// Define a function to check each form element 
+// If the element is of type "text", check if its
+// value is a empty string. Stop the form 
+// submission if so.
+function cheapCheck(formObj) {
+	for (var i = 0; i < formObj.length; i++) {
+		if (formObj[i].type == "text" && formObj.elements[i].value == "") {
+			alert ("You must complete all fields.");
+			return false;
+			}
+		}
+
+	if(!confirm("If all your information is correct, choose OK to send your order, " + 
+		"or choose Cancel to make changes.")) { 
+		return false; 
+		}
+
+	alert("Thank you. We'll be living off your hard-earned money soon.");
+	shoppingBag = new Bag();
+	showStore();
+	return true;	
+	}
+
+// Define a function to manage 
+// opening the help page
+function help() {
+	gimmeControl = false;
+	parent.frames[0].location.href = "intro.html";
+	}
+
+// Define a function to ensure the the
+// help page is always showing first
+function freshStart() {
+	if(parent.frames[0].location.href != "intro.html") { help(); }
+	}
+
+//-->
+</SCRIPT>
+
+<TABLE ALIGN=CENTER BORDER=0>
+	<TR>
+		<TD>
+		<A HREF="javascript: gimmeOne();">Gimme One<A>
+		</TD>
+		<TD>
+		<A HREF="javascript: showBag();">View/Change Bag<A>
+		</TD>
+		<TD>
+		<A HREF="javascript: showStore();">Show All Categories<A>
+		</TD>
+		<TD>
+		<A HREF="javascript: portal();">Product Search<A>
+		</TD>
+		<TD>
+		<A HREF="javascript: help();">Help<A>
+		</TD>
+	</TR>
+</TABLE>
+<TABLE ALIGN=CENTER BORDER=0>
+	<TR>
+		<TD>	<!-- Move back one category //-->
+		<A HREF="javascript: display(-1,0);">Previous Category<A>
+		</TD>
+		<TD>	<!-- Move back one product //-->
+		<A HREF="javascript: display(0,-1);">Previous Product<A>
+		</TD>
+		<TD>	<!-- Move ahead one product //-->
+		<A HREF="javascript: display(0,1);">Next Product<A>
+		</TD>
+		<TD>	<!-- Move ahead one category //-->
+		<A HREF="javascript: display(1,0);">Next Category<A>
+		</TD>
+	</TR>
+</TABLE>
+</BODY>
+</HTML>

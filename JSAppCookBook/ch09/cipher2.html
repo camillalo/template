@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+	<TITLE>Cipher</TITLE>
+<STYLE TYPE="text/css">
+<!--
+BODY { margin-left: 50 px; font-family: arial; }
+I { font-weight: bold; }
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="dhtml.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Define the descriptions for each SubstitutionCipher
+var caesar = '<FONT SIZE=2>Made famous by Julius Caesar, this cipher performs character shifting (substitution). Plaintext is ' + 
+		'enciphered by shifting forward each character of the alphabet a fixed number of characters.' + 
+		'<BR><BR>For example, shifting by 1 changes plaintext <I>a</I> to <I>b</I>, <I>b</I> to <I>c</I>, and so on. ' + 
+		'Plaintext characters at the end of, say, the alphabet, are enciphered by starting at the beginning. In other words, ' + 
+		'<I>z</I> becomes <I>a</I>. This application also includes digits 0-9. So a plaintext <I>z</I> becomes <I>0</I>, and a ' + 
+		'plaintext <I>9</I> becomes <I>a</I>. The process is reversed for deciphering.<BR><FORM>Shift: ' + 
+		genSelect('Shift', 35, 0, 0) + '</FORM><BR>Note: Caesar was rumored to prefer a shift of 3.';
+
+var vigenere = '<FONT SIZE=2>Made famous by mathematician Blaise de Vigenére, the Vigenére cipher can be considered a "dynamic" ' + 
+		'version of the Caesar cipher. Instead of shifting each plaintext character by a fixed number, this cipher shifts characters ' + 
+		'according to the character index of a keyword you choose such as <I>dog</I>.<BR><BR>' + 
+		'Since <I>d</I>, <I>o</I>, and <I>g</I> are letters 4, 15, and 7 of the alphabet, each three plaintext characters are shifted ' + 
+		'by 4, 15, and 7, respectively. This application includes digits 0-9. So your keyword can have letters and numbers.' + 
+		'<BR><BR><FORM>Keyword: <INPUT TYPE=TEXT NAME="KeyWord" SIZE=25></FORM><BR>' + 
+		'Note: This cipher has many versions, one of which was devised by Lewis Carroll, author of Alice in Wonderland.';
+
+var curCipher = "caesar";
+
+// Define the low-level Cipher constructor
+function Cipher() {
+	this.purify = purify;
+	this.chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	}
+
+// Define the purify method, common
+// to all Cipher objects
+function purify(rawText) {
+	if (!rawText) { return false; }
+	var cleanText = rawText.toLowerCase();
+	cleanText = cleanText.replace(/\s+/g,' ');
+	cleanText = cleanText.replace(/[^a-z0-9\s]/g,'');
+	if(cleanText.length == 0 || cleanText.match(/^\s+$/) != null) { return false; }
+	return cleanText
+	}
+
+// Define the SubstitutionCipher constructor, a more specific
+// version of the Cipher object
+function SubstitutionCipher(name, description, algorithm) {
+	this.name = name;
+	this.description = description;
+	this.substitute = substitute;
+	this.algorithm = algorithm;
+	}
+
+SubstitutionCipher.prototype = new Cipher;
+
+// Define the shift algorithm 
+// common to each SubstitutionCipher 
+function substitute(baseChar, shiftIdx, action) {
+	if (baseChar == ' ') { return baseChar; }
+	if(action) {
+		var shiftSum = shiftIdx + this.chars.indexOf(baseChar);
+		return (this.chars.charAt((shiftSum < this.chars.length) ? shiftSum : (shiftSum % this.chars.length)));
+		}
+	else {
+		var shiftDiff = this.chars.indexOf(baseChar) - shiftIdx;
+		return (this.chars.charAt((shiftDiff < 0) ? shiftDiff + this.chars.length : shiftDiff));
+		}
+	}
+
+// Define a specific shift implementation for Caesar
+function caesarAlgorithm (data, action) {
+	data = this.purify(data);
+	if(!data) { 
+		alert('No valid text to ' + (action ? 'cipher.' : 'decipher.'));
+		return false;
+		}
+	var shiftIdx = (NN ? refSlide("caesar").document.forms[0].Shift.selectedIndex : document.forms[2].Shift.selectedIndex);
+	var cipherData = '';
+	for (var i = 0; i < data.length; i++) {
+		cipherData += this.substitute(data.charAt(i), shiftIdx, action);
+		}
+	return cipherData;
+	}
+
+// Define a specific shift implementation for Vigenere
+function vigenereAlgorithm (data, action) {
+	data = this.purify(data);
+	if(!data) { 
+		alert('No valid text to ' + (action ? 'cipher.' : 'decipher.'));
+		return false;
+		}
+	var keyword = this.purify((NN ? refSlide("vigenere").document.forms[0].KeyWord.value : document.forms[3].KeyWord.value));
+	if(!keyword || keyword.match(/\^s+$/) != null) { 
+		alert('No valid keyword for ' + (action ? 'ciphering.' : 'deciphering.'));
+		return false;
+		}
+	keyword = keyword.replace(/\s+/g, '');
+	var keywordIdx = 0;
+	var cipherData = '';
+	for (var i = 0; i < data.length; i++) {
+		shiftIdx = this.chars.indexOf(keyword.charAt(keywordIdx));
+		cipherData += this.substitute(data.charAt(i), shiftIdx, action);
+		keywordIdx = (keywordIdx == keyword.length - 1 ? 0 : keywordIdx + 1);
+		}
+	return cipherData;
+	}
+
+// Instantiate an object for each type of SubstitutionCipher
+var cipherArray = [
+				new SubstitutionCipher("caesar", caesar, caesarAlgorithm), 
+				new SubstitutionCipher("vigenere", vigenere, vigenereAlgorithm)
+				];
+
+// Manage the cipher description display
+function showCipher(name) {
+	hideSlide(curCipher);
+	showSlide(name);
+	curCipher = name;
+	}
+
+// Define a function to encipher or decipher according  
+// to the selectedIndex of the Ciphers SELECT list
+function routeCipher(cipherIdx, data, action) {
+	var response = cipherArray[cipherIdx].algorithm(data, action);
+	if(response) { 
+		document.forms[0].Data.value = response;
+		}
+	}
+
+// Define a function to forward encrypted
+// e-mail to a predetermined recipient
+function sendText(data) {
+	paraWidth = 70;
+	var iterate = parseInt(data.length / paraWidth);
+	var border = '\n-------\n';
+	var breakData = '';
+	for (var i = 1; i <= iterate; i++) {
+		breakData += data.substring((i - 1) * paraWidth, i * paraWidth) + '\r';
+		}
+	breakData += data.substring((i - 1) * paraWidth, data.length);
+	document.CipherMail.Message.value = border + breakData + border;
+	document.CipherMail.action = "mailto:someone@somewhere.com\?subject=The Top Secret Message";
+	return true;
+	}
+	
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<DIV>
+	<TABLE BORDER=0>
+		<TR>
+			<TD ALIGN=CENTER COLSPAN=3>
+			<IMG SRC="images/cipher.jpg"> 
+			</TD>
+		</TR>
+		<TR>
+			<TD VALIGN=TOP WIDTH=350>
+			<FORM>
+			<SELECT NAME="Ciphers" onChange="showCipher(this.options[this.selectedIndex].value);">
+			<OPTION VALUE="caesar">Caesar Cipher
+			<OPTION VALUE="vigenere">Vigenére Cipher
+			</SELECT>
+			</TD>
+			<TD ALIGN=CENTER>
+			<TEXTAREA NAME="Data" ROWS="15" COLS="40" WRAP="PHYSICAL"></TEXTAREA>
+			<BR><BR>
+			<INPUT TYPE=BUTTON VALUE="Encipher" onClick="routeCipher(this.form.Ciphers.selectedIndex, this.form.Data.value, true);"> 
+			<INPUT TYPE=BUTTON VALUE="Decipher" onClick="routeCipher(this.form.Ciphers.selectedIndex, this.form.Data.value, false);">
+			<INPUT TYPE=BUTTON VALUE="  Reset  " onClick="this.form.Data.value='';">  
+			</FORM>
+			<FORM NAME="CipherMail" ACTION="" METHOD="POST" ENCTYPE="text/plain" onSubmit="return sendText(document.forms[0].Data.value);">
+			<INPUT TYPE=HIDDEN NAME="Message">
+			<INPUT TYPE=SUBMIT VALUE="   Send   ">
+			</FORM>
+			</TD>
+		</TR>
+	</TABLE>
+</DIV>
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+// Create layers for each cipher
+document.forms[0].Ciphers.selectedIndex = 0;
+genLayer("caesar", 50, 125, 350, 200, showName, caesar);
+genLayer("vigenere", 50, 125, 350, 200, hideName, vigenere);
+//-->
+</SCRIPT>
+</BODY>
+</HTML>

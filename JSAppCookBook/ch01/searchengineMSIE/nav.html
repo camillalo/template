@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>Search Nav Page</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var SEARCHANY 		= 1;
+var SEARCHALL 		= 2;
+var SEARCHURL 		= 4;
+var searchType 	= '';
+var showMatches 	= 10;
+var currentMatch	= 0;
+var copyArray		= new Array();
+var docObj			= parent.frames[1].document;
+
+function validate(entry) {	 
+	if (entry.charAt(0) == "+") {
+		entry = entry.substring(1,entry.length);
+		searchType = SEARCHALL;
+		}
+	else if (entry.substring(0,4) == "url:") {
+		entry = entry.substring(5,entry.length);
+		searchType = SEARCHURL;
+		}
+	else { searchType = SEARCHANY; }
+	while (entry.charAt(0) == ' ') {					
+		entry = entry.substring(1,entry.length);
+		document.forms[0].query.value = entry;
+		} 
+	while (entry.charAt(entry.length - 1) == ' ') {
+		entry = entry.substring(0,entry.length - 1);
+		document.forms[0].query.value = entry;
+		}
+	if (entry.length < 3) {
+		alert("You cannot search strings that small. Elaborate a little.");
+		document.forms[0].query.focus();
+		return;
+		}
+	convertString(entry);
+	}
+
+function convertString(reentry) {
+	var searchArray = reentry.split(" ");
+	if (searchType == (SEARCHANY | SEARCHALL)) { requireAll(searchArray); }
+	else { allowAny(searchArray); }
+	}
+
+function splitArray(joinedString, splitString) {
+	var tempArray = new Array(0);
+	var arrayCounter		= 0;
+	var elementBoolean	= true;
+	for (var i = 0; i < joinedString.length; i++) {
+		if(elementBoolean) {
+			tempArray[arrayCounter] = "";
+			elementBoolean 		  = false;
+			}
+		if(joinedString.charAt(i) == splitString) { 
+			arrayCounter++;
+			elementBoolean = true;
+			continue;
+			}
+		tempArray[arrayCounter] += joinedString.charAt(i);
+		}
+	return tempArray;
+	}
+
+function allowAny(t) {
+	var findings = new Array(0);
+	for (i = 0; i < profiles.length; i++) {
+		var compareElement  = profiles[i].toUpperCase();	
+		if(searchType == SEARCHANY) { var refineElement  = compareElement.substring(0,compareElement.indexOf('|HTTP')); }
+		else { var refineElement = compareElement.substring(compareElement.indexOf('|HTTP'), compareElement.length); }
+		for (j = 0; j < t.length; j++) {
+			var compareString = t[j].toUpperCase();
+			if (refineElement.indexOf(compareString) != -1) {
+				findings[findings.length] = profiles[i];
+				break;
+				}
+			}
+		}
+	verifyManage(findings);
+	}
+
+function requireAll(t) {
+	var findings = new Array(0);
+	for (i = 0; i < profiles.length; i++) {	
+		var allConfirmation = true;		
+		var allString       = profiles[i].toUpperCase();
+		var refineAllString = allString.substring(0,allString.indexOf('|HTTP'));
+		for (j = 0; j < t.length; j++) { 
+			var allElement = t[j].toUpperCase();
+			if (refineAllString.indexOf(allElement) == -1) { 
+				allConfirmation = false;
+				continue; 
+				}	
+			}
+		if (allConfirmation) {
+			findings[findings.length] = profiles[i];
+			}
+		}
+	verifyManage(findings);
+	}
+
+function verifyManage(resultSet) {
+	if (resultSet.length == 0) { noMatch(); }
+	else {
+		copyArray = resultSet;
+		formatResults(copyArray, currentMatch, showMatches);
+		}    
+	}
+
+function noMatch() {
+	docObj.open();
+	docObj.writeln('<HTML><HEAD><TITLE>Search Results</TITLE></HEAD>' + 
+		'<BODY BGCOLOR=WHITE TEXT=BLACK>' + 
+		'<TABLE WIDTH=90% BORDER=0 ALIGN=CENTER><TR><TD VALIGN=TOP><FONT FACE=Arial><B><DL>' + 
+		'<HR NOSHADE WIDTH=100%>"' + document.forms[0].query.value + 
+		'" returned no results.<HR NOSHADE WIDTH=100%></TD></TR></TABLE></BODY></HTML>');
+	docObj.close();
+	document.forms[0].query.select();
+	}
+
+function formatResults(results, reference, offset) {
+	var currentRecord = (results.length < reference + offset ? results.length : reference + offset);
+	docObj.open();
+	docObj.writeln('<HTML>\n<HEAD>\n<TITLE>Search Results</TITLE>\n</HEAD>' + 
+		'<BODY BGCOLOR=WHITE TEXT=BLACK>' + 
+		'<TABLE WIDTH=90% BORDER=0 ALIGN=CENTER CELLPADDING=3><TR><TD>' + 
+		'<HR NOSHADE WIDTH=100%></TD></TR><TR><TD VALIGN=TOP><FONT FACE=Arial><B>' +  
+		'Search Query: <I>' + parent.frames[0].document.forms[0].query.value + '</I><BR>\n' + 
+		'Search Results: <I>' + (reference + 1) + ' - ' + 
+		currentRecord + ' of ' + results.length + '</I><BR><BR></FONT>' + 
+		'<FONT FACE=Arial SIZE=-1><B>' + '\n\n<!-- Begin result set //-->\n\n\t<DL>');	
+	if (searchType == SEARCHURL) {
+		for (var i = reference; i < currentRecord; i++) {
+			var divide = splitArray(results[i], '|');
+			docObj.writeln('\t<DT>' + '<A HREF="' + divide[2] + '">' + divide[2] + '</A>' + 
+				'\t<DD>' + '<I>' + divide[1] + '</I><P>\n\n');
+			}
+		}
+	else {
+		for (var i = reference; i < currentRecord; i++) {	
+			var divide = splitArray(results[i], '|');
+			docObj.writeln('\n\n\t<DT>' + '<A HREF="' + divide[2] + '">' + divide[0] + '</A>' + 
+				'\t<DD>' + '<I>' + divide[1] + '</I><P>');
+			}
+		}
+	docObj.writeln('\n\t</DL>\n\n<!-- End result set //-->\n\n');
+	prevNextResults(results.length, reference, offset);			
+	docObj.writeln('<HR NOSHADE WIDTH=100%>' + 
+		'</TD>\n</TR>\n</TABLE>\n</BODY>\n</HTML>');
+	docObj.close();
+	document.forms[0].query.select();
+	}
+
+function prevNextResults(ceiling, reference, offset) {
+	docObj.writeln('<CENTER><FORM>');
+	if(reference > 0) {
+		docObj.writeln('<INPUT TYPE=BUTTON VALUE="Prev ' + offset + ' Results" ' + 
+			'onClick="parent.frames[0].formatResults(parent.frames[0].copyArray, ' + 
+			(reference - offset) + ', ' + offset + ')">');
+		}
+	if(reference >= 0 && reference + offset < ceiling) {
+		var trueTop = ((ceiling - (offset + reference) < offset) ? ceiling - (reference + offset) : offset);
+		var howMany = (trueTop > 1 ? "s" : "");
+		docObj.writeln('<INPUT TYPE=BUTTON VALUE="Next ' + trueTop + ' Result' + howMany + '" ' + 
+			'onClick="parent.frames[0].formatResults(parent.frames[0].copyArray, ' + 
+			(reference + offset) + ', ' + offset + ')">');
+		}
+	docObj.writeln('</CENTER>');
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="WHITE">
+<TABLE WIDTH="95%" BORDER="0" ALIGN="CENTER">
+<TR>
+	<TD VALIGN=MIDDLE>
+	<FONT FACE="Arial">
+	<B>Client-Side Search Engine</B>
+	</TD>
+
+	<TD VALIGN=ABSMIDDLE>
+	<FORM NAME="search" onsubmit="validate(document.forms[0].query.value); return false;">
+	<INPUT TYPE=TEXT NAME="query" SIZE="33">
+	<INPUT TYPE=HIDDEN NAME="standin" VALUE="">
+	</FORM>
+	</TD>
+
+	<TD VALIGN=ABSMIDDLE>
+	<FONT FACE="Arial">
+	<B><A HREF="main.html" TARGET="main">Help</A></B>
+	</TD>
+</TR>
+</TABLE>
+</BODY>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+profiles = new Array(
+	"Got JavaScript?|Free assistance with JavaScript or HTML programming problems, help with debugging JavaScript errors|http://www.serve.com/hotsyte/gotjs.html",
+	"HotSyte- The JavaScript Resource|Home page for tutorials, examples, scripts, links, instruction, Netscape articles, editorials, links, newsgroups, JavaScript books, a JavaScript web ring, and web development software|http://www.serve.com/hotsyte/",
+	"Instruction|JavaScript instruction, tutorials, links, examples, and downloadable or cut-and-paste scripts|http://www.serve.com/hotsyte/instruct.html",
+	"Interaction|JavaScript newsgroups, bulletin boards, mailing lists|http://www.serve.com/hotsyte/interact.html",
+	"Editorials|JavaScript articles with tips, dos and don'ts, and other advice about JavaScript|http://www.serve.com/hotsyte/editor.html",
+	"Wildman's Archive|Free JavaScript scripts and applications by the legendary Wildman Timothy Hobbs|http://www.serve.com/hotsyte/wildman/",
+	"The HotSyte Reserve|Cool scripts you can download, compliments of the HotSyte webmaster|http://www.serve.com/hotsyte/reserve.html",
+	"Publications|Books, e-zines, and other JavaScript-related publications|http://www.serve.com/hotsyte/books.html",
+	"Web Gear|The HotSyte download center for the latest browsers, plug-ins, and other cool web development software|http://www.serve.com/hotsyte/tools.html",
+	"Resources|JavaScript documentation, sites of interest, resources, reference, JavaScript research, and general information|http://www.serve.com/hotsyte/genref.html",
+	"Station HTML|Links to sites offering HTML intruction and reference|http://www.serve.com/hotsyte/html.html",
+	"JavaScript Image Object|How to use the image object to enhance web page interactivity|http://www.serve.com/hotsyte/079701.html",
+	"JavaScript, For Language Harmony|How to use JavaScript for multi-lingual sites|http://www.serve.com/hotsyte/079702.html",
+	"Steppin' In The Pooptoy|Pointers to keep your JavaScript beneficial to web site visitors|http://www.serve.com/hotsyte/069701.html",
+	"JavaScript DON'Ts: onMouseOver and You|An article about what not to do with the onMouseOver event|http://www.serve.com/hotsyte/039701.html",
+	"Interacting With Users: Alert(), Confirm(), and Prompt() Methods|How to use dialog boxes to increase web page interactivity|http://www.serve.com/hotsyte/019704.html",
+	"Employing \"Anti-explosion\" Tactics at Your JavaScript Site|How to avoid JavaScript errors|http://www.serve.com/hotsyte/019701.html",
+	"JavaScript: What's The Buzz?|An introduction to the concept and utility of JavaScript|http://www.serve.com/hotsyte/019702.html",
+	"Cyber Date Profile|JavaScript application that uses the cookie property to maintain the client state|http://www.serve.com/hotsyte/cybrdate.html",
+	"Bank Reserve|Simple JavaScript database application|http://www.serve.com/hotsyte/database.html",
+	"E-Lit 101|JavaScript/CGI application that lets	users request files and receive them via e-mail|http://www.serve.com/hotsyte/elit101.html",
+	"JavaScript E-mail|JavaScript application that allows users to send e-mail without a CGI program|http://www.serve.com/hotsyte/jsemail.html",
+	"The Arguments Array|Learn about the JavaScript argument object and its array|http://www.serve.com/hotsyte/argument.html",
+	"Synapse|JavaScript application and memory game where players must match pairs by memory and can choose skill levels|http://www.serve.com/hotsyte/download/synapse.zip",
+	"Fruit Shopper|JavaScript application that demonstrates the basics of HTML form validation|http://www.serve.com/hotsyte/fruit.html",
+	"Pythagorean Theorem Solver|JavaScript application that solves for the missing sides of right triangles|http://www.serve.com/hotsyte/triangle.html",
+	"Browser Identifier|JavaScript application that provides users with information about their browsers|http://www.serve.com/hotsyte/browser.html",
+	"Routing Browsers|JavaScript application that routs visitors to web pages according to browser|http://www.serve.com/hotsyte/routing.html",
+	"Zodiac Profiler|JavaScript application that demonstrates the utility of arrays|http://www.serve.com/hotsyte/zodiac.html",
+	"Shopping Cart|JavaScript application that facilitates online shopping|http://www.serve.com/hotsyte/wildman/shopping_cart/shop_cart._intro.html",
+	"JavaScript Guestbook|JavaScript application that uses cookies so users can read and write comments about the hosting web site|http://www.serve.com/hotsyte/wildman/guestbook/gb.html",
+	"Active Map|JavaScript application that demonstrates the utility of the image object with a map graphic|http://www.serve.com/hotsyte/wildman/active_map/active_map.html",
+	"Jukebox|JavaScript application that allows users to select from a list of audio clips|http://www.serve.com/hotsyte/wildman/jukebox/jukewindow.html",
+	"Scratchpad|JavaScript application that allows users to e-mail webmasters feedback|http://www.serve.com/hotsyte/wildman/scratchpad/open_scratchpad.html",
+	"Web Search|JavaScript application that enables client-side searches without CGI|http://www.serve.com/hotsyte/wildman/web_search/site_search.html",
+	"Timed Images|JavaScript application that displays images at specified intervals|http://www.serve.com/hotsyte/wildman/url_timed_images/url_timed_images.html",
+	"The Database Search|JavaScript application that searches simple databases|http://www.serve.com/hotsyte/wildman/db_search/search_frames.html",
+	"Active Images|JavaScript application that uses the image object to create dynamic image changes|http://www.serve.com/hotsyte/wildman/active_images/activeimages.html",
+	"Autoscroll|JavaScript application that scrolls web pages for you|http://www.serve.com/hotsyte/wildman/autoscroll/auto_scroll.html",
+	"Left-Right Scroll|JavaScript application that scrolls web pages from left to right|http://www.serve.com/hotsyte/wildman/autoscroll/auto_scroll.html",
+	"Drop Box|JavaScript application that facilitates web site navigstion with &lt;SELECT&gt; lists|http://www.serve.com/hotsyte/wildman/dropbox/selfrm.html"
+	);
+
+
+</SCRIPT>
+</HTML>

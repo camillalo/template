@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>Search Nav Page</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript" SRC="records.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+// Define global variables
+var SEARCHANY     = 1;
+var SEARCHALL     = 2;
+var SEARCHURL     = 4;
+var searchType  = '';
+var showMatches   = 10;
+var currentMatch  = 0;
+var copyArray   = new Array();
+var docObj      = parent.frames[1].document;
+
+// Determine the type of search, and make
+// sure the user has entered something
+function validate(entry) {
+  if (entry.charAt(0) == "+") {
+    entry = entry.substring(1,entry.length);
+    searchType = SEARCHALL;
+    }
+  else if (entry.substring(0,4) == "url:") {
+    entry = entry.substring(5,entry.length);
+    searchType = SEARCHURL;
+    }
+  else { searchType = SEARCHANY; }
+  while (entry.charAt(0) == ' ') {
+    entry = entry.substring(1,entry.length);
+    document.forms[0].query.value = entry;
+    }
+  while (entry.charAt(entry.length - 1) == ' ') {
+    entry = entry.substring(0,entry.length - 1);
+    document.forms[0].query.value = entry;
+    }
+  if (entry.length < 3) {
+    alert("You cannot search strings that small. Elaborate a little.");
+    document.forms[0].query.focus();
+    return;
+    }
+  convertString(entry);
+  }
+
+// Put the search terms in an array and
+// and call appropriate search algorithm
+function convertString(reentry) {
+  var searchArray = reentry.split(" ");
+  if (searchType == (SEARCHANY | SEARCHALL)) { requireAll(searchArray); }
+  else { allowAny(searchArray); }
+  }
+
+// Define a function to perform a search that requires
+// a match of any of the terms the user provided
+function allowAny(t) {
+  var findings = new Array(0);
+  for (i = 0; i < profiles.length; i++) {
+    var compareElement  = profiles[i].toUpperCase();
+    if(searchType == SEARCHANY) { var refineElement  = compareElement.substring(0,compareElement.indexOf('|HTTP')); }
+    else { var refineElement = compareElement.substring(compareElement.indexOf('|HTTP'), compareElement.length); }
+    for (j = 0; j < t.length; j++) {
+      var compareString = t[j].toUpperCase();
+      if (refineElement.indexOf(compareString) != -1) {
+        findings[findings.length] = profiles[i];
+        break;
+        }
+      }
+    }
+  verifyManage(findings);
+  }
+
+// Define a function to perform a search that requires
+// a match of all terms the user provided
+function requireAll(t) {
+  var findings = new Array();
+  for (i = 0; i < profiles.length; i++) {
+    var allConfirmation = true;
+    var allString       = profiles[i].toUpperCase();
+    var refineAllString = allString.substring(0,allString.indexOf('|HTTP'));
+    for (j = 0; j < t.length; j++) {
+      var allElement = t[j].toUpperCase();
+      if (refineAllString.indexOf(allElement) == -1) {
+        allConfirmation = false;
+        continue;
+        }
+      }
+    if (allConfirmation) {
+      findings[findings.length] = profiles[i];
+      }
+    }
+  verifyManage(findings);
+  }
+
+// Determine whether the search was successful
+// If so print the results; if not, indicate that, too
+function verifyManage(resultSet) {
+  if (resultSet.length == 0) { noMatch(); }
+  else {
+    copyArray = resultSet.sort();
+    formatResults(copyArray, currentMatch, showMatches);
+    }
+  }
+
+// Define a function that indicates that the returned no results
+function noMatch() {
+  docObj.open();
+  docObj.writeln('<HTML><HEAD><TITLE>Search Results</TITLE></HEAD>' +
+    '<BODY BGCOLOR=WHITE TEXT=BLACK>' +
+    '<TABLE WIDTH=90% BORDER=0 ALIGN=CENTER><TR><TD VALIGN=TOP><FONT FACE=Arial><B><DL>' +
+    '<HR NOSHADE WIDTH=100%>"' + document.forms[0].query.value +
+    '" returned no results.<HR NOSHADE WIDTH=100%></TD></TR></TABLE></BODY></HTML>');
+  docObj.close();
+  document.forms[0].query.select();
+  }
+
+// Define a function to print the results of a successful search
+function formatResults(results, reference, offset) {
+  var currentRecord = (results.length < reference + offset ? results.length : reference + offset);
+  docObj.open();
+  docObj.writeln('<HTML>\n<HEAD>\n<TITLE>Search Results</TITLE>\n</HEAD>' +
+    '<BODY BGCOLOR=WHITE TEXT=BLACK>' +
+    '<TABLE WIDTH=90% BORDER=0 ALIGN=CENTER CELLPADDING=3><TR><TD>' +
+    '<HR NOSHADE WIDTH=100%></TD></TR><TR><TD VALIGN=TOP><FONT FACE=Arial><B>' +
+    'Search Query: <I>' + parent.frames[0].document.forms[0].query.value + '</I><BR>\n' +
+    'Search Results: <I>' + (reference + 1) + ' - ' +
+    currentRecord + ' of ' + results.length + '</I><BR><BR></FONT>' +
+    '<FONT FACE=Arial SIZE=-1><B>' + '\n\n<!-- Begin result set //-->\n\n\t<DL>');
+  if (searchType == SEARCHURL) {
+    for (var i = reference; i < currentRecord; i++) {
+      var divide = results[i].split("|");
+      docObj.writeln('\t<DT>' + '<A HREF="' + divide[2] + '">' + divide[2] + '</A>' +
+        '\t<DD>' + '<I>' + divide[1] + '</I><P>\n\n');
+      }
+    }
+  else {
+    for (var i = reference; i < currentRecord; i++) {
+      var divide = results[i].split('|');
+      docObj.writeln('\n\n\t<DT>' + '<A HREF="' + divide[2] + '">' + divide[0] + '</A>' +
+        '\t<DD>' + '<I>' + divide[1] + '</I><P>');
+      }
+    }
+  docObj.writeln('\n\t</DL>\n\n<!-- End result set //-->\n\n');
+  prevNextResults(results.length, reference, offset);
+  docObj.writeln('<HR NOSHADE WIDTH=100%>' +
+    '</TD>\n</TR>\n</TABLE>\n</BODY>\n</HTML>');
+  docObj.close();
+  document.forms[0].query.select();
+  }
+
+// Define a function to dynamically display Prev and Next buttons
+function prevNextResults(ceiling, reference, offset) {
+  docObj.writeln('<CENTER><FORM>');
+  if(reference > 0) {
+    docObj.writeln('<INPUT TYPE=BUTTON VALUE="Prev ' + offset + ' Results" ' +
+      'onClick="parent.frames[0].formatResults(parent.frames[0].copyArray, ' +
+      (reference - offset) + ', ' + offset + ')">');
+    }
+  if(reference >= 0 && reference + offset < ceiling) {
+    var trueTop = ((ceiling - (offset + reference) < offset) ? ceiling - (reference + offset) : offset);
+    var howMany = (trueTop > 1 ? "s" : "");
+    docObj.writeln('<INPUT TYPE=BUTTON VALUE="Next ' + trueTop + ' Result' + howMany + '" ' +
+      'onClick="parent.frames[0].formatResults(parent.frames[0].copyArray, ' +
+      (reference + offset) + ', ' + offset + ')">');
+    }
+  docObj.writeln('</CENTER>');
+  }
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="WHITE">
+<TABLE WIDTH="95%" BORDER="0" ALIGN="CENTER">
+<TR>
+  <TD VALIGN=MIDDLE>
+  <FONT FACE="Arial">
+  <B>Client-Side Search Engine</B>
+  </FONT>
+    </TD>
+
+  <TD VALIGN=ABSMIDDLE>
+  <FORM NAME="search" onsubmit="validate(document.forms[0].query.value); return false;">
+  <INPUT TYPE=TEXT NAME="query" SIZE="33">
+      <input type="submit">
+  </FORM>
+  </TD>
+
+  <TD VALIGN=ABSMIDDLE>
+  <FONT FACE="Arial">
+  <B><A HREF="main.html" TARGET="main">Help</A></B>
+  </FONT>
+  </TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

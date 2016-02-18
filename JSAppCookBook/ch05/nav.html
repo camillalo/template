@@ -1,0 +1,394 @@
+<HTML>
+<HEAD>
+<TITLE>ImageMachine</TITLE>
+<SCRIPT LANGUAGE="JavaScript1.2">
+
+// Determine the OS
+var platform = navigator.platform;
+var lb = (platform.indexOf("Win" != -1) ? "\n\r" : (platform.indexOf("Mac" != -1) ? "\r" : "\n"));
+var fontOpen = '<FONT COLOR=BLUE>';
+var fontClose = '</FONT>';
+
+// Define a function to create SELECT lists on the fly
+function genSelect(name, count, start, select) {
+	var optStr = "";
+	for (var h = start; h <= count; h++) {
+		optStr += "<OPTION VALUE=" + h + (h == select ? " SELECTED" : "") + ">" + h;
+		}
+	document.write("<SELECT NAME=" + name + ">" + optStr + "</SELECT>");
+	}
+
+// Define a function to capture info from the default template
+function captureDefaultProfile(formObj) {
+	setArrays();
+	imgDefaults 	 = formObj; 
+	var imgQty      = (imgDefaults.imgnumber.selectedIndex + 1);
+	var imgHeight   = (imgDefaults.pxlheight.selectedIndex);
+	var imgWidth    = (imgDefaults.pxlwidth.selectedIndex);
+	var imgBorder   = (imgDefaults.defbdr.selectedIndex);
+	for (var i = 0; i < imgQty; i++) {
+		imgPrim[i] = "";
+		imgRoll[i] = "";
+		imgDown[i] = "";
+		imgLink[i] = "";
+		imgText[i] = "";
+		imgWdh[i]  = imgWidth;
+		imgHgt[i]  = imgHeight;
+		imgBdr[i]  = imgBorder;
+		}
+	generateEntryForm();
+	}
+
+// Define a function to initialize all arrays 
+// that will hold image template variables
+function setArrays() {
+	imgPrim = new Array();
+	imgRoll = new Array();
+	imgDown = new Array();
+	imgLink = new Array();
+	imgText = new Array();
+	imgWdh  = new Array();
+	imgHgt  = new Array();
+	imgBdr  = new Array(); 
+	}
+
+
+// Define a function to generate the image template
+function generateEntryForm() {
+	with(parent.frames[1].document) {
+		open();
+		writeln("<HTML><BODY BGCOLOR=FFFFEE><FONT FACE=Arial SIZE=2><BLOCKQUOTE>" + 
+		"Choose or enter the paths of all images in the columns below. " + 
+		"Add the link path (e.g., <FONT FACE=Courier>web_page.html</FONT>) or script text (e.g., <FONT FACE=Courier>javascript:</FONT>) for each HREF attribute, and  " + 
+		"enter any message you want to display in the status bar during the <FONT FACE=\"Courier\">MouseOver</FONT> event ." + 
+		"Then choose <B>Generate</B> to get your code, or <B>Preview</B> to see the code in action.</BLOCKQUOTE>" + 
+		"<FORM NAME='imgProfile' onSubmit='return false;'>" +
+		"<CENTER><TABLE BORDER=0 ALIGN=CENTER CELLSPACING=5 CELLPADDING=5>" + 
+		"<TH ALIGN=LEFT><FONT FACE=Arial>#" + 
+		"<TH ALIGN=LEFT><FONT FACE=Arial>Primary Path" + 
+		"<TH ALIGN=LEFT><FONT FACE=Arial>Rollover Path" + 
+		(imgDefaults.mousedown.checked ? "<TH ALIGN=LEFT><FONT FACE=Arial>MouseDown Path" : "") + 
+		"<TR><TD><BR></TD></TR>");
+		}
+
+	// Create a set of form fields for each image group
+	for (i = 0; i < imgPrim.length; i++) {
+		with(parent.frames[1].document) {
+			writeln("<TR>" + 
+			"<TD><FONT FACE=Arial SIZE=2><CENTER><B>" + (i + 1) + "</B></CENTER>" + 
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2><INPUT TYPE=FILE NAME='prim" + i + "' VALUE='" + imgPrim[i] + "'>" + 
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2><INPUT TYPE=FILE NAME='seci" + i + "' VALUE='" + imgRoll[i] + "'>" + 
+			(imgDefaults.mousedown.checked ? "<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2><INPUT TYPE=FILE NAME='down" + i + "' VALUE='" + imgDown[i] + "'>" : "") + 
+			"<TR>" + 
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2> &nbsp;&nbsp;</TD>" + 
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2><INPUT TYPE=TEXT NAME='href" + i + "' VALUE='" + imgLink[i] + "'> " + 
+			"<IMG SRC='images/href.jpg'>" +
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2><INPUT TYPE=TEXT NAME='stat" + i + "' VALUE='" + imgText[i] + "'> " +  
+			"<IMG SRC='images/statusbar.jpg'> " + 
+			(!imgDefaults.mousedown.checked ?"<TR>" : "") + 
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2>" + 
+			(!imgDefaults.mousedown.checked ? 
+			"</TD><TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2>" : "") +
+			"<INPUT TYPE=TEXT NAME='wdh" + i + "' VALUE='" + 
+			imgWdh[i] + "' SIZE=3> <IMG SRC='images/wdh.jpg'> " + 
+			"&nbsp;  <INPUT TYPE=TEXT NAME='hgt" + i + "' VALUE='" + imgHgt[i] + "' SIZE=3> " + 
+			"<IMG SRC='images/hgt.jpg'> &nbsp;" + 
+			(!imgDefaults.mousedown.checked ? 
+			"<TD VALIGN=BOTTOM><FONT FACE=Arial SIZE=2>" : "") + 
+			"<INPUT TYPE=TEXT NAME='bdr" + i + "' VALUE='" + imgBdr[i] +
+			"' SIZE=3> <IMG SRC='images/bdr.jpg'>" + 
+			"<TR>" + 
+			"<TD VALIGN=BOTTOM COLSPAN=" + 
+			(!imgDefaults.mousedown.checked ? "3" : "4") + 
+			"><BR><HR NOSHADE><BR></TD></TR>");
+			}
+		}
+
+	// Add the image template buttons
+	with(parent.frames[1].document) {
+		writeln("</TABLE><CENTER>" + 
+		"<INPUT TYPE=BUTTON onClick='parent.frames[0].imgValid8(this.form, true);' VALUE='Generate'>" + 
+		" <INPUT TYPE=BUTTON onClick='parent.frames[0].imgValid8(this.form, false);' VALUE='Preview'> " + 
+		"<INPUT TYPE=RESET VALUE='   Clear   '></FORM></BODY></HTML>");
+		close();
+		}
+	}
+
+// Make sure the user has entered image and HREF URLs
+function imgValid8(imgTemplate, mimeType) {
+	for (var  i = 0; i < imgPrim.length; i++) {
+		if (imgTemplate['prim' + i].value == "" || 
+			imgTemplate['seci' + i].value == "" || 
+			imgTemplate['href' + i].value == "") {
+			alert("All images and HREF attributes must have URLs.");
+			return;
+			}
+		if (imgDefaults.mousedown.checked) {
+			if(imgTemplate['down' + i].value == "") {
+				alert("All images and HREF attributes must have URLs.");
+				return;
+				}
+			}
+		}
+	// If everything is OK, generate the rollover code
+	genJavaScript(imgTemplate, mimeType);
+	}
+
+function genJavaScript(imgTemplate, mimeType) {
+	imageLinks = '';
+	
+	// Set global variable values that according to the value of mimeType. 
+	// Values determine whether generate code is printed or interpreted
+	if (mimeType) { 
+		lt      = "&lt;"; 
+		gt      = "&gt;"; 
+		br      = "<BR>"; 
+		HTML    = true;
+		nbsp    = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		}
+	else { 
+		lt      = "<"; 
+		gt      = ">"; 
+		br      = lb; 
+		HTML    = false;
+		nbsp    = "     ";
+		}
+
+	// If the user hasn't called this function from the Change Info button, 
+	// reset the img arrays to prepare them for new element values from the 
+	// image template. Otherwise, use the info already in the arrays.
+	if(imgTemplate != null) {
+		setArrays();
+		for (var i = 0; i < (imgDefaults.imgnumber.selectedIndex + 1); i++) {
+			imgPrim[i] = purify(imgTemplate['prim' + i].value);
+			imgRoll[i] = purify(imgTemplate['seci' + i].value);
+			if (imgDefaults.mousedown.checked) { 
+				imgDown[i] = purify(imgTemplate['down' + i].value);
+				}
+			imgLink[i] = purify(imgTemplate['href' + i].value);
+			imgText[i] = purify(imgTemplate['stat' + i].value);
+			imgWdh[i]  = purify(imgTemplate['wdh' + i].value);
+			imgHgt[i]  = purify(imgTemplate['hgt' + i].value);
+			imgBdr[i]  = purify(imgTemplate['bdr' + i].value);
+			}
+		}
+	
+	// Generate the code. Using the value of HTML, make adjustments 
+	// according to printed code or interpreted code requirements.
+	if (HTML) {
+		primJavaScript = "<HTML><HEAD><TITLE>Image Machine Code</TITLE>" + 
+		"</HEAD><BODY BGCOLOR=FFFFEE>" + 
+		"<FONT FACE=Arial><I>Cut and paste the code below into an HTML file. The blue code represents information you provided.</I>" + 
+		"<BR><BR></FONT><FONT SIZE=2 FACE=Arial>" + 
+		lt + "HTML" + gt + "<BR>" + lt + "HEAD" + gt + "<BR>" + 
+		lt + "TITLE" + gt + "Image Machine Code" + lt + "/TITLE" + gt;
+		}
+	else { primJavaScript = "<HTML><HEAD><TITLE>Image Machine Code</TITLE>"; }
+
+	primJavaScript += br + br + lt + "SCRIPT LANGUAGE=\"JavaScript\"" + gt + br + br +
+		"// Define global variables in JavaScript 1.0" + br +
+		"var canRollOver = false;" + br + "var canClickDown = false;" + br + br +
+		lt + "/SCR" + "IPT" + gt + br + br + lt + 
+		"SCRIPT LANGUAGE =\"JavaScript1.1\"" + gt + br + br +
+		"// Change canRollOver to true in JavaScript 1.1" + br +
+		"canRollOver = true;" + br + br;
+
+	secJavaScript = lt + "SCRIPT LANGUAGE=\"JavaScript1.2\"" + gt + br + br +
+		"// Change canClickDown to true in JavaScript 1.2" + br +
+		"canClickDown = true;" + br + br; 
+
+	// Iterate through each of the image groups, and create 
+	// the Image() object code for preloading the rollovers 
+	// associated with MouseOver and MouseOut events
+	for (var j = 0; j < imgPrim.length; j++) {
+		primJavaScript += "// Primary and rollover image sources #" + (j + 1) + br +"switch" + (j + 1) + "out = new Image(" + 
+		(HTML ? fontOpen : "") + imgWdh[j] + 
+		(HTML ? "</FONT>," : ", ") + 
+		(HTML ? fontOpen : "") + imgHgt[j]  + 
+		(HTML ? fontClose : "") + "); " + br + "switch" + (j + 1) + "out.src = '" + 
+		(HTML ? fontOpen : "") + (imgPrim[j].indexOf(":\\") != -1 ? pathPrep(imgPrim[j]) : imgPrim[j]) + 
+		(HTML ? fontClose : "") + "';" + br + "switch" + (j + 1) + "over = new Image(" + 
+		(HTML ? fontOpen : "") + imgWdh[j]  + 
+		(HTML ? "</FONT>," : ", ") + 
+		(HTML ? fontOpen : "") + imgHgt[j] + 
+		(HTML ? fontClose : "") + "); " + br + "switch" + (j + 1) + "over.src = '" + 
+		(HTML ? fontOpen : "") + (imgRoll[j].indexOf(":\\") != -1 ? pathPrep(imgRoll[j]) : imgRoll[j]) + 
+		(HTML ? fontClose : "") + "';" + br + br;
+
+		// If the user specified create the Image() object code for preloading the 
+		// images for the rollovers associated with the MouseDown event
+		if (imgDefaults.mousedown.checked) {
+			secJavaScript += "// MouseDown image source #" + (j + 1) + br + "switch" + (j + 1) + "down = new Image(" + 
+			(HTML ? fontOpen : "") + imgWdh[j] + 
+			(HTML ? "</FONT>," : ", ") + 
+			(HTML ? fontOpen : "") + imgHgt[j]  + 
+			(HTML ? fontClose : "") + "); " + br + "switch" + (j + 1) + "down.src = '" + 
+			(HTML ? fontOpen : "") + (imgPrim[j].indexOf(":\\") != -1 ? pathPrep(imgDown[j]) : imgDown[j]) + 
+			(HTML ? fontClose : "") + "';" + br + br;
+			}
+
+		// Create A HREF and IMG tags to display the images. Add the 
+		// onMouseDown event handler only if specified by the user
+		imageLinks += lt + "!-- <I> Image Link #" + (j + 1) + " </I>//--" + gt + br + lt + "A HREF=\"" + 
+			(HTML ? fontOpen : "") + imgLink[j] + 
+			(HTML ? fontClose : "") + "\" " + br + nbsp + "onMouseOver=\"imageSwap('switch" + (j + 1) + "', 'over', false); display('" + 
+			(HTML ? fontOpen : "") + imgText[j] + 
+			(HTML ? fontClose : "") + "'); return true;\"" + br + nbsp + "onMouseOut=\"imageSwap('switch" + 
+			(j + 1) + "', 'out', false); display('');\"" + 
+			(imgDefaults.mousedown.checked ? 
+			br + nbsp + "onMouseDown=\"isDown=!isDown; imageSwap('switch" + (j + 1) + "', 'down', true);\"" : "") + 
+			gt + br + lt + "IMG SRC=\"" + 
+			(HTML ? fontOpen : "") + pathPrep(imgPrim[j]) + 
+			(HTML ? fontClose : "") + "\"" + br + nbsp + "NAME=switch" + (j + 1) + br + nbsp + "WIDTH=" + 
+			(HTML ? fontOpen : "") + imgWdh[j] + 
+			(HTML ? fontClose : "") + br + nbsp + "HEIGHT=" + 
+			(HTML ? fontOpen : "") + imgHgt[j] + 
+			(HTML ? fontClose : "") + br + nbsp + "BORDER=" + 
+			(HTML ? fontOpen : "") + imgBdr[j] + 
+			(HTML ? fontClose : "") + 
+			gt + "" + lt + "/A" + gt + br + br + br;
+		}
+ 
+	scriptClose = br + lt + "/SCR" + "IPT" + gt + br + br;
+
+	// Define a global variable for the image rollover function
+	swapCode = br + lt + "/SCR" + "IPT" + gt + br + br + 
+		lt + "SCRIPT LANGUAGE =\"JavaScript\"" + gt + br + br + 
+		(imgDefaults.mousedown.checked ? "var isDown = false;" + br + br : "") +
+		"// Conditionally perform the rollovers in JavaScript 1.0" + br +
+		"function imageSwap(imageName, imageSuffix) {" + br +  
+		nbsp + "if (!canRollOver) { return; }" + br + nbsp + 
+		(imgDefaults.mousedown.checked ? "if (!isDown) { " + br + nbsp + nbsp : "") + 
+		"document[imageName].src = " + "eval(imageName + imageSuffix + \".src\");" + br + nbsp + 
+		(imgDefaults.mousedown.checked ? nbsp + "}" + br + nbsp + "else if (canClickDown) {" + br +       
+		nbsp + nbsp + "document[imageName].src = eval(imageName + imageSuffix + \".src\");" + br + 
+		nbsp + nbsp + "}" + br + nbsp : "") + "}" + br + br + "function display(stuff) { window.status = stuff; }" + 
+		br + br + lt + "/SCR" + "IPT" + gt + br;
+
+	primHTML = br + lt + "/HEAD" + gt + br + 
+		lt + "BODY BGCOLOR=FFFFEE" + 
+		gt + br + br + (HTML ? "<FONT COLOR=RED>" : "") + lt + 
+		"!-- <I> Image Code Begins </I> //--" + gt + br + 
+		(HTML ? fontClose : "") + br + br;
+
+	// Define a global variable for the FORM buttons to display at the 
+	// bottom of every page of generated code
+	secHTML = (HTML ? "<FONT COLOR=RED>" : "") + 
+		lt + "!-- <I> Image Code Ends</I> //--" + gt + 
+		(HTML ? fontClose : "") + br + br + 
+		(HTML ? lt + "/BODY" + gt + br + lt + "/HTML" + gt : "") + 
+		br + br + "<CENTER><FORM>" + br + 
+		"<INPUT TYPE=BUTTON onClick='parent.frames[0].genJavaScript(null, " + 
+		(HTML ? "false" : "true") + ");' VALUE='" + 
+		(HTML ? 'Preview' : 'Generate') + "'>&nbsp;&nbsp;&nbsp;" + 
+		"<INPUT TYPE=BUTTON onClick='parent.frames[0].generateEntryForm();' VALUE='Change Info'>" + 
+		br + "</FORM></CENTER>" + br + br + "</BODY></HTML>";
+
+	// Combine the varaible values and set the result equal 
+	// to a dynamic web page via the javascript: protocol
+	agregate = primJavaScript + (imgDefaults.mousedown.checked ? scriptClose + secJavaScript : "") + 
+		swapCode + primHTML + imageLinks + secHTML;
+	parent.frames[1].location.href = "javascript: parent.frames[0].agregate";
+	}
+
+// Define a function remove troublesome characters
+function purify(txt) { return txt.replace(/\'|\"/g, ""); }
+
+// Define a function to modify local paths to the file: protocol specification
+function pathPrep(path) {
+	if (path.indexOf(":\\") != -1) {
+		path = path.replace(/\\/g, "/");
+		path = path.replace(/:\//, "|/");
+		return "file:///" + path;
+		}
+	else { return path; }	
+	}
+
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR=FFFFEE>
+<FORM>
+<TABLE BORDER="0">
+	<TR>
+		<TD VALIGN=MIDDLE>
+		<IMG SRC="images/image_machine.gif" WIDTH=275 HEIGHT=56 HSPACE=25>
+		</TD>
+		<TD>
+		<!-- Create a the default template //-->
+		<TABLE BORDER="0" ALIGN="CENTER">
+			<TR>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				Image Pairs 
+				</TD>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<SCRIPT LANGUAGE="JavaScript1.2">
+				<!-- 
+				genSelect("imgnumber", 50, 1, 1);
+				//-->
+				</SCRIPT>
+				</TD> 
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				Width 
+				</TD>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<SCRIPT LANGUAGE="JavaScript1.2">
+				<!-- 
+				genSelect("pxlwidth", 250, 0, 90);
+				//-->
+				</SCRIPT> 
+				</TD> 
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				MouseDown
+				</TD>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<INPUT TYPE=CHECKBOX NAME="mousedown">
+				</TD>
+		</TR>
+		<TR>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				Border  
+				</TD>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<SCRIPT LANGUAGE="JavaScript1.2">
+				<!-- 
+				genSelect("defbdr", 10, 0, 0);
+				//-->
+				</SCRIPT>
+				</TD> 
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				Height 
+				</TD>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<SCRIPT LANGUAGE="JavaScript1.2">
+				<!-- 
+				genSelect("pxlheight", 250, 0, 50);
+				//-->
+				</SCRIPT>
+				</TD>
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<INPUT TYPE=BUTTON VALUE="Proceed" onClick="captureDefaultProfile(this.form);">
+				</TD> 
+				<TD VALIGN="TOP">
+				<FONT FACE="Arial" SIZE=2>
+				<INPUT TYPE=RESET VALUE="  Reset  ">
+				</TD>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
+</TABLE>
+</CENTER>
+</FORM>
+</BODY>
+</HTML>

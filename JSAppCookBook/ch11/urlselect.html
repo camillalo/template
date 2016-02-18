@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+	<TITLE>urlselect.html</TITLE>
+</HEAD>
+<SCRIPT>
+<!--
+
+function goTo(domain) {
+	domain = domain.toLowerCase();
+	parent.UrlFrame.location.href = 'http://www.' + domain + '.com/'; 
+	}
+
+//-->
+</SCRIPT>
+<BODY STYLE="font-family:Arial">
+ <B>URL Directory</B>
+ <BR>
+ <FORM>
+	 <SELECT SIZE="7" onChange="goTo(this.options[this.selectedIndex].text);">
+	 <OPTION>Webcrawler
+	 <OPTION>HotBot
+	 <OPTION>Lycos
+	 <OPTION>Infoseek
+	 <OPTION>Altavista
+	 <OPTION>Excite
+	 <OPTION>Snap
+	 </SELECT>
+ </FORM>
+</BODY>
+</HTML>

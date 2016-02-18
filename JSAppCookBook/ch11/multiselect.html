@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+	<TITLE>multiselect.html</TITLE>
+<STYLE TYPE="text/css">
+<!--
+
+TD 
+	{
+		font-family:Arial;
+	}
+
+//-->
+</STYLE>
+
+<SCRIPT>
+<!--
+
+
+var languages = ['English', 'Spanish'];
+var days = [
+		['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+		['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+		];
+var numbers = [
+		['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
+		['uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'seite', 'ocho', 'nueve', 'diez']
+		];
+var zodiac = [
+		['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'],
+		['Aries', 'Tauro', 'Geminis', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
+		];
+
+function updateList(fObj) {
+	if(fObj.Languages.selectedIndex == -1 ||
+		fObj.Groups.selectedIndex == -1) { 
+		return;
+		}
+	var langIdx = fObj.Languages.selectedIndex;
+	var groupIdx = fObj.Groups.selectedIndex;
+	var arrayName = fObj.Groups.options[groupIdx].text;
+	arrayName = arrayName.toLowerCase();
+	var translate = document.Lists.Translation;
+	for (var i = 0; i < translate.length; i++) {
+		var item = eval(arrayName + '[' + langIdx + ']');
+		if (i < item.length) {	
+			translate.options[i].text = item[i];
+			}
+		else {
+			translate.options[i].text = '';
+			}
+		}
+	}
+       
+//-->
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="Lists">
+<TABLE BORDER="1" CELLSPACING=1>
+	<TR>
+		<TD VALIGN="TOP">
+			<B>Language</B>
+			<BR>
+			<SELECT NAME="Languages" SIZE="2" onChange="updateList(this.form);">
+			<OPTION>English
+			<OPTION>Spanish
+			</SELECT>
+			<BR><BR><BR>
+			<B>Group</B>
+			<BR>
+			<SELECT NAME="Groups" SIZE="3" onChange="updateList(this.form);">
+			<OPTION>Numbers
+			<OPTION>Days
+			<OPTION>Zodiac
+			</SELECT>
+			<BR><BR>
+		</TD>
+		<TD VALIGN="TOP">
+			<B>Translation</B>
+			<BR>
+			<SELECT NAME="Translation" SIZE="12">
+			<OPTION>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			<OPTION>
+			</SELECT>
+		</TD>
+	</TR>
+</TABLE>
+</FORM>
+
+</BODY>
+</HTML>

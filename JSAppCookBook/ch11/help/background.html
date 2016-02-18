@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+	<TITLE>Help</TITLE>
+<STYLE TYPE="text/css">
+<!--
+
+BODY 
+	{
+		padding: 10px;
+		font-family: Arial;
+		font-size: 12px;
+	}
+
+A 
+	{ 
+		text-decoration: none; 
+	}
+
+.helpSet 
+	{
+		background-color: #CCFFCC;
+		padding: 5px;
+		border: 2px;
+		width: 200px;
+		font: normal 10pt Arial;
+		text-align: left;
+	}
+
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="help.js"></SCRIPT>
+</HEAD>
+<BODY>
+<B>Changing The Background Color</B>
+<BR><BR>
+This SELECT list displays the background in one of eight colors. The <TT>
+<A HREF="javascript: void(0);" 
+	onMouseOver="helpDisplay('bgColor', true);" 
+	onMouseOut="helpDisplay('bgColor', false);">
+	bgColor
+	</A></TT> 
+property of the <TT>
+<A HREF="javascript: void(0);" 
+	onMouseOver="helpDisplay('document', true);" 
+	onMouseOut="helpDisplay('document', false);">
+	document</A></TT> 
+object is set according to the text of the OPTION selected. Note that the focus 
+is removed from the SELECT list after the color change.
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+var helpOne = '<SPAN CLASS="helpSet">This property is a string that reflects the current background color of the document.</SPAN>';
+var helpTwo = '<SPAN CLASS="helpSet">This property of the <TT>window</TT> object contains the object hierachy of the current Web page.</SPAN>';
+
+genLayer("bgColor", 0, 0, helpWdh, helpHgt, hideName, helpOne);
+genLayer("document", 0, 0, helpWdh, helpHgt, hideName, helpTwo);
+
+//-->
+</SCRIPT>
+
+</BODY>
+</HTML>

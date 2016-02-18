@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<TITLE>arrays.js Example</TITLE>
+<SCRIPT LANGUAGE="JavaScript1.2" SRC="arrays.js"></SCRIPT>
+</HEAD>
+<BODY>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+var someArray = new Array(1,2,3,.1098,5,2,3.456,1324.55,-0.76,45,3,47.234,.00060,65.7,1,3,2,4,55);
+var grepExample = new Array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday');
+document.write("<B>Original Array: " + someArray + "</B><BR>" + 
+	"Average: " + avg(someArray) + "<BR>" + 
+	"Lowest: " + low(someArray) + "<BR>" + 
+	"Highest: " + high(someArray) + "<BR>" + 
+	"Truncate by 1: " + truncate(someArray) + "<BR>" + 
+	"Shrink by 1: " + shrink(someArray) + "<BR>" + 
+	"Reorganize(by 4): " + reorganize(someArray, 4) + "<BR>" + 
+	"Integrate ('An element', 'Another one', and 'One more', at index 5): " + 
+	integrate(someArray, new Array('An element', 'Another one', 'One more'), 5) + "<BR><BR>" + 
+	"<B>Original grepExample Array: " + grepExample + "</B><BR> jsGrep(grepExample, /day/, \'day Night\'): " + 
+	jsGrep(grepExample, /day/, 'day Night') + "<BR>");
+
+//-->
+</SCRIPT>
+
+
+</BODY>
+</HTML>

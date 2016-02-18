@@ -1,0 +1,125 @@
+<HTML>
+<HEAD>
+<TITLE>
+Your Take-A-Dive Links Page
+</TITLE>
+<SCRIPT LANGAUGE="JavaScript1.2" SRC="cookies.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Declare arrays to hold elements containing 
+// news- and stock-related URLs and link text
+var newsNames = new Array();
+var indexNames = new Array();
+
+function getAttributes() {
+	var htmlStr = GetCookie('htmlPrefs');
+	if (htmlStr == null) {
+		alert('Welcome. You must first set your user preferences.' + 
+		'Please choose OK to load the User Preferences page.');
+		self.location.href = 'prefs.html';
+		return
+		}
+	var htmlArray = htmlStr.split('-->');
+	for (var i = 0; i < htmlArray.length; i++) {
+		var tagInfo = htmlArray[i].split('=');
+		if (tagInfo[0] != "") {
+			if (tagInfo[0].indexOf('newsNames') == 0) {
+				newsNames[newsNames.length] = tagInfo[1];
+				}
+			else if (tagInfo[0].indexOf('indexNames') == 0) {
+				indexNames[indexNames.length] = tagInfo[1];
+				}
+			else { eval(tagInfo[0] + ' = "' + tagInfo[1] + '"'); }
+			}
+		}
+	}
+
+// Extract the user preferences from the 
+// cookie file BEFORE the page loads
+getAttributes();
+
+// Define a function to generate groups of links
+function genLinks(linkArr) {
+	var linkStr = ''; 
+	for (var i = 0; i < linkArr.length; i++) {
+		var linkParts = linkArr[i].split(',')
+		linkStr += '&nbsp; &nbsp; - <A HREF="' + linkParts[1] + '"> ' + linkParts[0] + '</A><BR>'
+		}
+	return linkStr; 
+	}
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2">
+document.write('<STYLE type="text/css"> TD { font-family: ' + face + '; font-size: ' + size + 'pt; } </STYLE>');
+</SCRIPT>
+
+</HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+document.write('<BODY BACKGROUND="' + background.replace(/thumb/, "") + '">');
+</SCRIPT>
+
+<TABLE BORDER=0>
+	<TR>
+		<TD VALIGN=TOP COLSPAN=4>
+		<H2>Take-A-Dive Brokerage $ervices</H2>
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP COLSPAN=4>
+		Take-A-Dive Brokerage Services is dedicated to helping YOU part with your 
+		MONEY. <BR> Our motto is "<I>We go for broke.</I>" Here is your user profile 
+		and your customized links.
+		<BR><BR>		
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP>
+		Name:
+		</TD> 
+		<TD VALIGN=TOP>
+		<SCRIPT LANGUAGE="JavaScript1.2">document.write(investor);</SCRIPT>
+		</TD>
+		<TD VALIGN=TOP>
+		Age: 
+		</TD>
+		<TD VALIGN=TOP>
+		<SCRIPT LANGUAGE="JavaScript1.2">document.write(age);</SCRIPT>
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP>
+		Strategy: 
+		</TD>
+		<TD VALIGN=TOP>
+		<SCRIPT LANGUAGE="JavaScript1.2">document.write(strategy);</SCRIPT>
+		</TD>
+		<TD VALIGN=TOP>
+		Occupation: 
+		</TD>
+		<TD VALIGN=TOP>
+		<SCRIPT LANGUAGE="JavaScript1.2">document.write(occupation);</SCRIPT>
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP COLSPAN=2>
+		<BR><BR>
+		News Links<BR>
+		<SCRIPT LANGUAGE="JavaScript1.2">document.writeln(genLinks(newsNames));</SCRIPT>
+		<TD VALIGN=TOP COLSPAN=2>
+		<BR><BR>
+		Stock Index Links <BR>
+		<SCRIPT LANGUAGE="JavaScript1.2">document.write(genLinks(indexNames));</SCRIPT>
+		</TD>
+	</TR>
+	<TR>
+		<TD VALIGN=TOP COLSPAN=2>
+		<BR><BR>
+		[ <A HREF="prefs.html">Set Preferences</A> ]
+		</TD>
+	</TR>
+</TABLE>		
+
+</BODY>
+</HTML>

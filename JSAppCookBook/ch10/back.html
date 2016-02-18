@@ -1,0 +1,160 @@
+<HTML>
+<HEAD>
+	<TITLE>Drag-n-Drop E-mail</TITLE>
+<STYLE TYPE="text/css">
+<!--
+
+.Greeting 
+	{
+		font-family: Arial;
+		font-size: 48px;
+		font-weight: bold;
+	}
+
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Define global browser-detection variables
+var NN 		 = (document.layers ? true : false);
+var hideName = (NN ? 'hide' : 'hidden');
+var showName = (NN ? 'show' : 'visible');
+var zIdx 	 = -1;
+
+// Define variables to facilitate icon placement 
+// and positioning
+var iconNum  = 4;
+var startWdh = 25;
+var imgIdx   = 0;
+var activate = false;
+var activeLayer = null;
+
+// Create arrays for the background images and
+// the icons, whose names will also be used
+// for layer identification 
+var backImgs = [];
+var icons = [
+		'bear', 'cowprod', 'dragon', 'judo',
+		'robot', 'seniorexec', 'dude', 'juicemoose', 
+		'logo1', 'logo2', 'logo3','tree', 
+		'sun', 'gator', 'tornado', 'cactus'
+		];
+
+// Define a function to create the entire layout 
+// of icons and background
+function genLayout() {
+
+	// Preload the background images
+	for (var i = 0; i <= 7; i++) {
+		backImgs[i] = new Image();
+		backImgs[i].src = parent.Front.baseURL + '/images/background' + i + '.jpg';	
+		}
+
+	// Create the background display area, 
+	// using background0.jpg as the default	
+	genLayer("Back", 10, 250, backImgs[1].width, backImgs[1].height, showName, '<IMG NAME="background" SRC="' + parent.Front.baseURL + '/images/background0.jpg">');
+	
+	// Create a layer for each greeting
+	for (var j = 0; j < parent.greetings.length; j++) {
+		genLayer("greeting" + j, 50, 275, 500, 100, hideName, '<SPAN CLASS="Greeting">' + parent.greetings[j] + '</SPAN>');
+		}
+
+	// Create a layer for each icon
+	for (var i = 0; i < icons.length; i++) {
+		if (i % iconNum == 0) { startWdh = 25; }
+		else { startWdh += 110; }
+		genLayer(icons[i], startWdh, 15, 100, 100, (i < iconNum ? showName : hideName), '<A HREF="javascript: changeAction(\'' + icons[i] + '\',' + (i + 1) + ');">' + 
+			'<IMG SRC="' + parent.Front.baseURL + '/images/' + icons[i] + '.gif" BORDER="0"></A>');
+		}
+	startWdh = 25;
+	}
+
+// Set browser-determined global variables
+function genLayer(sName, sLeft, sTop, sWdh, sHgt, sVis, copy) {
+	if (NN) {
+		document.writeln('<LAYER NAME="' + sName + '" LEFT=' + sLeft + ' TOP=' + sTop + 
+		' WIDTH=' + sWdh + ' HEIGHT=' + sHgt + ' VISIBILITY="' + sVis + '"' + 
+		' z-Index=' + (++zIdx) + '>' + copy + '</LAYER>');
+		}
+	else {
+		document.writeln('<DIV ID="' + sName + '" STYLE="position:absolute; overflow:none; left:' + 
+			sLeft + 'px; top:' + sTop + 'px; width:' + sWdh + 'px; height:' + sHgt + 'px;' + 
+			' visibility:' + sVis + '; z-Index=' + (++zIdx) + '">' + 
+			copy + '</DIV>'
+			);
+		}
+	}
+
+// Define a function to hide layers
+function hideSlide(name) {
+	refSlide(name).visibility = hideName;
+	}
+
+// Define a function to reveal layers
+function showSlide(name) {
+	refSlide(name).visibility = showName;
+	}
+
+// Define a central function to reference layers
+function refSlide(name) {
+	if (NN) { return document.layers[name]; }
+	else { return eval('document.all.' + name + '.style'); }
+	}
+
+// Enable MouseMove event listeners 
+// for both browsers
+function motionListener() {
+	if (NN) {
+		window.captureEvents(Event.MOUSEMOVE);
+		window.onmousemove = grabXY;
+		}
+	else { 
+		document.onmousemove = grabXY;
+		}
+	}
+
+// Track the x/y coordinates  
+// of mouse pointer arrow
+function grabXY(ev) {
+	if (activate) {
+		if(NN) {
+			var itemWdh = refSlide(activeLayer).document.images[0].width;
+			var itemHgt = refSlide(activeLayer).document.images[0].height;
+			refSlide(activeLayer).left = ev.pageX - parseInt(itemWdh / 2);
+			refSlide(activeLayer).top = ev.pageY - parseInt(itemHgt / 2);
+			}
+		else {
+			var itemWdh = document.images[imgIdx].width;
+			var itemHgt = document.images[imgIdx].height;
+			refSlide(activeLayer).left = event.x - parseInt(itemWdh / 2);
+			refSlide(activeLayer).top = event.y - parseInt(itemHgt / 2);
+			}
+		}
+	}
+
+// Define a function to enable layer 
+// positioning according to mouse movement
+function changeAction(name, MSIERef) {
+	activate = !activate;
+	activeLayer = name;
+	imgIdx = MSIERef;
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY onLoad="motionListener();">
+
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+genLayout();
+
+//-->
+</SCRIPT>
+
+</BODY>
+</HTML>
+
+

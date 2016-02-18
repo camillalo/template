@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="NetObjects ScriptBuilder 2.0">
+<TITLE>Document Title</TITLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var stuff = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+function shakeUp(formObj, stepUp) {
+	stepUp = (Math.abs(parseInt(stepUp)) > 0 ? Math.abs(parseInt(stepUp)) : 1);
+	var nextRound = 1;
+	var idx = 0;
+	var tempArray = new Array();
+
+	for (var i = 0; i < formObj.length; i++) {
+		tempArray[i] = formObj[idx];
+		if (idx + stepUp >= formObj.length) {
+			idx = nextRound;
+			nextRound++;
+			}
+		else {
+			idx += stepUp;
+			}
+		}
+	formObj = tempArray;
+	alert(formObj);
+	}
+//-->
+</SCRIPT>
+
+
+</HEAD>
+<BODY>
+<SCRIPT>
+shakeUp(stuff, 2);
+</SCRIPT>
+
+</BODY>
+</HTML>

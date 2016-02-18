@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>objects.js Example</TITLE>
+<STYLE type="text/css">
+<!--
+td { font-family: courier new; font-size: 14}
+-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript" SRC="objects.js"></SCRIPT>
+</HEAD>
+<BODY>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+function plainOlderObject() {
+	this.stuff = 'stuff';
+	this.that = 'that';
+	this.theOther = 'theOther';
+	return this;
+	}
+
+function plainOldObject() {
+	this.name = 'the object name';
+	this.numba = 1000;
+	this.objInherit = new makeObj('propertyOne', 'thisProperty', 'propertyTwo', 'thatProperty', 'propertyThree', 'theOtherProperty');
+	return this;
+	}
+
+var someObject = new plainOldObject();
+
+document.write(objProfile('someObject', 'self.location'));
+//-->
+</SCRIPT>
+
+</BODY>
+</HTML>

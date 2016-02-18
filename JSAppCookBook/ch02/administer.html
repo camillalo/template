@@ -1,0 +1,163 @@
+<HTML>
+<HEAD><TITLE>On-line JavaScript Test</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript1.1" SRC="questions.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.1">
+
+// Define global variables and arrays
+var qIdx	 	= 0;
+var correct = 0;
+var howMany	= 50;
+var keeper 	= new Array();
+var rank 	= new Array('No offense, but you need help.','Ummm... Well... Few have done worse.',
+			'Ehhh... You know some. Keep at it.','You seem to have a working knowledge.',
+			'Better than the average bear.','You are an adequate JavaScripter.',
+			'You are a formidable JavaScripter.','You are an excellent JavaScripter.',
+			'You are an exhalted JavaScript guru.'
+			);
+
+var stopOK	= false;
+var nextQ	= '';
+var results	= '';
+var aFrame 	= parent.frames[1];
+var qFrame 	= parent.frames[2];
+
+// Define a function to rearrange the questions (and answers)
+function shuffle() {
+	for (var i = 0; i < units.length; i++) {
+		var j = Math.floor(Math.random() * units.length);
+		var tempUnit = units[i];
+		units[i] = units[j];
+		units[j] = tempUnit;
+		}
+	}
+
+// For resetting all variables and arrays for a retake
+function itemReset() {
+	qIdx 		= 0;
+	correct 	= 0;
+	stopOK 	= false;
+	keeper 	= new Array();
+	shuffle();
+	}
+
+// Administer the test and record the answers
+function buildQuestion() {
+	if (qIdx == howMany) { 
+
+		// Then call the grading function
+		gradeTest(); 
+		return; 
+		}
+
+	// Write the queston and answer options to the frame
+	nextQ = '<HTML><BODY BGCOLOR=WHITE><FONT FACE=Arial>' +
+	'<H2>Question ' + (qIdx + 1) + ' of ' + howMany + '</H2>' +
+	'<FORM>' + '<B>' + units[qIdx].question + '</B><BR><BR>' + 
+	makeButton("a", units[qIdx].a) +
+	makeButton("b", units[qIdx].b) +
+	makeButton("c", units[qIdx].c) +
+	makeButton("d", units[qIdx].d) +
+	'</FORM></BODY></HTML>';
+	qFrame.location.replace("javascript: parent.frames[0].nextQ");
+
+	// Increment variables for the next question
+	qIdx++;
+
+	// Allow early quitting
+	if(qIdx >= 2 && !stopOK) { stopOK = true; }
+	}
+
+function makeButton(optLtr, optAnswer) {
+	return '<INPUT TYPE=RADIO NAME="answer" VALUE="' + optLtr + 
+		'" onClick="parent.frames[0].keeper[parent.frames[0].qIdx - 1] = this.value; parent.frames[0].buildQuestion(' +  
+		')">' + optAnswer + '<BR>';
+	}
+
+
+function chickenOut() {
+	if(stopOK && 	// If the user qualifies to stop early	
+		confirm('Stopping early? Are you really a JavaScript Chicken?')) {
+		gradeTest();
+		}
+	}
+
+function gradeTest() {
+	// Compare student answers with correct answers
+	for (var i = 0; i < qIdx; i++) {
+		if (keeper[i] == units[i].answer) {
+			correct++;
+			}
+		}
+
+	// Print the test results, and pass the student ranking as an argument
+	var idx = Math.ceil((correct/howMany) * rank.length - 1) < 0 ? 0 : Math.ceil((correct/howMany) * rank.length - 1);
+	printResults(rank[idx]);
+	itemReset();
+	}
+
+// Print the questions, answer options, and other info
+function printResults(ranking) {
+	// Set variable results equal to an entire web page
+	results = '<HTML><BODY BGCOLOR=WHITE LINK=RED VLINK=RED ALINK=RED>' + '<FONT FACE=Arial>' +
+	'<H2>You scored ' + correct + '/' + howMany + ' correctly.</H2>' +
+	'<B>Ranking: <I>' + ranking + '</I><BR>Pass the mouse pointer arrow over the red text for an explanation of those you misssed.</B>' + 
+	'<BR><BR><FONT SIZE=4>Here is how you scored: </FONT><BR><BR>';
+
+	// Add each question-answer set to variable results 
+	for (var i = 0; i < howMany; i++) {
+		results += '\n\r\n\r\n\r<B>Question ' + (i + 1) + '</B><BR>' + 
+			units[i].question + '<BR><BR>\n\r<FONT SIZE=-1>' +
+			'a. ' + units[i].a + '<BR>' +
+			'b. ' + units[i].b + '<BR>' + 
+			'c. ' + units[i].c + '<BR>' + 
+			'd. ' + units[i].d + '<BR></FONT>';
+
+		// Determine if the student answered each question appropriately, and display accordingly
+		if (keeper[i] == units[i].answer) {
+			results += '<B><I><FONT COLOR=GREEN>You answered this correctly (' + 
+			keeper[i] + ').</FONT></I></B>\n\r<BR><BR><BR>';
+			}		
+		else { 
+			results += '<FONT FACE=Arial><B><I><A HREF=" " onMouseOver="parent.frames[0].show(); parent.frames[0].explain(\'' + 
+				units[i].support + '\'); return true"' + ' onMouseOut="parent.frames[0].explain(\' \');" onClick="return false;">' + 
+				'The correct answer is: ' + units[i].answer + '</A></FONT></I></B>\n\r<BR><BR><BR>'; 
+			}
+		}
+
+	// Close out the HTML, and replace the location href with the variable
+	results += '\n\r</BODY></HTML>';
+	qFrame.location.replace("javascript: parent.frames[0].results");
+	}
+
+// For clearing the status bar
+function show() { parent.status = ''; }
+
+// For displaying explanations of those answers the user missed
+function explain(str) {
+	globalStr = str;
+	with (aFrame.document) {
+		open();
+		writeln('<HTML><BODY BGCOLOR=WHITE><FONT FACE=Arial>' + globalStr + '</FONT></BODY></HTML>');
+		close();
+		}
+	}
+
+// For returning frames to their original content
+function cleanSlate() {
+	aFrame.location.replace('javascript: parent.dummy1');
+	qFrame.location.replace('javascript: parent.dummy2');
+	}
+
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR=WHITE onLoad="cleanSlate();">
+<FONT FACE="Arial">
+	<FORM>
+	<INPUT TYPE=BUTTON VALUE="Begin" onClick="itemReset(); buildQuestion();">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<INPUT TYPE=BUTTON VALUE="Quit Now" onClick="chickenOut();">
+	</FORM>
+</FONT>
+</BODY>
+</HTML>

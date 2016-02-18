@@ -1,0 +1,50 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>strings.js Example</TITLE>
+
+<SCRIPT LANUAGE="JavaScript1.1" SRC="strings.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.1">
+<!--
+
+function doCount(txt) {
+	words = wordCount(txt);	
+	self.location.href = "javascript: '<HTML>' + words + '</HTML>'"; 
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR=WHITE>
+<FORM>
+Enter some words in the TEXTAREA below. Then choose <B>Count</B> for a word count: <BR>
+<TEXTAREA ROWS=10 COLS=25 WRAP=PHYSICAL>
+</TEXTAREA><BR>
+<INPUT TYPE=BUTTON VALUE="Count" onClick="doCount(this.form.elements[0].value);">
+<INPUT TYPE=RESET>
+</FORM>
+
+<BR><BR>
+<FORM>
+Enter some words in the TEXTAREA below. Then choose <B>Upper</B> or <B>Lower</B> to change the case: <BR>
+<TEXTAREA ROWS=10 COLS=25 WRAP=PHYSICAL>
+</TEXTAREA><BR>
+<INPUT TYPE=BUTTON VALUE="Upper" 
+onClick="this.form.elements[0].value=camelCaps(this.form.elements[0].value, true);">
+<INPUT TYPE=BUTTON VALUE="Lower" 
+onClick="this.form.elements[0].value=camelCaps(this.form.elements[0].value, false);">
+<INPUT TYPE=RESET>
+</FORM>
+
+<BR><BR>
+<FORM>
+Enter some words in the TEXTAREA below. Then choose <B>Sort</B> to sort the text: <BR>
+<TEXTAREA ROWS=10 COLS=25 WRAP=PHYSICAL>
+</TEXTAREA><BR>
+<INPUT TYPE=BUTTON VALUE=" Sort " 
+onClick="this.form.elements[0].value=reorder(this.form.elements[0].value);">
+<INPUT TYPE=RESET>
+</FORM>
+</BODY>
+</HTML>

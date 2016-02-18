@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+	<TITLE>DHTML Layer</TITLE>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+var action = true;
+function display(name) {
+	if (document.all) {
+		var layerObj = eval("document.all." + name + ".style");
+		var hide = "hidden";
+		var show = "visible";
+		}
+	else {
+		var layerObj = eval("document." + name);
+		var hide = "hide";
+		var show = "show";
+		}
+	layerObj.visibility = (action ?  hide : show);
+	action = !action;
+	}
+
+//-->
+</SCRIPT>
+</HEAD>
+<BODY>
+<DIV ID="dhtml" STYLE="position:relative;background-color:#FFACEE;width:200;">
+	This is a DHTML layer.
+</DIV>
+<BR>
+<A HREF="javascript:display('dhtml');">Show/Hide</A>
+</BODY>
+</HTML>

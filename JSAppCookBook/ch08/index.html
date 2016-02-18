@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE>Shopping Bag</TITLE>
+<STYLE TYPE="text/css">
+<!--
+#welcome { text-align: center; margin-top: 150}
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+
+var shopWin = null;
+var positionStr = '';
+
+
+function whichBrowser() {
+  if(navigator.appVersion < 4) {
+    alert("You MSIE 4.x or Netscape Navigator 4.x to use Shopping Bag.")
+    return false;
+    }
+  return true;
+  }
+
+// Open the remote Shopping Bag window
+function launch() {
+  if(!whichBrowser()) { return; }
+
+  // Set the full screen window option accprding to browser
+  if(navigator.appName == "Netscape") { positionStr = ",screenX=0,screenY=0"; }
+  else { positionStr = ",fullscreen=yes"; }
+  if(shopWin == null) {
+    shopWin = open("shopset.html", "", "width=" + screen.width + ",height=" + screen.height + positionStr);
+    }
+  }
+
+// Close the remote window if the user
+// close the main window first
+function closeUpShop() {
+  if (shopWin != null) {
+    if (typeof(shopWin) == "object") {
+      shopWin.close();
+      }
+    }
+  }
+
+window.onunload = closeUpShop;
+
+//-->
+</SCRIPT>
+
+</HEAD>
+<BODY>
+<DIV ID="welcome">
+  <H1>Welcome to Shopping Bag!!!</H1>
+  <A HREF="javascript: launch();">Begin</A>
+</DIV>
+</BODY>
+</HTML>

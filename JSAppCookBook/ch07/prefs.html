@@ -1,0 +1,316 @@
+<HTML>
+<HEAD>
+<TITLE>Take-A-Dive User Preferences</TITLE>
+<STYLE type="text/css">
+BODY, TD { font-family: Arial; }
+</STYLE>
+<SCRIPT LANGAUGE="JavaScript1.2" SRC="cookies.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2">
+
+// Identify the image path and all the arrays 
+// to contain user preferences
+var imagePath = 'images/';
+
+var newsNames 	= new Array(
+		new Array('The Wall Street Journal','http://www.wsj.com/'), 
+		new Array('Barron\'s Online','http://www.barrons.com/'), 
+		new Array('CNN Interactive','http://www.cnn.com/'), 
+		new Array('MSNBC','http://www.msnbc.com/'), 
+		new Array('Fox News','http://www.foxnews.com/')
+		);
+
+var indexNames = new Array(
+		new Array('The New York Stock Exchange','http://www.nyse.com/'), 
+		new Array('NASDAQ','http://www.nasdaq.com/'), 
+		new Array('Dow Jones Indexes','http://www.dowjones.com/')
+		);
+
+var strategy = new Array(
+		new Array('Cheap', 'I\'m Really Cheap'), 
+		new Array('Stingy', 'I\'m Pretty Stingy'), 
+		new Array('Conservative', 'I\'m Conservative'), 
+		new Array('Moderate', 'I\'m a Moderate'), 
+		new Array('Agressive', 'I\'m Aggressive'), 
+		new Array('Willing to sell mother', 'I\'d Sell My Mother!')
+		); 
+
+var background = new Array(
+		new Array(imagePath + 'goldthumb.gif', 'Gold Bars'), 
+		new Array(imagePath + 'billsthumb.gif', 'Dollar Bills'), 
+		new Array(imagePath + 'fistthumb.gif', 'Fist of Cash'), 
+		new Array(imagePath + 'currency1thumb.gif', 'Currency 1'), 
+		new Array(imagePath + 'currency2thumb.gif', 'Currency 2')
+		); 
+
+var face = new Array(
+		new Array('times', 'Times Roman'), 
+		new Array('arial', 'Arial'), 
+		new Array('courier', 'Courier New'), 
+		new Array('tahoma', 'Tahoma')
+		);
+
+var size = new Array(
+		new Array('10', 'Small'), 
+		new Array('12', 'Medium'), 
+		new Array('14', 'Large'), 
+		new Array('16', 'X-Large')
+		); 
+
+indexNames = indexNames.sort();
+newsNames = newsNames.sort();
+
+// Define an array for preloading the images
+var allImages = new Array();
+var imageNames = new Array(
+	'courier10', 'courier12', 'courier14', 'courier16', 
+	'arial10', 'arial12', 'arial14', 'arial16', 
+	'times10', 'times12', 'times14', 'times16', 
+	'tahoma10', 'tahoma12', 'tahoma14', 'tahoma16', 
+	'goldthumb', 'billsthumb', 'fistthumb', 'currency1thumb',
+	'currency2thumb', 'blank'
+	);
+
+// Preload the images
+for (var i = 0; i < imageNames.length; i++) {
+	allImages[i] = new Image();
+	allImages[i].src = imagePath + imageNames[i] + '.gif';
+	}
+
+// Define a function that "makes" a URL to pass to 
+// swapImage() for the image rollovers
+function makePath(formObj) {
+	var fontName = imagePath + formObj.face.options[formObj.face.selectedIndex].value +
+		formObj.size.options[formObj.size.selectedIndex].value + '.gif'
+	swapImage("fontImage", fontName);
+	}
+
+// Conditionally perform the rollovers in JavaScript 1.0
+function swapImage(imageName, imageBase) {
+     document[imageName].src = imageBase;
+     }
+
+// Define a function to create SELECT lists on the fly
+function genSelect(name, select, onChangeStr) {
+	var optStr = "";
+	var arrObj = eval(name);
+	for (var i = 0; i < arrObj.length; i++) {
+		optStr += '<OPTION VALUE="' + arrObj[i][0] + (i == select ? '" SELECTED' : '"') + '>' + arrObj[i][1];
+		}
+	return '<SELECT NAME="' + name + '"' + (onChangeStr ? ' onChange="' + onChangeStr + ';"' : '') + 
+		'>' + optStr + '</SELECT>';
+	}
+
+// For creating groups of CHECKBOXes
+function genBoxes(name) {
+	var boxStr = '';
+	var arrObj = eval(name);
+	for (var i = 0; i < arrObj.length; i++) {
+		boxStr += '<INPUT TYPE=CHECKBOX NAME="' + name + i + '" VALUE="' + arrObj[i][0] + ',' + arrObj[i][1] + '"> ' + arrObj[i][0] + '<BR>'
+		}
+	return boxStr;
+	}
+
+// Define a function to get the user preferences from the 
+// the cookie upon loading
+function getPrefs(formObj) {
+	var prefStr = GetCookie('userPrefs');
+	if (prefStr == null) { return false; }
+	var prefArray = prefStr.split('-->');
+	for (var i = 0; i < prefArray.length; i++) {
+		var currPref = prefArray[i].split('::');
+		if (currPref[1] == "select") { formObj[currPref[0]].selectedIndex = currPref[2]; }
+		else if (currPref[1] == "text") { formObj[currPref[0]].value = currPref[2]; }
+		else if (currPref[1] == "checkbox") { formObj[currPref[0]].checked = true; }		
+		}
+	return true;
+	}
+
+// Define a function to set the user preferences
+// to the cookie
+function setPrefs(formObj) {
+	var prefStr = '';
+	var htmlStr = '';
+	for (var i = 0; i < formObj.length; i++) {
+		if (formObj[i].type == "select-one") {
+			prefStr += formObj[i].name + '::select::' + formObj[i].selectedIndex + '-->';
+			htmlStr += formObj[i].name + '=' + formObj[i].options[formObj[i].selectedIndex].value + '-->';
+			}
+		else if (formObj[i].type == "text") {
+			if (formObj[i].value == '') { formObj[i].value = "Not Provided"; }
+			prefStr += formObj[i].name + '::text::' + safeChars(formObj[i].value) + '-->';
+			htmlStr += formObj[i].name + '=' + formObj[i].value + '-->';
+			}
+		else if (formObj[i].type == "checkbox" && formObj[i].checked) {
+			prefStr += formObj[i].name + '::checkbox::' + '-->';
+			htmlStr += formObj[i].name + '=' + formObj[i].value + '-->';
+			}
+		}
+	SetCookie('userPrefs', prefStr, expiry);
+	SetCookie('htmlPrefs', htmlStr, expiry);
+	if (confirm('Preferences changed. Go to your personalized page?')) {
+		self.location.href = "dive.html";
+		}
+	}
+
+// For removing potentially dangerous characters
+function safeChars(str) {
+	return str.replace(/::|=|-->/g, ':;');
+	}
+
+// Define a function to populate the preferences form
+// according to the information extracted from the cookie
+function populateForm(formObj) {
+	if (getPrefs(formObj)) { 
+		makePath(formObj);
+		swapImage('bkgImage', formObj.background.options[formObj.background.selectedIndex].value);
+		}
+	}
+
+// Define a function to synchronize the images with the OPTION 0
+// in the font and background SELECT lists
+function resetImage(formObj) { 
+	swapImage('bkgImage', formObj.background.options[0].value);
+	swapImage('fontImage', imagePath + formObj.face.options[0].value +
+		formObj.size.options[0].value + '.gif');
+	}
+
+
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR=FFFFFF onLoad="populateForm(document.forms[0]);">
+<DIV ID="setting">
+<H2>Take-A-Dive User Preferences</H2>
+Choose the settings you like best, then choose<BR>
+
+<UL> 
+<LI><B>Save</B> to keep your changes, 
+<LI><B>Clear</B> to reset the form, or 
+<LI> <B>Back</B> to return to your links page.
+</UL>
+
+<FORM>
+<TABLE BORDER=1 CELLBORDER=0 CELLPADDING=0 CELLSPACING=1>
+	<TR>
+		<TD COLSPAN=2>
+		<BR>
+		<H3>Investor Profile</H3>
+		</TD>
+	</TR>
+	<TR> 
+		<TD> 
+		Name
+		</TD>
+		<TD>
+		<INPUT TYPE=TEXT NAME="investor">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		Age
+		</TD>
+		<TD>
+		<INPUT TYPE=TEXT NAME="age">
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		Strategy
+		</TD>
+		<TD>
+		<SCRIPT LANGUAGE="JavaScript1.2">
+		<!--
+		document.write(genSelect('strategy', 3));
+		//-->
+		</SCRIPT>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		Occupation
+		</TD>
+		<TD>
+		<INPUT TYPE=TEXT NAME="occupation">
+	<TR>
+		<TD COLSPAN=2>
+		<BR> 
+		<H3>Investment Links</H3>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		<B>News<B>
+		</TD>
+		<TD>
+		<SCRIPT LANUAGE="JavaScript1.2">
+		<!--
+		document.write(genBoxes('newsNames'));
+		//-->
+		</SCRIPT>
+		</TD>
+	</TR>
+	<TR> 
+		<TD>
+		<B>Stock Indexes</B>
+		</TD>
+		<TD>
+		<SCRIPT LANUAGE="JavaScript1.2">
+		<!--
+		document.write(genBoxes('indexNames'));
+		//-->
+		</SCRIPT>
+		</TD>
+	</TR>		
+	<TR>
+		<TD COLSPAN=2>
+		<BR>
+		<H3>Screen Layout</H3>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		<B>Background</B>
+		<BR>
+		<SCRIPT LANGUAGE="JavaScript1.2">
+		<!--
+		document.write(genSelect('background', 0, "swapImage('bkgImage', this.options[this.selectedIndex].value)"));
+		//-->
+		</SCRIPT>
+		<TD><IMG SRC="images/blank.gif" NAME="bkgImage" WIDTH=112 HEIGHT=60>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		<B>Font Face</B>
+		<BR>
+		<SCRIPT LANGUAGE="JavaScript1.2">
+		<!--
+		document.write(genSelect('face', 0, "makePath(this.form)"));
+		//-->
+		</SCRIPT>
+		<TD ROWSPAN=2><IMG SRC="images/blank.gif" NAME="fontImage" WIDTH=112 HEIGHT=60>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		<B>Font Size</B>
+		<BR>
+		<SCRIPT LANGUAGE="JavaScript1.2">
+		<!--
+		document.write(genSelect('size', 0, "makePath(this.form)"));
+		//-->
+		</SCRIPT>
+		</TD>
+	</TR>
+</TABLE>
+<BR><BR>
+<INPUT TYPE=BUTTON VALUE="Save" onClick="setPrefs(this.form);"> 
+<INPUT TYPE=RESET VALUE="Clear" onClick="resetImage(this.form);">  
+<INPUT TYPE=BUTTON VALUE="Back" onClick="location.href='dive.html';">  
+<!--
+<INPUT TYPE=BUTTON VALUE="Show" onClick="alert(GetCookie('userPrefs')); alert(GetCookie('htmlPrefs'));">  
+<INPUT TYPE=BUTTON VALUE="Erase" onClick="DeleteCookie('userPrefs'); DeleteCookie('htmlPrefs');"> 
+//-->
+</FORM>
+</DIV>
+</BODY>
+</HTML>

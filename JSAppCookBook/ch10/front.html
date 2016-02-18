@@ -1,0 +1,266 @@
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+<STYLE TYPE="text/css">
+<!--
+
+TD 
+	{ 
+		font-family: Arial;
+	}
+
+.Front 
+	{
+		position: absolute;
+		left: 25;
+		top: 25;
+		width: 325;
+		border: 1px solid;
+		background: #ffffee;
+	}
+
+//-->
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!--
+
+// Define variables
+var curGreet = iconIdx = 0;
+var backgroundIdx = 0;
+var baseURL = "."; 	// Change this to "http://www.your_domain.com/cgi-bin/greetings";
+var bRef = parent.Back;
+
+// Define a function to display (and hide) pre-fab greetings
+function showGreeting(selIdx) {
+	if (selIdx > 0) {
+		bRef.hideSlide("greeting" + curGreet);
+		bRef.showSlide("greeting" + selIdx);
+		curGreet = selIdx;
+		}
+	}
+
+// Define a function to iterate through all the background images
+function nextBackground() {
+	// Determine the next image to use as the rollover
+	backgroundIdx = (backgroundIdx == bRef.backImgs.length - 1 ? backgroundIdx = 0 : backgroundIdx + 1);
+	if(document.all) {
+		bRef.document.background.src = bRef.backImgs[backgroundIdx].src;
+		}
+	else {
+		bRef.document.layers["Back"].document.images[0].src = bRef.backImgs[backgroundIdx].src;
+		}
+	}
+
+// Define a function to iterate through all the background images
+function nextIcons() {
+	// Hide the current group of icons
+	for (var i = bRef.iconNum * iconIdx; i < (bRef.iconNum * iconIdx) + bRef.iconNum; i++) {
+		if (i < bRef.icons.length && !onCard(i)) {
+			bRef.hideSlide(bRef.icons[i]);
+			}
+		}
+	// Determine which set of icons is next, then show them
+	iconIdx = (iconIdx >= (bRef.icons.length / bRef.iconNum)  - 1 ? 0 : iconIdx + 1);
+	for (var i = bRef.iconNum * iconIdx; i < (bRef.iconNum * iconIdx) + bRef.iconNum; i++) {
+		if (i < bRef.icons.length) {
+			bRef.showSlide(bRef.icons[i]);
+			}
+		else { break; }
+		}
+	}
+
+// Every time the user loads or reloads, clear the form and 
+// hide the greeting visible layer in back.html 
+function resetForm() {
+	if (document.all) { 
+		bRef.hideSlide("greeting" + document.EntryForm.Greetings.selectedIndex);
+		document.EntryForm.reset(); 
+		}
+	else {
+		bRef.hideSlide("greeting" + document.layers["SetupForm"].document.EntryForm.Greetings.selectedIndex);
+		document.layers["SetupForm"].document.EntryForm.reset();
+		}
+	}
+
+// Define a function to determine if an icon is in the background 
+// display area. Returns true if it is, or puts the icon back to its 
+// original position then returns false otherwise
+function onCard(iconRef) {
+	var ref = bRef.refSlide(bRef.icons[iconRef]);
+	var ref2 = bRef.refSlide("Back");
+	if(document.all) {
+		// Must be equal to or farther down than the background's top edge
+		if((parseInt(ref.left) >= parseInt(ref2.left)) &&
+			// Must be equal to or farther right than the background's left edge 
+			(parseInt(ref.top) >= parseInt(ref2.top)) && 
+			// Must be equal to or less than background's left edge
+			(parseInt(ref.left) + parseInt(ref.width) <= parseInt(ref2.left) + parseInt(ref2.width)) &&
+			// Must be equal to or farther up than the background's bottom edge
+			(parseInt(ref.top) + parseInt(ref.height) <= parseInt(ref2.top) + parseInt(ref2.height))) {
+			return true;
+			}
+		}
+	else {
+		// Must be equal to or farther down than the background's top edge
+		if((ref.left >= ref2.left) &&
+			// Must be equal to or farther right than the background's left edge 
+			(ref.top >= ref2.top) && 
+			// Must be equal to or less than background's left edge
+			(ref.left + ref.document.images[0].width <=  ref2.left + ref2.document.images[0].width) &&
+			// Must be equal to or farther up than the background's bottom edge
+			(ref.top + ref.document.images[0].height <= ref2.top + ref2.document.images[0].height)) {	
+			return true;
+			}
+		}
+	ref.left = ((iconRef % bRef.iconNum) * 110) + bRef.startWdh;
+	ref.top = 15;
+	return false;
+	}
+
+// Define a function that validates the form information
+// Returns false if anything is missing. Otherwise 
+// returns true. 
+function shipGreeting(fObj) {
+if (fObj.Recipient.value == "") {
+		alert('You need an e-mail address in the From: field');
+		return false;		
+		}
+	else if (fObj.Message.value == "") {
+		alert("You need to type a Message.");
+		return false;
+		}
+	else if (fObj.Greetings.selectedIndex == 0) {
+		alert('You need to choose a Greeting.');
+		return false;		
+		}
+
+	// Put the entire greeting into its own field, 
+	// generate a random number for the file name, 
+	// then capture the baseURL.
+	fObj.EntireMessage.value = genGreeting(fObj);
+	fObj.UniqueID.value = Math.round(Math.random() * 1000000);
+	fObj.BaseURL.value = baseURL;
+	return true;
+	}
+
+// Define a function do the user can preview what the greeting 
+// will look like. The preview is opened in a remote window.
+function testGreeting(fObj) {
+	var msgStr = '<HTML><TITLE>Cyber Greeting Test Page</TITLE>' + genGreeting(fObj) + 
+		'<TABLE ALIGN="CENTER"><TR><TD><FORM>' + 
+		'<INPUT TYPE=BUTTON VALUE="      OK      " onClick="self.close();">' + 
+		'</FORM></TD></TR></TABLE></HTML>';
+	newWin =	open('', '', 'width=' + (bRef.backImgs[backgroundIdx].width + 50) + 
+		',height=600,scrollbars=yes');
+	with(newWin.document) {
+		open();
+		writeln(msgStr);
+		close();
+		}
+	newWin.focus();
+	}
+
+// Define a function to create the greeting based on the 
+// information entered in the entry form plus the selection
+// of background image and icons dragged over the dislpay area
+function genGreeting(fObj) {
+	var greetingIdx = fObj.Greetings.selectedIndex;
+	var msg = fObj.Message.value;
+	
+	// Replace newline characters with <BR> tags
+	msg = msg.replace(/\r+/g, "");
+	msg = msg.replace(/\n+/g, "<BR><BR>");
+
+	// Generate the DHTML to position the desired background
+	var msgStr = '<TABLE BORDER=0><TR><TD COLSPAN=2><FONT FACE=Arial>' + 
+		'<H2>Your Cyber Greeting</H2>To: ' + fObj.Recipient.value + '<BR><BR></TD></TR>' + 
+		'<TR><TD VALIGN=TOP><IMG SRC="' + baseURL + '/images/background' + backgroundIdx + '.jpg">' + 
+		'<DIV STYLE="position:relative;left:40;top:-255;font-family:Arial;font-size:48px;font-weight:bold;">' + 
+		parent.greetings[greetingIdx] + '</DIV>';
+
+	// Add all of the qualifying positioned icons
+	var iconStr = '';
+	for (var i = 0; i < bRef.icons.length; i++) {
+		if(onCard(i)) {
+			iconStr += '<DIV STYLE="position:absolute;left:' + bRef.refSlide(bRef.icons[i]).left +
+			';top:' + (parseInt(bRef.refSlide(bRef.icons[i]).top) - (document.all ? 140 : 150)) + ';"><IMG SRC="' + 
+			baseURL + '/images/' +  bRef.icons[i] + '.gif"></DIV>';
+			}
+		}
+
+	// Concatenate all the HTML to msgStr, and return it
+	msgStr += iconStr + '</TD></TR><TR><TD WIDTH=' + bRef.backImgs[backgroundIdx].width + '><FONT FACE=Arial>' +  
+		msg + '</TD></TR></TABLE>';
+	return msgStr;
+	}
+
+//-->
+</SCRIPT>
+
+</HEAD>
+<BODY onLoad="resetForm();">
+<DIV ID="SetupForm" CLASS="Front">
+<FORM NAME="EntryForm" ACTION=http://www.your_domain.com/cgi-bin/greetings/greet.pl" METHOD="POST" TARGET="_top" OnSubmit="return shipGreeting(this);">
+<INPUT TYPE=HIDDEN NAME="EntireMessage">
+<INPUT TYPE=HIDDEN NAME="UniqueID">
+<INPUT TYPE=HIDDEN NAME="BaseURL">
+	<TABLE CELLSPACING="0" CELLPADDING="5" WIDTH="375">
+		<TR>
+			<TD COLSPAN="3"><CENTER><H2>Cyber Greetings</H2></CENTER></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT="40" VALIGN="TOP">
+			To:
+			</TD>
+			<TD COLSPAN="2" VALIGN="TOP">
+			<INPUT TYPE=TEXT NAME="Recipient" SIZE="25">
+			</TD>
+		</TR>
+		<TR>
+			<TD HEIGHT="80" VALIGN="TOP">Message: </TD>
+			<TD COLSPAN="2" VALIGN="TOP">
+			<TEXTAREA ROWS="7" COLS="25" NAME="Message" WRAP="PHYSICAL"></TEXTAREA>
+			</TD>
+		</TR>
+		<TR>
+			<TD>Images:</TD>
+			<TD HEIGHT="40" COLSPAN="2">
+			<INPUT TYPE=BUTTON VALUE="  Icons - >  " onClick="nextIcons();">
+			&nbsp;&nbsp;&nbsp;
+			<INPUT TYPE=BUTTON VALUE="Backgrounds - >" onClick="nextBackground();">
+			</TD>
+		</TR>
+		<TR>
+			<TD>Greeting:</TD>
+			<TD HEIGHT="40" COLSPAN="2">
+			<SCRIPT LANGUAGE="JavaScript1.2">
+			<!--
+			
+			// Generate a SELECT list using the greetings array 
+			var sel = '<SELECT NAME="Greetings" onChange="showGreeting(this.selectedIndex);">';
+			for (var i = 0; i < parent.greetings.length; i++) {
+				sel += '<OPTION>' + parent.greetings[i];
+				}
+			sel += '</SELECT>';
+			document.writeln(sel);
+			
+			//-->
+			</SCRIPT>
+			</TD>
+		</TR>
+		<TR>
+			<TD VALIGN=TOP>Sending: </TD>
+			<TD HEIGHT="40" ALIGN="CENTER">
+			<INPUT TYPE=BUTTON VALUE="  Test  " onClick="testGreeting(this.form);">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<INPUT TYPE=BUTTON VALUE="  Clear  " onClick="resetForm();">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<INPUT TYPE=SUBMIT VALUE="  Send  ">
+			</FORM>
+			</TD>
+		</TR>
+	</TABLE>
+</FORM>
+</DIV>
+</BODY>
+</HTML>
