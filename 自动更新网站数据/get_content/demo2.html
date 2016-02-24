@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>email</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<script type="text/javascript" src="jQuery-1.3.1.min.js"></script>
+		
+	</head>
+	
+	<body>
+
+		<h1 class="title">湖南杂交水稻研究</h1>
+		<div class="content">
+　　10月13日上午，湖南杂交水稻研究中心超级稻试验田内，刚下车的袁隆平抛下众人，径直走到试验田里仔细打量起水稻来。尽管两天前才来看过，他依然显得不放心。
+
+　　示范田内的水稻已经收割得差不多了，两天前，袁隆平在这里宣布，超级稻新品种“超优一千”中稻在长沙城区示范种植成功，每亩单产最高达1012公斤，攻克了长沙种植水稻亩产超过1000公斤的课题。
+	<img src="images/imag_01.jpg" width="200"/>
+　　但超级稻并不是一帆风顺，去年底，“两优0293”水稻在安徽遭遇减产、绝收。此后，外界对“超级稻”的质疑不断。对此，袁隆平在接受《每日经济新闻》记 者采访时表示，自己虽然已经85岁，但身体好，“有人来质疑超级稻，我说他们的目的何在？现在的年轻人，不知道粮食的珍贵，我85岁但我不服老，你们批评 我，我毫不会动摇。”<br/>
+		</div>
+
+		<button style="cursor:pointer;">发送到邮箱...</button>
+		
+
+		<script type="text/javascript">
+			$(function(){ 
+				$("button").click(function(){ 
+					var subject_title = $(".title").html();
+					var subject_content = $(".content").html();
+					$.post("send.php",{"subject_content":subject_content,"subject_title":subject_title},function(data){ 
+						alert(data);
+					})
+				});
+			});
+		</script>
+	</body>
+</html>

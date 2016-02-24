@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="config"/>
+	<buildpathentry kind="src" path="lib/api"/>
+	<buildpathentry kind="src" path="lib/comm/application"/>
+	<buildpathentry kind="src" path="lib/comm/baidu_map"/>
+	<buildpathentry kind="src" path="lib/comm/cache"/>
+	<buildpathentry kind="src" path="lib/comm/core"/>
+	<buildpathentry kind="src" path="lib/comm/db"/>
+	<buildpathentry kind="src" path="lib/comm/email"/>
+	<buildpathentry kind="src" path="lib/comm/ftp"/>
+	<buildpathentry kind="src" path="lib/comm/helper"/>
+	<buildpathentry kind="src" path="lib/comm/log"/>
+	<buildpathentry kind="src" path="lib/comm/remote"/>
+	<buildpathentry kind="src" path="lib/comm/request"/>
+	<buildpathentry kind="src" path="lib/comm/session"/>
+	<buildpathentry kind="src" path="lib/comm/template"/>
+	<buildpathentry kind="src" path="lib/config"/>
+	<buildpathentry kind="src" path="lib/function"/>
+	<buildpathentry kind="src" path="lib/privilege"/>
+	<buildpathentry kind="src" path="lib/sms/dahan"/>
+	<buildpathentry kind="src" path="lib/sms/dream"/>
+	<buildpathentry kind="src" path="lib/user"/>
+	<buildpathentry kind="src" path="web/cron"/>
+	<buildpathentry kind="src" path="web/doc"/>
+	<buildpathentry kind="src" path="web/www"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

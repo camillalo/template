@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>标的详情</title>
+<link href="styles/css.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+<script type="text/javascript" src="js/jquery.md5.js"></script>
+<style>
+   .ms_txt {font-size: 12px;line-height:21px;}
+   .ms_txt b{ color:#FF7200; padding-top:8px; display:inline-block;}
+</style>
+<script type="text/javascript">
+	$(function(){
+
+	  	var url = window.location.href;
+		var url_id = url.substring(url.indexOf('=')+1);
+	  	
+	  	var jsondata = '{"sname":"borrow_detail","bid":"' + url_id + '","pname":"ios"}'; 
+	  	
+	  	var md5string = '{"sname":"borrow_detail","bid":"' + url_id + '","pname":"ios"}bc7cfba8367fdc117d2ac8e85a5effe3'
+	  	
+	  	var str_md5 = $.md5(md5string);
+		$.ajax({
+			type : 'POST',
+			url : 'http://apitest.cailai.com/v1.0/',
+			data : 'content='+jsondata+'&token='+str_md5,
+			success:function(result) {
+				var str = result;
+				var obj_ = str.indexOf('"data":')+7,
+					_obj = str.indexOf('}')+1,
+					obj_str = (str.substring(obj_,_obj)),
+					obj = JSON.parse(obj_str);
+					$('.ms_txt').append(obj.desc);
+				},
+                        error: function (data, status) { 
+                                                alert(data); 
+show(this, data, status);
+                                        }
+			});
+
+	});
+</script>
+</head>
+
+<body>
+<!--<div class="header">
+    <div class="header_arrow"><img src="images/arrow_03.png"></div>
+    <div class="header_tit">标的详情</div>
+</div>-->
+
+
+
+
+<div class="box">
+<h3>描述</h3>
+<div class="ms_txt">
+</div>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>借款人信息</title>
+<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi,user-scalable=no">
+<link href="styles/css.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+<script type="text/javascript" src="js/jquery.md5.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var url = window.location.href;
+		var url_id = url.substring(url.indexOf('=')+1);
+	  	
+	  	var jsondata = '{"sname":"borrow_uinfo","bid":"' + url_id + '","pname":"ios"}'; 
+	  	
+	  	var md5string = '{"sname":"borrow_uinfo","bid":"' + url_id + '","pname":"ios"}bc7cfba8367fdc117d2ac8e85a5effe3'
+	  	
+	  	var str_md5 = $.md5(md5string);
+
+
+		$.ajax({
+			type : 'POST',
+			url : 'http://apitest.cailai.com/v1.0/',
+			data :  'content='+jsondata+'&token='+str_md5,
+			success:function(result) 
+				{var str = result;
+				var obj_ = str.indexOf('"data":')+7,
+					_obj = str.indexOf('}')+1,
+					obj_str = (str.substring(obj_,_obj)),
+					obj = JSON.parse(obj_str);
+					$('.sex').text(obj.sex);
+					//$('.email').text(obj.user_email);  可以联系到借款人，暂时不显示
+
+					$('.age').text(obj.age);
+					$('.service').text(obj.customer_name);
+
+					$('.record').text(obj.education);
+					$('.iscar').text(obj.fin_car);
+
+					$('.ismarried').text(obj.marry);
+					$('.integral').text(obj.integral);
+
+					$('.income').text(obj.fin_monthin);
+					$('.position').text(obj.zy);
+		
+					$('.household').text(obj.areas);
+
+					$('.assets').text(obj.sex);//资产总额
+					$('.totalAmount').text(obj.dsze);
+
+					$('.dh_totalAmount').text(obj.dhze);
+					$('.hk_totalAmount').text(obj.ysze);
+
+					$('.yh_totalAmount').text(obj.yhze);
+					$('.liabilities').text(obj.fz);//负债情况
+
+					$('.principal').text(obj.jcze);
+					$('.lines').text(obj.credit_limit);
+
+					$('.successfulBorrowing').text(obj.jkcgcs);
+					$('.prepayment').text(obj.repayment2);
+
+					$('.normalReimbursement').text(obj.repayment1);
+					$('.webReimbursement').text(obj.repayment4);
+
+					$('.ccReimbursement').text(obj.repayment3);
+					$('.yqReimbursement').text(obj.repayment5);
+				},
+                        error: function (data, status) { 
+                                        alert(data); 
+					show(this, data, status);
+                                }
+			});
+	});
+</script>
+</head>
+
+<body>
+<!--<div class="header">
+    <div class="header_arrow"><img src="images/arrow_03.png"></div>
+    <div class="header_tit">借款人信息</div>
+</div>-->
+
+
+
+
+<div class="box">
+<h3>个人信息</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id='gr_info'>
+  <tr>
+    <td width="50%">性别：<span class="sex"></span></td>
+    <td width="50%">邮箱：<span class="email"></span></td>
+  </tr>
+  <tr>
+    <td>年龄：<span class="age"></span></td>
+    <td>所属客服：<span class="service"></span></td>
+  </tr>
+  <tr>
+    <td>学历：<span class="record"></span></td>
+    <td>是否购车：<span class="iscar"></span></td>
+  </tr>
+  <tr>
+    <td>婚姻状况：<span class="ismarried"></span></td>
+    <td>投资积分：<span class="integral"></span></td>
+  </tr>
+  <tr>
+    <td>月收入(元)：<span class="income"></span></td>
+    <td>职位：<span class="position"></span></td>
+  </tr>
+  <tr>
+    <td>户籍所在地：<span class="household"></span></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<h3>账户详情</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%">资产总额：<span class="assets"></span></td>
+    <td width="50%">待收总额：<span class="totalAmount"></span></td>
+  </tr>
+  <tr>
+    <td>待还总额：<span class="dh_totalAmount"></span></td>
+    <td>回款总额：<span class="hk_totalAmount"></span></td>
+  </tr>
+  <tr>
+    <td>已还总额：<span class="yh_totalAmount"></span></td>
+    <td>负债情况：<span class="liabilities"></span></td>
+  </tr>
+  <tr>
+    <td>借出本金：<span class="principal"></span></td>
+    <td>信用额度：<span class="lines"></span></td>
+  </tr>
+</table>
+
+<h3>还款信用</h3>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%">成功借款次数：<span class="successfulBorrowing"></span></td>
+    <td width="50%">提前还款次数：<span class="prepayment"></span></td>
+  </tr>
+  <tr>
+    <td>正常还款次数：<span class="normalReimbursement"></span></td>
+    <td>网站代还次数：<span class="webReimbursement"></span></td>
+  </tr>
+  <tr>
+    <td>迟还次数：<span class="ccReimbursement"></span></td>
+    <td>逾期还款笔数：<span class="yqReimbursement"></span></td>
+  </tr>
+ 
+</table>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

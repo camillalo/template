@@ -1,0 +1,29 @@
+[{
+    "sex":"男11",
+    "email":"957314724@qq.com",
+    "age":"24",
+    "service":"刘德华",
+    "record":"本科",
+    "iscar":"否",
+    "ismarried":"否",
+    "integral":"30",
+    "income":"20000",
+    "position":"进出口贸易经营者",
+    "household":"上海"
+},{
+	"assets":"2000万元",
+    "totalAmount":"957314724@qq.com",
+    "dh_totalAmount":"24",
+    "hk_totalAmount":"刘德华",
+    "yh_totalAmount":"本科",
+    "liabilities":"否",
+    "principal":"否",
+    "lines":"30"
+},{
+	"successfulBorrowing":"2000万元",
+    "prepayment":"957314724@qq.com",
+    "normalReimbursement":"24",
+    "webReimbursement":"刘德华",
+    "ccReimbursement":"本科",
+    "yqReimbursement":"否"
+}]

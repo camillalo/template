@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>抵押物信息</title>
+<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi,user-scalable=no">
+<link href="styles/css.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+<script type="text/javascript" src="js/jquery.md5.js"></script><script type="text/javascript" src="js/jquery.event.drag-1.5.min.js"></script>
+<script type="text/javascript" src="js/jquery.touchSlider.js"></script>
+<link href="styles/common.css" rel="stylesheet"/>
+<script type="text/javascript">
+	$(function(){
+
+	  	var url = window.location.href;
+		var url_id = url.substring(url.indexOf('=')+1);
+	  	
+	  	var jsondata = '{"sname":"borrow_detailpic","bid":"' + url_id + '","pname":"ios"}'; 
+	  	
+	  	var md5string = '{"sname":"borrow_detailpic","bid":"' + url_id + '","pname":"ios"}bc7cfba8367fdc117d2ac8e85a5effe3'
+	  	
+	  	var str_md5 = $.md5(md5string);
+
+	  	$.ajax({
+			type : 'POST',
+			url : 'http://apitest.cailai.com/v1.0/',
+			data : 'content='+jsondata+'&token='+str_md5,
+			success:function(result) {
+				var str = result;
+				var obj_ = str.indexOf('[')+1,
+					_obj = str.indexOf(']'),
+					obj_str = '[' + str.substring(obj_,_obj) + ']',
+					obj = JSON.parse(obj_str),
+					kv_html = '';
+					
+					//for(var i=0;i<obj.length;i++){
+					//	kv_html += '<img src="https://dev.cailai.com/'+ obj[i].pic_url +'"/>';
+					//}
+					//$('.dy_box').html(kv_html);
+                                        for(var i=0;i < obj.length;i++){
+                                            kv_html += '<li><span><img src="https://dev.cailai.com/'+ obj[i].pic_url +'"/></span></li>';
+                                        }
+                                        $('.main_image').find('ul').html(kv_html);
+					
+					/*******lb begin*********/
+					$(".main_visual").hover(function(){
+		$("#btn_prev,#btn_next").fadeIn()
+		},function(){
+		$("#btn_prev,#btn_next").fadeOut()
+		})
+	$dragBln = false;
+	$(".main_image").touchSlider({
+		flexible : true,
+		speed : 200,
+		btn_prev : $("#btn_prev"),
+		btn_next : $("#btn_next"),
+		paging : $(".flicking_con a"),
+		counter : function (e) {
+			console.log(e.current-1);
+			$('.kv_num').text(e.current+'/'+obj.length);
+                        $('.kv_dis').text(obj[e.current].pic_desc);
+		}
+	});
+	$(".main_image").bind("mousedown", function() {
+		$dragBln = false;
+	})
+	$(".main_image").bind("dragstart", function() {
+		$dragBln = true;
+	})
+	$(".main_image a").click(function() {
+		if($dragBln) {
+			return false;
+		}
+	})
+	timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	$(".main_visual").hover(function() {
+		clearInterval(timer);
+	}, function() {
+		timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	})
+	$(".main_image").bind("touchstart", function() {
+		clearInterval(timer);
+	}).bind("touchend", function() {
+		timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	})
+					/*******lb end*********/
+				},
+                        error: function (data, status) { 
+                                                alert(data); 
+show(this, data, status);
+                                        }
+			});
+	});
+</script>
+</head>
+
+<body>
+<!--<div class="header">
+    <div class="header_arrow"><img src="images/arrow_03.png"></div>
+    <div class="header_tit">抵押物信息</div>
+</div>-->
+<div class="main_image">
+    <ul>
+        
+    </ul>
+</div>
+<div class="dy_box">
+
+</div>
+<div class="dy_js">
+	<span class="kv_num">1/2</span>
+	<p class="kv_dis">房产抵押收件收据</p>
+</div>
+</body>
+</html>

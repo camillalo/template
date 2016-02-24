@@ -1,0 +1,6 @@
+<?
+class defaultView extends view{
+	
+	
+}
+?>

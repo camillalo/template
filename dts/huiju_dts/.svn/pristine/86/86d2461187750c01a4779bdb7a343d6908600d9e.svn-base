@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>标的详情</title>
+<link href="styles/css.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+<script type="text/javascript" src="js/jquery.md5.js"></script>
+<script type="text/javascript">
+	$(function(){
+
+	  var str_md5 = $.md5('{"sname":"borrow.summary","bid":"1137","pname":"ios"}bc7cfba8367fdc117d2ac8e85a5effe3');
+          var jsondata = '{"sname":"borrow.summary","bid":"1137","pname":"ios"}';
+	  
+	  $('.header').click(function(){
+alert(jsondata);
+			$.ajax({
+			type : 'POST',
+			url : 'http://apitest.cailai.com/v1.0/',
+			data : 'content='+jsondata+'&token='+str_md5,
+                        dataType:"json",
+			success:function(result) {alert("123");alert(result);},
+                        error: function (data, status) { 
+                                                alert(data); 
+show(this, data, status);
+                                        }
+			});
+
+	  });
+	});
+</script>
+</head>
+
+<body>
+<div class="header">
+    <div class="header_arrow"><img src="images/arrow_03.png"></div>
+    <div class="header_tit">标的详情</div>
+</div>
+
+
+
+
+<div class="box">
+<h3>项目描述</h3>
+<div class="ms_txt">
+<p> 个人信用报告 个人信用报告 个人信用报告 个人信用报告</p>
+</div>
+<h3>借款人信息</h3>
+<div class="ms_txt">
+<ul>
+<li>借款人信息</li>
+<li>借款人信息</li>
+<li>借款人信息</li>
+<li>借款人信息</li>
+
+</ul>
+</div>
+<h3>抵/押情况</h3>
+<div class="ms_txt">
+<ul>
+<li>借款人信息</li>
+<li>借款人信息</li>
+<li>借款人信息</li>
+<li>借款人信息</li>
+
+</ul>
+</div>
+<h3>风险控制及防范措施</h3>
+<div class="ms_txt">
+<p> 个人信用报告 个人信用报告 个人信用报告 个人信用报告</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

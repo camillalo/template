@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>了解财来</title>
+<link href="styles/css.css" type="text/css" rel="stylesheet">
+<style>
+    #u6{text-align: center;font-size: 12px;color:#666;padding-top:22px; border-top: 1px solid #b1b1b1;height: 53px;} 
+    #u6 p span{ font-size: 12px;}
+.about_con{ background:#fff;padding:20px 35px;}    
+.about_con h2{ font-size:24px; color:#f9963b; line-height:45px; border-bottom:1px solid #ededed; margin-bottom:12px; padding-top:7px; padding-bottom: 5px; margin-top: 15px;}
+.about_con h3{ font-size:20px; color:#f9963b; line-height:35px; border-bottom:1px solid #ededed; margin-bottom:12px; padding-top:7px; padding-bottom: 5px; margin-top: 8px;}
+.about_con p{ color:#333; font-size:16px; line-height:28px;}
+
+</style>
+</head>
+
+<body>
+<!--<div class="header">
+    <div class="header_arrow"><img src="images/arrow_03.png"></div>
+    <div class="header_tit">了解我们</div>
+</div>-->
+
+
+
+
+<div class="about_con">
+<!--<div class="about_tit">
+<img src="images/about_03.png">
+<p>版本号:v2.1.0</p>
+
+</div>-->
+
+<h2>公司简介</h2>
+
+<p>财来网是上海财来金融信息服务股份有限公司旗下品牌及网站。财来网拥有一支以浙商为核心，融合互联网、金融、实业和政府背景的经营管理团队。我们为有闲散资金的理财客户和有资金需求的借款人提供审慎、透明、务实、合规的金融信息中介服务。</p>
+
+<h3>财来使命</h3>
+<p>我们致力于提高投资人风险识别能力</p>
+<p>我们致力于提高金融信息服务透明度</p>
+
+<h3>财来宗旨</h3>
+<p>人人都是银行家</p>
+
+
+</div>
+
+</body>
+</html>

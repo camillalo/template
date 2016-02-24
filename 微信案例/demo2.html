@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh">
+<meta charset="utf-8">
+<head>
+<title>嘿嘿</title>
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+    <div width="200px"><a href="demo.html"><img src="1.jpg"></a></div>
+</body>
+
+<script type="text/javascript">
+		$(function(){
+			var href = window.location.href; 
+			$.ajax({
+	                    type: 'POST',
+	                    url: 'link_sql.php',
+	                    data: {"type":"start","start_href":href},
+	                    success:function(data){ 
+	                    	//alert(data);
+	                    }
+	                });
+
+			//remaintime();
+		});
+
+		function GetQueryString(name) { 
+		    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+		    var r = window.location.search.substr(1).match(reg);  //获取url中"?"符后的字符串并正则匹配
+		    var context = ""; 
+		    if (r != null) 
+		         context = r[2]; 
+		    reg = null; 
+		    r = null; 
+		    return context == null || context == "" || context == "undefined" ? "" : context; 
+		}
+		
+
+		
+		function remaintime(){
+			var href = window.location.href; 
+			$.ajax({
+	                    type: 'POST',
+	                    url: 'link_sql.php',
+	                    data: {"href":href},
+	                    success:function(data){ 
+	                    	alert(data);
+	                    }
+	                });
+			setTimeout("remaintime()",100);
+		}
+	</script>
+</html>

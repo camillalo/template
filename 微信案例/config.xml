@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipe type="dessert">
+  <navigations>
+  	
+    <menu>
+    	<type>click</type>
+    	<content>
+	        <name>网站建设</name>
+	        <key>0001_key</key>
+   		</content>
+    </menu>
+
+    <menu>
+    	<type>view</type>
+    	<content>
+	        <name>网站资源</name>
+	        <url>http://www.vozan.cn/weixin/demo.html</url>
+   		</content>
+    </menu>
+
+    <menu>
+    	<type>sub_botton</type>
+    	<name>菜单</name>
+    	<sub_botton>
+	    	<type>view</type>
+	    	<content>
+		        <name>网站资源</name>
+		        <url>http://www.baidu.com/</url>
+	   		</content>
+	    </sub_botton>
+
+	    <sub_botton>
+	    	<type>click</type>
+	    	<content>
+		        <name>网站资源</name>
+		        <key>0002_key_02</key>
+	   		</content>
+	    </sub_botton>
+    </menu>
+
+    <menu>
+    	<type>view</type>
+    	<content>
+	        <name>网站资源</name>
+	        <url>http://www.vozan.cn/weixin/demo.html</url>
+   		</content>
+    </menu>
+  </navigations>
+
+<!--自动回复-->
+  <replays>
+  		<menu>
+	    	<keyword>1</keyword>
+		    <content>呵呵</content>
+	    </menu>
+
+	    <menu>
+	    	<keyword>2</keyword>
+		    <content>不知道</content>
+	    </menu>
+
+	    <menu>
+	    	<keyword>3</keyword>
+		    <content>你懂得</content>
+	    </menu>
+  </replays>
+
+</recipe>
