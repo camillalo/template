@@ -1,0 +1,44 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=companyPics" ><em>企业图片列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑企业图片</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=companyPics&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">类型:</th>
+                        <td><?php echo html::select('type',$__COMPANY_PIC_TYPE_MEANS,$data['type']);?> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">企业ID:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['uid']?>" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">标题:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['title']?>" name="title" class="input-text"> </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">图片:</th>
+                        <td><input type="file"  name="pic" ><?php if(!empty( $data['pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['pic']?>" /> <?php }?></td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

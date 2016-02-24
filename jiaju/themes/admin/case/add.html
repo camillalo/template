@@ -1,0 +1,126 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=case" ><em>案例列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=case&act=add" class="on"><em>新增案例</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data" action="index.php?ctl=case&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                     <tr>
+                        <th width="140">案例标题:</th>
+                        <td><input type="text" size="40" value="" name="title" class="input-text"> </td>
+                    </tr>
+                    <?php foreach(category::getInstance()->getRoot($__CATEGORY_TYPE['case']) as $val ){ ?>
+                    <tr>
+                        <th width="140"><?php echo $val['category_name']?>:</th>
+                        <td >
+                
+                            <select name="cate_id[]">
+                                <?php foreach (category::getInstance()->getChildCol($__CATEGORY_TYPE['case'],$val['category_id']) as $k=>$v){?>
+                                <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                  <?php  }?>  
+                    
+                     <tr>
+                        <th width="140">类型:</th>
+                        <td >
+                            <select id="type" name="type">
+                                <?php foreach($__DECORATE_TYPE as $k=>$v){ ?>
+                                    <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="140">缩略图:</th>
+                        <td> <input type="file"  name="face_pic" /></td>
+                    </tr>
+                           
+                     <tr>
+                        <th width="140">详细图片:</th>
+                        <td>
+                            <input type="file" name="file_upload_1" value="上传" id="file_upload_1" >
+                        </td>
+                    </tr>
+                    <tr style="display:none;" id="flash_uploaded">
+                        <th width="140">已经上传图片:</th>
+                        <td  class="flashupload">
+                           
+                        </td>
+                    </tr>
+                        <script>
+                            var  imgurl = '<?php echo URL;?>';
+                            $(document).ready(function(){
+                             
+                                $("#file_upload_1").uploadify({
+                                        'buttonImage' : '/statics/flashupload/browse-btn.png',
+                                        'fileTypeDesc' : 'Image Files',
+                                        'fileTypeExts' : '*.gif; *.jpg; *.png;*.bmp;*.jpeg',
+                                        swf           : '/statics/flashupload/uploadify.swf',
+                                        uploader      : 'index.php?ctl=ajax&act=upload',
+                                        uploadLimit : 20,
+                                        onUploadSuccess:function(file, data, response){
+                                            if(data != 'no'){
+                                                $("#flash_uploaded").show();
+                                                $(".flashupload").append(mkUploadImageHtml(data));
+                                            }
+                                        }
+                                });
+
+                            });   
+                            function mkUploadImageHtml(data){
+                                var datas = data.split("|||");
+                                var str ='';
+                                str +='<div style="float:left; margin-left: 5px; width: 100px; height: 120px;"><input type="hidden" name="detailPics[]" value="'+datas[0]+'" />';
+                                str +='<img width="100" height="100" src="'+imgurl+datas[0]+'" /><br />';
+                                
+                                str +='<a target="hiden_frm" onclick="$(this).parent().remove();" href="index.php?ctl=ajax&act=delPic&pic='+encodeURI(datas[0])+'&token='+datas[1]+'">删除</a>';
+                                str +='</div>';
+                                return str;
+                            }
+                          </script>  
+                    <tr>
+                        <th width="140">真实价格:</th>
+                        <td><input type="text" size="5" value="" name="real_price" class="input-text">元</td>
+                    </tr>
+                    <tr>
+                        <th width="140">真实面积:</th>
+                        <td><input type="text" size="5" value="" name="real_space" class="input-text">平方米</td>
+                    </tr>
+                    <tr>
+                        <th width="140">初始PV:</th>
+                        <td><input type="text" size="5" value="0" name="pv_num" class="input-text">人次</td>
+                    </tr>
+                    <tr>
+                        <th width="140">关键字:</th>
+                        <td>
+                            <textarea name="keywords" cols="50" rows="2"></textarea>用逗号隔开
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td>
+                            <textarea name="description" cols="50" rows="10"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

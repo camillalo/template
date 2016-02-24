@@ -1,0 +1,30 @@
+<div class="clear"></div>
+<div id="jq_comments" >
+    
+</div>
+<script>
+    $(document).ready(function(e){
+        ajaxGetComments();
+        if($("#jq_comments_pages a").length){
+            $("#jq_comments_pages").on('click','a',function(e){
+                e.preventDefault();
+                var url = $(this).attr('href');
+                ajaxGetComments(url);
+            });
+        }
+    });
+    function ajaxGetComments(url){
+        if(!url) url = "<?php echo URL;?>index.php?ctl=comments&act=list&type=<?php echo $type;?>&type_id=<?php echo $type_id;?>";
+        $("#jq_comments").html('<div style=" text-align: center;"><img src="<?php echo URL;?>themes/v3.0/images/loading.gif" /></div>');
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType : 'html',
+            data: '',
+            success: function(html){
+                $("#jq_comments").html(html);
+            }
+        });
+    }
+    
+</script>

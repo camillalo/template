@@ -1,0 +1,38 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=group" ><em>角色列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=group&act=add" ><em>新增角色</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>角色授权</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form action="index.php?ctl=group&act=privilege&group_id=<?php echo $group_id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <?php foreach($groups as $val){ ?>
+                    <tr>
+                        <th width="140"><?php echo $val['group_name'];?>:</th>
+                        <td>
+                            <?php foreach($privileges as $v) { if($v['group_id'] == $val['group_id']){  ?>
+                            <input type="checkbox" name="privilege_ids[]" id="privilege_ids_<?php echo $v['privilege_id'];?>" <?php if(in_array($v['privilege_id'],$has)) echo 'checked="checked"';?> value="<?php echo $v['privilege_id'];?>" />
+                            <label for="privilege_ids_<?php echo $v['privilege_id'];?>"><?php echo $v['privilege_name'];?></label>
+                            <?php } }?>
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

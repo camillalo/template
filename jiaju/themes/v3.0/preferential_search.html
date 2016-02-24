@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/search.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+    <?php  require TEMPLATE_PATH.'public/notice.html';?>
+   
+</div>
+<div class="clear"></div>	
+ 
+	<div class="w_980">
+	
+	   <div class="search_here">
+		<strong>当前位置：</strong>  <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('preferential');?>">优惠信息</a> > 搜索 > <span style="color: #BF0000; "><?php echo $searchWord;?></span>
+		</div>
+           
+	  <div class="search_main">
+              
+     
+	              
+   <?php if(!empty($preferentialIds)){ ?>
+    <div class="showtime">共找到<span style=" color: red;"><?php echo $totalnum;?></span>条记录,响应时间<span style=" color: red;"><?php echo $showTime;?></span>秒</div>
+    <ul class="search_list">
+        <?php foreach($preferentialIds as $id){
+            if(isset($showDatas[$id])){ 
+           $val = $showDatas[$id];
+        ?>
+        <li>
+            <div class="title">
+                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('preferential','detail',array('id'=>$val['id']));?>"><?php  echo str_replace($words,$words2,$val['title']);?></a>
+            </div>
+            <div class="links"> 
+                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('preferential','detail',array('id'=>$val['id']));?>"><?php echo 'http://',$_SERVER['HTTP_HOST'],mkUrl::linkTo('preferential','detail',array('id'=>$val['id']));?></a> 发布日期 <?php echo date('Y-m-d H:i:s',$val['create_time']);?>
+            </div>
+        </li>
+        <?php }}?>
+    </ul>
+    <div style="padding-left: 200px;" id="pages">
+        <?php echo $links;?>
+    </div>
+    <?php } else{ ?>
+    <div class="sorry" style="font-size: 14px; height: 120px; line-height: 120px;" > 很抱歉没有找到关于"<span style=" color:  #BF0000;"><?php echo $searchWord;?></span>"的优惠信息! </div>
+    <?php  }?>
+    <div style="height: 320px;"></div>
+    </div>
+	  </div>
+		<div class="clear"></div>
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

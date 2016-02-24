@@ -1,0 +1,121 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+<meta name="keywords" content="<?php  echo $__SETTING['keyword'];?>" />
+<meta name="description" content="<?php  echo $__SETTING['description'];?>" />
+<link href="<?php echo URL;?>themes/v3.0/css/public.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo URL;?>statics/css/public/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="<?php echo URL;?>statics/js/jquery.js"></script>
+<script language="javascript" src="<?php echo URL;?>statics/js/jquery-ui-1.10.1.custom.min.js"></script>   
+<script lang="javascript" src="<?php echo URL;?>statics/js/jquery.vticker-min.js"></script>
+<script lang="javascript" src="<?php echo URL;?>statics/js/cookie.js"></script>
+<link rel="shortcut icon" href="favicon.ico" />
+
+<script>
+var is_login = false;    
+$(document).ready(function(){ 
+    $.ajaxSetup({cache:false});
+    checkLogin();
+});
+
+function qv1(id){
+    for(i=1;i<=3;i++){
+            if(i==id){
+                $("#right_a"+i).attr("class","current"+i);
+                $("#qv1_"+i).show();
+            }else{
+                $("#right_a"+i).attr("class","a"+i);
+                $("#qv1_"+i).hide();
+            }
+    }
+}
+
+function checkLogin(){
+    //因为涉及到跨域问题只好在 ajax单独的一个 ctl里面来异步调用信息了 
+    $.get('<?php echo mkUrl::linkTo("ajax","checkLogin");?>',function(data){
+        if(data.ret == 0){
+            if(data.message.type == 'user'){
+         
+                $("#header_login_name").html(data.message.realname);
+                $("#header_no_login").html($("#header_yes_login").html());
+                is_login = true;
+            }else if(data.message.type == 'open'){
+                $("#header_open_name").html(data.message.nickname);
+                $("#header_no_login").html($("#header_open_login").html());
+            }
+        }
+    },'json');
+}
+
+function checkFlush(){
+    $("#jq_login_ajax").dialog('close');
+    checkLogin();
+}
+function ajaxLogin(){
+    $("#jq_login_ajax").dialog({
+        width :320,
+    <?php if(QQ_APPID){ ?> 
+        height:230
+        <?php } else{ ?>
+        height:200
+    <?php }?>    
+
+    });
+}
+
+function AddFavorite( ) {
+    var sURL = "http://<?php echo $_SERVER['HTTP_HOST'],URL;?>";
+    var sTitle = "<?php echo $__SETTING['site_name'];?>";
+            sURL = encodeURI(sURL);
+    try{ 
+        window.external.addFavorite(sURL, sTitle); 
+    }catch(e) { 
+        try{ 
+            window.sidebar.addPanel(sTitle, sURL, ""); 
+        }catch (e) { 
+            alert("加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+        } 
+    }
+}
+//设为首页
+function SetHome(){
+    var url = "http://<?php echo $_SERVER['HTTP_HOST'],URL;?>";
+    if (document.all) {
+        document.body.style.behavior='url(#v3.0#homepage)';
+        document.body.setHomePage(url);
+    }else{
+        alert("您好,您的浏览器不支持自动设置页面为首页功能,请您手动在浏览器里设置该页面为首页!");
+    }
+}
+ function scaleImage(o, w1, h1){ 
+        var w = o.width();    // 图片实际宽度
+        var h = o.height();  // 图片实际高
+  
+        if(w1/h1 > w/h){
+             o.css("height",h1); // 设定实际显示宽度
+             
+            o.css("width", w * h1/h);  // 设定等比例缩放后的高度
+        }else{
+            o.css("height", h * w1/w); // 设定实际显示宽度
+            o.css("width", w1 );  // 设定等比例缩放后的高度
+        }
+        return;
+    } 
+    function ask_qv(id){
+	for(i=1;i<=2;i++){
+            if(i==id){
+                        $("#ask"+i).attr("class","hover");
+                        $("#ask_ul"+i).show();
+            }else{
+                        $("#ask"+i).attr("class","");
+                        $("#ask_ul"+i).hide();
+            }
+	}
+    }
+
+function toQzoneLogin()
+{
+   location.href="<?php echo mkUrl::linkTo('qqlogin','login');?>";
+} 
+
+
+</script>

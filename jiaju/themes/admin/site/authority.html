@@ -1,0 +1,86 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=site&act=authority" class="on"><em>会员权限设置</em></a>      
+        </div>
+    </div>
+    <div class="pad-lr-10">
+   
+        <div class="table-list">
+             <form  action="index.php?ctl=site&act=authority" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    <td style="height: 30px; line-height: 30px; font-size: 14px; color: red;" colspan="4">设定规则应该是 VIP >实名 >非实名的权限！一定遵守约定！</td>
+                    </tr>
+                    <tr>
+                      <th  align="center">模块</th>
+                      <th align="center" >非实名会员</th>
+                      <th align="center" >实名认证会员</th>
+                      <th align="center" >VIP会员</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    <tr>
+                      <td  align="center">文章案例产品等点评</td>
+                      <td  align="center"><?php echo html::radio('info[general][comments]',$__SITE_AUTHORITY_MEAN , isset($data['general']['comments']) ? $data['general']['comments'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][comments]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['comments']) ? $data['rule']['comments'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][comments]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['comments']) ? $data['vip']['comments'] : 0 );?></td>
+                    </tr>
+                    
+                     <tr>
+                      <td  align="center">企业点评</td>
+                      <td  align="center"><?php echo html::radio('info[general][dianping]',$__SITE_AUTHORITY_MEAN , isset($data['general']['dianping']) ? $data['general']['dianping'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][dianping]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['dianping']) ? $data['rule']['dianping'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][dianping]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['dianping']) ? $data['vip']['dianping'] : 0 );?></td>
+                    </tr>
+                     <tr>
+                      <td  align="center">案例发布</td>
+                      <td  align="center"><?php echo html::radio('info[general][case]',$__SITE_AUTHORITY_MEAN , isset($data['general']['case']) ? $data['general']['case'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][case]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['case']) ? $data['rule']['case'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][case]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['case']) ? $data['vip']['case'] : 0 );?></td>
+                    </tr>
+                     <tr>
+                      <td  align="center">发布优惠信息</td>
+                      <td  align="center"><?php echo html::radio('info[general][preferential]',$__SITE_AUTHORITY_MEAN , isset($data['general']['preferential']) ? $data['general']['preferential'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][preferential]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['preferential']) ? $data['rule']['preferential'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][preferential]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['preferential']) ? $data['vip']['preferential'] : 0 );?></td>
+                    </tr>
+                    <tr>
+                      <td  align="center">发布在建工地</td>
+                      <td  align="center"><?php echo html::radio('info[general][site]',$__SITE_AUTHORITY_MEAN , isset($data['general']['site']) ? $data['general']['site'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][site]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['site']) ? $data['rule']['site'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][site]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['site']) ? $data['vip']['site'] : 0 );?></td>
+                    </tr>
+                    <tr>
+                      <td  align="center">发布装修日记</td>
+                      <td  align="center"><?php echo html::radio('info[general][diary]',$__SITE_AUTHORITY_MEAN , isset($data['general']['diary']) ? $data['general']['diary'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][diary]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['diary']) ? $data['rule']['diary'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][diary]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['diary']) ? $data['vip']['diary'] : 0 );?></td>
+                    </tr>
+                     <tr>
+                      <td  align="center">发布商品</td>
+                      <td  align="center"><?php echo html::radio('info[general][products]',$__SITE_AUTHORITY_MEAN , isset($data['general']['products']) ? $data['general']['products'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][products]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['products']) ? $data['rule']['products'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][products]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['products']) ? $data['vip']['products'] : 0 );?></td>
+                    </tr>
+                      <tr>
+                      <td  align="center">竞标权限</td>
+                      <td  align="center"><?php echo html::radio('info[general][bid]',$__SITE_AUTHORITY_MEAN , isset($data['general']['bid']) ? $data['general']['bid'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[rule][bid]',$__SITE_AUTHORITY_MEAN , isset($data['rule']['bid']) ? $data['rule']['bid'] : 0 );?></td>
+                      <td  align="center"><?php echo html::radio('info[vip][bid]',$__SITE_AUTHORITY_MEAN , isset($data['vip']['bid']) ? $data['vip']['bid'] : 0 );?></td>
+                    </tr>
+                </tbody>
+            </table>
+                  <div class="btn">
+                         <input type="submit" class="button" value="确认保存设置">
+                    </div>
+             </form>     
+        </div>
+    </div>
+</body>
+</html>
+    

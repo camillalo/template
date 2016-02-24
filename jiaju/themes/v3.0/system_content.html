@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+<meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+<meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+<?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/sys_nei.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+
+<div class="w_980">
+
+<div class="user_main">
+  
+               <div class="user_left">
+                    <div class="title">关于<?php echo $__SETTING['site_name'];?></div>
+                     <?php  foreach($systemContents as $val) { ?>
+                      <div class="dalei">
+                        <a <?php if($content_id == $val['content_id']){ ?> style="color:#be0033;" <?php }?>
+                            title="<?php echo $__SETTING['site_name'],$val['title'];?>" 
+                            href="<?php echo mkUrl::linkTo('content','system',array('id'=>$val['content_id']));?>"><?php echo $val['title'];?></a>
+                        </div>  
+                    
+                    <?php }?>
+                    
+                    
+             </div>
+               <div class="user_right">
+                    <div class="title"><?php echo $data['title'];?></div>
+                  <div class="user_center"> 
+                     <?php  echo $data['contents'];?>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+</div>
+
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+
+</body>
+</html>

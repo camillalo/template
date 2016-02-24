@@ -1,0 +1,182 @@
+/* CSS Document */
+
+
+.sjs_here{
+float:left;
+width:980px;
+height:40px;
+line-height:40px;
+color:#9A9A9A;
+}
+.sjs_here a{
+color:#9A9A9A;
+}
+
+.sjs_here strong{
+color:#0477B6;
+}
+
+.sjs_nav{
+float:left;
+width:958px;
+height:auto;
+background:#F8F8F8;
+border:solid 1px #DFDFDF;
+border-top: solid 3px #0477B6;
+padding:10px 10px;
+}
+
+.sjs_nav p{
+float:left;
+width:958px;
+margin-bottom:10px;
+line-height:30px;
+}
+.sjs_nav p strong{
+float:left;
+width:70px;
+line-height:30px;
+font-weight:100;
+}
+
+.sjs_nav p span{
+float:left;
+width:880px;
+line-height:30px;
+}
+.sjs_nav p a{
+float:left;
+padding:0px 10px;
+color:#4E4E4E;
+}
+.sjs_nav p a:hover{
+background:#0477B6;
+color:#FFFFFF;
+text-decoration:none;
+}
+.sjs_nav p .cur{
+background:#0477B6;
+color:#FFFFFF;
+text-decoration:none;
+}
+
+.sjs_main{
+float:left;
+width:978px;
+height:auto;
+border: solid 1px #DFDFDF;
+border-top: solid 3px #0477B6;
+margin-top:10px;
+background:#FFFFFF;
+padding-bottom:10px;
+}
+
+.sjs_main .title{
+float:left;
+width:968px;
+height:33px;
+border-bottom: solid 1px #DFDFDF;
+background:url(../images/sjs_tiao.gif) repeat-x;
+font-size:14px;
+font-weight:bold;
+color:#0476B5;
+padding-left:10px;
+line-height:33px;
+}
+
+.sjs_main .list{
+float:left;
+width:960px;
+padding:20px 0px;
+margin-left:9px;
+display:inline;
+border-bottom: dashed 1px #CCCCCC;
+}
+
+.sjs_main .list .img{
+float:left;
+width:130px;
+height:130px;
+margin-left:20px;
+display:inline;
+}
+
+.sjs_main .list .sjs_info{
+float:left;
+width:260px;
+height:130px;
+margin-left:20px;
+display:inline;
+}
+
+.sjs_main .list .sjs_info p{
+float:left;
+width:260px;
+line-height:20px;
+}
+
+.sjs_main .list .sjs_info p a{
+float:left;
+height:20px;
+line-height:20px;
+color:#323232;
+font-weight:bold;
+font-size:14px;
+padding-right:20px;
+
+}
+
+.sjs_main .list .sjs_info p span{
+float:left;
+height:20px;
+background:url(../images/star.gif) no-repeat left;
+padding-left:20px;
+padding-right:10px;
+}
+
+.sjs_main .list .sjs_info .sjs_btn{
+float:left;
+width:124px;
+height:35px;
+background:url(../images/sjs_btn.gif) no-repeat;
+padding-left:10px;
+line-height:35px;
+color:#FFFFFF;
+font-weight:bold;
+font-size:14px;
+}
+
+.sjs_main .list .sjs_img{
+float:left;
+width:160px;
+margin-left:10px;
+display:inline;
+}
+.sjs_main .list .sjs_img .s_img{
+float:left;
+width:145px;
+height:95px;
+border: solid 1px #DFDFDF;
+padding:5px;
+}
+
+.sjs_main .list .sjs_img .s_img img{
+width:145px;
+height:95px;
+}
+.sjs_main .list .sjs_img p{
+float:left;
+width:157px;
+height:25px;
+line-height:25px;
+overflow:hidden;
+text-align:center;
+margin-top:5px;
+}
+
+.sjs_main .list .sjs_img p a{
+width:157px;
+text-align:center;
+float:left;
+color:#676767;
+}

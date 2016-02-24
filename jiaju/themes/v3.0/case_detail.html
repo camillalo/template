@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html><head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php  echo empty( $__SETTING['title']) ? $__SETTING['site_name'] :  $__SETTING['title'];?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <link href="<?php echo URL;?>themes/v3.0/images/anlie_nei/site-comm.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo URL;?>themes/v3.0/images/anlie_nei/photos.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo URL;?>themes/v3.0/css/case_root.css" rel="stylesheet" type="text/css" />
+         <link href="<?php echo URL;?>statics/css/public/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" type="text/css" />
+        <script language="javascript" src="<?php echo URL;?>statics/js/jquery.js"></script>
+        <script language="javascript" src="<?php echo URL;?>statics/js/jquery-ui-1.10.1.custom.min.js"></script>    
+        
+        <style>
+            .nph_btn_pphoto {cursor: url("<?php echo URL;?>themes/v3.0/images/anlie_nei/bg11.cur"), auto;display: block;height: 100%;outline: medium none;width: 100%;}
+            .nph_btn_nphoto {cursor: url("<?php echo URL;?>themes/v3.0/images/anlie_nei/bg12.cur"), auto;display: block;height: 100%;outline: medium none;width: 100%;}
+
+         
+        </style>
+
+
+    </head>
+    <body>
+        <div id="jq_login_ajax" style="display: none" title="请登陆">
+        <form method="post" target="hiden_frm" action="<?php echo mkUrl::linkTo('login','ajaxLogin');?>">
+            <table style="color:  #000; font-size: 13px; margin: 0 auto; width: 250px; height: 75px; ">
+                <tr height="25px;">
+                    <td width="60px;">用户名:</td>
+                    <td><input type="text" name="username"  /></td>
+                </tr>
+                <tr height="25px;">
+                    <td>密&nbsp;&nbsp;码：</td>
+                    <td><input type="password" name="password"  /></td>
+                </tr>
+                <tr>
+                <?php if(QQ_APPID){ ?>   
+                         <td colspan="2" style="text-align: center;" > <a href="javascript:toQzoneLogin();"><img src="<?php echo URL;?>statics/images/qq_login.png" /></a></td>
+                <?php }?>     
+                </tr>
+                <tr height="25px;">
+                    <td  colspan="2" style="text-align: center;" >
+                        <input style="height: 25px; width: 60px; line-height: 25px; text-align: center;"  type="submit" value=" 登 录 " /><input  style="height: 25px; width: 60px; line-height: 25px; text-align: center;"  onclick="window.open('<?php echo mkUrl::linkTo("register");?>');"   type="button" value=" 注 册 " />
+                    </td>
+                </tr>
+            </table><input type="hidden" name="back_url"  value="http://<?php  echo $_SERVER['HTTP_HOST'],URL;?>index.php?ctl=ajax&act=loging" />
+        </form>
+</div>  
+        <iframe name="hiden_frm"  style="display:none;"></iframe>  
+         <script>
+                    var is_login = false;   
+                    $(document).ready(function(){
+                        checkLogin();
+                        
+                    });
+                    function toQzoneLogin()
+                    {
+                    location.href="<?php echo mkUrl::linkTo('qqlogin','login');?>";
+                    } 
+
+                    function checkLogin(){
+                        //因为涉及到跨域问题只好在 ajax单独的一个 ctl里面来异步调用信息了 
+                        $.get('<?php echo mkUrl::linkTo("ajax","checkLogin");?>',function(data){
+                            if(data.ret == 0){
+                               
+                                is_login = true;
+                            }
+                        },'json');
+                    }
+                    
+                    function checkFlush(){
+                        $("#jq_login_ajax").dialog('close');
+                        checkLogin();
+                    }
+                    function ajaxLogin(){
+                        $("#jq_login_ajax").dialog({
+                            modal: true,
+                            width :320,
+                        <?php if(QQ_APPID){ ?> 
+                            height:230
+                            <?php } else{ ?>
+                            height:200
+                        <?php }?>    
+                           
+                        });
+                    }
+
+                </script>
+                
+        <div class="simple_head">
+            <div class="wrap">
+                <h1 class="simple_logo">
+                    <a href="<?php echo mkUrl::linkTo('index');?>"><?php echo $__SETTING['site_name']?></a>
+                </h1>
+                <ul class="simple_list clearfix">
+                    <li><a target="_blank" href="<?php echo mkUrl::linkTo('gs');?>">找装修公司</a></li>
+                    <li><a target="_blank" href="<?php echo mkUrl::linkTo('tenders');?>">招标</a></li>
+                    <li><a target="_blank" href="<?php echo mkUrl::linkTo('activity');?>">团购活动</a></li>
+                    <li><a target="_blank" href="<?php echo mkUrl::linkTo('ask');?>">问吧</a></li>
+                    <li><a target="_blank" href="<?php echo mkUrl::linkTo('content');?>">学装修</a></li>
+                    <li><a target="_blank" href="<?php echo mkUrl::linkTo('mall');?>">建材商城</a></li>
+
+
+
+                </ul>
+                <a href="<?php echo mkUrl::linkTo('case');?>" class="shopAdd">回图库首页</a> </div>
+        </div>
+
+
+
+        <div class="crumb">
+            <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> &gt; <a href="<?php echo mkUrl::linkTo('case');?>">案例图库</a> &gt;  <i><?php echo $caseInfo['title'];?></i>
+        </div>
+
+
+
+
+        <div class="photo_main">
+            <div class="ad_tit">
+                <div class="photo_tit">
+                    <h2> <?php echo $caseInfo['title'];?><b>(<span class="red" id="picturenum_list">1</span>/<?php echo count($pics);?>)</b></h2>
+                    <p><span id="picturedescription">
+                            <?php echo $caseInfo['description'];?>
+                            <!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6463174" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+                        </span></p>
+                </div>
+                <div id="banner01">
+                    <div id="banner01"> 
+                        <div class="banner01">
+                    <?php  if(!empty($company)){  
+                        $url = mkUrl::linkTo('company','main',array('id'=>$company['uid'])); $title= $company['company_name'];
+                    } elseif(!empty($designer)){
+                        $url = mkUrl::linkTo('designer','main',array('id'=>$designer['id'])); $title= $designer['name'];
+                    }else{
+                        $url  = mkUrl::linkTo('tenders','sheji'); $title = $__SETTING['site_name'].'免费预约设计';
+                   }?>
+                    <a  href="<?php echo $url;?>" title="<?php echo $title;?>" target="_blank"><img alt="<?php echo $title;?>" src="<?php echo URL;?>themes/v3.0/images/anlie_nei/9533_field_6_1352358582.jpg" height="95" width="200"></a>
+                        </div>
+                    </div>
+                </div><!--碎片-->
+        
+            </div>
+            <div class="img_box">
+                <div class="tag_tit"><span id="text_hint"></span></a>
+                </div>
+                <div class="img_con">
+                    <div class="img_big">
+                        <div class="img_big_dis">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tbody><tr>
+                                        <td valign="middle">
+                                            <img original="" id="bigpic" class="lazyload" src="">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            <!--<div class="img_tag"></div>-->
+                            <div class="img_load"></div>
+                            <div class="nph_photo_prev"><a id="photoPrev" class="nph_btn_pphoto" target="_self" hidefocus="true" href="javascript:void(0)"></a></div>
+                            <div class="nph_photo_next"><a id="photoNext" class="nph_btn_nphoto" target="_self" hidefocus="true" href="javascript:void(0)"></a></div>
+                        </div>
+                    </div>
+                    <div class="img_small">
+
+                        <div class="other_img">
+                            <?php if(!empty($upCase)){?>
+                            <a target="_blank" title="<?php echo $upCase['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$upCase['case_id']));?>">
+                                <img original="<?php echo URL,$upCase['face_pic'];?>" class="lazyload" src="<?php echo URL,$upCase['face_pic'];?>" height="75" width="100">
+                                <p>上一图集</p>
+                            </a>
+                            <?php }?>
+                        </div>
+                        
+                        <div class="img_list">
+                            <div class="img_prev"><a hidefocus="true" href="javascript:void(0)">向上滚动</a></div>
+                            <div class="img_scroll" id="small_pic_list">
+                                <ul style="top: 0px;">
+
+                                    <?php 
+                                    $i=0;	
+                                    foreach($pics as $v){
+
+                                    ?>
+                                    <li rel="<?php echo URL;?><?php echo $v;?>">
+                                        <a href="javascript:void(0);">
+                                                        <img original="<?php echo URL;?><?php echo $v;?>" class="lazyload" src="<?php echo URL;?><?php echo $v;?>" height="75" width="100"></a>
+                                                </li>
+                                                <?php 
+                                                $i++;
+                                                }?>
+                                    </ul>
+                                </div>
+                                <div class="img_next"><a hidefocus="true" href="javascript:void(0)">向下滚动</a></div>
+                            </div>
+                        
+                            <div class="other_img">
+                               <?php if(!empty($nextCase)){?>
+                            <a target="_blank" title="<?php echo $nextCase['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$nextCase['case_id']));?>">
+                                <img original="<?php echo URL,$nextCase['face_pic'];?>" class="lazyload" src="<?php echo URL,$nextCase['face_pic'];?>" height="75" width="100">
+                                <p>下一图集</p>
+                            </a>
+                            <?php }?>
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="tag_tit"><span>自动播放</span></div>
+                </div>
+            <script>
+                
+                 $(function(e){
+                    var  LiNum = $(".img_scroll ul li").length;
+                    var  LiHeight = 75;
+                    var  maxNum = LiNum - 4;
+                    var  JianJu = 0;
+                    var  anNum = 0;//定义起始位置
+                    var  yangshi=0; 
+                    var  fengedian = 3;
+                    var  times = 5000; 
+                    var  isAn = null;  
+
+                    //改变样式的状态和大图的SRC 属性已经透明的渐变
+                    function changeClass(){
+                            $(".img_scroll ul  li ").each(function(a){
+                                if(a == yangshi){
+                                    $(this).addClass("now");
+                                    $(".img_load").show();
+                                    $("#bigpic").attr("src",$(this).find('img').attr('src')).stop().fadeTo(0,0.2).stop().fadeTo(2000,1);            
+                                    document.getElementById("bigpic").onload = function(){
+                                        $(".img_load").hide();
+                                    }; 
+                                }
+                                else $(this).removeClass("now");
+                            })
+                    }
+
+                    //根据全局的yangshi所在的值进行动画的轮播
+                    function step(){
+                            var localNum;
+                            if(yangshi == (LiNum-1) ){
+                                localNum = 0;
+                            }else{
+                                localNum = yangshi +1;
+                            }
+                                //alert(localNum);
+                            $(".img_scroll ul  li ").eq(localNum).click();
+                    }
+
+                    //动画的执行者 清楚历史的时间动画 执行行的动画开始
+                    function anAction(){
+                        if(isAn!==null) {
+                            clearTimeout(isAn);
+                            isAn = null;
+                        }
+                        isAn = setTimeout(step,times);   
+                    }
+
+                    //向下点击
+                    $(".img_next").click(function(e){
+                                e.preventDefault();						   
+                                //滚动
+                                if(anNum < maxNum){
+                                    anNum ++;
+                                    $(".img_scroll ul ").stop().animate({ marginTop: -(LiHeight+JianJu)*anNum });
+                                }
+
+                                //加样式
+                                if(yangshi<(LiNum-1)){
+                                        yangshi ++;
+                                        changeClass();
+                                }
+                                anAction();
+                    });
+                    $("#photoNext").click(function(e){
+                                e.preventDefault();						   
+                                //滚动
+                                if(anNum < maxNum){
+                                    anNum ++;
+                                    $(".img_scroll ul ").stop().animate({ marginTop: -(LiHeight+JianJu)*anNum });
+                                }
+
+                                //加样式
+                                if(yangshi<(LiNum-1)){
+                                        yangshi ++;
+                                        changeClass();
+                                }
+                                anAction();
+                    });
+                    
+                    $("#photoPrev").click(function(e){
+                                e.preventDefault();								
+                                //滚动
+                                if(anNum >0){
+                                        anNum --;
+                                        $(".img_scroll ul ").stop().animate({ marginTop: -(LiHeight+JianJu)*anNum });
+                                }
+
+                                //加样式
+                                if(yangshi>0){
+                                        yangshi --;
+                                        changeClass();
+                                }
+                                anAction();
+
+                    });
+                    //向上点击
+                    $(".img_prev").click(function(e){
+                                e.preventDefault();								
+                                //滚动
+                                if(anNum >0){
+                                        anNum --;
+                                        $(".img_scroll ul ").stop().animate({ marginTop: -(LiHeight+JianJu)*anNum });
+                                }
+
+                                //加样式
+                                if(yangshi>0){
+                                        yangshi --;
+                                        changeClass();
+                                }
+                                anAction();
+
+                    });
+
+                    //图片触发的效果
+                    $(".img_scroll ul li ").click(function(e){	
+                                e.preventDefault();		
+                                yangshi = $(this).index();
+                                changeClass();           
+                                anNum = yangshi ;       
+                                if(yangshi >=0 && yangshi<(LiNum - fengedian ) ){
+                                        $(".img_scroll ul ").stop().animate({ marginTop: -(LiHeight+JianJu)*anNum });
+                                }
+                                anAction();
+                        }).mouseover(function(){//鼠标放上来的时候清空时间动画
+                            if(isAn!==null) {
+                                    clearTimeout(isAn);
+                                    isAn = null;
+                            }
+                        }).mouseout(function(){//鼠标离开开始新的时间动画
+                                isAn = setTimeout(step,times);
+                        });
+
+                        $(".img_scroll ul  li ").eq(0).click();//选择开始的位置为LI的第fengedian个样式为ON 开始动画
+                });
+
+                                     
+                           
+                
+            </script>
+                
+            
+                <!--猜你喜欢-->
+                <div style="background-color:#FFFFFF;">
+                    <div class="cnxh">
+                        <h2>猜你喜欢</h2>
+                        <div class="cnxh_list">
+
+                            <ul>
+                                <?php foreach($newCases as $val){ ?>
+                                <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"><img alt="<?php echo $val['title'];?>" class="lazyload" src="<?php echo URL,$val['face_pic'];?>" height="117" width="156"></a>
+                                    <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"><?php echo $val['title'];?></a></p>
+                                </li>
+                                <?php }?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--装修咨询-->
+                    <!--碎片-->
+                </div>
+                <div style="background-color:#FFFFFF;"> <?php pluginsComments($__COMMENTS_TYPE['case'],$id);?></div>
+            </div>
+        
+            <?php  require TEMPLATE_PATH.'public/root.html';?>	
+
+           
+          
+        </body>
+</html>

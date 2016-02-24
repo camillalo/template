@@ -1,0 +1,122 @@
+/* CSS Document */
+
+.user_main {
+    float: left;
+    height: auto;
+    margin: 0 auto;
+    width: 980px;
+	margin-top:10px;
+}
+
+.user_left {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D8D8D8;
+    float: left;
+    height: auto;
+    margin-bottom: 20px;
+    width: 218px;
+}
+.user_left .title {
+     background: url("../images/tiao10.gif") repeat-x scroll 0 0 transparent;
+    border-bottom: 3px solid #0F97E3;
+    color: #666666;
+    font-size: 14px;
+    font-weight: bold;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 10px;
+    width: 208px;
+}
+.user_left .dalei {
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 20px;
+    width: 180px;
+}
+.user_left .dalei  a{
+color:#999999;
+}
+.user_left ul {
+    float: left;
+    height: auto;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+.user_left ul li {
+    border-bottom: 1px solid #F1F1F1;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+.user_left ul li p {
+    color: #595757;
+    float: left;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 0 20px;
+    width: 180px;
+}
+.user_left ul li a {
+    float: left;
+    padding-left: 50px;
+    width: 150px;
+}
+.user_left ul li a:hover {
+    color: #BE0033;
+}
+
+
+.user_right {
+border:solid 1px #D8D8D8;
+    float: right;
+    height: auto;
+    width: 750px;
+}
+.user_right .title {
+    background: url("../images/tiao10.gif") repeat-x scroll 0 0 transparent;
+    float: left;
+    height: 36px;
+    width: 750px;
+}
+.user_right .title p {
+    color: #595757;
+    float: left;
+    height: 36px;
+    line-height: 36px;
+    margin: 0;
+    padding: 0 0 0 20px;
+    width: 730px;
+}
+
+.user_center {
+    float: left;
+    height: auto;
+    overflow: hidden;
+   padding:  20px;
+    width: 678px;
+	line-height:22px;	
+	
+}
+
+.user_right .title {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px dotted #D8D8D8;
+    color: #5A5A5A;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    height: 70px;
+    line-height: 70px;
+    overflow: hidden;
+    padding: 0 20px;
+    text-align: center;
+    width: 678px;
+}

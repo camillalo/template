@@ -1,0 +1,94 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=bidding" class="on"><em>招标列表</em></a>
+                             
+
+                
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="bidding">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <font style="color: red;">是否显示</font><?php echo html::select('is_show',$__SHOW,$_GET['is_show'],999);?>
+                                是否拿到钥匙  <?php echo html::select('is_key',$__WHETHER,$_GET['is_key']);?>
+                                是否有监理需求:<?php echo html::select('is_supervision',$__WHETHER,$_GET['is_supervision']);?> 
+                                是否有材料需求:<?php echo html::select('is_material',$__HAVE,$_GET['is_material']);?> 
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                      <th width="10%">序号</th>
+                      <th align="center" >发布人</th>
+             
+                      <th align="center" >区域</th>
+                      <th align="center" >手机</th>
+                      <th align="center" >性别</th>
+                      <th align="center" >楼盘名称</th>
+                      <th align="center" >详细地址</th>
+                      <th align="center" >装修方式</th>
+                      <th align="center" >面积㎡</th>
+                     <th align="center" >花费金块数</th>
+                      <th align="center" >是否显示</th>
+                       <th align="center" >发布时间</th>
+                      <th width="25%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><?php echo $val['id'];?></td>
+                        <td align="center" ><?php echo $val['name'];?></td> 
+                        <td align="center" ><?php echo $val['area_name'];?></td>
+                        <td align="center" ><?php echo $val['mobile'];?></td>
+                        <td align="center" ><?php echo isset($__SEX[$val['sex']]) ? $__SEX[$val['sex']] : '';?></td>
+                        <td align="center" ><?php echo $val['building_name'];?></td>
+                        <td align="center" ><?php echo $val['addr'];?></td>
+                        <td align="center" ><?php echo isset($__DECORATE_TYPE[$val['way']]) ? $__DECORATE_TYPE[$val['way']] : '';?></td>
+                        <td align="center" ><?php echo $val['area'];?></td>
+                        <td align="center" ><?php echo $val['gold'];?></td>
+                        <td align="center" ><?php echo isset($__SHOW[$val['is_show']]) ? $__SHOW[$val['is_show']] : '';?></td>
+                         <td align="center" ><?php echo date('Y-m-d H:i:s',$val['create_time']);?></td>
+                        <td width="15%" align="center">
+                           <font color="#cccccc">
+                                <a href="index.php?ctl=bidding&act=edit&id=<?php echo $val['id'];?>">修改</a>
+                            </font> | 
+                             <font color="#cccccc">
+                                <a href="index.php?ctl=bidding&act=edit&id=<?php echo $val['id'];?>">客服反馈</a>
+                            </font> | 
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=bidding&act=view&id=<?php echo $val['id'];?>">VIP查看</a>
+                            </font> | 
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=biddingBid&act=main&bid=<?php echo $val['id'];?>">管理竞标</a>
+                            </font> | 
+                            <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=bidding&act=del&id=<?php echo $val['id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                            </font>
+                              
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

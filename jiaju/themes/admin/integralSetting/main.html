@@ -1,0 +1,44 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=integralSetting" class="on"><em>积分设置</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=integralSetting" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                    <td colspan="2">*0代表不奖励 >0代表奖励积分注意做好积分奖励控制否者兑换奖品很容易就被兑换去了</td>
+                    </tr>
+                    <tr>
+                        <th width="140">有效期:</th>
+                        <td>
+                            <input type="text" size="10" name="data[t]" value="<?php echo isset($data['t']) ? (int)$data['t']: 30; ?>" /> 天（积分统一有效期为获得时刻开始可以保留时间的天数）
+                        
+                        </td>
+                    </tr>
+                    <?php foreach($__INTEGRAL_GAIN_MEAN as $k=>$v){if($k != $__INTEGRAL_GAIN['other']){ ?>
+                    <tr>
+                        <th width="140"><?php echo $v;?>:</th>
+                        <td>
+                            <input type="text" size="10" name="data[<?php echo $k;?>]" value="<?php echo isset($data[$k]) ? (int)$data[$k]: 0; ?>" />分 
+                        
+                        </td>
+                    </tr>
+                   <?php }}?>
+
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存设置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

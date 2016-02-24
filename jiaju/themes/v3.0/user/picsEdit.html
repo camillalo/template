@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+   <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 发布公司相册或荣誉资质
+				</div>
+               
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+                <div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+						公司相册图片会出现在商铺轮播上面，一般建议使用办公环境领导人相册团队相册这样能提高公司的可信度！
+                                                荣誉资质的图片上传更能体现公司的整体实力！让客户放心的选择您！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">发布相册或荣誉</div>
+					<div class="bd gongneng">
+  
+                  
+                                            
+                        <form  enctype="multipart/form-data"  action="<?php echo mkUrl::linkTo('user','picsEdit',array('id'=>$id));?>" target="hiden_frm" name="form1" id="myform" method="post">
+                            <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                <tbody>
+                                    <tr>
+                                        <th width="140">类型:</th>
+                                        <td><?php echo html::select('type',$__COMPANY_PIC_TYPE_MEANS,$data['type']);?> </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th width="140">标题:</th>
+                                        <td><input type="text" size="40" value="<?php echo $data['title']?>" name="title" class="input-text"> </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th width="140">图片:</th>
+                                        <td><input type="file"  name="pic" ><?php if(!empty( $data['pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['pic']?>" /> <?php }?></td>
+                                    </tr>
+                                      <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                            </tbody>
+                            </table>
+                           
+                        </form>
+                                            
+                                            
+					</div>
+				</div>
+				
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

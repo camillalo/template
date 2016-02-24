@@ -1,0 +1,73 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=seo&act=main" class="on"><em>SEO设置</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=seo&act=save" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">请选择模块</th>
+                        <td>
+                            <select id="jq_seo_tag">
+                                <option value="">请选择........</option>
+                                <?php foreach($datas as $k=>$val){?>
+                                <option value="<?php echo $k;?>"><?php echo $val['name'];?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+                <script>
+                    $(document).ready(function(){
+                        $("#jq_seo_tag").change(function(){
+                            var key = $(this).val();
+                            $(".jq_seos").each(function(){
+                                if($(this).attr('rel') == key) $(this).show();
+                                else $(this).hide();
+                               
+                            });
+                        });
+                    });
+                </script>
+                <?php foreach($datas as $k=>$val){?>
+                <tbody style="display:  none;" rel="<?php echo $k;?>" class="jq_seos">
+                    <tr>
+                        <th width="140"><?php echo $val['name'];?>可使用标签:</th>
+                        <td>您可以使用<?php echo $val['tag'];?>这些标签进行组合！</td>
+                    </tr>
+                    <tr>
+                        <th width="140"><?php echo $val['name'];?>站点标题:</th>
+                        <td><input type="text" size="60" value="<?php echo isset($seo[$k]['title']) ? $seo[$k]['title'] : '';?>" name="data[<?php echo $k;?>][title]" class="input-text"> 不填写调用默认的！</td>
+                    </tr>
+                    <tr>
+                        <th width="140"><?php echo $val['name'];?>seo关键字:</th>
+                        <td>
+                            <textarea cols="50" rows="10" name="data[<?php echo $k;?>][keyword]" ><?php echo  isset($seo[$k]['keyword']) ? $seo[$k]['keyword'] : ''; ?></textarea>
+                            不填写调用默认的！
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140"><?php echo $val['name'];?>seo描述:</th>
+                        <td>
+                            <textarea cols="50" rows="10" name="data[<?php echo $k;?>][description]" ><?php echo  isset($seo[$k]['description']) ? $seo[$k]['description'] : '';?></textarea>不填写调用默认的！
+                        </td>
+                    </tr>
+                       
+                </tbody>
+               <?php }?> 
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value=" 确认保存 ">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

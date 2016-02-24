@@ -1,0 +1,62 @@
+<div class="header_hl">
+<iframe name="hiden_frm"  style="display:none;"></iframe>   
+<div id="jq_login_ajax" style="display: none" title="请登陆">
+        <form method="post" target="hiden_frm" action="<?php echo mkUrl::linkTo('login','ajaxLogin');?>">
+            <table style="color:  #000; font-size: 13px; margin: 0 auto; width: 250px; height: 75px; ">
+                <tr height="25px;">
+                    <td width="60px;">用户名:</td>
+                    <td><input type="text" name="username"  /></td>
+                </tr>
+                <tr height="25px;">
+                    <td>密&nbsp;&nbsp;码：</td>
+                    <td><input type="password" name="password"  /></td>
+                </tr>
+                <tr>
+                <?php if(QQ_APPID){ ?>   
+                         <td colspan="2" style="text-align: center;" > <a href="javascript:toQzoneLogin();"><img src="<?php echo URL;?>statics/images/qq_login.png" /></a></td>
+                <?php }?>     
+                </tr>
+                <tr height="25px;">
+                    <td  colspan="2" style="text-align: center;" >
+                        <input style="height: 25px; width: 60px; line-height: 25px; text-align: center;"  type="submit" value=" 登 录 " />
+                        <input  style="height: 25px; width: 60px; line-height: 25px; text-align: center;"  onclick="window.open('<?php echo mkUrl::linkTo("register");?>');"   type="button" value=" 注 册 " />
+                    </td>
+                </tr>
+            </table><input type="hidden" name="back_url"  value="http://<?php  echo $_SERVER['HTTP_HOST'],URL;?>index.php?ctl=ajax&act=loging" />
+        </form>
+</div>
+<div id="header_no_login" class="header">
+        <p>您好欢迎来到<?php echo $__SETTING['site_name'];?>！</p>
+        <p class="p1"><a href="<?php echo mkUrl::linkTo('login');?>">登录</a><span>|</span><a href="<?php echo mkUrl::linkTo('register');?>">注册</a><span>|</span>
+         <?php if(QQ_APPID){ ?> 
+            <a href="javascript:toQzoneLogin();" class="a_qq"></a>
+            <?php }?>  
+        </p>
+        <p class="p2">
+            <a onclick="SetHome();" href="javascript:void(0);">设置首页</a> |  <a onclick="AddFavorite();" href="javascript:void(0);">收藏网站</a>
+        </p>
+</div>
+
+<div id="header_yes_login"  class="header" style="display:none; " >
+        <p>欢迎您<a  style=" color: red; " id="header_login_name" title="<?php echo $__SETTING['site_name'];?>"  href="<?php echo mkUrl::linkTo('user');?>"></a>来到<?php echo $__SETTING['site_name'];?>！</p>
+        <p class="p1">
+            <a href="<?php echo mkUrl::linkTo('user');?>">管理中心</a> <span>|</span> <a href="<?php echo mkUrl::linkTo('login','logout');?>">退出登录</a> 
+        
+        </p>
+        <p class="p2">
+               <a onclick="SetHome();" href="javascript:void(0);">设置首页</a> |  <a onclick="AddFavorite();" href="javascript:void(0);">收藏网站</a>
+        </p>
+</div>
+
+<div id="header_open_login"  class="header" style="display:none;" >
+        <p>欢迎您<a  style=" color: red; " id="header_open_name" title="<?php echo $__SETTING['site_name'];?>"  href="<?php echo mkUrl::linkTo('login','open');?>"></a>来到<?php echo $__SETTING['site_name'];?>！</p>
+        <p class="p1">
+            <a href="<?php echo mkUrl::linkTo('login','open');?>">完善资料</a> <span>|</span> <a href="<?php echo mkUrl::linkTo('login','logout');?>">退出登录</a> 
+        
+        </p>
+        <p class="p2">
+               <a onclick="SetHome();" href="javascript:void(0);">设置首页</a> |  <a onclick="AddFavorite();" href="javascript:void(0);">收藏网站</a>
+        </p>
+</div>
+
+</div>

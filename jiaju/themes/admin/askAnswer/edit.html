@@ -1,0 +1,46 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=askAnswer" ><em>回答列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑回答</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=askAnswer&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">用户ID:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['uid']?>" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">问题ID:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['ask_id']?>" name="ask_id" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">回答内容:</th>
+                        <td><textarea name="content" cols="50" rows="10"><?php echo $data['content']?></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">发布时间:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['create_time']?>" name="create_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">IP:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['ip']?>" name="ip" class="input-text"> </td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认修改">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

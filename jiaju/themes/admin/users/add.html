@@ -1,0 +1,51 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=users" ><em>会员列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=users&act=add" class="on"><em>代会员注册</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=users&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">会员类型:</th>
+                        <td><?php echo html::radio('type',$__USER_TYPE_MEAN);?>      </td>
+                    </tr>  
+                    <tr>
+                        <th width="140">用户名:</th>
+                        <td><input type="text" size="40" value="" name="username" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">密码:</th>
+                        <td><input type="text" size="40" value="" name="password" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">真是姓名:</th>
+                        <td><input type="text" size="40" value="" name="realname" class="input-text"> </td>
+                    </tr>
+                     <tr>
+                        <th width="140">email:</th>
+                        <td><input type="text" size="40" value="" name="email" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">手机号码:</th>
+                        <td><input type="text" size="40" value="" name="mobile" class="input-text"> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

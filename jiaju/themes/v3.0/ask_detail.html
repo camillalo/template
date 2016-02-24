@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/ask.css" rel="stylesheet" type="text/css" />
+</head>
+	<body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+	  
+
+	  <?php  require TEMPLATE_PATH.'ask_top.html';?>
+            
+	  
+	 <div class="w_980">
+			<div class="ask3_left_zhu">
+			<div class="ask3_left">
+			
+				<div class="title">
+					<div class="t1"><?php echo $data['title'];?></div>
+				</div>
+                        <div class="box1">
+                            <div class="a_status">
+				<span style="float:left;">提问者：<?php echo $myname;?></span>
+				|<span class="reward">悬赏分：<?php echo $data['integral'];?></span>|浏览次数：<?php echo $data['pv'];?></span>
+	
+                            </div>
+                            <div class="con" >
+				<?php echo $data['description'];?>			
+                        </div>
+                                    <script>
+                                        $(window).load(function(){
+                                            $(".con img").each(function(){
+                                                scaleImage($(this),600,600);
+                                            });
+
+                                    });
+                                    </script>
+                    <?php $i=0; foreach($addeds as $val){ $i++; ?>
+                            <div class="a_status">
+                                问题补充<?php echo $i;?>
+                            </div>
+                            <div class="con">
+				<?php echo $val['added'];?>			
+                            </div>
+                            <?php }?>
+    
+		    </div>
+		
+	<?php if($uid != $data['uid']){ if(empty($best)){ ?>
+		<div id="answer_editer">
+                    <span class="open-answer-bar" onclick="$('.jq_wolaihuida').toggle('slow');" style="background-position: right 11px;">我来帮他解答</span>
+                    <div class="jq_wolaihuida" style="display: none;">
+                        <form method="post" target="hiden_frm" action="<?php echo mkUrl::linkTo('ask','answer',array('id'=>$id));?>">
+                            <textarea name="content" style="height: 100px; width: 500px;"></textarea>
+                            <input type="submit" value="我来回答" />
+                        </form>
+                    </div>
+                </div>
+		<?php } }else{ if(empty($best)){ ?>
+                <div id="answer_editer">
+                    <span class="open-answer-bar" onclick="$('.jq_wolaihuida').toggle('slow');" style="background-position: right 11px;">我要补充问题</span>
+                    <div class="jq_wolaihuida" style="display: none;">
+                        <form method="post" target="hiden_frm" action="<?php echo mkUrl::linkTo('ask','added',array('id'=>$id));?>">
+                            <textarea name="content" style="height: 100px; width: 500px;"></textarea>
+                            <input type="submit" value="我要补充" />
+                        </form>
+                    </div>
+                </div>
+                <?php } }?>
+                 
+                        </div>
+			
+		<?php if(!empty($best)){ ?>
+			<div class="ask3_left mgt10">
+			
+				<div class="title">
+					<div class="t2">满意答案</div>
+				</div>
+			  <div class="box1">
+			  <div class="answer_content_qdb">
+					<div class="answer_content_right"><?php echo nl2br($best['content']);?><br></div>
+					<span class="answer_content_foot"><?php echo $bestname;?>|<?php echo date('Y-m-d H:i:s',$best['create_time']);?>|<?php echo $best['ip'];?></span>
+			</div>
+			  </div>
+			</div>
+                       <?php }?>     
+			
+                       <?php if(isset($showDatas)){ ?>
+			<div class="ask3_left3 mgt10">
+				<div class="title1">别人也在问</div>
+				<ul>
+                                    <?php foreach($showDatas as $v){ ?>
+                                    <li><a target="_blank" title="<?php echo $v['title'];?>" href="<?php echo mkUrl::linkTo('ask','detail',array('id'=>$v['id']));?>">
+                                                <?php echo $v['title'];?></a>
+                                            <p><?php echo $v['num'];?>回复 | <?php echo date('Y-m-d',$v['create_time']);?></p></li>
+                                     <?php }?>   
+				</ul>
+			</div>
+			<?php }?> 
+			 <div class="ask3_left2 mgt10">
+				<div class="title2">回答</div>
+				<ul>
+			<?php foreach($datas as $val){ ?>
+                                    <li id="one_answer_1075">
+				<div class="answer_content_qdb">
+			
+					<div class="answer_content_right"><?php echo nl2br($val['content']);?><br></div>
+                                        <span class="answer_content_foot"><?php echo $val['username'];?> | <?php echo date('y-m-d H:i:s',$val['create_time']);?> | <?php echo $val['ip'];?>
+                                            <?php if((int)$uid ===  (int)$data['uid'] && empty($data['answer_id'])){ ?>
+                                            <a target="hiden_frm" href="<?php echo mkUrl::linkTo('ask','yes',array('id'=>$id,'answer_id'=>$val['id']));?>">设置为满意答案</a> 
+                                            <?php }?>
+                                        </span>
+				</div>
+		    </li>
+			<?php }?>
+			
+				</ul>
+			</div> 
+			<div class="clear"></div>
+                       <div class="mgt10">
+                           <?php echo $links;?>
+                       </div>
+			<div class="ask3_anser_foot mgt10">
+				<p>如果您对上述问题不满意，可继续提问</p>
+				<form method="get" action="<?php echo URL;?>index.php">
+                                     <input type="hidden" name="ctl" value="ask" />
+                                        <input type="hidden" name="act" id="act"  value="add" />   
+                                        <input type="text" class="input" name="word"/>
+					<input name="" type="image" class="btn" src="<?php echo URL;?>themes/v3.0/images/ask/ti_btn.gif" />
+				</form>
+			</div>
+		
+               	 
+           </div>
+          <?php  require TEMPLATE_PATH.'ask_right.html';?>	
+       
+
+		<div class="clear"></div>
+</div>
+</div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

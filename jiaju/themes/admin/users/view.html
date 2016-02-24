@@ -1,0 +1,124 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=users" ><em>会员列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>查看会员</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                  <tr>
+                        <th width="140">认证管理：</th>
+                        <td>
+                            <?php if(empty($userEx['is_authentication'])){ ?>
+                       
+                            <a target="hiden_frm" href="index.php?ctl=users&act=authentication&id=<?php echo $uid;?>">设为认证</a>
+                          
+                            <?php }else{ ?>
+                         
+                              <a target="hiden_frm" href="index.php?ctl=users&act=authentication&id=<?php echo $uid;?>">取消认证</a>
+                         
+                            <?php }?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">用户名:</th>
+                        <td><?php echo $data['username']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">真是姓名:</th>
+                        <td><?php echo $data['realname']?></td>
+                    </tr>
+                      <tr>
+                        <th width="140">email:</th>
+                        <td><?php echo $data['email']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">手机号码:</th>
+                        <td><?php echo $data['mobile']?></td>
+                    </tr>
+                    <?php if(!empty($userEx)){?>
+                     <tr>
+                        <th width="140">图像:</th>
+                        <td><img src="<?php echo URL,$userEx['face_pic']?>"  /></td>
+                    </tr>
+                    <tr>
+                        <th width="140">证件:</th>
+                        <td><img src="<?php echo URL,$userEx['certificate']?>" /></td>
+                    </tr>
+                   
+                    <?php }?>
+                    <tr>
+                        <th width="140">会员类型:</th>
+                        <td><?php echo isset($__USER_TYPE_MEAN[$data['type']]) ? $__USER_TYPE_MEAN[$data['type']] : '未选择';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">会员等级:</th>
+                        <td><?php echo $ranks[$data['rank_id']];?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标天数:</th>
+                        <td><?php echo date('Y-m-d',$data['day']);?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标条数:</th>
+                        <td><?php echo $data['num']?></td>
+                    </tr>
+                     <tr>
+                        <th width="140">可看招标金币数:</th>
+                        <td><?php echo $data['gold']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">注册时间:</th>
+                        <td><?php echo date('Y-m-d H:i:s',$data['reg_t']);?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">注册IP:</th>
+                        <td><?php echo $data['reg_ip']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">最后登录时间:</th>
+                        <td><?php echo date('Y-m-d H:i:s',$data['last_t']);?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">最后登录IP:</th>
+                        <td><?php echo $data['last_ip']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">登录失败数:</th>
+                        <td><?php echo $data['fail_num']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">锁定时间:</th>
+                        <td><?php echo $data['lock_t']?></td>
+                    </tr>
+                     <tr>
+                        <th width="140">认证管理：</th>
+                        <td>
+                            <?php if(empty($userEx['is_authentication'])){ ?>
+                       
+                            <a target="hiden_frm" href="index.php?ctl=users&act=authentication&id=<?php echo $uid;?>">设为认证</a>
+                          
+                            <?php }else{ ?>
+                         
+                              <a target="hiden_frm" href="index.php?ctl=users&act=authentication&id=<?php echo $uid;?>">取消认证</a>
+                         
+                            <?php }?>
+                        </td>
+                    </tr>
+
+            </tbody>
+            </table>
+
+
+    </div>
+
+</body>
+</html>
+    

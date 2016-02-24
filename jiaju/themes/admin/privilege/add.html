@@ -1,0 +1,44 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+         <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=privilege" ><em>权限列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=privilege&act=add" class="on"><em>新增权限</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form action="index.php?ctl=privilege&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">权限组:</th>
+                        <td>
+                            <select name="group_id">
+                                <option value="0">请选择权限组</option>
+                                <?php foreach($groups as $val){ ?>
+                                <option value="<?php echo $val['group_id'];?>"><?php echo $val['group_name'];?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">权限名称:</th>
+                        <td><input type="text" size="40" value="" name="privilege_name" class="input-text"> </td>
+                    </tr>
+                   <tr>
+                        <th width="140">权限KEY:</th>
+                        <td><input type="text" size="40" value="" name="privilege_key" class="input-text"> </td>
+                   </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

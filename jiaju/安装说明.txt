@@ -1,0 +1,24 @@
+执行http://你的网址/install来安装。
+
+如安装过程中提示：string(36) "Table 'XXX.zx_admin' doesn't exist"。请直接用数据库管理工具(如phpmyadmin)导入ZX.sql
+然后再修改数据库连接文件：core/config.ini.php
+$__MYSQL_CFG = array(
+    'host'          => 'localhost',       
+    'username'      => 'root',            数据库用户名修改成你自己的
+    'password'      => 'root',            数据库密码修改成你自己的
+    'charset'       => 'utf8',
+    'pconnect'      => false,
+    'dbname'        => 'ceshi2',          数据库名修改成你自己的
+    'debug'         => false,
+    'logSql'        => false,
+    'maxLogedSql'   => 50
+);
+
+后台地址：http://你的网址/admin
+
+管理帐号：admin 管理密码：123456
+
+
+
+
+更多免费源码请访问：www.dede168.com。织梦模板交流群：97206582。

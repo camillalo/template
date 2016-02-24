@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/nei2.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="w_body">
+	
+	   <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+          
+        </div>
+        <div class="clear"></div>
+	  	
+        <div class="w_980">
+        <div class="diay_here">
+		 <strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 学装修 > <?php echo $data['title'];?>
+		</div>
+          <div class="list_left">
+	    <div class="nei_zhu">
+                        <div class="title"><?php echo $data['title'];?></div>
+                        <div class="nei_biao">
+                            <p style="float:left; width:600px;"> 更新时间：<font color="#E9380E"><?php echo $data['create_time'];?></font> | 作者： <font color="#E9380E"><?php echo mb_substr($data['author'],0,5);?> </font> | 出处：<?php echo  mb_substr($data['source'],0,5);?>   </p>  
+                        </div>
+                        <div class="guanjian">关键字: <?php echo $data['keywords'];?></div>
+                        <div class="jianjie">
+<?php echo $data['description'];?>
+                        </div>
+                        <div class="neirong">
+                            <table width="650"><tr><td width="650"><?php echo $data['contents'];?></td></tr></table>
+                        </div>
+              
+
+                        <div class="shang_pian">
+                            <div class="bshare-custom">
+                                <div class="bdlikebutton"></div>
+
+<!-- 将此代码放在适当的位置，建议在body结束前 -->
+<script id="bdlike_shell"></script>
+<script>
+var bdShare_config = {
+	"type":"small",
+	"color":"red",
+	"share":"yes"
+};
+document.getElementById("bdlike_shell").src="http://bdimg.share.baidu.com/static/js/like_shell.js?t=" + new Date().getHours();
+</script>
+                            </div>
+                        </div>
+                        <div class="shang_pian">
+                                                   <?php if(!empty($topData)){ ?>
+                            上一篇：<a target="_blank" title="<?php echo $topData['title'];?>" href="<?php echo mkUrl::linkTo('content','detail' ,array('id'=>$topData['content_id']));?>"><?php echo $topData['title'];?></a> <br>
+                            <?php }?>
+                            <?php if(!empty($nextData)){ ?>
+                            下一篇：<a target="_blank" title="<?php echo $nextData['title'];?>" href="<?php echo mkUrl::linkTo('content','detail' ,array('id'=>$nextData['content_id']));?>"><?php echo $nextData['title'];?></a> 
+                             <?php }?>
+                                                     </div>
+                        <div class="clear"></div>
+
+                        <div>
+                                 <div> <?php pluginsComments($__COMMENTS_TYPE['contents'],$content_id);?></div>
+                        </div>
+
+    
+                    </div>
+                </div>
+        <div class="list_right">
+ <?php  require TEMPLATE_PATH.'zb_left.html';?>	
+                  
+
+<div class="wsztzp">
+
+				<a href="#" style="margin-top:10px;"><img src="<?php echo URL;?>themes/v3.0/images/ad10.jpg" border="0" /></a> 
+				
+				</div>
+				
+				<div class="wsztz">
+        	<h2>相关标签</h2>
+                <p class="j3xgubq">
+                                                                 <?php foreach($tags as $val){ ?>
+                                  <a target="_blank" title="<?php echo $val['tag'];?>" href="<?php echo mkUrl::linkTo('content','tag',array('id'=>$val['id']));?>"><?php echo $val['tag'];?></a>
+                                  <?php }?>   </p>
+        </div>
+
+
+<div class="tj_blog m12">
+                    <p class="tj_blogtitle fb">
+                        设计师最新作品
+                    </p>
+                    <ul class="sjs_tjlist clearfix">
+                             
+			<?php foreach($cases as $val){ ?>
+                        <li>
+                            <a title=" <?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>">
+                                <img alt=" <?php echo $val['title'];?>" width="138" height="111" src="<?php echo URL,$val['face_pic'];?>">
+                            </a>
+                            <br>
+                            <span style="line-height: 35px;">
+                                <a title=" <?php echo $val['title'];?>" target="_blank" style="color: #1261d7;" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>">
+                                    <?php echo mb_substr($val['title'],0,10);?>
+                                </a>
+                            </span>
+                        </li>
+                       <?php }?>            
+                    </ul>
+                </div>
+                </div>
+				</div>
+        </div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

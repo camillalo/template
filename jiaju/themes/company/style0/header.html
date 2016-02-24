@@ -1,0 +1,221 @@
+<div id="jq_login_ajax" style="display: none" title="请登陆">
+        <form method="post" target="hiden_frm" action="<?php echo mkUrl::linkTo('login','ajaxLogin');?>">
+            <table style="color:  #000; font-size: 13px; margin: 0 auto; width: 250px; height: 75px; ">
+                <tr height="25px;">
+                    <td width="60px;">用户名:</td>
+                    <td><input type="text" name="username"  /></td>
+                </tr>
+                <tr height="25px;">
+                    <td>密&nbsp;&nbsp;码：</td>
+                    <td><input type="password" name="password"  /></td>
+                </tr>
+                <tr>
+                <?php if(QQ_APPID){ ?>   
+                         <td colspan="2" style="text-align: center;" > <a href="javascript:toQzoneLogin();"><img src="<?php echo URL;?>statics/images/qq_login.png" /></a></td>
+                <?php }?>     
+                </tr>
+                <tr height="25px;">
+                    <td  colspan="2" style="text-align: center;" >
+                        <input style="height: 25px; width: 60px; line-height: 25px; text-align: center;"  type="submit" value=" 登 录 " /><input  style="height: 25px; width: 60px; line-height: 25px; text-align: center;"  onclick="window.open('<?php echo mkUrl::linkTo("register");?>');"   type="button" value=" 注 册 " />
+                    </td>
+                </tr>
+            </table><input type="hidden" name="back_url"  value="http://<?php  echo $_SERVER['HTTP_HOST'],URL;?>index.php?ctl=ajax&act=loging" />
+        </form>
+</div>  
+<iframe name="hiden_frm"  style="display:none;"></iframe>   
+<!--顶部横条开始-->
+        <div id="header">
+            <!--顶部细条开始-->
+            <div id="topline">
+                <p id ="header_no_login" class="top_info">
+                    欢迎来到<a href="<?php echo URL;?>" title=" <?php echo $__SETTING['site_name'];?>"> <?php echo $__SETTING['site_name'];?></a>
+                    &gt;
+                    <a title="装饰公司频道" href="#">
+                        装饰公司频道
+                    </a>
+                    &gt;
+                    <a title="<?php echo $company['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company_id));?>">
+                        <?php echo $company['company_name'];?>
+                    </a>
+                   <a href="<?php echo  mkUrl::linkTo('register');?>">
+                        注册
+                    </a>
+                    <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                        <a href="<?php echo mkUrl::linkTo('login');?>">
+                        登录
+                    </a>
+                </p>
+                
+                <p id="header_yes_login" class="top_info" style="display: none;">
+                    欢迎您<a  style=" color: red; " id="header_login_name" title=" <?php echo $__SETTING['site_name'];?>"  href="<?php echo mkUrl::linkTo('user');?>"></a>
+                    来到<a href="<?php echo URL;?>" title=" <?php echo $__SETTING['site_name'];?>"> <?php echo $__SETTING['site_name'];?></a>
+                    &gt;
+                    <a title="装饰公司频道" href="#">
+                        装饰公司频道
+                    </a>
+                    &gt;
+                    <a title="<?php echo $company['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company_id));?>">
+                        <?php echo $company['company_name'];?>
+                    </a>
+                     <a href="<?php echo mkUrl::linkTo('user');?>">管理中心</a>
+                     <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                    <a href="<?php echo mkUrl::linkTo('login','logout');?>">退出登录</a>
+                </p>
+                
+                     <p id="header_open_login" class="top_info" style="display: none;">
+                    欢迎您<a  style=" color: red; " id="header_open_login" title=" <?php echo $__SETTING['site_name'];?>"  href="<?php echo mkUrl::linkTo('login','open');?>"></a>
+                    来到<a href="<?php echo URL;?>" title=" <?php echo $__SETTING['site_name'];?>"> <?php echo $__SETTING['site_name'];?></a>
+                    &gt;
+                    <a title="装饰公司频道" href="#">
+                        装饰公司频道
+                    </a>
+                    &gt;
+                    <a title="<?php echo $company['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company_id));?>">
+                        <?php echo $company['company_name'];?>
+                    </a>
+                     <a href="<?php echo mkUrl::linkTo('login','open');?>">完善资料</a>
+                     <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                    <a href="<?php echo mkUrl::linkTo('login','logout');?>">退出登录</a>
+                </p>
+
+                <script>
+                    var is_login = false;   
+                    $(document).ready(function(){
+                         $.ajaxSetup({cache:false});
+                        checkLogin();
+                        
+                    });
+                     function toQzoneLogin()
+                    {
+                    location.href="<?php echo mkUrl::linkTo('qqlogin','login');?>";
+                    } 
+                
+function checkLogin(){
+    //因为涉及到跨域问题只好在 ajax单独的一个 ctl里面来异步调用信息了 
+    $.get('<?php echo mkUrl::linkTo("ajax","checkLogin");?>',function(data){
+        if(data.ret == 0){
+       
+            if(data.message.type == 'user'){
+         
+                $("#header_login_name").html(data.message.realname);
+				$("#header_no_login").html($("#header_yes_login").html());
+                is_login = true;
+            }else if(data.message.type == 'open'){
+                $("#header_open_name").html(data.message.nickname);
+				$("#header_no_login").html($("#header_open_login").html());
+            }
+        }
+    },'json');
+}
+                    function checkFlush(){
+                       $("#jq_login_ajax").dialog('close');
+                        checkLogin();
+                    }
+                    function ajaxLogin(){
+                        $("#jq_login_ajax").dialog({
+                            modal: true,
+                            width :320,
+                        <?php if(QQ_APPID){ ?>     height:230, <?php } else{ ?>
+                            height:200, 
+                        <?php }?>    
+                        });
+                    }
+
+                </script>
+                
+                
+                
+                
+                <p class="top_nav">
+                    <a title="<?php echo $__SETTING['site_name'];?>" href="<?php echo URL;?>">
+                        首页
+                    </a>
+                    <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                    <a href="<?php echo mkUrl::linkTo('gs');?>">
+                        找公司
+                    </a>
+                    <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                        <a href="<?php echo mkUrl::linkTo('tenders');?>">
+                        装修招标
+                    </a>
+                    <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                    <a href="<?php echo mkUrl::linkTo('case');?>">
+                        图库案例
+                    </a>
+                    <img src="<?php echo URL;?>themes/company/style0/images/line.gif">
+                    <a href="<?php echo mkUrl::linkTo('material');?>" style="margin-right: 0pt;">
+                        装修建材
+                    </a>
+                </p>
+                
+            </div>
+            <!--顶部细条结束-->
+            <!--顶部标题及导航区域开始-->
+            <div id="toparea">
+                <div id="logo_div">
+                    <a class="logo" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company_id));?>" title="<?php echo $company['company_name'];?>">
+                        <img src="<?php echo URL,$company['logo'];?>" class="left" height="63" width="126">
+                    </a>
+                    <div class="logo_left">
+                        <h1>
+                            <a href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company_id));?>" title="<?php echo $company['company_name'];?>">
+                                <?php echo $company['company_name'];?>
+                            </a>
+                        </h1>
+                        <p class="clear">
+                            <span class="left slogan">
+                                <?php echo $company['description'];?>
+                            </span>
+                            <span class="phone">
+                                咨询热线：<?php echo isset($defaultCompanyAddr['tel'])? $defaultCompanyAddr['tel'] :  $__SETTING['tel'];?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+               
+                <ul id="nav" class="clear">
+                    <li  <?php if($_GET['act'] === 'main'){ ?>class="nav_on" <?php }?> >
+                        <a  title="首页" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company_id));?>">首页</a> /
+                    </li>
+                    
+                    <li  <?php if($_GET['act'] === 'about'){ ?>class="nav_on" <?php }?>>
+                        <a  title="企业简介" href="<?php echo mkUrl::linkTo('company','about',array('id'=>$company_id));?>">企业简介</a> /
+                    </li>
+                    <?php if((int)$company['type'] === $__USER_TYPE['company']){ ?>
+                        <li <?php if($_GET['act'] === 'design'){ ?>class="nav_on" <?php }?>>
+                            <a title="设计团队" href="<?php echo mkUrl::linkTo('company','design',array('id'=>$company_id));?>">设计团队</a> /
+                        </li>
+                        <li <?php if($_GET['act'] === 'case' ){ ?>class="nav_on" <?php }?>>
+                            <a title="作品案例" href="<?php echo mkUrl::linkTo('company','case',array('id'=>$company_id));?>">作品案例</a> /
+                        </li>
+                         <li <?php if($_GET['act'] === 'products'){ ?>class="nav_on" <?php }?>>
+                            <a title="供应商品" href="<?php echo mkUrl::linkTo('company','products',array('id'=>$company_id));?>">供应商品</a>/
+                        </li>
+                        <li <?php if($_GET['act'] === 'site' ){ ?>class="nav_on" <?php }?>>
+                            <a title="在建工地" href="<?php echo mkUrl::linkTo('company','site',array('id'=>$company_id));?>"> 在建工地  </a>/
+                        </li>
+                        <li <?php if($_GET['act'] === 'quantityRoom' ){ ?>class="nav_on" <?php }?>>
+                            <a title="免费量房" href="<?php echo mkUrl::linkTo('company','quantityRoom',array('id'=>$company_id));?>"> 免费量房  </a>/
+                        </li>
+                        <li <?php if($_GET['act'] === 'dianping'){ ?>class="nav_on" <?php }?>>
+                            <a title="点评" href="<?php echo mkUrl::linkTo('company','dianping',array('id'=>$company_id));?>">点评</a>/
+                        </li>
+                       
+                        <?php }else{ ?>
+                        <li <?php if($_GET['act'] === 'products'){ ?>class="nav_on" <?php }?>>
+                            <a title="供应商品" href="<?php echo mkUrl::linkTo('company','products',array('id'=>$company_id));?>">供应商品</a>/
+                        </li>
+                     <?php }?>
+                     
+                    <li <?php if($_GET['act'] === 'contact'){ ?>class="nav_on" <?php }?>>
+                        <a title="<?php echo $company['company_name'];?>电话" href="<?php echo mkUrl::linkTo('company','contact',array('id'=>$company_id));?>">联系我们</a>
+                      </li>
+                </ul>
+            </div>
+            <!--顶部标题及导航区域结束-->
+        </div>
+        <!--顶部横条结束-->
+        <!--首页banner开始-->
+        <div id="banner">
+            <img src="<?php echo URL;?><?php if(empty($company['banner'])){ ?>themes/company/style0/images/sh20125713243276355.jpg<?php } else echo $company['banner'];?>" height="160" width="958">
+        </div>

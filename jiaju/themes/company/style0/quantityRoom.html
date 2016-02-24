@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+         <link href="<?php echo URL;?>themes/company/style0/css/company.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<?php echo URL;?>statics/My97DatePicker/WdatePicker.js"></script>
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <div class="neiye" id="rightbox">
+			 <div class="clear"></div>
+			<div class="tips">
+			<p class="left">我需要免费量房（业主可以免费申请<?php echo $company['company_name'];?>免费量房服务）</p>
+        
+			</div>
+                         <form    action="<?php echo mkUrl::linkTo('company','quantityRoom',array('id'=>$company_id));?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    
+                    <tr>
+                        <th width="140">称呼:</th>
+                        <td><input type="text"  value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">联系方式:</th>
+                        <td><input type="text" value="" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">预约日期:</th>
+                        <td><input type="text" value="" onFocus="WdatePicker({startDate:'<?php echo date('Y-m-d',NOWTIME);?>'})" name="date" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">房型结构等介绍:</th>
+                        <td><textarea name="description" cols="50" rows="10"></textarea></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认申请">
+            </div>
+        </form>
+			
+            </div>
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+  <?php  require COMPANY_TEMPLATE.'/root.html';?>
+</body>
+</html>                 

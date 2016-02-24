@@ -1,0 +1,71 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=security" class="on"><em>公司保障列表</em></a>
+                             
+            <span>|</span>
+            <a href="index.php?ctl=security&act=add"><em>新增公司保障</em></a>
+                
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="security">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索"> 注：同一个公司ID 不可以重复添加！公司保障只能在后台添加！只有当客户愿意加入保障金计划的时候加入！保障金的款项请线下在做一份文档！网站不保存操作流水！
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                      <th align="center" >公司ID</th>
+                      <th align="center" >公司名称</th>
+                      <th align="center" >用户名</th>
+                      <th align="center" >保障金</th>
+                      <th align="center" >活动保障金</th>
+                      <th align="center" width="20%" >特殊服务</th>
+                      <th align="center" width="20%" >售后服务</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                    <td align="center" ><?php echo $val['uid'];?></td>
+                     <td align="center" ><?php echo $val['company_name'];?></td>
+                     <td align="center" ><a href="index.php?ctl=users&uid=<?php echo $val['uid'];?>"><?php echo $val['username'];?></a></td>
+                        <td align="center" ><?php echo $val['money1'];?>(元)</td>
+                        <td align="center" ><?php echo $val['money2'];?>（元）</td>
+                        <td align="center" ><?php echo $val['special'];?></td>
+                        <td align="center" ><?php echo $val['after_sales'];?></td>
+                        <td width="15%" align="center">
+                           <font color="#cccccc">
+                                <a href="index.php?ctl=security&act=edit&uid=<?php echo $val['uid'];?>">修改</a>
+                            </font> | 
+                                                       <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=security&act=del&uid=<?php echo $val['uid'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                            </font>
+                              
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/gs_list.css" rel="stylesheet" type="text/css" />  
+<style type="text/css">
+#allmap {width: 980px;height: 600px;overflow: hidden;margin:0;}
+</style>
+</head>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/zx_public.html';?>
+</div>
+<div class="clear"></div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<div class="w_980">
+<div id="allmap"></div>	    
+<script>
+    var map = new BMap.Map("allmap",{minZoom:12,maxZoom:15});            // 创建Map实例
+    map.centerAndZoom("<?php echo  empty($__SETTING['city_name']) ? '上海' : $__SETTING['city_name'];?>",15);                     // 初始化地图,设置中心点坐标和地图级别。
+  
+    map.enableScrollWheelZoom(true);
+    map.addEventListener("dragend", function showInfo(){
+        var cp = map.getCenter();
+        getResult(cp.lng ,cp.lat);
+    });
+
+    setTimeout('getResult(map.getCenter().lng,map.getCenter().lat)',3000); 
+    
+    function getResult(lng,lat){
+        $.get('<?php echo URL;?>index.php?ctl=bdmap&act=getResult&lng='+lng+'&lat='+lat,function(data){      
+            
+            $("#jq_js").html('');
+           $("#jq_js").append(data);
+        },'html');     
+    }
+</script>
+<div id="jq_js"></div>
+</div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

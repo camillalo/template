@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+     <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 点评管理
+				</div>
+               
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+                                        有很多人都点评了我们公司，我想看一下他们都说了啥好做一下回复！如果发现恶意点评可以投诉网站！
+
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">回复点评</div>
+					<div class="bd gongneng">
+                                           
+                        <form   action="<?php echo URL;?>index.php?ctl=user&act=mydianpingReply&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+                            <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                               <tbody>
+
+                                  
+                                    <tr>
+                                        <th >回复:</th>
+                                        <td><textarea name="revert" cols="50" rows="10"><?php echo $data['revert']?></textarea></td>
+                                    </tr>
+                                   
+                            
+                                    <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+                      
+                            </tbody>
+                            </table>
+                           
+                        </form>
+                                            
+                                            
+                                            
+                                            
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

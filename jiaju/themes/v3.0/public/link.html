@@ -1,0 +1,19 @@
+<div class="wrap mgt10">
+    <div class="footder">
+
+
+        <div class="foot_link">
+            <div class="foot_link_left">
+                友情链接
+            </div>
+            <div class="foot_link_right">
+                    <?php import::getMdl('links'); foreach(linksMdl::getInstance()->getAllLinks() as $val){ ?>
+                    <a target="_blank" title="<?php echo $val['link_name'];?>" href="<?php echo $val['link_url'];?>">
+                        <?php echo $val['link_name'];?>
+                    </a>
+                    <?php }?>
+
+            </div>
+        </div>
+    </div>
+</div>

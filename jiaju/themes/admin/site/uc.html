@@ -1,0 +1,117 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=site&act=uc" class="on"><em>uc整合</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=site&act=uc" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">UC编码:</th>
+                        <td>
+                            <?php echo html::radio('data[charset]',array(0=>'UTF8',1=>'GBK') ,isset($_UC_SETTING['charset']) ? (int)$_UC_SETTING['charset'] : 0 );?>
+                        </td>
+                    </tr>
+                   
+                   
+                    <tr>
+                        <th width="140">UC_CONNECT:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_CONNECT]" value="<?php echo  isset($_UC_SETTING['UC_CONNECT']) ? $_UC_SETTING['UC_CONNECT'] : '';?>" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">UC_DBHOST:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_DBHOST]" value="<?php echo  isset($_UC_SETTING['UC_DBHOST']) ? $_UC_SETTING['UC_DBHOST'] : '';?>" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">UC_DBUSER:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_DBUSER]" value="<?php echo  isset($_UC_SETTING['UC_DBUSER']) ? $_UC_SETTING['UC_DBUSER'] : '';?>" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">UC_DBPW:</th>
+                        <td>
+                            <input type="password" size="50" name="data[UC_DBPW]" value="<?php echo  isset($_UC_SETTING['UC_DBPW']) ? $_UC_SETTING['UC_DBPW'] : '';?>" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">UC_DBNAME:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_DBNAME]" value="<?php echo  isset($_UC_SETTING['UC_DBNAME']) ? $_UC_SETTING['UC_DBNAME'] : '';?>" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">UC_DBCHARSET:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_DBCHARSET]" value="<?php echo  isset($_UC_SETTING['UC_DBCHARSET']) ? $_UC_SETTING['UC_DBCHARSET'] : '';?>" />
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">UC_DBTABLEPRE:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_DBTABLEPRE]" value="<?php echo  isset($_UC_SETTING['UC_DBTABLEPRE']) ? $_UC_SETTING['UC_DBTABLEPRE'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_DBCONNECT:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_DBCONNECT]" value="<?php echo  isset($_UC_SETTING['UC_DBCONNECT']) ? $_UC_SETTING['UC_DBCONNECT'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_KEY:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_KEY]" value="<?php echo  isset($_UC_SETTING['UC_KEY']) ? $_UC_SETTING['UC_KEY'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_API:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_API]" value="<?php echo  isset($_UC_SETTING['UC_API']) ? $_UC_SETTING['UC_API'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_CHARSET:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_CHARSET]" value="<?php echo  isset($_UC_SETTING['UC_CHARSET']) ? $_UC_SETTING['UC_CHARSET'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_IP:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_IP]" value="<?php echo  isset($_UC_SETTING['UC_IP']) ? $_UC_SETTING['UC_IP'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_APPID:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_APPID]" value="<?php echo  isset($_UC_SETTING['UC_APPID']) ? $_UC_SETTING['UC_APPID'] : '';?>" />
+                        </td>
+                    </tr>
+                      <tr>
+                        <th width="140">UC_PPP:</th>
+                        <td>
+                            <input type="text" size="50" name="data[UC_PPP]" value="<?php echo  isset($_UC_SETTING['UC_PPP']) ? $_UC_SETTING['UC_PPP'] : '';?>" />
+                        </td>
+                    </tr>
+                                 
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存设置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

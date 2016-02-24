@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <div class="neiye" id="rightbox">
+              
+			
+          <div class="clear"></div>
+			<div class="tips">
+			<p class="left"><?php echo $company['company_name'];?>共在建工地<?php echo $totalnum;?>套</p>
+        
+			</div>
+     <div class="table-list">
+  
+         
+			<?php foreach($datas as $val){ ?>
+		<div class="list">
+			<div class="left">
+                            <div class="img">
+                                <?php if($val['face_pic']){ ?>
+                                <a  title="<?php echo $val['name'];?>" href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>"><img src="<?php echo URL,$val['face_pic'];?>" /></a>
+                                <?php }?>
+                            </div>
+			</div>
+			<div class="right">
+			<div class="const_title">
+                            <input type="button" alt="" title="我要参观" value="" rel="<?php echo $val['id'];?>" class="struction_bnt thickbox">
+                                <a target="_blank" title="<?php echo $val['name'];?>" href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>"><?php echo $val['name'];?></a> 
+                                <?php if(!empty($val['company_name'])){ ?>
+                                <a class="company_a" target="_blank" title="<?php echo $val['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$val['company_id']));?>"><?php echo $val['company_name'];?></a>
+                                <?php }?>
+			</div>
+			<div class="const_shuju">
+                            评分：
+                               <!--- <?php  for($i=0;$i<5;$i++){ ?>
+                                <?php if($i<$val['score']){ ?>
+                                <img src="<?php echo URL;?>themes/company/style1/images/star.jpg">
+                                <?php }else{ ?>    
+                                <img src="<?php echo URL;?>themes/company/style1/images/star2.jpg">
+                                <?php }}?>  
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                            人气：<tt><?php echo $val['pv'];?></tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <em>开工日期：<?php echo $val['bg_time'];?></em><br>
+                            区域：<?php echo $val['area_name'];?>&nbsp;&nbsp;    
+                            面积：<?php echo $val['a_name'];?>&nbsp;&nbsp;
+                            造价：<?php echo $val['price_name'];?>&nbsp;&nbsp;
+                            风格：<?php echo $val['style_name'];?>&nbsp;&nbsp;
+                            <?php if(!empty($val['designer_name'])){?>
+                            设计师：<a target="_blank" title="<?php echo $val['designer_name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['designer_id']));?>"><?php echo $val['designer_name'];?></a>  
+                            <?php }?>
+                        </div>
+			<div class="clear"></div>
+			
+			<ul>
+                            <li <?php if($val['status'] == 1){?>class="current2" <?php }?>  <?php if($val['status'] > 1){?>class="current" <?php }?>   ><a href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">开工大吉</a></li>
+                            <li <?php if($val['status'] == 2){?>class="current2" <?php }?>  <?php if($val['status'] > 2){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">水电改造</a></li>
+                            <li <?php if($val['status'] == 3){?>class="current2" <?php }?> <?php if($val['status'] > 3){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">泥瓦工阶段</a></li>
+                            <li <?php if($val['status'] == 4){?>class="current2" <?php }?> <?php if($val['status'] > 4){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">木工阶段</a></li>
+                            <li <?php if($val['status'] == 5){?>class="current2" <?php }?> <?php if($val['status'] > 5){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">油漆阶段</a></li>
+                            <li <?php if($val['status'] == 6){?>class="current2" <?php }?> <?php if($val['status'] > 6){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">安装阶段</a></li>
+                            <li <?php if($val['status']  < 7){?>class="last" <?php }?>  <?php if($val['status']  == 7){?>class="current_last" <?php }?> ><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">验收完成</a></li>
+			</ul>			
+			
+                    </div>
+		</div>
+		<?php }?>
+		
+		
+	
+		
+		<div class="clear"></div>
+            <div id="pages" style="margin-top:10px; padding-left:10px;"><?php echo $links;?></div>
+        </div>
+
+    </div>
+        </div>
+        
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+        <!--底部内容开始-->
+<?php  require COMPANY_TEMPLATE.'/root.html';?>
+  <script>
+                        $(document).ready(function(e){
+                            $(".struction_bnt").click(function(){
+                                if(is_login === false){
+                                    ajaxLogin();
+                                }else{
+                                    var id = $(this).attr('rel');
+                                    $("#jq_yycc_baoming_form").dialog({
+                                        width :400,
+                                        height:240,
+                                         modal: true,
+                                        buttons:{
+                                            '确认报名':function(){
+                                                $.ajax({
+                                                url:'<?php echo URL;?>index.php?ctl=ajax&act=siteApply&id='+id,
+                                                type:'POST',
+                                                data:$(this).find('form').serialize(),
+                                                dataType:'json',
+                                                success:function(data){
+                                                    if(data.ret < 0){
+                                                        alert(data.message);
+                                                    } else{
+                                                        alert(data.message);
+                                                        $("#jq_yycc_baoming_form").dialog('close');
+                                                    }
+                                                }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            
+                        });
+                    </script>
+<div id="jq_yycc_baoming_form" title="我想预约报名参观" style="display: none;">
+         <form  name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="100">称呼：</th>
+                        <td><input type="text"  size="20"  value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="100">联系方式:</th>
+                        <td><input type="text" size="20"  value="" name="phone" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="100">要求:</th>
+                        <td><textarea name="comment" cols="30" rows="5"></textarea></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </form>
+    
+    
+</div>	   
+    </body>
+
+</html>       

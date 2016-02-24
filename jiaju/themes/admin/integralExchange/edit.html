@@ -1,0 +1,65 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=integralExchange" ><em>积分兑换物品列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑积分兑换物品</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=integralExchange&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th >用户ID:</th>
+                        <td><input type="text" value="<?php echo $data['uid']?>" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >产品ID:</th>
+                        <td><input type="text" value="<?php echo $data['product_id']?>" name="product_id" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >类型:</th>
+                      <td><?php echo html::radio('type',array(0=>'兑换',1=>'抽奖'),$data['type']);?> </td>
+                    </tr>
+                    <tr>
+                        <th >消耗积分:</th>
+                        <td><input type="text" value="<?php echo $data['integral']?>" name="integral" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >联系人:</th>
+                        <td><input type="text" value="<?php echo $data['name']?>" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >联系方式:</th>
+                        <td><input type="text" value="<?php echo $data['tel']?>" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >详情描述:</th>
+                        <td><textarea name="description" cols="50" rows="10"><?php echo $data['description']?></textarea></td>
+                    </tr>
+            
+                    <tr>
+                        <th >状态:</th>
+                        <td>
+                        <?php echo html::radio('status',array(0=>'未处理',1=>'已处理'),$data['status']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >客服备注:</th>
+                        <td><textarea name="note" cols="50" rows="10"><?php echo $data['note']?></textarea></td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认修改">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

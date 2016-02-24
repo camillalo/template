@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    
+      <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 查看预约
+				</div>
+            
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            添加工地的好处就是可以被业主直接预约参观！预约后在工地管理中可以被查看到！
+                        </div>
+                    </div>
+
+                    <div class="module_default">
+                        <div class="tabsclass">
+                            <ul class="css-tabs">
+                                <li><a href="<?php echo mkUrl::linkTo('user','siteAdd');?>">新增在建工地</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="panes">
+                            <!--收件箱开始-->
+                            <div style="display: block;">
+                                <table width="100%" cellspacing="0" class="table_a">
+                                     <thead>
+                    <tr>
+
+                      <th align="center" >预约人</th>
+                      <th align="center" >联系方式</th>
+                      <th align="center" >描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td align="center" ><?php echo $val['name'];?></td>
+                        <td align="center" ><?php echo $val['phone'];?></td>
+                        <td align="center" ><?php echo $val['comment'];?></td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+                                </table>
+                                <div id="pages"><?php echo $links;?></div>
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div> 
+            </div>
+
+
+
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="clear">
+        </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/yhxx.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/zx_public.html';?>
+</div>
+
+<div class="clear"></div>
+<div class="w_980">
+	<div class="yhxx_here">
+		 <strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 找公司 > 优惠信息
+	</div>
+	
+	  <div class="dp_zhu">
+        <div class="dp_serach">
+            <p><strong>区&nbsp;&nbsp;&nbsp;&nbsp;域:</strong>
+                <span>
+                   <a <?php if(empty($_GET['area_id'])) echo 'class="select"';?>  href="<?php echo mkUrl::linkTo('preferential','main',array_merge($url,array('area_id'=>0)));?>" >全部</a>
+                    <?php foreach($areas as $k=>$val){ ?>
+                    <a  <?php if($_GET['area_id'] === (int)$k) echo 'class="select"';?> title="<?php echo $val,$title;?>"  href="<?php echo mkUrl::linkTo('preferential','main',array_merge($url,array('area_id'=>$k)));?>"><?php echo $val;?></a>
+                    <?php }?>
+                    
+                                                
+  
+                </span>
+            </p>
+        </div>
+
+    </div>
+            
+            <div class="youhui_left">
+            
+		<div class="title">
+			<div class="t1">优惠活动</div>
+			
+		</div>
+		<ul>
+                    <?php foreach($datas as $val){ ?>
+			<li><p> <?php echo date('Y-m-d',$val['create_time']);?></p><span> <?php if(isset($areas[$val['area_id']])) echo $areas[$val['area_id']];?></span>
+                            <a target="_blank" title="<?php echo $val['title'];?>" class="topicLink" href="<?php echo mkUrl::linkTo('preferential','detail',array('id'=>$val['id']));?>">
+                                <?php echo $val['title'];?>
+                            </a>
+                        </li>
+                         <?php }?>
+			 
+		</ul>
+          
+	</div>
+	
+		<div class="youhui_right">
+	
+	<div class="box2">
+			<div class="title">推荐优惠信息</div>
+			<ul>
+                             <?php foreach(recommend::getInstance()->load('service-right-001',10) as $val){ ?>
+                             <li><a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></li>	
+                             <?php }?>
+			</ul>
+		</div>
+		
+	</div>
+            
+	  </div>
+	  
+	  <div class="clear"></div>
+	  
+</div>		
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+ </body>
+</html>

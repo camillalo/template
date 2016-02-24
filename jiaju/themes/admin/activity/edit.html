@@ -1,0 +1,110 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=activity" ><em>活动列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑活动</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=activity&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">活动名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['title']?>" name="title" class="input-text"> </td>
+                    </tr>
+                     <tr>
+                        <th width="140">活动地区:</th>
+                        <td class="jq_city">
+
+                            <?php echo html::select('area_id',$areas,$data['area_id']);?>
+                        </td>
+                    </tr>
+                 
+                    <tr>
+                        <th width="140">类型:</th>
+                        <td>
+                            <select name="type">
+                                <option value="">请选择...</option>
+                                <?php foreach($__ACTIVITY_TYPE_MEAN as $k=>$v){ ?>
+                                <option value="<?php echo $k;?>" <?php if($k == $data['type']) echo 'selected="selected"';?> ><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">缩略图:</th>
+                        <td><input type="file"  name="face_pic" ><?php if(!empty( $data['face_pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['face_pic']?>" /> <?php }?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">结束报名时间：</th>
+                        <td><input type="text" size="20" value="<?php echo $data['reg_time']?>" onFocus="WdatePicker({startDate:'<?php echo $data['reg_time']?>'})" name="reg_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">开始日期:</th>
+                        <td><input type="text" size="20" value="<?php echo $data['bg_time']?>" onFocus="WdatePicker({startDate:'<?php echo $data['bg_time']?>'})" name="bg_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">结束日期:</th>
+                        <td><input type="text" size="20" value="<?php echo $data['end_time']?>" onFocus="WdatePicker({startDate:'<?php echo $data['end_time']?>'})"  name="end_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">优惠内容:</th>
+                        <td><textarea name="coupon" cols="50" rows="10"><?php echo $data['coupon']?></textarea></td>
+                    </tr>
+                    
+                      <tr>
+                        <th width="140">百度地图:</th>
+                        <td>经度：<input type="text" size="10" value="<?php echo $data['lng']/100000;?>" name="lng" class="input-text">
+                            纬度：<input type="text" size="10" value="<?php echo $data['lat']/100000;?>" name="lat" class="input-text"> 
+                            <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank">百度地图坐标拾取工具</a>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">举办时间:</th>
+                        <td><input type="text" size="20" value="<?php echo $data['sj']?>" name="sj" class="input-text">例如:9:00 至 18:00 </td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="140">电话:</th>
+                        <td><input type="text" size="20" value="<?php echo $data['tel']?>" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">活动地址:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['addr']?>" name="addr" class="input-text"> </td>
+                    </tr>
+            <tr>
+                <th width="140">活动详情:</th>
+                <td>
+                     <script type="text/plain" id="details_edit" style="width:950px"><?php echo $data['details']?></script>
+                     <script>
+
+                         var editor_adetails = new baidu.editor.ui.Editor({
+                                //关闭字数统计
+                                wordCount:false,
+                                //关闭elementPath
+                                elementPathEnabled:false,
+                                textarea:'details'
+                                //更多其他参数，请参考editor_config.js中的配置项
+                         });
+                         editor_adetails.render('details_edit');
+                     </script>
+                </td>
+            </tr>    
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

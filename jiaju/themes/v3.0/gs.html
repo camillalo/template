@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/gs_list.css" rel="stylesheet" type="text/css" />  
+
+</head>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/zx_public.html';?>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+	<div class="gs_list_here">
+		 <strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 找公司 > 装修公司大全
+	</div>
+    <div class="clear"></div>
+    
+      <div id="content_left">
+      <!--分类 开始-->
+     <ul id="category">
+          <li class="ling1"><span class="s1">服务区域：</span>
+                        <div class="c1">
+                            
+                          <a href="<?php echo mkUrl::linkTo('gs','main',array_merge($url,array('area_id'=>0)));?>" <?php if(empty($_GET['area_id'])) echo 'class="active"';?> >不限</a>
+                            <?php foreach($areas as $k=>$val){ ?>
+                            <a  <?php if($_GET['area_id'] === (int)$k) echo 'class="active"';?>   href="<?php echo mkUrl::linkTo('gs','main',array_merge($url,array('area_id'=>$k)));?>"><?php echo $val;?></a>
+                            <?php }?>           </div>
+          </li>
+                    <li class="ling1"><span class="s2">服务项目：</span>
+                        <div class="c1">
+                             <a href="<?php echo mkUrl::linkTo('gs','main',array_merge($url,array('project_id'=>0)));?>" <?php if(empty($_GET['project_id'])) echo 'class="active"';?> >不限</a>
+                            <?php foreach($projects as $k=>$val){ ?>
+                            <a  <?php if($_GET['project_id'] === (int)$k) echo 'class="active"';?>   href="<?php echo mkUrl::linkTo('gs','main',array_merge($url,array('project_id'=>$k)));?>"><?php echo $val;?></a>
+                            <?php }?>              </div>
+                    </li>
+                    <li class="ling2"><span class="s3">公司规模:</span>
+                        <div class="c1">
+                              <a href="<?php echo mkUrl::linkTo('gs','main',array_merge($url,array('scale_id'=>0)));?>" <?php if(empty($_GET['scale_id'])) echo 'class="active"';?> >不限</a>
+                            <?php foreach($scales as $k=>$val){ ?>
+                            <a  <?php if($_GET['scale_id'] === (int)$k) echo 'class="active"';?>   href="<?php echo mkUrl::linkTo('gs','main',array_merge($url,array('scale_id'=>$k)));?>"><?php echo $val;?></a>
+                            <?php }?>                </div>
+                    </li>
+                         
+        
+      </ul>
+        <!--分类 结束-->
+                <!--选择结果 开始-->
+                
+                <div id="result_title">
+                    <p>
+                        筛选结果：符合您的搜索要求大约找到 <span>
+                             <?php echo $totalnum;?></span> 条结果</p>
+                </div>
+                
+                 <?php foreach($datas as $val){ ?> 
+                <div id="result_detail">
+                
+                <ul>
+                    <li class="detail_left">
+                        <a class="s_logo" target="_blank"  title="<?php echo $val['company_name'];?>" href="<?php echo   mkUrl::linkTo('company','main',array('id'=>$val['uid']));?>" >
+                          <?php if(!empty($val['logo'])){?>  <img alt="<?php echo $val['company_name'];?>" src="<?php echo URL;?><?php echo $val['logo'];?>"  border="0"><?php } else echo '未上传LOGO';?>
+                                <?php if(isset($securitydatas[$val['uid']]) && $securitydatas[$val['uid']]['is_security']){?><em class="baozhangicon"></em> <?php  }?>
+                        </a>
+                            <div class="company">
+                            <span>
+                                <h3>
+                                    <a target="_blank" title="<?php echo $val['company_name'];?>" href="<?php echo   mkUrl::linkTo('company','main',array('id'=>$val['uid']));?>">
+                                    <?php echo $val['company_name'];?></a><?php if($val['orderby'] > 0){?><font color="red">[推广]</font><?php }?>
+                                </h3>
+                                         <a target="_blank" title="<?php echo $val['company_name'];?>"  class="a_hl1" href="<?php echo  mkUrl::linkTo('company','credit',array('id'=>$val['uid']));?>">荣誉资质</a>
+                                     
+                            </span>
+                                
+                                     <p>
+                                        <b>地址：</b><?php echo empty($val['addr']) ? '未填写' : $val['addr'];?>
+                                      
+                                </p>
+                                <p>  <a class="icon_tel"><img src="<?php echo URL;?>themes/v3.0/images/company/icon_tel.jpg" /></a><b>电话：</b><?php echo $val['tel'];?></p>
+                                <?php if(isset($securitydatas[$val['uid']]) && $securitydatas[$val['uid']]['is_security']){?>
+                                <p style="max-height:50px;overflow:hidden">
+                                    <b>特色服务:</b><?php echo $securitydatas[$val['uid']]['special'];?>
+                                </p>
+                                <p>
+                                    <b> 售后保障:</b><?php echo $securitydatas[$val['uid']]['after_sales'];?>
+                                </p>
+                                <?php }?>
+                                
+                                 <p><a class="tubiao a5"></a>评价：<a class="tubiao a6"><b class="pingfeng"><?php echo round($val['average_score']/10,1);?></b></a><a target="_blank" class="tubiao a7" href="<?php echo   mkUrl::linkTo('company','dianping',array('id'=>$val['uid']));?>">点评<b class="dianping"><?php echo $val['comment_num'];?></b></a>
+							
+                              </p> <p>
+                                人气：<b class="dianping"><?php echo $val['pv'];?> </b> 
+                                &nbsp;&nbsp;预约：<b class="dianping"><?php echo isset($quantityRoom[$val['uid']]) ? $quantityRoom[$val['uid']] : 0;?></b> &nbsp;&nbsp;
+                                案例：<b class="dianping"><?php echo isset($caseNums[$val['uid']]) ? $caseNums[$val['uid']] : 0;?></b>
+                                &nbsp;&nbsp;工地：<b class="dianping"><?php echo isset($buildingSite[$val['uid']]) ? $buildingSite[$val['uid']] : 0;?></b>
+</p>
+                      </div>
+                    </li>
+                    <li class="detail_right">
+                        <?php if(isset($securitydatas[$val['uid']]) && $securitydatas[$val['uid']]['money1']){?><p class="s1">固定保障金￥<?php echo $securitydatas[$val['uid']]['money1'];?></p> <?php }?>
+                       <?php if(isset($securitydatas[$val['uid']]) && $securitydatas[$val['uid']]['money2']){?><p class="s2">活动保障金￥<?php echo $securitydatas[$val['uid']]['money2'];?></p> <?php }?>
+                       <?php if(!empty($val['is_authentication'])){?> <p class="s3">营业执照认证</p> <?php }?>
+						<a class="gs_anlie"  title="<?php echo $val['company_name'];?>" href="<?php echo   mkUrl::linkTo('company','quantityRoom',array('id'=>$val['uid']));?>">申请免费量房</a>
+                        <a class="gs_anlie" rel="<?php echo $val['uid'];?>" href="javascript:void(0);">显示最新案例</a>
+                    </li>
+                  </ul>
+              
+                    <div class="li_img_list" style="display: none;" id="jq_anli_<?php echo $val['uid'];?>" >
+                            <div class="list">
+                                    <ul class="ul_img" style="padding:0px;">
+                                            <?php foreach($val['case'] as $caseV){ ?>
+                                            <li>
+                                                <a title="<?php echo $caseV['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$caseV['case_id']));?>">
+                                                    <img width="120" height="95" alt="<?php echo $caseV['title'];?>" src="<?php echo URL,$caseV['face_pic'];?>" />
+                                                <br>
+                                                <?php echo mb_substr($caseV['title'],0,10);?></a>
+                                            </li>  
+                                            <?php }?>
+                                        
+                                    </ul>
+                            </div>
+                        </div>
+                </div>
+                <?php }?>  
+                <script>
+                    $(document).ready(function(){
+                        $(".gs_anlie").click(function(){
+                             $("#jq_anli_"+$(this).attr('rel')).toggle(200);
+                        });
+                        
+                    });
+                    
+                </script>
+                
+                <div id="result_detail">
+                     <?php echo $links;?>
+                </div>       
+	    </div>
+	    
+	    <div id="content_right">
+          <div class="ad_198"><a href="<?php echo mkUrl::linkTo('register');?>"><img src="<?php echo URL;?>themes/v3.0/images/company/jiameng.jpg" border="0" /></a></div>  
+          <?php  require TEMPLATE_PATH.'zb_left.html';?>	
+		  <div class="anli_198">
+		  	<div class="title">
+				TA上传了新的案例
+			</div>
+			<div class="zhu jq_new_company_case">
+				<ul>
+                                        <?php foreach($newCompanyCase as $val){ ?>
+					<li>
+						 <a href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>" target="_blank" title="<?php echo $val['title'];?>">
+                                                     <font color="#898989"><?php echo substr($val['create_time'],5,5);?>,</font><?php echo $val['company_name'];?><br>
+                                                    <font color="#898989">上传了,</font><font color="#658C0D"><?php echo $val['title'];?></font>
+						</a>
+					</li>
+					<?php }?>
+				</ul>
+			</div>
+                        
+        <script>
+        $('.jq_new_company_case').vTicker({
+                            speed: 1000,
+                            pause: 2000,
+                            showItems: 5,
+                            animation: 'fade',
+                            mousePause: false,
+                            height: 0,
+                            direction: 'up'});
+		
+
+    </script>
+		  </div>   
+		  
+          <div class="anli_198">
+		  	<div class="title">
+				TA上传了新的工地
+			</div>
+			<div class="zhu jq_new_company_gd">
+				<ul>
+                                    <?php foreach($newBuildingSite as $val){ ?>
+					<li>
+						<a href="<?php echo mkUrl::linkTo('company','site',array('id'=>$val['company_id']));?>">
+                                                  <font color="#898989"><?php echo substr($val['create_time'],5,5);?>,</font><?php echo $val['company_name'];?><br>
+						<font color="#898989">上传了,</font><font color="#658C0D"><?php echo $val['name'];?></font>
+						</a>
+					</li>
+					<?php  }?>
+				</ul>
+			</div>
+               <script>
+        $('.jq_new_company_gd').vTicker({
+                            speed: 1000,
+                            pause: 2000,
+                            showItems: 5,
+                            animation: 'fade',
+                            mousePause: false,
+                            height: 0,
+                            direction: 'up'});
+		
+
+    </script>
+		  </div>
+  </div>
+    </div>
+    
+    
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

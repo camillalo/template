@@ -1,0 +1,65 @@
+<div class="header_logo">
+    <div class="logo">
+
+             <a title="<?php echo $__SETTING['site_name']?>" href="<?php echo mkUrl::linkTo('index');?>"><img border="0" src="<?php  echo URL;?>themes/v3.0/images/logo.gif"  /></a>
+
+ 
+    </div>
+
+    <div class="tel">
+        服务热线：<font><?php echo $__SETTING['tel'];?></font>
+    </div>
+    <div class="seach_form">
+        <div class="form1" style="position: relative;">
+            <form method="get" onsubmit="return searchCheck();" action="<?php echo URL;?>index.php">
+                <?php $word = isset($searchWord) ? $searchWord : '输入您想搜索的关键字';?>
+                <input type="text" name="word" id="jq_search_word" class="form1_text" onfocus="if (this.value=='<?php echo $word;?>') this.value='';" onblur="if (this.value=='') this.value='<?php echo $word;?>';" value="<?php echo $word;?>" />
+                <div class="select" id="jq_search_category">
+                    
+                    <a id="jq_search_select" href="###">请选择</a>
+                    <ul id="jq_select_ul"  >
+                        <li><a id="jq_select_a_1"  rel="company" href="###">找公司</a></li>
+                        <li><a  rel="preferential" href="###">找优惠</a></li>
+                        <li><a  rel="goods" href="###">找产品</a></li>
+                        <li><a  rel="content" href="###">学装修</a></li>
+                        <li><a  rel="ask" href="###">有问题</a></li>
+                    </ul>
+                </div>
+              
+                
+                <input type="submit" class="form1_btn" name="Submit" value="搜索" />
+				<input type="hidden"  name="ctl" value="search" style="display:none;"/>
+                <input type="hidden" class="jq_search_act" id="jq_search_act"  name="act" value="" style="display:none;"/>
+                  <script>
+                    function searchCheck(){
+                        if($("#jq_search_act").val() == '' || $("#jq_search_act").val()  === undefined){
+                            
+                            return false;
+                        }   
+                        if($("#jq_search_word").val() == '输入您想搜索的关键字' ||$("#jq_search_word").val() =='' ){
+                            return false;
+                        }
+                        return true;
+                    }
+                    var defaultSearch = '<?php if(isset($defaultSearch)) echo $defaultSearch; else echo 0;?>';
+                     $(document).ready(function(){
+                        $("#jq_search_category").mouseover(function(){
+                            $("#jq_select_ul").show();
+                        }).mouseout(function(){
+                             $("#jq_select_ul").hide();
+                        });
+                        $("#jq_select_ul  a ").click(function(e){
+                            e.preventDefault();
+                            $("#jq_search_select").text($(this).text());
+                            $(".jq_search_act").val($(this).attr('rel'));
+                            $("#jq_select_ul").hide();
+                        });
+                    })
+                </script>
+            </form>
+        </div>
+        <p>
+            热门搜索：<?php echo pluginsAds(16);?>
+        </p>
+    </div>
+</div>

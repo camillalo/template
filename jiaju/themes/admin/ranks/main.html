@@ -1,0 +1,81 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=ranks" class="on"><em>会员等级列表</em></a>
+                             
+            <span>|</span>
+            <a href="index.php?ctl=ranks&act=add"><em>新增会员等级</em></a>
+                
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="ranks">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                                说明  招标天数优先于招标条数，招标条数优先于招标金币！ 也就是说如果有天数 不扣条数 有条数不扣金币数
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                      <th align="center" >等级名称</th>
+                      <th align="center" >等级图标</th>
+                      <th align="center" >等级到期图标</th>
+                      <th align="center" >可看招标天数</th>
+                      <th align="center" >可看招标条数</th>
+                      <th align="center" >可看招标金币数</th>
+                      <th align="center" >开通价格</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><?php echo $val['rank_id'];?></td>
+                        <td align="center" ><?php echo $val['rank_name'];?></td>
+                        <td align="center" ><?php if(!empty($val['icon'])){ ?><img  src="<?php echo URL.$val['icon'];?>" /><?php }?></td>
+                        <td align="center" ><?php if(!empty($val['icon1'])){ ?><img src="<?php echo URL.$val['icon1'];?>" /><?php }?></td>
+                        <td align="center" ><?php echo $val['day'];?></td>
+                        <td align="center" ><?php echo $val['num'];?></td>
+                        <td align="center" ><?php echo $val['gold'];?></td>
+                        <td align="center" ><?php echo round($val['prices']/100,2);?></td>
+                        <td width="15%" align="center">
+                            <?php if(empty($val['rank_id'])){ ?>
+                                系统默认
+                            <?php }else{ ?>
+                                <font color="#cccccc">
+                                    <a href="index.php?ctl=ranks&act=edit&rank_id=<?php echo $val['rank_id'];?>">修改</a>
+                                </font> | 
+                                                        <font color="#cccccc">
+                                    <a href="index.php?ctl=ranks&act=view&rank_id=<?php echo $val['rank_id'];?>">查看</a>
+                                </font> | 
+                                                    <font color="#cccccc">
+                                <a target="hiden_frm" href="index.php?ctl=ranks&act=del&rank_id=<?php echo $val['rank_id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                                </font>
+                            <?php }?>
+                              
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

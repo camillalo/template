@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/blog.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="blog_body">
+	<div class="blog_header">
+		<div class="w_980">
+			<div class="blog_nav">
+					<div class="left">
+						<a href="<?php echo mkUrl::linkTo('index');?>"><?php echo $__SETTING['site_name']?></a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('gs');?>">找公司</a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('tenders');?>">招标</a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('activity');?>">团购</a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('ask');?>">问吧</a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('content');?>">学装修</a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('mall');?>">商城</a><b></b>
+						<a target="_blank" href="<?php echo mkUrl::linkTo('sjs');?>">设计师</a>
+						
+					</div>
+					<div class="right">
+						 <a href="<?php echo mkUrl::linkTo('case');?>" >回图库首页</a> 
+					</div>
+					
+					
+				</div>
+		</div>
+		</div>
+		
+		<div class="w_980">
+			
+			
+			<div class="blog_left">
+				<div class="blog_name">
+				<h1><?php echo $data['position'],$data['name'],'的博客';?></h1>
+				<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST']; echo mkUrl::linkTo('designer','main',array('id'=>$data['id']));?>"><?php echo 'http://'.$_SERVER['HTTP_HOST']; echo mkUrl::linkTo('designer','main',array('id'=>$data['id']));?></a>
+				</div>
+				<?php require TEMPLATE_PATH.'designer/menu.html';?>
+				
+			
+				
+                            
+                            
+				<div class="blog_main">
+                                        <div class="t1">
+						<p>关于我</p>
+					</div>	
+                                         <div class="list_info"><?php echo $data['about'];?></div>
+				</div>
+                                
+                                <div class="blog_main">
+                                        <div class="t1">
+						<p>设计作品</p>
+					</div>	
+                                         <div class="list_info">
+                                               <?php foreach($datas  as  $val){ ?>
+                                                    <div class="blog_img_list">
+
+                                                    <div class="img">
+                                                                <a  title="<?php echo $val['title'];?>" target="_blank" href="<?php echo  mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>">
+                                                <img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['face_pic'];?>">
+                                                                </a>
+                                                    </div>
+                                                    <p><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo  mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"> <?php echo mb_substr($val['title'],0,8);?></a></p>
+                                                    <ul>
+                                                        
+                                                            <li>关注：<font style="color:#476B00;"><?php echo $val['pv_num'];?>次</font></li>
+                                                    </ul>
+                                                    </div>
+                                                <?php }?>
+				
+                                         </div>
+                                    <div class="list_info" style="height: 5px;"></div>
+				</div>
+                                
+				
+			</div>
+			<?php require TEMPLATE_PATH.'designer/right.html';?>
+		
+	</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+ </body>
+</html>

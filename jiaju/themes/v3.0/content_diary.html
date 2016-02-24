@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/zx_blog.css" rel="stylesheet" type="text/css" />
+
+</head>
+ <div class="w_980">
+        <?php  require TEMPLATE_PATH.'public/top.html';?>	
+        <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+        <?php  require TEMPLATE_PATH.'public/menu.html';?>
+        <div class="header_a">
+		<b>&nbsp;</b>
+	
+		 <?php $i = 0; foreach($cates as $k=>$v){ $i++;?>
+     
+       <a  title="<?php echo $v;?>" class="a" href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>$k));?>"><?php echo $v;?></a>
+       <b>|</b>
+        <?php }?>
+    
+        <a class="a cur" href="<?php echo mkUrl::linkTo('content','diary');?>">装修日记</a>
+     
+	</div>
+    </div>
+    <div class="clear"></div>
+<div class="w_980">
+	<div class="zx_blog_nav">
+                        <?php foreach($diary_cates as $k=>$v){ ?>
+                        <a href="<?php echo mkUrl::linkTo('content','diary',array('id'=>$k));?>"><?php echo $v;?></a>
+                        <?php }?>
+		</div>
+		
+		
+		<div class="zx_blog_left">
+				<div class="new_list">
+					<div class="title">精品日记 </div>
+					<ul>
+						<?php foreach(recommend::getInstance()->load('content-diary-001',10) as $val){ ?>
+                            <li><a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></li>	
+                            <?php }?>
+					</ul>
+				</div>
+				
+				<div class="new_list ">
+					<div class="title">装修经验 </div>
+					<ul>
+						<?php foreach(recommend::getInstance()->load('content-diary-002',10) as $val){ ?>
+                            <li><a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></li>	
+                            <?php }?>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="zx_blog_right">
+				<div class="title"><div class="t65"><?php if(!empty($cate_id)){  echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['contents'],$cate_id);?><?php } else{?>装修日记<?php }?></div></div>
+				<ul>
+					<?php foreach($datas as $val){ ?>
+					<li>
+                                            <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('content','diaryshow',array('id'=>$val['id']));?>"><?php echo $val['title'];?></a>
+							<a class="key" href="<?php echo mkUrl::linkTo('content','diary',array('id'=>$val['cate_id']));?>"><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['contents'],$val['cate_id']);?></a>
+							
+						</p>
+						<span><?php echo mb_substr(getValue($val['contents'],true),0,200);?> <a title="<?php echo $val['title'];?>"  target="_blank" href="<?php echo mkUrl::linkTo('content','diaryshow',array('id'=>$val['id']));?>">[阅读全文]</a></span>
+					</li>
+					<?php }?>
+				</ul>
+				
+				
+			</div>
+	<div class="clear"></div>
+			 <div style="padding-left: 300px; height: 100px;"><?php echo $links;?></div>
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

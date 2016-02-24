@@ -1,0 +1,68 @@
+<div class="foot">
+
+
+     
+<div id="dibuer">
+<div class="dibua">
+ 
+    <div class="dibu">
+       <div class="dibu_box">
+         <ul>
+           <h4><strong>新手指南</strong></h4>
+           <li><a title="注册流程" target="_blank" href="<?php echo mkUrl::linkTo('register');?>">注册流程</a></li>
+           <li><a title="如何获得装修保障" target="_blank" href="<?php echo mkUrl::linkTo('tenders','baozhang');?>">如何获得装修保障</a></li>
+           <li><a title="如何维护装修权益" target="_blank" href="<?php echo mkUrl::linkTo('tenders','baozhang');?>">如何维护装修权益</a></li>
+         </ul>
+         <ul>
+          <h4><strong>装修指南</strong></h4>
+           <li><a title="免费报价" target="_blank" href="<?php echo mkUrl::linkTo('tenders','baojia');?>">免费报价</a></li>
+           <li><a title="免费验房" target="_blank" href="<?php echo mkUrl::linkTo('tenders','baojia');?>">免费估计</a></li>
+           <li><a title="免费量房" target="_blank" href="<?php echo mkUrl::linkTo('tenders','liangfang');?>">免费量房</a></li>
+           <li><a title="免费设计" target="_blank" href="<?php echo mkUrl::linkTo('tenders','sheji');?>">免费设计</a></li>
+         </ul>
+         <ul>
+          <li><img alt="" src="<?php echo URL;?>themes/v3.0/images/bao.gif"></li>
+         </ul>
+         <ul>
+           <h4><strong>合作方案</strong></h4>
+           <li><a title="业主加入<?php echo $__SETTING['site_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('register','main',array('type'=>1));?>">业主加入</a></li>
+           <li><a title="装修公司加入<?php echo $__SETTING['site_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('register','main',array('type'=>2));?>">装修公司加入</a></li>
+           <li><a title="建材商家加入<?php echo $__SETTING['site_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('register','main',array('type'=>3));?>">建材商家加入</a></li>
+           <li><a title="设计师加入<?php echo $__SETTING['site_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('register','main',array('type'=>4));?>">设计师加入</a></li>
+         </ul>
+         <ul>
+           <h4><strong>本站服务</strong></h4>
+           <li><a title="免费发布装修招标" target="_blank" href="<?php echo mkUrl::linkTo('tenders');?>">免费发布装修招标</a></li>
+           <li><a title="免费预约装修公司" target="_blank" href="<?php echo mkUrl::linkTo('tenders','baojia');?>">免费预约装修公司</a></li>
+           <li><a title="免费发布建材招标" target="_blank" href="<?php echo mkUrl::linkTo('tenders');?>">免费发布建材招标</a></li>
+         </ul>
+       </div>
+      <div class="bottom_nav">
+                 <?php 
+                    if(!isset($systemContents)) { 
+                        import::getMdl('content'); 
+                        $systemContents = contentMdl::getInstance()->getContentsByCateId($__PINDAO_ROOT['system'],6,'ASC'); 
+                    }
+                foreach($systemContents as $val) { ?>
+                <a title="<?php echo $__SETTING['site_name'],$val['title'];?>" href="<?php echo mkUrl::linkTo('content','system',array('id'=>$val['content_id']));?>"><?php echo $val['title'];?></a>
+                <?php }?>
+            </div>
+        <div class="copyright">
+	   Copyright &copy; 2012  <?php echo $_SERVER['HTTP_HOST'];?>, All rights reserved. <?php if(!empty($__SETTING['icp'])){ ?>ICP备案：<?php echo $__SETTING['icp'];?> <?php }?>
+        </div>
+        <div style="display:none;" >
+              <?php if($_GET['ctl']!=='user'){ ?>
+                    <?php echo isset($__SETTING['tongji']) ?stripslashes_deep($__SETTING['tongji']) : '' ;?>
+              <?php }?>
+        </div>
+  </div>
+   
+</div>
+               
+                 
+</div>		
+ 
+
+</div>
+
+<?php  require TEMPLATE_PATH.'qq/qq.html';?>

@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/ybf.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/zx_public.html';?>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+	<div class="ybf_here">
+		<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> >  在建工地
+	</div>
+	
+	<div class="ybf_left">
+		<div class="box1">
+			<div class="title">在建工地分类</div>
+			<p>
+			<strong>区域:</strong>
+			<span>
+                            
+                            <a <?php if(empty($areaid)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('areaid'=>0)));?>">不限</a>
+                        <?php foreach($quxian as $k=>$v){?>
+			<a <?php if($k == $areaid){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('areaid'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>
+		
+		
+		<p>
+			<strong>阶段:</strong>
+			<span>
+			     
+                            <a <?php if(empty($status)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('status'=>0)));?>">不限</a>
+                        <?php foreach($__SITE_STATUS_MEANS as $k=>$v){?>
+			<a <?php if($k == $status){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('status'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>
+		
+
+                <p>
+			<strong>风格:</strong>
+			<span>
+			     
+                        <a <?php if(empty($stid)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('stid'=>0)));?>">不限</a>
+                        <?php foreach($style as $k=>$v){?>
+			<a <?php if($k == $stid){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('stid'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>
+		<p>
+			<strong>空间:</strong>
+			<span>
+			     
+                        <a <?php if(empty($sid)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('sid'=>0)));?>">不限</a>
+                        <?php foreach($spaces as $k=>$v){?>
+			<a <?php if($k == $sid){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('sid'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>
+                 <p>
+			<strong>预算:</strong>
+			<span>
+			     
+                        <a <?php if(empty($pid)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('pid'=>0)));?>">不限</a>
+                        <?php foreach($prices as $k=>$v){?>
+			<a <?php if($k == $pid){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('pid'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>       
+               <p>
+			<strong>面积:</strong>
+			<span>
+			     
+                        <a <?php if(empty($aid)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('aid'=>0)));?>">不限</a>
+                        <?php foreach($areas as $k=>$v){?>
+			<a <?php if($k == $aid){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('site','main',array_merge($url,array('aid'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>           
+		
+		
+		</div>
+		
+		
+		
+		<div class="box2">
+		<div class="title">
+		<p>在建工地列表</p>
+		<span>为您找到<?php echo $totalnum;?>在建工地</span>
+		</div>
+		<?php foreach($datas as $val){ ?>
+		<div class="list">
+			<div class="left">
+                            <div class="img">
+                                <?php if($val['face_pic']){ ?>
+                                <a  title="<?php echo $val['name'];?>" href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>"><img src="<?php echo URL,$val['face_pic'];?>" /></a>
+                                <?php }?>
+                            </div>
+			</div>
+			<div class="right">
+			<div class="const_title">
+                            <input type="button" alt="" title="我要参观" value="" rel="<?php echo $val['id'];?>" class="struction_bnt thickbox">
+                                <a target="_blank" title="<?php echo $val['name'];?>" href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>"><?php echo $val['name'];?></a> 
+                                <?php if(!empty($val['company_name'])){ ?>
+                                <a class="company_a" target="_blank" title="<?php echo $val['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$val['company_id']));?>"><?php echo $val['company_name'];?></a>
+                                <?php }?>
+			</div>
+			<div class="const_shuju">
+                            <!--评分：
+                                <?php  for($i=0;$i<5;$i++){ ?>
+                                <?php if($i<$val['score']){ ?>
+                                <img src="<?php echo URL;?>themes/v3.0/images/star.jpg">
+                                <?php }else{ ?>    
+                                <img src="<?php echo URL;?>themes/v3.0/images/star2.jpg">
+                                <?php }}?>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                            人气：<tt><?php echo $val['pv'];?></tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <em>开工日期：<?php echo $val['bg_time'];?></em><br>
+                            区域：<?php echo $val['area_name'];?>&nbsp;&nbsp;    
+                            面积：<?php echo $val['a_name'];?>&nbsp;&nbsp;
+                            造价：<?php echo $val['price_name'];?>&nbsp;&nbsp;
+                            风格：<?php echo $val['style_name'];?>&nbsp;&nbsp;
+                            <?php if(!empty($val['designer_name'])){?>
+                            设计师：<a target="_blank" title="<?php echo $val['designer_name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['designer_id']));?>"><?php echo $val['designer_name'];?></a>  
+                            <?php }?>
+                        </div>
+			<div class="clear"></div>
+			
+			<ul>
+                            <li <?php if($val['status'] == 1){?>class="current2" <?php }?>  <?php if($val['status'] > 1){?>class="current" <?php }?>   ><a href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">开工大吉</a></li>
+                            <li <?php if($val['status'] == 2){?>class="current2" <?php }?>  <?php if($val['status'] > 2){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">水电改造</a></li>
+                            <li <?php if($val['status'] == 3){?>class="current2" <?php }?> <?php if($val['status'] > 3){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">泥瓦工阶段</a></li>
+                            <li <?php if($val['status'] == 4){?>class="current2" <?php }?> <?php if($val['status'] > 4){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">木工阶段</a></li>
+                            <li <?php if($val['status'] == 5){?>class="current2" <?php }?> <?php if($val['status'] > 5){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">油漆阶段</a></li>
+                            <li <?php if($val['status'] == 6){?>class="current2" <?php }?> <?php if($val['status'] > 6){?>class="current" <?php }?>><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">安装阶段</a></li>
+                            <li <?php if($val['status']  < 7){?>class="last" <?php }?>  <?php if($val['status']  == 7){?>class="current_last" <?php }?> ><a  href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$val['company_id'],'sid'=>$val['id']));?>">验收完成</a></li>
+			</ul>			
+			
+                    </div>
+		</div>
+		<?php }?>
+		
+                <div><?php echo $links;?></div>
+	
+		
+	
+            </div>
+	</div>
+	
+	<div class="ybf_right">
+	
+	 <?php  require TEMPLATE_PATH.'zb_left.html';?>	
+		<div class="box1" style="margin-top:10px;">
+			<div class="title">热门在建工地工地</div>
+			
+			<ul class="hhr_con1">
+                            <?php $i=0; foreach($hotsSite as $v){ $i++;?>
+                            <li>
+                                    <em class="hr1"><?php echo $i;?></em>
+                                    <a target="_blank" title="<?php echo $v['name'];?>" href="<?php echo mkUrl::linkTo('company','siteDetail',array('id'=>$v['company_id'],'site_id'=>$v['id']));?>"><?php echo $v['name'];?></a>
+                            </li>
+                            <?php }?>
+                        </ul>
+
+		</div>
+		
+		<div class="box1" style="margin-top:10px;">
+			<div class="title">热门装修效果图</div>
+			
+			<ul class="hhr_con1">
+                            <?php $i=0; foreach($hotsCases as $v){ $i++;?>
+                            <li>
+                              <em class="hr1"><?php echo $i;?></em>
+                              <a target="_blank" title="<?php echo $v['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$v['case_id']));?>"><?php echo $v['title'];?></a>
+                            </li>
+                            <?php }?>
+                        </ul>
+				  
+		</div>
+	
+	</div>
+</div>
+<div class="clear"></div>
+   <script>
+                        $(document).ready(function(e){
+                            $(".struction_bnt").click(function(){
+                                if(is_login === false){
+                                    ajaxLogin();
+                                }else{
+                                    var id = $(this).attr('rel');
+                                    $("#jq_yycc_baoming_form").dialog({
+                                        width :400,
+                                        height:240,
+                                         modal: true,
+                                        buttons:{
+                                            '确认报名':function(){
+                                                $.ajax({
+                                                url:'<?php echo URL;?>index.php?ctl=ajax&act=siteApply&id='+id,
+                                                type:'POST',
+                                                data:$(this).find('form').serialize(),
+                                                dataType:'json',
+                                                success:function(data){
+                                                    if(data.ret < 0){
+                                                        alert(data.message);
+                                                    } else{
+                                                        alert(data.message);
+                                                        $("#jq_yycc_baoming_form").dialog('close');
+                                                    }
+                                                }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            
+                        });
+                    </script>
+<div id="jq_yycc_baoming_form" title="我想预约报名参观" style="display: none;">
+         <form  name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="100">称呼：</th>
+                        <td><input type="text"  size="20"  value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="100">联系方式:</th>
+                        <td><input type="text" size="20"  value="" name="phone" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="100">要求:</th>
+                        <td><textarea name="comment" cols="30" rows="5"></textarea></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </form>
+    
+    
+</div>	   
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+</body>
+</html>

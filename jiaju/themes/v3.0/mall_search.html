@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/search.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+    <?php  require TEMPLATE_PATH.'public/notice.html';?>
+   
+</div>
+<div class="clear"></div>	
+ 
+	<div class="w_980">
+	
+	   <div class="search_here">
+		<strong>当前位置：</strong>  <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('mall');?>">商城</a> > 搜索 > <span style="color: #BF0000; "><?php echo $searchWord;?></span>
+		</div>
+           
+	  <div class="search_main">
+              
+     <?php if(!empty($productsIds)){ ?>
+    <div class="showtime">共找到<span style=" color: red;"><?php echo $totalnum;?></span>条记录,响应时间<span style=" color: red;"><?php echo $showTime;?></span>秒</div>
+    <ul class="search_list">
+        <?php foreach($productsIds as $id){
+            if(isset($showDatas[$id])){ 
+           $val = $showDatas[$id];
+        ?>
+        <li>
+            <div class="product_name">
+                <a target="_blank" product_name="<?php echo $val['product_name'];?>" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>"><?php  echo str_replace($words,$words2,$val['product_name']);?>(<?php echo $val['model'];?>)</a>
+            </div>
+            <div class="company">
+                  <a title="<?php echo $val['product_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>">
+                      <img  width="50" height="50" alt="<?php echo $val['product_name'];?>"  src="<?php echo URL,$val['face_pic'];?>" border="0" />
+                                                </a>
+                <?php echo str_replace($words,$words2,mb_substr(getValue($val['description'],true),0,100));?>...
+            </div>
+            <div class="links"> 
+                <a target="_blank" product_name="<?php echo $val['product_name'];?>" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>"><?php echo 'http://',$_SERVER['HTTP_HOST'],mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?></a>
+            </div>
+        </li>
+        <?php }}?>
+    </ul>
+    <div style="padding-left: 200px;" id="pages">
+        <?php echo $links;?>
+    </div>
+    <?php } else{ ?>
+    <div class="sorry" style="font-size: 14px; height: 120px; line-height: 120px;" > 很抱歉没有找到关于"<span style=" color:  #BF0000;"><?php echo $searchWord;?></span>"的产品结果! </div>
+    <?php  }?>
+    <div style="height: 320px;"></div>
+    </div>
+	  </div>
+		<div class="clear"></div>
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

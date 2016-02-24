@@ -1,0 +1,90 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="###" class="on"><em>创建新推荐</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=recommend&act=add&type=<?php echo empty($_GET['type']) ? 1 : $_GET['type'];?>&mdl_id=<?php echo empty($_GET['mdl_id']) ? 1 : $_GET['mdl_id'];?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">标题:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['title'];?>" name="title" class="input-text"> </td>
+                    </tr>
+   
+                    <tr>
+                        <th width="140">推荐页面:</th>
+                        <td>
+                            <select name="page_id" id="page_id">
+                                <option value="0">请选择.....</option>
+                                <?php foreach($pages as $val){?>
+                                <option value="<?php echo $val['group_id'];?>"><?php echo $val['group_name'];?></option>
+                                <?php }?>
+                            </select>
+                             <script>
+                                  $(document).ready(function(){
+                                      $("#page_id").change(function(){
+                                          var  val = $(this).val();
+                                          if(val == 0){ alert('请选择分类');}
+                                          else{
+                                              $.get('index.php?ctl=ajax&act=getSign&group_id='+val,function(data){
+                                                   if(data.ret == -1){
+                                                        alert(data.message);
+                                                    }else{
+                                                        var str ='<option value="0">请选择.....</option>';
+                                                        for(a in data.message){
+                                                            str +='<option value="'+data.message[a].id+'">'+data.message[a].name+'</option>';
+                                                        }
+                                                        $("#sign_id").html(str);
+                                                    }
+                                              },'json');
+                                          }                                          
+                                      });
+                                  });  
+                             </script>
+                        </td>
+                    </tr>
+               
+                    <tr>
+                        <th width="140">推荐位:</th>
+                        <td>
+                            <select name="sign_id" id="sign_id">
+                                <option value="0">请选择.....</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">排序:</th>
+                        <td><input type="text" size="10" value="" name="order" class="input-text">数值越小排序越前 </td>
+                    </tr>
+                    <tr>
+                        <th width="140">图片:</th>
+                        <td>
+                            <input type="text" size="40" value="<?php echo $data['face_pic'];?>" name="face_pic" class="input-text">
+                            <input type="file" name="pic" id="pic" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">链接:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['link'];?>" name="link" class="input-text"> 可以为空如果是固定连接请填写</td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td>
+                            <textarea name="description" cols="50" rows="10"><?php echo $data['description'];?></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

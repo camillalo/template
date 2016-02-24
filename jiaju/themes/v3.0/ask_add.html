@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/ask.css" rel="stylesheet" type="text/css" />
+<script>
+    window.UEDITOR_HOME_URL =  '<?php echo URL;?>statics/ueditor/';
+    window.UEDITOR_IMG_URL  = '<?php echo URL;?>';
+    window.UEDITOR_FILE_URL  = '<?php echo URL;?>';
+    window.DOMAIN  = "<?php echo $_SERVER['HTTP_HOST']?>";
+</script>
+<script type="text/javascript" charset="utf-8" src="<?php echo URL;?>statics/ueditor/editor_config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo URL;?>statics/ueditor/editor_all_min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo URL;?>statics/ueditor/themes/default/ueditor.css"/>
+</head>
+
+<body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+	  
+
+	  <?php  require TEMPLATE_PATH.'ask_top.html';?>
+	  
+	
+	     <div class="w_980">
+	   		
+		 <div class="ask3_left_zhu">
+                     <form id="jq_ask_frm" name="jq_ask_frm" method="post" target="hiden_frm" action="<?php echo mkUrl::linkTo('ask','add');?>">
+
+			<div class="ask4_left">
+			  <div class="box2">
+				  <div class="t"><img src="<?php echo URL;?>themes/v3.0/images/c6.gif" width="181" height="29" /></div>
+				<div class="x"> 
+				  <table width="620" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td>标题：
+                        <label>
+                            <input type="text" class="input" name="title"  value="<?php echo $s;?>" />
+                      </label></td>
+                    </tr>
+                    <tr>
+                      <td>
+                          <script type="text/plain" id="content_edit" style="width:600px;"></script>
+                     <script>
+
+                         var editor_acontent = new baidu.editor.ui.Editor({
+                                //focus时自动清空初始化时的内容
+                                toolbars:[['FontSize', 'InsertImage']],
+                                autoClearinitialContent:true,
+                                //关闭字数统计
+                                wordCount:false,
+                                //关闭elementPath
+                                elementPathEnabled:false,
+                                textarea:'description'
+                                //更多其他参数，请参考editor_config.js中的配置项
+                         });
+                         editor_acontent.render('content_edit');
+                     </script>
+                      
+                      
+                      </td>
+                    </tr>
+                  </table>
+				</div>
+				<div class="msg">
+					发问天数
+                                            <select name="enddate">
+                                            <?php for($i=5;$i<=30;$i+=5 ){ ?>
+                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                            <?php }?>
+					   </select>天  
+					   问题接受回答的天数,请在该时间前处理您的问题
+				</div>
+				
+				<div class="msg">
+					悬赏积分
+                                        <select name="integral">
+                                            <?php $integral = 30; for($i=0;$i<=$integral;$i+=5 ){ ?>
+                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                            <?php }?>
+                                        </select>
+                                        分 
+					   悬赏的积分越多问题可能被关注的更多
+				</div>
+				<div class="box_hl">
+				<div class="ask_type">
+                                问题分类：
+                                <select  class="btype" size="8" id="type_pid" name="type_pid">
+                                     <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['ask'],0) as $k=>$v){ ?>
+                                    <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <?php }?>
+                                </select>
+                                <script>
+                                    $(document).ready(function(){
+                                        $("#type_pid").change(function(){
+                                            var val   = $(this).val();
+                                            var str ='';
+                                            var category_type = "<?php echo $__CATEGORY_TYPE['ask'];?>";
+                                           $.get('<?php echo URL;?>index.php?ctl=ajax&act=getCategory&parent_id='+val+'&category_type='+category_type,function(data){
+                                                if(data.ret == -1){
+                                                    alert(data.message);
+                                                }else{
+                                                    if(data.message.length>0){
+                                                        for(a in data.message){
+                                                     
+                                                            str+='<option value="'+data.message[a].category_id+'" >'+data.message[a].category_name+'</option>';
+                                                            
+                                                        } 
+    
+                                                    }
+                                                    $("#type_id").html(str);
+                                                    str='';
+                                                }
+                                            },'json'); 
+                                        });
+                                    });
+                                </script>
+                                <span class="icon"></span>
+					   
+                                <select size="8" id="type_id" name="type_id">
+
+                                </select>
+				  </div>
+				</div>
+				
+				<div class="ask4_box">
+					<p>如果没有问题请继续</p>
+                                        <input type="submit" id="jq_ask_bt" style="display: none;" />
+                                        <a  href="javascript:void(0);" onclick="$('#jq_ask_bt').click();">提交问题</a>
+				</div>
+			  </div>
+			</div>
+                     </form>
+		 </div>
+		<?php  require TEMPLATE_PATH.'ask_right.html';?>	
+	  </div>
+		<div class="clear"></div>
+</div>
+	<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

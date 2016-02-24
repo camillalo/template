@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+
+        <link href="<?php echo URL;?>statics/flashupload/uploadify.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo URL;?>statics/flashupload/jquery.uploadify-3.1.min.js"></script>
+    </head>
+
+     <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 发布案例
+				</div>
+              
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+                                            发布案例后案例显示页面会有您的联系方式！多发案例会额外直接带来业主哦！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">基本信息</div>
+					<div class="bd gongneng">
+      
+                      <form  enctype="multipart/form-data" action="<?php echo mkUrl::linkTo('user','caseAdd');?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                 <tbody>
+                     <tr>
+                        <th >案例标题:</th>
+                        <td><input type="text" size="40" value="" name="title" class="input-text"> </td>
+                    </tr>
+                      <?php foreach(category::getInstance()->getRoot($__CATEGORY_TYPE['case']) as $val ){ ?>
+                    <tr>
+                        <th ><?php echo $val['category_name']?>:</th>
+                        <td >
+                
+                            <select name="cate_id[]">
+                                <?php foreach (category::getInstance()->getChildCol($__CATEGORY_TYPE['case'],$val['category_id']) as $k=>$v){?>
+                                <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                  <?php  }?>  
+                     
+                     <?php if($__USER_TYPE['company'] === (int)$__USER_INFO['type']){ ?>
+                     <tr>
+                        <th >设计师：</th>
+                        <td >
+                            <?php echo html::select('designer_id',$designerPair);?>
+                        </td>
+                    </tr>
+                     
+                     <?php  }?>
+             
+                    
+                     <tr>
+                        <th >类型:</th>
+                        <td >
+                            <select id="type" name="type">
+                                <?php foreach($__DECORATE_TYPE as $k=>$v){ ?>
+                                    <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th >缩略图:</th>
+                        <td> <input type="file"  name="face_pic" /></td>
+                    </tr>
+                    
+                         <tr>
+                        <th width="100">详细图片:</th>
+                        <td>
+                            <input type="file" name="file_upload_1" value="上传" id="file_upload_1" >
+                        </td>
+                    </tr>
+                    <tr style="display:none;" id="flash_uploaded">
+                        <th width="100">已经上传图片:</th>
+                        <td  class="flashupload">
+                           
+                        </td>
+                    </tr>
+                        <script>
+                            var  imgurl = '<?php echo URL;?>';
+                            $(document).ready(function(){
+                             
+                                $("#file_upload_1").uploadify({
+                                        'buttonImage' : '<?php echo URL;?>statics/flashupload/browse-btn.png',
+                                        'fileTypeDesc' : 'Image Files',
+                                        'fileTypeExts' : '*.gif; *.jpg; *.png;*.bmp;*.jpeg',
+                                        swf           : '<?php echo URL;?>statics/flashupload/uploadify.swf',
+                                        uploader      : '<?php echo URL;?>index.php?ctl=ajax&act=upload',
+                                        uploadLimit : 20,
+                                        onUploadSuccess:function(file, data, response){
+                                            if(data && data != 'no'){
+                                                $("#flash_uploaded").show();
+                                                $(".flashupload").append(mkUploadImageHtml(data));
+                                            }
+                                        }
+                                });
+
+                            });   
+                           function mkUploadImageHtml(data){
+                                var datas = data.split("|||");
+                                var str ='';
+                                str +='<div style="float:left; margin-left: 5px; width: 130px; height: 100px;"><input type="hidden" name="detailPics[]" value="'+datas[0]+'" />';
+                                str +='<img width="100" height="100" src="'+imgurl+datas[0]+'" />';
+                                
+                                str +='<a target="hiden_frm" onclick="$(this).parent().remove();" href="<?php echo URL;?>index.php?ctl=ajax&act=delPic&pic='+encodeURI(datas[0])+'&token='+datas[1]+'">删除</a>';
+                                str +='</div>';
+                                return str;
+                            }
+                          </script>  
+                    
+                    <tr>
+                        <th >真实价格:</th>
+                        <td><input type="text" size="5" value="" name="real_price" class="input-text">元</td>
+                    </tr>
+                    <tr>
+                        <th >真实面积:</th>
+                        <td><input type="text" size="5" value="" name="real_space" class="input-text">平方米</td>
+                    </tr>
+
+                    <tr>
+                        <th >关键字:</th>
+                        <td>
+                            <textarea name="keywords" cols="50" rows="2"></textarea>用逗号隔开
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >描述:</th>
+                        <td>
+                            <textarea name="description" cols="50" rows="10"></textarea> 您可以填写自己的公司描述在这里以便搜索引擎能抓取到
+                        </td>
+                    </tr> 
+                <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+ 
+                </tbody>
+            </table>
+           
+        </form>             
+                                            
+                                            
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

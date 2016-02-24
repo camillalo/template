@@ -1,0 +1,52 @@
+
+<script>
+
+function qv_zb(id){
+	for(i=1;i<=2;i++){
+		if(id==i){
+			$("#zb_btn"+i).addClass("hover");
+			$("#zhu_zb"+i).show();
+		}else{
+			$("#zb_btn"+i).removeClass("hover");
+			$("#zhu_zb"+i).hide();
+		}
+	}
+}
+</script>
+<div class="w_980">
+	<?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+
+<div class="w_980">
+	<div class="ad980">
+		<a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb_banner.gif" border="0" /></a>
+	 </div>
+</div>
+<div class="clear"></div>
+<div class="zb_tiao">
+	<div class="zb_tiao_980"> 
+		<p>家居装修装饰指数： 品牌装修公司: <font>3万7000</font> 家  品牌设计师：<font>3万名</font> 名图样版房例：<font>10万</font> 套 装修招标：<font>500万</font> 个 成交额：<font>1000</font> 亿</p>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="zb_nav">
+	<div class="zb_nav_980" >
+    <a <?php if($_GET['act'] === 'main'){?> class="cur" <?php }?>  href="<?php echo mkUrl::linkTo('tenders');?>">招标0距离</a>
+ 
+    <a <?php if($_GET['act'] === 'liangfang'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','liangfang');?>">免费量房</a>
+    <a <?php if($_GET['act'] === 'sheji'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','sheji');?>">免费设计</a>
+    <a <?php if($_GET['act'] === 'baojia'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','baojia');?>">免费估价</a>
+    <a <?php if($_GET['act'] === 'fangan'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','fangan');?>">免费方案</a>
+    <a <?php if($_GET['act'] === 'baozhang'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','baozhang');?>">5年质保</a>
+    <a <?php if($_GET['act'] === 'jianli'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','jianli');?>">第三方监理</a>
+    <a <?php if($_GET['act'] === 'ruanzhuang'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','ruanzhuang');?>">送软装设计</a>
+    <!--<a <?php if($_GET['act'] === 'yanfang'){?> class="cur" <?php }?> href="<?php echo mkUrl::linkTo('tenders','yanfang');?>">免费验房</a>-->
+
+</div>
+
+</div>
+<div class="clear"></div>

@@ -1,0 +1,37 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=brand" ><em>品牌列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=brand&act=add" class="on"><em>新增品牌</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=brand&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">品牌名称:</th>
+                        <td><input type="text" size="40" value="" name="brand_name" class="input-text"> </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">品牌LOGO:</th>
+                        <td><input type="file"  name="brand_pic" > </td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

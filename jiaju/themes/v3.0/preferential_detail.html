@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/nei2.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="w_body">
+	
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <div class="header_a">
+		<b>&nbsp;</b>
+	
+		<a <?php if($_GET['ctl'] === 'gs'){ ?> class="a cur" <?php  } else{?> class="a"<?}?> href="<?php echo mkUrl::linkTo('gs','main');?>">装修公司</a>
+        <b>|</b>
+        <a <?php if($_GET['ctl'] === 'sjs'){ ?> class="a cur" <?php  } else{?> class="a"<?}?> href="<?php echo mkUrl::linkTo('sjs','main');?>">设计师</a>
+        <b>|</b>
+        <a <?php if($_GET['ctl'] === 'material'){ ?> class="a cur"  <?php  } else{?> class="a"<?}?>  href="<?php echo mkUrl::linkTo('material','main');?>" >材料商</a>
+        <b>|</b>
+        <a <?php if($_GET['ctl'] === 'preferential'){ ?> class="a cur" <?php  } else{?> class="a"<?}?> href="<?php echo mkUrl::linkTo('preferential','main');?>">优惠信息</a>
+        <b>|</b>
+        <a <?php if($_GET['ctl'] === 'site'){ ?> class="a cur" <?php  } else{?> class="a"<?}?> href="<?php echo mkUrl::linkTo('site','main');?>">在建工地</a>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+ <div class="list_left">
+	    <div class="nei_zhu">
+                        <div class="title"><?php echo $data['title'];?></div>
+             
+                        <div class="neirong">
+                             <?php if(!empty($data['face_pic'])){ ?>
+                             <img src="<?php echo URL,$data['face_pic'];?>">
+                             <?php }?>
+                             <?php echo $data['content'];?>
+                        </div>
+                        <script>
+                       
+                            $(window).load(function(){
+                                $(".neirong img").each(function(){
+                                    scaleImage($(this),500,600);
+                                });
+                            });
+                        </script>              
+
+                        <div class="shang_pian">
+                            <div class="bshare-custom">
+                                <div class="bdlikebutton"></div>
+
+<!-- 将此代码放在适当的位置，建议在body结束前 -->
+<script id="bdlike_shell"></script>
+<script>
+var bdShare_config = {
+	"type":"small",
+	"color":"red",
+	"share":"yes"
+};
+document.getElementById("bdlike_shell").src="http://bdimg.share.baidu.com/static/js/like_shell.js?t=" + new Date().getHours();
+</script>
+                            </div>
+                        </div>
+         
+                        <div class="clear"></div>
+
+                        <div>
+                                 <div> <?php pluginsComments($__COMMENTS_TYPE['preferential'],$id);?></div>
+                        </div>
+
+    
+                    </div>
+                </div>
+				
+				<div class="list_right">
+
+                  
+
+<div class="wsztzp">
+				<a href="#"><img src="<?php echo URL;?>themes/v3.0/images/ad10.jpg" border="0" /></a> 
+				
+				</div>
+				
+
+
+        <div class="tj_blog m12">
+                    <p class="tj_blogtitle fb">
+                        设计师最新作品
+                    </p>
+                    <ul class="sjs_tjlist clearfix">
+                             
+			<?php foreach($cases as $val){ ?>
+                        <li>
+                            <a title=" <?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>">
+                                <img alt=" <?php echo $val['title'];?>" width="138" height="111" src="<?php echo URL,$val['face_pic'];?>">
+                            </a>
+                            <br>
+                            <span style="line-height: 35px;">
+                                <a title=" <?php echo $val['title'];?>" target="_blank" style="color: #1261d7;" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>">
+                                    <?php echo mb_substr($val['title'],0,10);?>
+                                </a>
+                            </span>
+                        </li>
+                       <?php }?>            
+                    </ul>
+                </div>
+                </div>
+</div>
+	  	
+       
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

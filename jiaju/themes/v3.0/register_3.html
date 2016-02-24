@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+<meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+<meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+<?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/reg.css" rel="stylesheet" type="text/css" />
+</head>
+<script>
+            function showRight(message){
+                $("#jq_show_message").css('color','green').html('<img height="15" witdh="15" src="<?php echo URL;?>statics/images/onebit_34.png" />'+message);
+            }
+            function showErr(message){
+                $("#jq_show_message").css('color','red').html('<img  height="15" witdh="15" src="<?php echo URL;?>statics/images/onebit_33.png" />'+message);
+            }
+            function clickCode(){
+                $('.changeCode').click();
+            }
+            $(document).ready(function(){
+                $('.changeCode').click(function(){
+                    $("#code").attr('src','<?php echo URL;?>index.php?ctl=code&tag='+new Date().getTime());
+                });                
+                $("#username").blur(function(){
+                    var val = $(this).val();
+                    if(!val) {
+                        showErr('登陆账号不能为空');
+                    }else{
+                        $.get('<?php echo URL;?>index.php?ctl=register&act=uname&username='+encodeURI(val),function(data){
+                            if(data.ret == -1){
+                                showErr(data.message);
+                            }else{
+                                showRight('登陆账号填写正确');
+                            }
+                        },'json');
+                    }
+                });
+                 $("#company_name").blur(function(){
+                    if(!$(this).val()) showErr('公司名称不能为空');
+                    else showRight('公司名称不能为空');
+                });
+                $("#realname").blur(function(){
+                    if(!$(this).val()) showErr('公司简称不能为空');
+                    else showRight('公司简称不能为空');
+                });
+                $("#password").blur(function(){
+                    if(!$(this).val()) showErr('密码不能为空');
+                    else showRight("填写正确");
+                });
+                $("#password2").blur(function(){
+                    if(!$(this).val()) showErr('请确认密码');
+                    else{
+                        if($(this).val()!=$("#password").val()){
+                            showErr('两次密码不一致');
+                        }else  showRight("填写正确");
+                    }
+                });
+            });
+        </script>
+<body>
+
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+
+<div class="w_980">
+	<div class="reg_form">
+			<div id="zhuce_left">
+	 
+						 <!--注册优势介绍开始-->
+						 
+						 
+	 
+<h2>注册材料商的好处</h2>
+<p>1、材料商的免费在线店铺，展示您的形象，作品，联系方式等。</p>
+						
+<p>2、全方位的线上、线下销售平台，一年365天，24小时永不停歇为您带来签单机会。</p>
+						
+<p>3、产品展示平台，好酒不怕巷子深，向业主及装修公司全方位展示您的产品。</p>
+
+						 
+						 <!--注册优势介绍结束-->
+						
+						
+					</div>
+					
+					
+					
+					<div id="zhuce_right"> 
+                                            <p class="dangqian "  id="jq_show_message"> <img src="<?php echo URL;?>themes/v3.0/images/dengpao.gif"/>您当前正在注册的是《材料商》类型用户</p>
+					 	<form target="hiden_frm" action="<?php echo mkUrl::linkTo('register','save'); ?>" name="reg1" method="post">
+                                                    <input  type="hidden" name="type" value="<?php echo $_GET['type'];?>"/>
+							<table width="593">
+							
+							<tbody>
+                                                            
+                                                        <tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">公司全称</td>
+							  <td><input type="text" class="text" id="company_name" name="company_name">
+							  <p>*必填</p>
+							  </td>
+							</tr>   
+							<tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">登陆账号</td>
+							  <td><input type="text" class="text" id="username" name="username">
+							  <p>*6-15 个字符之间，请用英文小写、数字、下划线和叹号，区分大小写</p></td>
+							</tr>
+							
+							<tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">密码</td>
+							  <td><input type="password" class="text" id="password" name="password">
+							  <p>*8-20 个字符之间，请用英文小写、数字、下划线和叹号，区分大小写</p></td>
+							</tr>
+							<tr>
+							  <td class="td_r">重复密码</td>
+							  <td><input type="password" class="text" id="password2" name="password2"></td>
+							</tr>
+							<tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">公司简称</td>
+							  <td><input type="text" class="text" id="realname" name="realname">
+							  <p>*2-8 个中文字符,比如**装饰、**装修</p>
+							  </td>
+							</tr>
+                                                      
+							<tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">电子邮箱</td>
+							  <td><input type="text" name="email" id="email" class="text"> 
+							 
+							  <p>*填写您的常用邮箱，用于账户信息找回。</p></td>
+							</tr>
+                                                            
+                                                         <tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">手机号码</td>
+							  <td><input type="text" name="mobile" id="mobile" class="text"> 	
+							 
+							  <p>填写您的手机号码,可以及时的了解装修最新信息。</p></td>
+							</tr>   
+							<tr>
+							  <td style="vertical-align:top; padding-top:16px;" class="td_r">验证码</td>
+							  <td><input type="text" value="" class="text" id="scode" name="scode"><span class="tips"></span><p>填写验证码，英文不区分大小写</p></td>
+							</tr>
+							
+							<tr>
+							  <td></td>
+							  <td><img src="<?php echo URL;?>index.php?ctl=code" name="codePic" class="changeCode" id="code"><a style="margin-left:10px; color:#666666;" class="changeCode">看不清楚？验证码不正确？换张图片</a></td>
+							</tr>
+							
+							<tr>
+							  <td></td>
+							  <td style="color:#666"><input type="checkbox" name="isAgree" checked="checked"> 我同意<a target="_blank" href="#"><?php echo $__SETTING['site_name'];?>服务条款</a></td>
+							</tr>
+							<tr>
+							  <td></td>
+							  <td><input type="submit" value="" class="zhuce"></td>
+							</tr>							
+	
+						  </tbody></table>
+						
+						</form>
+						
+						</div>
+	
+	</div>
+</div>
+
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+
+</body>
+</html>

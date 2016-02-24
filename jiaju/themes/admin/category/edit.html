@@ -1,0 +1,101 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=category" ><em>分类列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑分类</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form action="index.php?ctl=category&act=edit&category_id=<?php echo $category_id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">分类类型:</th>
+                        <td>
+                            <select name="category_type" id="category_type">
+                                <option value="0" >请选择分类类型</option>
+                                <?php foreach($__CATEGORY_TYPE_MEAN as $k=>$v){ ?>
+                                <option value="<?php echo $k;?>" <?php if($data['category_type'] == $k) echo 'selected="selected"';?> ><?php echo $v;?></option>
+                                <?php  }?>
+                            </select>
+                            注意：分类的级别请按照目前的级别设定；
+                            否则您将在页面做2次开发；
+                            每个类型的最后一级分类可以随意修改；
+                            不过装修流程最好不用修改已经很全了；<b>一级分类切勿删除（可新增或者修改）</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">上级分类:</th>
+                        <td class="jq_parentid">
+                           <?php echo $select;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">分类名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['category_name'];?>" name="category_name" class="input-text"> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <script>
+                $(document).ready(function(){
+                    var defaultCategory = '<?php echo $category_id;?>'; //排除选择 自己及自己的子类作为父类
+                    $("#category_type").change(function(){
+                        var category_type = $(this).val();
+                        if(category_type>0){
+                            $.get('index.php?ctl=ajax&act=getCategory&parent_id=0&category_type='+category_type,function(data){
+                                if(data.ret == -1){
+                                    alert(data.message);
+                                }else{
+                                    $(".jq_parentid").html(makeCategorySelect('parent_id[]',data.message));
+                                }                                
+                            },'json');                            
+                        }else{
+                            $(".jq_parentid").html('');
+                        }
+                    });
+                    
+                    function makeCategorySelect(id,data){
+                        var str ='<select name="'+id+'" id="'+id+'"><option value="0" >请选择.....</option>';
+                            for(a in data){
+                                if(data[a].category_id != defaultCategory){
+                                    str+='<option value="'+data[a].category_id+'" >'+data[a].category_name+'</option>';
+                                }
+                            }                        
+                            str+='</select>';
+                        return str;
+                    }
+                     $(".jq_parentid").on('change','select',function(){
+                        var index = $(this).index();
+                        var val   = $(this).val();
+                        var category_type = $("#category_type").val();
+                        $(".jq_parentid select").each(function(a){
+                            if(a > index){
+                                $(this).remove();
+                            }
+                        });
+                        if(val > 0){
+                            $.get('index.php?ctl=ajax&act=getCategory&parent_id='+val+'&category_type='+category_type,function(data){
+                                if(data.ret == -1){
+                                    alert(data.message);
+                                }else{
+                                    if(data.message.length>0){
+                                        $(".jq_parentid").append(makeCategorySelect('cates[]',data.message));
+                                    }
+                                }
+                            },'json');
+                        }
+                    });
+                });
+            </script>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+      <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 联系方式
+				</div>
+             
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+						如果您有分公司的话可以设定多个地址！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">联系方式</div>
+					<div class="bd gongneng">
+                                           
+    
+
+                                    <?php if(empty($data)){ ?>          
+                                    <form enctype="multipart/form-data"  action="<?php echo mkUrl::linkTo('user','addr');?>" target="hiden_frm" name="form1" id="myform" method="post">
+                                    <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                        <tbody>
+                                            <tr>
+                                                <th >面市或公司名称:</th>
+                                                <td><input type="text" size="40" value="" name="name" class="input-text"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th >电话:</th>
+                                                <td><input type="text" size="40" value="" name="tel" class="input-text">可填写多个电话</td>
+                                            </tr>
+                                            <tr>
+                                                <th >传真:</th>
+                                                <td><input type="text" size="40" value="" name="fax" class="input-text"> 可填写多个传真</td>
+                                            </tr>
+                                            <tr>
+                                                <th >手机:</th>
+                                                <td><input type="text" size="11" value="" name="mobile" class="input-text">必须填写正确的手机号码</td>
+                                            </tr>
+                                            <tr>
+                                                <th >联系人:</th>
+                                                <td><input type="text" size="40" value="" name="contact" class="input-text"></td>
+                                            </tr>
+                                            <tr>
+                                                <th >详细地址:</th>
+                                                <td><textarea name="addr" cols="50" rows="3"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <th >附近地图:</th>
+                                                <td><input type="file"  name="pic" >可以做一张附近的地图照片进行上传</td>
+                                            </tr>
+                                                <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                        </tbody>
+                                    </table>
+
+                                </form>
+
+                                <?php } else{ ?>              
+                                <form  enctype="multipart/form-data"  action="<?php echo mkUrl::linkTo('user','addr',array('id'=>$id));?>" target="hiden_frm" name="form1" id="myform" method="post">
+                                    <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                        <tbody>
+                                                            <tr>
+                                                <th >面市或公司名称:</th>
+                                                <td><input type="text" size="40" value="<?php echo $data['name']?>" name="name" class="input-text"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th >电话:</th>
+                                                <td><input type="text" size="40" value="<?php echo $data['tel']?>" name="tel" class="input-text"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th >传真:</th>
+                                                <td><input type="text" size="40" value="<?php echo $data['fax']?>" name="fax" class="input-text"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th >手机:</th>
+                                                <td><input type="text" size="40" value="<?php echo $data['mobile']?>" name="mobile" class="input-text"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th >联系人:</th>
+                                                <td><input type="text" size="40" value="<?php echo $data['contact']?>" name="contact" class="input-text"> </td>
+                                            </tr>
+                                            <tr>
+                                                <th >详细地址:</th>
+                                                <td><textarea name="addr" cols="50" rows="3"><?php echo $data['addr']?></textarea></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th >附近地图:</th>
+                                                <td><input type="file"  name="pic" ><?php if(!empty( $data['pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['pic']?>" /> <?php }?></td>
+                                            </tr>
+                                                            <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                    </tbody>
+                                    </table>
+
+                                </form>           
+                                <?php  }?>                  
+                            </div>
+                        <div class="panes">
+                                                            <!--收件箱开始-->
+                                                    <div style="display: block;">                    
+                                        
+                                   <table class="table_a" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                      
+                      <th align="center" >面市或公司名称</th>
+                      <th align="center" >电话</th>
+                      <th align="center" >手机</th>
+                      <th align="center" >联系人</th>
+                        <th >管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                     
+                        <td align="center" ><?php echo $val['name'];?></td>
+                        <td align="center" ><?php echo $val['tel'];?></td>
+                        <td align="center" ><?php echo $val['mobile'];?></td>
+                        <td align="center" ><?php echo $val['contact'];?></td>
+
+                        <td  align="center">
+                            <font color="#cccccc">
+                                <a href="<?php echo mkUrl::linkTo('user','addr',array('id'=>$val['id']));?>">修改</a>
+                            </font> | 
+                            
+                            <font color="#cccccc">
+                                <a target="hiden_frm" href="<?php echo mkUrl::linkTo('user','delAddr',array('id'=>$val['id']));?>">删除</a>
+                            </font>
+                              | 
+                              <font color="#cccccc">
+                               <?php if($defaultAddrId == $val['id']){ ?>
+                               默认地址
+                               <?php }else{ ?>
+                               <a target="hiden_frm" href="<?php echo mkUrl::linkTo('user','defaultAddr',array('id'=>$val['id']));?>">设为默认地址</a>
+                               <?php }?>
+                            </font> 
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+                </table>       
+                                                        <div style="height: 100px;"></div>
+                </div>
+            </div>            
+                                        
+        </div>
+
+        </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+   <?php  require TEMPLATE_PATH.'public/root.html';?>	    
+    </body>
+
+</html>

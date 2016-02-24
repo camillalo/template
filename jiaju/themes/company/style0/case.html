@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+        <link href="<?php echo URL;?>themes/company/style0/css/company.css" rel="stylesheet" type="text/css" />
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <div class="neiye" id="rightbox">
+              
+			
+          <div class="clear"></div>
+			<div class="tips">
+			<p class="left"><?php echo $company['company_name'];?>共上传案例作品<?php echo $totalnum;?>套</p>
+        
+			</div>
+            <div id="case">
+               <?php foreach($datas as $val){ ?>
+
+                         <div class="case_box">
+				<a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"><img src="<?php echo URL;?><?php echo $val['face_pic'];?>" alt="<?php echo $val['title'];?>" width="120" height="90"></a>
+				<p class="name"><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"><?php echo $val['title'];?></a></p>
+				<p>包含效果图、施工过程图、完工实景图共<?php echo count(json_decode($val['detail_pics']));?>张</p>
+			</div>
+		  <?php }?>	
+		
+              
+
+             
+				<div class="clear"></div>
+                 <!--翻页-->
+                 <div style="padding-left: 50px;">
+                    <?php echo $links;?>
+                    
+              </div>
+                <!--翻页 结束-->
+            </div>
+
+    </div>
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+        <!--底部内容开始-->
+<?php  require COMPANY_TEMPLATE.'/root.html';?>
+     
+    </body>
+
+</html>       

@@ -1,0 +1,21 @@
+<div class="w_980">
+    <div class="ask_top1">
+    <span class="nums">
+        已解决问题数：<a style="color:#020333;"  href="<?php echo mkUrl::linkTo('ask','list',array('st'=>$__ASK_TYPE['ok']));?>"><?php echo askMdl::getInstance()->getAskCount(array('status'=>$__ASK_TYPE['ok']));?></a><br>
+        待解决问题数：<a style="color:#020333;" href="<?php echo mkUrl::linkTo('ask','list',array('st'=>$__ASK_TYPE['wait']));?>"><?php echo askMdl::getInstance()->getAskCount(array('status'=>$__ASK_TYPE['wait']));?></a>
+</span>
+
+        <form id="searchbox" method="get" action="<?php echo URL;?>index.php">
+        <input type="hidden" name="ctl" class="jq_ctl" value="ask" />
+        <input type="hidden" name="act" id="act" class="jq_act" value="add" />   
+        <input type="text" name="word" value="<?php echo isset($searchWord) ? $searchWord : '怎样装修';?>" maxlength="60" class="ask_input" > 
+        <input name="bt1" type="image" onmouseover="$('.jq_ctl').val('search');$('.jq_act').val('ask');"  class="ask_btn" value="搜索答案" src="<?php echo URL;?>themes/v3.0/images/ask/ask_form_btn.jpg">
+        <input type="submit"  onmouseover="$('.jq_ctl').val('ask');$('.jq_act').val('add');" class="btn_ask" value="提 问">
+    </form>
+
+    <span class="todo">
+        <a class="s1"  href="<?php echo mkUrl::linkTo('user','ask');?>">我的提问</a>&#12288;<a  href="<?php echo mkUrl::linkTo('user','answer');?>">我的回答</a>
+    </span>
+
+    </div>
+</div>

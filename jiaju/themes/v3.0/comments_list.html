@@ -1,0 +1,41 @@
+<div class="pinglun">
+    <div class="pinglun_title">我要评论：</div>
+    <?php foreach($datas as $val){ ?>
+    <div class="pinglun_liuyan">
+        <font style="color:#c00134; font-weight:bold;">网友(<?php echo $val['username'];?>)：</font> 留言时间：<?php echo $val['create_time'];?><br>
+            <font style=" color:#585858;"><?php echo $val['comments'];?></font>
+    </div>
+    <?php }?>
+</div>
+
+<div id="jq_comments_pages" style="padding-left: 50px;" >
+    <?php if(!empty($datas)) echo $links;?>
+</div>
+<a name="make_comments"></a>
+<div class="tijiao" name="jq_comments_form">
+    <form action="<?php echo URL;?>index.php?ctl=comments&act=save&type=<?php echo $type;?>&type_id=<?php echo $type_id;?>" target="hiden_frm" name="commentsform" id="commentsform" method="post">
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <td style="color:#898989; font-size:14px; " colspan="2">我要评论</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label>
+                        <textarea style="width:640px; height:100px;" id="comments" name="comments"></textarea>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <input type="submit" class="btn_hl" id="jq_comments_btn" name="Submit2" value="发表评论" />
+                    </label>
+                </td>
+                <td align="right"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    </form>    
+</div>

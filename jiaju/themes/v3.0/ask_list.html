@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/ask.css" rel="stylesheet" type="text/css" />
+</head>
+	<body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+	  <?php  require TEMPLATE_PATH.'ask_top.html';?>
+
+	  
+	    <div class="w_980">
+			<div class="ask2_left">
+				<div class="title">
+                                    <a href="<?php echo mkUrl::linkTo('ask','list');?>" <?php if(!isset($_GET['st'])){ ?>  class="hover" <?php  }?> >全部问题</a>
+                                    <a href="<?php echo mkUrl::linkTo('ask','list',array_merge($url,array('st'=>1)));?>" <?php if(!empty($_GET['st'])) { ?>   class="hover" <?php  }?> >已解决的问题</a>
+					<a href="<?php echo mkUrl::linkTo('ask','list',array_merge($url,array('st'=>0)));?>" <?php if(isset($_GET['st']) && empty($_GET['st'])) { ?>   class="hover" <?php  }?> >待解决的问题</a>
+				</div>
+				
+				<dl>		
+                                    <?php foreach($datas as $val){ ?>
+                                    <dt><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('ask','detail',array('id'=>$val['id']));?>">
+                                            <?php echo $val['title'];?>
+                                        </a> <?php if($val['status'] > 0){ ?>【已解决】 <?php } else{ ?> 【待解决】<?php }?> 
+                                    </dt>
+                                    <dd>      
+                                        <?php echo mb_substr(getValue(strip_tags($val['description'])),0,100);?>...
+                                    </dd>
+                                    <dd class="info">
+                                        <a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('ask','detail',array('id'=>$val['id']));?>">http://<?php echo $_SERVER['HTTP_HOST'];?></a>
+                                        <?php echo $val['ip'];?>
+                                        <a target="_blank" title="<?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['ask'],$val['cate_id']);?>" href="<?php echo mkUrl::linkTo('ask','list',array('cid'=>$val['cate_id']));?>">
+                                            <?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['ask'],$val['cate_id']);?></a> 
+                                    </dd>
+                                    <?php }?>
+		</dl>
+		<div class="clear"></div>
+                            <div style="padding-left: 50px;"><?php echo $links;?></div>
+			</div>
+		
+               <?php  require TEMPLATE_PATH.'ask_right.html';?>	
+               
+		</div>
+		<div class="clear"></div>
+</div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

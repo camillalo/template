@@ -1,0 +1,6 @@
+<div class="blog_qv">
+    <a href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$id));?>" <?php if($_GET['act'] === 'main'){ ?>class="cur" <?php }?> >首页</a>
+    <a href="<?php echo mkUrl::linkTo('designer','case',array('id'=>$id));?>"  <?php if($_GET['act'] === 'case'){ ?>class="cur" <?php }?> >设计作品</a>
+    <a href="<?php echo mkUrl::linkTo('designer','booking',array('id'=>$id));?>"  <?php if($_GET['act'] === 'booking'){ ?>class="cur" <?php }?>  >预约设计</a>
+    <?php if(!empty($data['is_gold'])){?><p>知名设计师</p><?php }?>
+</div>

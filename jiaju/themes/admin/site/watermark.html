@@ -1,0 +1,53 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=site&act=watermark" class="on"><em>水印管理</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=site&act=watermark" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">站点名称:</th>
+                        <td>
+                            <input type="radio" class="jq_word_radio" <?php if(isset($watermark['type']) &&$watermark['type'] =='word' ) echo 'checked="checked"'; ?>  name="type" id="type" value="word" />文字
+                            <input type="radio" class="jq_pic_radio" <?php if(isset($watermark['type']) &&$watermark['type'] =='pic' ) echo 'checked="checked"'; ?>  name="type" id="type" value="pic" />图片
+                        </td>
+                    </tr>
+                    <tr id="jq_word_tr" <?php if(isset($watermark['type']) &&$watermark['type'] !='word' ){ ?> style="display: none;" <?php }?> >
+                        <th width="140">文字：</th>
+                        <td><input type="text" size="15" value="<?php if(isset($watermark['word']) )  echo $watermark['word']; ?>" name="word" class="input-text">文字不支持中文！</td>
+                    </tr>
+
+                    <tr id="jq_pic_tr" <?php if(isset($watermark['type']) && $watermark['type'] !='pic' ){?> style="display: none;"<?php }?> >
+                        <th width="140">图片:</th>
+                        <td><input type="file"  name="pic" > <?php if(isset($watermark['pic']) ) { ?> <img witdh="80" height="80" src="<?php echo URL,$watermark['pic'];?>" /><?php }?> 建议使用PNG图片</td>
+                    </tr>
+                </tbody>
+                <script>
+                    $(document).ready(function(){
+                        $(".jq_word_radio").click(function(){
+                            $("#jq_word_tr").show();
+                            $("#jq_pic_tr").hide();
+                        });
+                        $(".jq_pic_radio").click(function(){
+                            $("#jq_pic_tr").show();
+                            $("#jq_word_tr").hide();
+                        });
+                        
+                    });
+                </script>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="  保存  ">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

@@ -1,0 +1,85 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=buildingSite" ><em>在建工地列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=buildingSite&act=add" class="on"><em>新增在建工地</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=buildingSite&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">公司ID:</th>
+                        <td><input type="text"  value="" name="company_id" class="input-text"> </td>
+                    </tr>
+                
+                   
+                    
+                    <tr>
+                        <th width="140">区县:</th>
+                        <td class="jq_area_id">
+                             <?php echo html::select('area_id',$quxian);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">工地名称:</th>
+                        <td><input type="text"  size="50" value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">空间:</th>
+                        <td >
+                            <?php echo html::select('space_id',$spaces);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">风格:</th>
+                        <td >
+                            <?php echo html::select('style_id',$styles);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">面积:</th>
+                        <td >
+                            <?php echo html::select('a_id',$areas);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">价格:</th>
+                        <td >
+                            <?php echo html::select('price_id',$prices);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">开始时间:</th>
+                        <td><input type="text"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});"  value="" name="bg_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否显示:</th>
+                        <td>
+                            <?php echo html::radio('is_show',$__SHOW);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td><textarea name="description" cols="50" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">推广排序:</th>
+                        <td><input type="text" size="8" value="" name="orderby" class="input-text"> 越大越高</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

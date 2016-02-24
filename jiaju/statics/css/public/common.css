@@ -1,0 +1,11 @@
+ul.multipage{ width:100%; padding:5px 0; overflow:auto;}
+ul.multipage li{ float:left; display:inline; margin:0px 3px; font-size:12px; color:#444; line-height:20px;}
+ul.multipage li.current{ font-weight:700;}
+ul.multipage li a,
+ul.multipage li span{ float:left; padding:0 5px; border:1px solid #DDD; text-decoration:none; color:#444;}
+ul.multipage li a:hover{ text-decoration:none; background:#DFE8F6; border:1px solid #99BBE8;}
+ul.multipage li.link{ padding:0;}
+ul.multipage input.input{ width:20px; height:17px; border:1px solid #DDD; font-family:'Tahoma';}
+ul.multipage input.btn{ width:27px; height:21px; border:0; }
+ul.multipage li .no_page{ border:1px solid #DDD; color:#AAA;}
+ul.multipage li .current_page{ padding:0; border:0; color:#444; line-height:22px;}

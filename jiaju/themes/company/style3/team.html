@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+      
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <div class="neiye" id="rightbox">		
+			
+			<h2>精英团队</h2>
+			<div class="tips">
+				<p>该装饰公司目前就职的设计师成员共<?php echo $totalnum;?>名，点击访问设计师博客，了解设计师更多信息.</p>
+			</div>
+            <?php foreach($datas as $val){ ?>
+                    <div class="designer_box">
+                        <a target="_blank" title="<?php echo $val['name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['id']));?>"><img width="100" height="100" src="<?php echo URL,$val['face_pic'];?>"></a>
+			<p class="name"><?php echo $val['position'];?>：<?php echo $val['name'];?></p>
+			<p>设计经验：<?php echo isset($__WORK[$val['from_time']]) ? $__WORK[$val['from_time']]  : '';?></p>
+			<p>设计风格：<?php echo mb_substr($val['style'],0,10);?></p>
+                        <p>毕业院校：<?php echo $val['school'];?></p>
+                        <p><a target="_blank" title="<?php echo $val['name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['id']));?>">点此查看该设计师博客详情 &gt;&gt;</a></p>
+                    </div>
+			
+		<?php }?> 
+		
+            
+                
+				<div class="clear"></div>
+
+                 <!--翻页-->
+                 <div  style="padding-left: 50px;">
+                    <?php echo $links;?>
+                    
+                </div>
+                <!--翻页 结束-->
+		</div>
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+     <?php  require COMPANY_TEMPLATE.'/root.html';?>
+</body>
+</html>         

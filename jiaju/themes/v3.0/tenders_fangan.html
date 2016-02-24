@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/zb.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body id="w_body">
+  <?php  require TEMPLATE_PATH.'public/zb_public.html';?>
+<div class="w_980">
+  <div class="zb_main">
+		<div class="zb_box1">
+			<div class="left">
+			  <div class="zb_header_left"> 
+
+<img src="<?php echo URL;?>themes/v3.0/images/zb/pk.gif" width="328" height="145" /><br>
+      
+        <br>
+		<div class="cont_sjxcgh">
+			<li>● 比设计创意</li>
+			<li>● 比预算实在</li>
+			<li>● 比工艺精湛</li>
+			<li>● 比服务贴心</li>
+			<li>● 比公司口碑</li>
+		</div>
+      </div>
+			</div>
+			
+			
+		<?php  require TEMPLATE_PATH.'public/zb_public2.html';?>		
+				
+
+
+	</div>
+		<div class="ad980">
+			<img src="<?php echo URL;?>themes/v3.0/images/zb/zb_980.gif" />
+		</div>
+		
+		<div class="l980">
+			
+			<h1>比谁设计有创意</h1>
+		</div>
+		<div class="gj_list"><img src="<?php echo URL;?>themes/v3.0/images/zb/fa_pic1.jpg" /></div>
+		
+			<div class="gj_t1" style="margin-top:10px;">
+		<h1>比谁的报价实在</h1>
+		</div>
+		
+		<div class="lf_list">
+			<div class="img">
+				<img width="371" height="241" src="<?php echo URL;?>themes/v3.0/images/zb/fa_pic2.jpg">			</div>
+			<div class="info">
+				
+				<span>设计费在装修的时候也是一笔不小的开支，但是大多数业主对于设计师是如何收费的并不是很了解，土拨鼠会员报名可以免费得到布置图、手绘图、预算报价单等。</span>
+			</div>
+		</div>
+		<div class="gj_t1" style="margin-top:10px;">
+		<h1>更多设计风格PK</h1>
+		</div>
+			<div class="lf_list">
+			<div class="img">
+				<img width="371" height="241" src="<?php echo URL;?>themes/v3.0/images/zb/fa_pic3.jpg">			</div>
+			<div class="info">
+				
+				<span>一个优秀的设计师，除了要有出色的专业技术外，还要有高度的责任心，最重要的是，这个设计师必须是适合你的，否则再大牌的设计，也无法与业主产生共鸣，进而设计出真正让业主满意的作品。设计师适不适合，看看他的过往成功案例是否是你的菜。</span>
+			</div>
+		</div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=injection" ><em>防注水设置列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=injection&act=add" class="on"><em>新增防注水设置</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+     <form    action="index.php?ctl=injection&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">名称:</th>
+                        <td><input type="text" size="40" value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">URL控制器地址:</th>
+                        <td><input type="text" size="40" value="" name="ctl" class="input-text"> <a target="_blank" href="http://www.huisw.com/index.php?ctl=article&id=49">怎么获取？</a></td>
+                    </tr>
+                    <tr>
+                        <th width="140">执行的ACTION脚本:</th>
+                        <td><input type="text" size="40" value="" name="act" class="input-text">  <a target="_blank" href="http://www.huisw.com/index.php?ctl=article&id=49">怎么获取？</a></td>
+                    </tr>
+                    <tr>
+                        <th width="140">发布间隔秒数:</th>
+                        <td><input type="text"  value="600" name="t" class="input-text"> 在间隔时间内会提示用户休息一下！</td>
+                    </tr>
+                    <tr>
+                        <th width="140">最大允许请求的次数:</th>
+                        <td><input type="text"  value="10" name="num" class="input-text">看功能点设置（建议值不要超过10）！一天内点击按钮确认最大次数！超过这个次数该URL控制器地址下的执行的ACTION脚本将会拒绝给该用户提供服务！ </td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

@@ -1,0 +1,33 @@
+<link rel=stylesheet type="text/css" href="<?php echo URL;?>themes/v3.0/qq/css/common.css">
+<script type="text/javascript" src="<?php echo URL;?>themes/v3.0/qq/js/kefu.js"></script>
+<div id=floatTools class=float0831>
+  <div class=floatL><A style="DISPLAY: none" id=aFloatTools_Show class=btnOpen 
+title=查看在线客服 
+onclick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show();kf_setCookie('RightFloatShown', 0, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" 
+href="javascript:void(0);">展开</A> <A id=aFloatTools_Hide class=btnCtn 
+title=关闭在线客服 
+onclick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide();kf_setCookie('RightFloatShown', 1, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" 
+href="javascript:void(0);">收缩</A> </div>
+  <div id=divFloatToolsView class=floatR>
+    <div class=tp></div>
+    <div class=cn>
+      <ul>
+        <li class=top>
+          <H3 class=titZx>QQ咨询</H3>
+        </li>
+        <li><SPAN class=icoZx>在线咨询</SPAN> </li>
+        <li><A class=icoTc href="http://wpa.qq.com/msgrd?v=3&uin=278869155&site=qq&menu=yes" target="_blank">乞丐</A> </li>
+        
+        <li class=bot><A class=icoTc href="http://wpa.qq.com/msgrd?v=3&uin=278869155&site=qq&menu=yes" target="_blank">乞丐</A> </li>
+      </ul>
+   
+      <ul>
+        <li>
+          <H3 class=titDh>电话咨询</H3>
+        </li>
+        <li><SPAN class=icoTl><?php echo $__SETTING['tel'];?></SPAN> </li>
+     
+      </ul>
+    </div>
+  </div>
+</div>

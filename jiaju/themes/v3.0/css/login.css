@@ -1,0 +1,88 @@
+
+.login_main {
+    float: left;
+	border:solid 1px #D8D8D8;
+	border-top:3px solid #0F97E3 ;    
+
+    height: auto;
+    margin-bottom: 20px;
+    width: 978px;
+	margin-top:10px;
+}
+.login_main .title {
+
+    float: left;
+    height: 50px;
+    width: 968px;
+	padding-left:10px;
+	line-height:50px;
+	
+}
+
+.login_main .hd h3 {
+    color: #333333;
+    float: left;
+    font: bold 24px/28px "΢���ź�";
+    width: 350px;
+}
+.login_main .zhu {
+    background: none repeat scroll 0 0 #FFFFFF;
+  
+    float: left;
+    height: 400px;
+    width: 978px;
+}
+.login_main .zhu .left {
+    background: url("../images/login_bg.gif") no-repeat scroll 50px center transparent;
+    float: left;
+    height: 312px;
+    padding-left: 300px;
+    padding-top: 100px;
+    width: 200px;
+}
+.login_main .zhu .left a {
+    color: #EC360F;
+    float: left;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+.login_main .zhu .left p {
+    color: #898989;
+    float: left;
+    line-height: 20px;
+    margin: 10px 0 0;
+    padding: 0;
+    width: 200px;
+}
+.login_main .zhu .right {
+    background: url("../images/tiao_5.gif") no-repeat scroll 0 center transparent;
+    float: right;
+    height: 400px;
+    padding-left: 80px;
+    padding-top: 50px;
+    width: 370px;
+}
+.login_main .zhu .right table td {
+    line-height: 30px;
+}
+.login_main .zhu .right table p {
+    color: #595757;
+    font-weight: bold;
+}
+.login_main .zhu .right table .input_text {
+    border: 1px solid #D8D8D8;
+    height: 19px;
+    width: 151px;
+}
+.login_main .zhu .right table .input_btn{
+border:0px;
+}
+.login_main .zhu .right table span {
+    color: #999999;
+}
+.login_main .zhu .right table a {
+    color: #EC360F;
+}
+

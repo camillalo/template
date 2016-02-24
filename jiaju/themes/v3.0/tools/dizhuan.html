@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/tools.css" rel="stylesheet" type="text/css" />
+
+
+    </head>
+
+<script>
+function IsDigit(cCheck)
+{
+return ((('0'<=cCheck) && (cCheck<='9'))||cCheck=='.');
+}
+function CheckNum(charValue,alertValue,obj)
+{
+for(var iIndex=0;iIndex<charValue.length;iIndex++)
+{
+var cCheck=charValue.charAt(iIndex);
+if(!IsDigit(cCheck))
+{
+alert(alertValue);
+obj.focus();
+return false;
+}
+}
+}
+function floor_brick(form)
+{
+//检查输入
+if(checkfloorbrickInput(form)==false) return;
+var room_long=0,room_width=0,floorbrick_long=0,floorbrick_width=0;
+var floorbricknum=0;
+var rate=1.05;
+//给各个变量赋值
+room_long=form.room_long.value*1000;
+room_width=form.room_width.value*1000;
+floorbrick_long=form.floorbrick_long.value;
+floorbrick_width=form.floorbrick_width.value;
+//开始计算
+// 用砖数量（块数）=（房间的长度÷砖长）×（房间宽度÷砖宽）×1.05
+floorbricknum=Math.round((room_long/floorbrick_long)*(room_width/floorbrick_width)*rate);
+form.floorbricknum.value=floorbricknum;
+}
+function  checkfloorbrickInput(form)
+{
+if(form.room_long.value==""){
+alert("请输入房间长度");
+form.room_long.focus();
+return false;
+}
+if(CheckNum(form.room_long.value,"房间长度只能输入数字格式！",form.room_long)==false)
+return false;
+if(form.room_width.value==""){
+alert("请输入房间宽度");
+form.room_width.focus();
+return false;
+}
+if(CheckNum(form.room_width.value,"房间长度只能输入数字格式！",form.room_width)==false)
+return false;
+if(form.floorbrick_long.value==""){
+alert("请输入地砖的长度");
+form.floorbrick_long.focus();
+return false;
+}
+if(CheckNum(form.floorbrick_long.value,"地砖的长度只能输入数字格式！",form.floorbrick_long)==false)
+return false;
+if(form.floorbrick_width.value==""){
+alert("请输入地砖的宽度");
+form.floorbrick_width.focus();
+return false;
+}
+if(CheckNum(form.floorbrick_width.value,"地砖的宽度只能输入数字格式！",form.floorbrick_width)==false)
+return false;
+}
+function autoinput(form)
+{
+//alert(form.bricktype.value);
+switch(parseInt(form.bricktype.value))
+{
+case 1:
+form.floorbrick_long.value=300;
+form.floorbrick_width.value=300;
+break;
+case 2:
+form.floorbrick_long.value=400;
+form.floorbrick_width.value=400;
+break;
+case 3:
+form.floorbrick_long.value=500;
+form.floorbrick_width.value=500;
+break;
+case 4:
+form.floorbrick_long.value=600;
+form.floorbrick_width.value=600;
+}
+}
+
+</script>
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+            
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+        
+        <div class="user_main">
+  
+               <div class="user_left">
+                    <div class="title">工具箱</div>
+                    
+               <?php  foreach($tools_array as $key=> $val) { ?>
+                      <div class="dalei">
+                        <a <?php if($_GET['act'] == $key){ ?> style="color:#be0033;" <?php }?>
+                            title="<?php echo $__SETTING['site_name'],$val['title'];?>" 
+                            href="<?php echo mkUrl::linkTo('tools',$key);?>"><?php echo $val;?></a>
+                        </div>  
+                    
+                    <?php }?>
+
+
+                  
+                                    
+               </div>
+               <div class="user_right">
+                 <div class="user_center"> 
+                     
+                        <div class="artCon">
+                        
+                        <table width="100%" height="530" cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+              <td height="30" bgcolor="#f4f4f4" align="center"><strong><?php echo $title;?></strong></td>
+            </tr>
+            <tr>
+              <td valign="top" align="center">
+             <form name="floorbrickfrm" action="" method="post">
+<table width="476" cellspacing="0" align="center" style="margin-top: 10px" class="table1">
+<tbody>
+<tr>
+<td class="title">1、请输入居室信息</td>
+</tr>
+<tr>
+<td class="elem">房间长度
+<input type="text" name="room_long" class="inputinset">
+米</td>
+</tr>
+<tr>
+<td class="elem">房间宽度
+<input type="text" name="room_width" class="inputinset">
+米</td>
+</tr>
+<tr>
+<td class="title">2、请输入地砖信息</td>
+</tr>
+<tr>
+<td class="elem">地砖长度
+<input type="text" value="300" name="floorbrick_long" class="inputinset">
+毫米</td>
+</tr>
+<tr>
+<td class="elem">地砖宽度
+<input type="text" value="300" name="floorbrick_width" class="inputinset">
+毫米</td>
+</tr>
+<tr>
+<td class="elem"><span class="gray">或选择标准规格的地砖</span>
+<select name="bricktype" onchange="autoinput(this.form)" class="inputinset">
+<option selected="selected" value="1">300x300</option>
+<option value="2">400x400</option>
+<option value="3">500x500</option>
+<option value="4">600x600</option>
+</select>
+毫米</td>
+</tr>
+<tr>
+<td height="35" align="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="开始计算" onclick="floor_brick(this.form)" class="btnA">
+&nbsp;
+<input type="reset" value="重新计算" class="btnA"></td>
+</tr>
+<tr>
+<td><h3>计算结果：</h3></td>
+</tr>
+<tr>
+<td class="elem">你需要的地砖数量是
+<input type="text" name="floorbricknum" class="inputinset2">
+块</td>
+</tr>
+</tbody>
+</table>
+</form>
+              </td>
+            </tr></tbody></table>
+          
+</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+
+        <div class="clear"></div>
+
+    <?php  require TEMPLATE_PATH.'public/root.html';?>
+
+    </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+        <script>
+            window.UEDITOR_HOME_URL =  '<?php echo URL;?>statics/ueditor/';
+            window.UEDITOR_IMG_URL  = '<?php echo URL;?>';
+            window.UEDITOR_FILE_URL  = '<?php echo URL;?>';
+            window.DOMAIN  = "<?php echo $_SERVER['HTTP_HOST']?>";
+        </script>
+        <script type="text/javascript" charset="utf-8" src="<?php echo URL;?>statics/ueditor/editor_config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="<?php echo URL;?>statics/ueditor/editor_all_min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo URL;?>statics/ueditor/themes/default/ueditor.css"/>
+    </head>
+
+  <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 工地进度
+				</div>
+               
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+                                          填写工程进度可以让您获得更多的业主资源！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">基本信息</div>
+					<div class="bd gongneng">
+      
+<form action="<?php echo mkUrl::linkTo('user','siteStatus',array('id'=>$id));?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                 <tbody>
+                    <tr>
+                        <th >工程进度:</th>
+                        <td>
+                            <?php echo html::select('status',$__SITE_STATUS_MEANS);?>
+                        </td>
+                    </tr>
+              
+
+            <tr>
+                <th >日记内容:</th>
+                <td>
+                     <script type="text/plain" id="contents_edit" style="width:600px"></script>
+                  <script>
+
+                         var editor_acontent = new baidu.editor.ui.Editor({
+                                //focus时自动清空初始化时的内容
+                                toolbars:[['FontSize','Indent', '|',
+                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyJustify','Map', 'GMap','InsertTable','DeleteTable','InsertImage','ImageCenter']],
+                                autoClearinitialContent:true,
+                                //关闭字数统计
+                                wordCount:false,
+                                //关闭elementPath
+                                elementPathEnabled:false,
+                                textarea:'content'
+                                //更多其他参数，请参考editor_config.js中的配置项
+                         });
+                         editor_acontent.render('contents_edit');
+                     </script>
+                </td>
+            </tr>    
+                <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+ 
+                </tbody>
+            </table>
+           
+        </form>             
+                                            
+                                            
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    
+      <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 开通商铺
+				</div>
+              
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+                                        <s class="s"></s>温馨提示</div>
+					<div class="bd">
+						添加了资料您将拥有一个漂亮的商铺。
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">公司资料</div>
+					<div class="bd gongneng">
+    
+                                            
+                                            
+                                     <form enctype="multipart/form-data"  action="<?php echo mkUrl::linkTo('user','company');?>" target="hiden_frm" name="form1" id="myform" method="post">
+                            <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                <tbody>
+                                    <tr>
+                                        <th ><font color="red">*</font>公司所在地区:</th>
+                                        <td class="jq_company_city">
+                                          <?php echo html::select('area_id',$areas);?>
+
+                                        </td>
+                                    </tr>
+                             
+                                    <tr>
+                                        <th ><font color="red">*</font>服务区域:</th>
+                                        <td class="jq_areas">
+                                            <?php echo html::checkbox('areas',$areas);?>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th ><font color="red">*</font>公司名称:</th>
+                                        <td><input type="text" size="40" value="" name="company_name" class="input-text"> </td>
+                                    </tr>
+                                    <tr>
+                                        <th >公司美化描述:</th>
+                                        <td><input type="text" size="40" value="" name="description" class="input-text"> </td>
+                                    </tr>
+                                    <?php if($__USER_TYPE['material'] === (int)$__USER_INFO['type']){ ?>
+                                    <tr>
+                                        <th ><font color="red">*</font>行业类别:</th>
+                                        <td>
+                                            <?php echo html::checkbox('industrys',$industrys);?>
+                                        </td>
+                                    </tr>
+                                    <?php }else{ ?>
+                                    <tr>
+                                        <th ><font color="red">*</font>服务项目:</th>
+                                        <td>
+                                            <?php echo html::checkbox('projects',$projects);?>
+                                        </td>
+                                    </tr>
+                                    <?php }?>
+                                    <tr>
+                                        <th ><font color="red">*</font>LOGO:</th>
+                                        <td><input type="file"  name="logo" > </td>
+                                    </tr>
+                                    <tr>
+                                        <th >网站BANNER:</th>
+                                        <td><input type="file"  name="banner" > </td>
+                                    </tr>
+                                    <tr>
+                                        <th >成立年份:</th>
+                                        <td>
+                                            <select name="founding_year" id="founding_year">
+                                                <option value="0">请选择</option>
+                                                <?php $year=date('Y',NOWTIME); for($i=$year;$i>1980;$i--){ ?>
+                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                <?php }?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th >公司规模:</th>
+                                        <td>
+                                            <?php echo html::select('scale_id',$scales);?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th >公司产值:</th>
+                                        <td>
+                                        <?php echo html::select('output_id',$outputs);?>
+                                        </td>
+                                    </tr>  
+                                    <?php if($__USER_TYPE['company'] === (int)$__USER_INFO['type']){ ?>
+                                 <tr>
+                                        <th >是否免费量房:</th>
+                                        <td><?php echo html::radio('free_room',$__WHETHER);?></td>
+                                    </tr>
+                                    <?php }?>
+                                    <tr>
+                                        <th >公司介绍:</th>
+                                        <td><textarea name="introduce" cols="70" rows="20"></textarea></td>
+                                    </tr>
+                                    <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                    
+                                </tbody>
+                            </table>
+                            
+                        </form>        
+                                            
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/tools.css" rel="stylesheet" type="text/css" />
+
+
+    </head>
+<SCRIPT language="JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+//-->
+
+</SCRIPT>
+<SCRIPT language="JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+function MM_findObj(n, d) { //v4.0
+var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
+function MM_swapImage() { //v3.0
+var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</SCRIPT>
+<SCRIPT language="JavaScript">
+<!--
+function count_anjie() {
+var dwdj,mj,ajcs,year,yearRate,temp1,temp2;
+dwdj = MM_findObj("dwdj").value;
+mj= MM_findObj("mj").value;
+ajcs = 10-MM_findObj("ajcs").value;
+year =  MM_findObj("year").value;
+var total = MM_findObj("total"); 
+if (total) total.value = dwdj*mj;
+var first = MM_findObj("first"); 
+if (first) first.value = Math.round(dwdj*mj*ajcs*0.1*100)/100;
+var dtotal = MM_findObj("dtotal"); 
+if (dtotal) dtotal.value = dwdj*mj-dwdj*mj*ajcs*0.1;
+if (year<=5) {yearRate=5.31*0.01;} else {yearRate=5.58*0.01;}
+temp1=dwdj*mj-dwdj*mj*ajcs*0.1;  //贷款总额
+temp2 = Math.pow((1+yearRate/12),year*12);
+temp3=temp1*((yearRate/12)*temp2)/(temp2-1);//每月付款
+var monthf = MM_findObj("monthf"); 
+if (monthf) monthf.value = Math.round(temp3*100)/100;
+temp4=temp3*year*12-temp1;   //总还款利息
+var ztotal = MM_findObj("ztotal"); 
+if (ztotal) ztotal.value = Math.round(temp4*100)/100;
+temp5 =temp3*year*12 ;//还款总额
+var htotal = MM_findObj("htotal"); 
+if (htotal) htotal.value = Math.round(temp5*100)/100;
+if((dwdj*mj)>500000){   diyaRate=0.006} else{ diyaRate=0.008}
+var diya = MM_findObj("diya"); 
+if (diya) diya.value = dwdj*mj*diyaRate;
+var baoxian = MM_findObj("baoxian"); 
+if (baoxian) baoxian.value = dwdj*mj*0.001*year;
+var danbao = MM_findObj("danbao"); 
+temp9=(dwdj*mj-dwdj*mj*ajcs*0.1)*0.008;
+if(temp9<500) {temp9=500;}
+if (danbao) danbao.value = Math.round(temp9*100)/100;
+}
+//-->
+</SCRIPT>
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+            
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+        
+        <div class="user_main">
+  
+               <div class="user_left">
+                    <div class="title">工具箱</div>
+                    
+               <?php  foreach($tools_array as $key=> $val) { ?>
+                      <div class="dalei">
+                        <a <?php if($_GET['act'] == $key){ ?> style="color:#be0033;" <?php }?>
+                            title="<?php echo $__SETTING['site_name'],$val['title'];?>" 
+                            href="<?php echo mkUrl::linkTo('tools',$key);?>"><?php echo $val;?></a>
+                        </div>  
+                    
+                    <?php }?>
+
+
+                  
+                                    
+               </div>
+               <div class="user_right">
+                 <div class="user_center"> 
+                     
+                        <div class="artCon">
+                        
+                        <table width="100%" height="530" cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+              <td height="30" bgcolor="#f4f4f4" align="center"><strong><?php echo $title;?></strong></td>
+            </tr>
+            <tr>
+              <td valign="top" align="center">
+       
+              <form name="anjie" method="post">
+<div align="center">
+<center>
+<table width="100%" cellspacing="0" cellpadding="0" class="table1" id="AutoNumber1">
+<tbody>
+<tr>
+<td width="100%"><table width="100%" cellspacing="0" cellpadding="0" id="AutoNumber2">
+<tbody>
+<tr>
+<td width="37%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;&nbsp;单&nbsp;&nbsp;&nbsp; 价：
+<input type="text" name="dwdj" style="border-bottom: #c0c0c0 1px groove; border-left: #c0c0c0 1px groove; height: 16px; border-top: #c0c0c0 1px groove; border-right: #c0c0c0 1px groove" size="6" maxlength="6">
+元/M<sup>2</sup></span></td>
+<td width="30%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">房款总额：
+<input type="text" name="total" size="8" readonly="readonly" class="txt2">
+元</span></td>
+<td width="32%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;支付息款：
+<input type="text" name="ztotal" size="8" readonly="readonly" class="txt2">
+元</span></td>
+</tr>
+<tr>
+<td width="37%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;&nbsp;面&nbsp;&nbsp;&nbsp; 积：
+<input type="text" name="mj" style="border-bottom: #c0c0c0 1px groove; border-left: #c0c0c0 1px groove; height: 16px; border-top: #c0c0c0 1px groove; border-right: #c0c0c0 1px groove" size="6" maxlength="6">
+M<sup>2</sup></span></td>
+<td width="30%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">贷款总额：
+<input type="text" name="dtotal" size="8" readonly="readonly" class="txt2">
+元</span></td>
+<td width="32%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;抵押登记：
+<input type="text" name="diya" size="8" readonly="readonly" class="txt2">
+元</span></td>
+</tr>
+<tr>
+<td width="37%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;&nbsp;按揭成数：</span>
+<select name="ajcs" style="border-bottom: #c0c0c0 1px groove; border-left: #c0c0c0 1px groove; height: 16px; border-top: #c0c0c0 1px groove; border-right: #c0c0c0 1px groove" size="1">
+<option selected="selected" value="8">8成</option>
+<option value="7">7成</option>
+<option value="6">6成</option>
+<option value="5">5成</option>
+<option value="4">4成</option>
+<option value="3">3成</option>
+<option value="2">2成</option>
+</select></td>
+<td width="30%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">首期付款：
+<input type="text" name="first" size="8" readonly="readonly" class="txt2">
+元</span></td>
+<td width="32%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;房屋保险：
+<input type="text" name="baoxian" size="8" readonly="readonly" class="txt2">
+元</span></td>
+</tr>
+<tr>
+<td width="37%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;&nbsp;按揭年数：</span>
+<select name="year" size="1">
+<option value="2">2年(24期)</option>
+<option value="3">3年(36期)</option>
+<option value="4">4年(48期)</option>
+<option value="5">5年(60期)</option>
+<option value="6">6年(72期)</option>
+<option value="7">7年(84期)</option>
+<option value="8">8年(96期)</option>
+<option value="9">9年(108期)</option>
+<option value="10">10年(120期)</option>
+<option selected="selected" value="15">15年(180期)</option>
+<option value="20">20年(240期)</option>
+<option value="25">25年(300期)</option>
+<option value="30">30年(360期)</option>
+</select></td>
+<td width="30%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">月均还款：
+<input type="text" name="monthf" size="8" readonly="readonly" class="txt2">
+元</span></td>
+<td width="32%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">&nbsp;<a href="http://zt.pchouse.com.cn/esf/" target="_blank" class="cmsLink">二手房</a>按揭贷款担保：
+<input type="text" name="danbao" size="8" readonly="readonly" class="txt2">
+元</span></td>
+</tr>
+<tr>
+<td width="37%" height="40" bgcolor="#ffffff" rowspan="2"><p align="left">&nbsp;&nbsp;
+<input type="button" value=" 计 算 " name="math1" onclick="count_anjie()" class="btnA">
+&nbsp;
+<input type="reset" value=" 清 空 " name="reset" class="btnA">
+</p></td>
+<td width="30%" height="20" bgcolor="#ffffff"><span style="font-size: 9pt">还款总额：
+<input type="text" name="htotal" size="8" readonly="readonly" class="txt2">
+元</span></td>
+<td width="32%" height="20" bgcolor="#ffffff"><p align="right"><span style="font-size: 9pt">&nbsp; </span></p></td>
+</tr>
+<tr> </tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+</center>
+</div>
+</form>
+              </td>
+            </tr></tbody></table>
+          
+</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+
+        <div class="clear"></div>
+
+    <?php  require TEMPLATE_PATH.'public/root.html';?>
+
+    </body>
+</html>

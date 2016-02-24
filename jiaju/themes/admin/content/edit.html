@@ -1,0 +1,113 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=content" ><em>文章列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑文章</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data" action="index.php?ctl=content&act=edit&content_id=<?php echo $content_id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+             <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">选择分类:</th>
+                        <td class="jq_category_id">
+                            <?php echo $select;?>
+                           
+                        </td>
+                    </tr>
+                <script>
+                    $(document).ready(function(){
+                        var defaultCategory = 0;
+                        function makeCategorySelect(id,data){
+                            var str ='<select name="'+id+'" id="'+id+'"><option value="0" >请选择.....</option>';
+                                for(a in data){
+                                    if(data[a].category_id != defaultCategory){
+                                        str+='<option value="'+data[a].category_id+'" >'+data[a].category_name+'</option>';
+                                    }
+                                }                        
+                                str+='</select>';
+                            return str;
+                        }
+
+                        $(".jq_category_id").on('change','select',function(){
+                            var index = $(this).index();
+                            var val   = $(this).val();
+                            var category_type = "<?php echo $__CATEGORY_TYPE['contents'];?>";
+                            $(".jq_category_id select").each(function(a){
+                                if(a > index){
+                                    $(this).remove();
+                                }
+                            });
+                            if(val > 0){
+                                $.get('index.php?ctl=ajax&act=getCategory&parent_id='+val+'&category_type='+category_type,function(data){
+                                    if(data.ret == -1){
+                                        alert(data.message);
+                                    }else{
+                                        if(data.message.length>0){
+                                            $(".jq_category_id").append(makeCategorySelect('cates[]',data.message));
+                                        }
+                                    }
+                                },'json');
+                            }
+                        });
+                    });
+                </script>
+                    <tr>
+                        <th width="140">文章标题:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['title'];?>" name="title" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">作者:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['author'];?>" name="author" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">缩略图:</th>
+                        <td><input type="file" size="40" name="face_pic" ><?php if(!empty($data['face_pic'])){?><img width="80" height="80" src="<?php echo URL,$data['face_pic'];?>" /><?php }?> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">来源:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['source'];?>" name="source" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">关键字:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['keywords'];?>" name="keywords" class="input-text">多个关键字用,隔开(用处一：头部SEO；用处2：网站内链的TAG) </td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td>
+                            <textarea name="description" cols="50" rows="10"><?php echo $data['description'];?></textarea>网页头部SEO部分或文章列表的导语部分都采用此项
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">内容:</th>
+                        <td>
+                             <script type="text/plain" id="contents" style="width:700px;"><?php echo $data['contents'];?></script>
+                             <script>
+
+                                 var editor_a = new baidu.editor.ui.Editor({
+                                        //关闭字数统计
+                                        wordCount:false,
+                                        //关闭elementPath
+                                        elementPathEnabled:false,
+                                        textarea:'content'
+                                        //更多其他参数，请参考editor_config.js中的配置项
+                                 });
+                                 editor_a.render('contents');
+                             </script>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

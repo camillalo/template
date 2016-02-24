@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/sjs.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/zx_public.html';?>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+	<div class="sjs_here">
+		<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 找公司 > 装修工队
+	</div>
+
+	
+	<div class="sjs_main">
+		<div class="title">
+			工队列表
+		</div>
+		  <?php foreach($datas as $val){ ?>        
+		<div class="list">
+                    <div style="float: left;width: 150px; margin-left: 10px; ">
+				
+                       <?php if(!empty($val['face_pic'])){?>    <img alt="<?php echo $val['name'];?>" width="130" height="130" src="<?php echo URL,$val['face_pic'];?>">
+                           <?php } else {?>
+                            <img alt="<?php echo $val['name'];?>" width="130" height="130" src="<?php echo URL;?>statics/images/130_130.jpg">
+                           <?php }?>
+			</div>
+                    <div style="float: left; width: 500px; margin-left: 10px;">
+                        <p style="font-size: 14px;"><b><?php echo $val['name'];?></b><?php if(!empty($val['orderby'])){?><span><font color="#FB0102;">[推广]</font></span><?php }?><?php if(!empty($val['is_security'])){?><span><font color="#007E00;">[保障]</font></span><?php }?>
+			
+					
+				</p>
+                        <p style="margin-top:10px;"> <b>电话</b>：<?php echo $val['tel'];?></p>
+                        <p style="margin-top:10px;"> <b>地址</b>：<?php echo $val['addr'];?></p>
+                        <p style="margin-top:10px;"> <b>介绍</b>：<?php echo $val['info'];?></p>
+			</div>
+                    
+                  
+			
+		</div>
+		   <?php  }?> 
+                   
+   
+                   
+		   <div class="clear"></div>
+		      <div class="page-bar"> <?php echo $links;?></div>
+  </div>
+  
+  
+</div>	
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

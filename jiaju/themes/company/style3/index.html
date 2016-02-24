@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+        <script>    
+    function setTab(name, cursel, n) {
+        for (i = 1; i<= n; i++) {
+            var menu = document.getElementById(name + i);
+            var con = document.getElementById("con_" + name + "_" + i);
+            menu.className = i == cursel ? "hover" : "";
+            con.style.display = i == cursel ? "block" : "none";
+        }
+    }
+</script> 
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <!--轮显广告开始-->
+            <div id="rightbox">
+                <div class="rightbox1">
+                    <div id="luenxian">
+                        
+                        <?php if(empty($companyPics)){ ?>
+                        <div class="container" id="idTransformView">
+                            <ul class="slider" id="idSlider" style="top: 0px;">
+                                 <?php $ads =  pluginsAds(7,true); $ads = empty($ads) ? array() : $ads;?>
+                               <?php foreach ($ads as $val){ ?>
+                        <li><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>">
+                                <img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['pic'];?>"></a></li>
+                      <?php }?>
+
+                            </ul>
+                            <ul class="num" id="idNum">
+                              <?php $i=0; foreach ($ads as $val){ $i++;?>
+                                <li><?php echo $i;?></li>
+                                <?php }?>
+                            </ul>
+                        </div>
+                        <?php } else{ ?>
+                          <div class="container" id="idTransformView">
+                            <ul class="slider" id="idSlider" style="top: 0px;">
+                               
+                               <?php foreach ($companyPics as $val){ ?>
+                        <li><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('company','photo',array('id'=>$company_id));?>">
+                                <img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['pic'];?>"></a></li>
+                      <?php }?>
+
+                            </ul>
+                            <ul class="num" id="idNum">
+                              <?php $i=0; foreach ($companyPics as $val){ $i++;?>
+                                <li><?php echo $i;?></li>
+                                <?php }?>
+                            </ul>
+                        </div>
+                        
+                        <?php }?>
+                              <script>
+                    $(document).ready(function(){
+                            var index_an_pic_num  = $("#idNum li").length;
+                            var this_num      = 0;
+                            var height = 200;
+                            var an = null;
+                            function an_step(){
+                                this_num ++;
+                                if(this_num == index_an_pic_num) this_num = 0;
+                                $("#idNum li").eq(this_num).mouseover();
+                            }                    
+                            $("#idNum li").mouseover(function(){
+                                if(an){
+                                    clearTimeout(an);
+                                }
+                                this_num = $(this).index();
+                                $("#idNum li").each(function(e){
+                                    if(e ==  this_num){
+                                        $(this).addClass('on');
+                                    }else{
+                                        $(this).removeClass('on');
+                                    }
+                                });
+                                $("#idSlider").stop().animate({'top': '-'+this_num * height +'px'},'slow');
+                                an = setTimeout(an_step,5000);
+                            });
+                            $("#idNum li").eq(0).mouseover();                              
+                    });
+                </script>
+                        
+                    </div>
+                </div>
+                <!--轮显广告结束-->
+                <div class="rightbox2">
+                    <h2>
+                        <a title="<?php echo $company['company_name'];?>企业简介" href="<?php echo mkUrl::linkTo('company','about',array('id'=>$company_id));?>">
+                            企业简介
+                        </a>
+                        <span class="more">
+                            <a title="<?php echo $company['company_name'];?>企业简介" href="<?php echo mkUrl::linkTo('company','about',array('id'=>$company_id));?>" target="_blank">
+                                更多&gt;&gt;
+                            </a>
+                        </span>
+                    </h2>
+                    <p class="jianjie">
+                        <?php echo mb_substr($company['introduce'],0,135);?>......
+                    </p>
+                </div>
+                <div class="clear">
+                </div>
+                <!--案例作品 开始-->
+                 <?php if($__USER_TYPE['company'] === (int)$user['type']){ ?>
+                <div class="rightbox3" id="rightbox3">
+                    <div class="menu">
+                        <h2>
+                                <a title="作品案例" href="<?php echo mkUrl::linkTo('company','case',array('id'=>$company_id));?>" target="_blank">
+                                    作品案例
+                                </a>
+                             <span class="more">
+                                <a title="作品案例" href="<?php echo mkUrl::linkTo('company','case',array('id'=>$company_id));?>" target="_blank">
+                                    更多&gt;&gt;
+                                </a>
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="con_menu_1" class="hover">
+                        <?php  foreach($anli as $val){ ?>
+                        <div class="case">
+                            <a href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>" title="<?php echo $val['title']?>" target="_blank">
+                                <img src="<?php echo URL,$val['face_pic'];?>" alt="<?php echo $val['title']?>" width="120" height="90">
+						    </a>
+                            <p class="touxian">
+                                <a href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>" title="<?php echo $val['title']?>" target="_blank">
+                                    <?php echo mb_substr($val['title'],0,10)?>
+                                </a>
+                            </p>
+                         </div>
+                        <?php }?>
+					  
+                        <div class="clear">
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+                
+                
+                <?php }?>
+                <!--案例作品 结束-->
+                <div class="clear">
+                </div>
+                 <?php if($__USER_TYPE['company'] === (int)$user['type']){ ?>
+                <div class="rightbox3">
+                    <h2>
+                        <a title="装修设计师" href="<?php echo mkUrl::linkTo('company','design',array('id'=>$company_id));?>">
+                            设计团队
+                        </a>
+                        <span class="more">
+                            <a title="装修设计师" href="<?php echo mkUrl::linkTo('company','design',array('id'=>$company_id));?>" target="_blank">
+                                更多&gt;&gt;
+                            </a>
+                        </span>
+                    </h2>
+                    
+                    <?php foreach($designer as $val){ ?>
+                        <div class="designer">
+                            <a href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['id']));?>"  title="<?php echo $val['name'];?>" target="_blank">
+                                <img alt="<?php echo $val['name'];?>" src="<?php echo URL,$val['face_pic'];?>" height="100" width="100"> 
+                            </a>
+                                <p class="touxian">
+                                    <?php echo $val['position'];?>
+                                </p>
+                                <p>
+                                    <a href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['id']));?>" title="<?php echo $val['name'];?>" target="_blank">
+                                        <?php echo $val['name'];?>
+                                    </a>
+                                </p>
+                        </div>
+                   <?php }?> 
+                </div>
+                <div class="clear">
+                </div>
+                <?php }?>
+                
+                
+               
+                <div class="rightbox3">
+                    <h2>
+                        <a title="产品目录" href="<?php echo mkUrl::linkTo('company','products',array('id'=>$company_id));?>">
+                            产品目录
+                        </a>
+                        <span class="more">
+                            <a title="产品目录" href="<?php echo mkUrl::linkTo('company','products',array('id'=>$company_id));?>" target="_blank">
+                                更多&gt;&gt;
+                            </a>
+                        </span>
+                    </h2>
+                    
+                    <?php foreach($products as $val){ ?>
+                        <div class="designer">
+                            <a href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>"  title="<?php echo $val['product_name'];?>" target="_blank">
+                                <img alt="<?php echo $val['product_name'];?>" src="<?php echo URL,$val['face_pic'];?>" height="100" width="100"> 
+                            </a>
+                                <p class="touxian">
+                                   商城价：<?php echo round($val['mall_price']/100,2);?>元
+                                </p>
+                                <p>
+                                    <a href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>" title="<?php echo $val['product_name'];?>" target="_blank">
+                                        <?php echo $val['product_name'];?>
+                                    </a>
+                                </p>
+                        </div>
+                   <?php }?> 
+                </div>
+                <div class="clear">
+                </div>
+            
+                
+                <?php if($__USER_TYPE['company'] === (int)$user['type']){ ?>
+                <div class="rightbox3">
+                    <h2>
+                        <a title="装修点评" href="<?php echo mkUrl::linkTo('company','dianping',array('id'=>$company_id));?>">
+                            会员评价
+                        </a>
+                        <span class="more">
+                            <a  title="装修点评"href="<?php echo mkUrl::linkTo('company','dianping',array('id'=>$company_id));?>" target="_blank">
+                                更多&gt;&gt;
+                            </a>
+                        </span>
+                    </h2>
+                    <div class="clear">
+                    </div>
+                     <?php foreach($newDianping as $val){ ?>   
+            <div class="pingjia_box">
+                <a target="_blank" title="<?php echo $val['realname'];?>" href="###" class="evaluate_avatar"><img src="<?php echo URL;?>themes/company/style1/images/head.jpg" width="50" height="50"></a>
+			 <div class="right">
+			       <div class="title">
+				   
+				   <span class="pingjia star3">服务：<?php echo $val['service'];?> </span><span class="pingjia star3">设计：<?php echo $val['design'];?> </span><span class="pingjia star3">施工：<?php echo $val['process'];?> </span><span class="pingjia star3">售后：<?php echo $val['sales'];?> </span>
+				   <span class="date"><?php echo $val['create_time'];?></span>
+				   <div class="clear"></div>
+				   </div>
+			
+                             <p><b>点评：</b><?php echo $val['dianping'];?></p>
+                            <p><b>项目：</b><?php echo $val['project'];?></p>
+                            <?php if(!empty($val['revert'])){ ?>
+                            <p><b>企业回复：</b><?php echo $val['revert'];?></p>
+                            <?php }?>
+			</div>
+            <div class="clear"></div>
+            
+              </div>
+	<?php  }?>		
+                  
+                </div>
+                <?php }?>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+        <!--底部内容开始-->
+<?php  require COMPANY_TEMPLATE.'/root.html';?>
+     
+    </body>
+
+</html>

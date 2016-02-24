@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+ <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+               <div class="user_here">
+					<strong>当前位置：</strong> <a href="/">首页</a> > 个人中心
+				</div>
+			     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+                <div class="user_right">
+
+                    <div class="clearfix">
+                        <div class="user_info clearfix">
+                            <div class="left">
+                                <div class="face_bg">
+                                    <img src="<?php echo URL;?><?php if(empty($userEx['face_pic'])){?>themes/v3.0/images/user/yz100_100.png<?php } else echo $userEx['face_pic'];?>" alt="会员头像" name="ctl00_col_main_Headimg" width="100" height="100" id="ctl00_col_main_Headimg"></div>
+                                <div class="change_face">
+                                    <a href="<?php echo mkUrl::linkTo('user','info');?>">更换头像</a></div>
+                            </div>
+                            <div class="right">
+                                <p class="title">
+                                    <label id="ctl00_col_main_LName"><?php echo $__USER_INFO['username'];?>,您好！</label>
+                                    <a class="alink alink_message" href="<?php echo mkUrl::linkTo('user','integral');?>">积分<em class="red"><?php echo $jifen;?></em></a>
+                                </p>
+                                <p>
+                                    会员类别：<em class="blue">  <?php echo isset($__USER_TYPE_MEAN[$__USER_INFO['type']]) ?$__USER_TYPE_MEAN[$__USER_INFO['type']] : '';?></em>
+                                    &#12288;&#12288;会员级别：<em class="red" id="ctl00_col_main_MemberLevel">
+                                        <?php if($isVip){?>
+                                        VIP会员
+                                        <?php } elseif(isset($userEx['is_authentication']) && $userEx['is_authentication']) {?>
+                                        实名认证会员
+                                        <?php  }else{ ?>
+                                        非实名认证会员
+                                        <?php }?>
+                                    </em></p>
+                                <p>
+                                    注册时间：
+                                    <em class="black" id="ctl00_col_main_Joindate"><?php echo date('Y-m-d H:i:s',$__USER_INFO['reg_t']);?></em>
+                                    &#12288;&#12288;
+                                    注册IP：
+                                    <em class="black" id="ctl00_col_main_Lastdate"><?php echo $__USER_INFO['reg_ip'];?></em>
+                                </p>
+                                <p>
+                                    邮箱：<em class="black" id="ctl00_col_main_Email"><?php echo $__USER_INFO['email'];?></em></p>
+                                
+                                <?php if($isVip){?>    
+                                <div class="money">
+                                     <?php if($__USER_INFO['day'] < NOWTIME) { ?>剩余查看条数：<em class="red" id="ctl00_col_main_Jfcount"><?php echo $__USER_INFO['num'];?></em>
+                                     剩余金币：<em class="red" id="ctl00_col_main_Jfcount"><?php echo $__USER_INFO['gold'];?></em>
+                                     <?php  }else{ ?>VIP到期日期：<em class="red" id="ctl00_col_main_Jfcount"><?php echo date('Y-m-d H:i:s',$__USER_INFO['day']);?></em><?php }?>
+                                 </div>
+                                <?php }?> 
+                                
+                            </div>
+                        </div>
+                        <div id="TabAdS01" class="user_gonggao">
+                            <div class="hd">
+                                <ul class="clearfix tab-hd">
+                                    <li class="select">网站公告</li>
+								    <li class="last"></li>
+                                </ul>
+                            </div>
+                            <div class="bd">
+                                <ul class="tab-cont" style="display: block;">
+                                        <?php foreach($newGG  as  $val){?>
+                                            <li>
+                                                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('content','detail',array('id'=>$val['content_id']));?>">
+                                                    <?php echo mb_substr($val['title'],0,12);?>...
+                                                </a>
+                                            </li>
+                                       <?php }?>
+                                </ul>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="module_default">
+                        <div class="hd tongji_hd">
+                            <s class="s"></s>统计信息</div>
+                        <div class="bd tongji_inner">
+                            <p>我的招标：<?php if($biddingNum){ echo $biddingNum;} else {?>
+                                <em class="gray">您还没有发布信息招标哦，快来<a target="_blank" href="<?php echo mkUrl::linkTo('tenders');?>">发布</a>吧！</em><?php }?></p>
+                            
+                            <p>我的日记：<?php if($biddingNum){ echo $biddingNum;} else {?>
+                                <em class="gray">您还没有写日记哦，快来<a target="_blank" href="<?php echo mkUrl::linkTo('user','diaryAdd');?>">写</a>吧！</em><?php }?></p>
+                        </div>
+                    </div>
+
+                       <?php if($__USER_TYPE['owner'] !== (int)$__USER_INFO['type'] ){ ?>
+                    <div class="module_default">
+                        <div class="hd">
+                             <?php echo isset($__USER_TYPE_MEAN[$__USER_INFO['type']]) ?$__USER_TYPE_MEAN[$__USER_INFO['type']] : '';?>功能一览 <span class="other_hd">如果您还不是实名认证会员，那快来<a href="<?php echo mkUrl::linkTo('user','authenticate');?>">申请</a>吧，享受更多权利！</span><span class="other_hd">如果您还不是VIP会员请联系网站购买VIP会员！</span></div>
+                        <div class="bd gongneng">
+                            <table width="100%" class="gongneng_table">
+                                <tbody id="ctl00_col_main_MemberRight">
+                  
+                    <tr>
+                      <th  align="center">模块</th>
+                      <th align="center" >非实名会员</th>
+                      <th align="center" >实名认证会员</th>
+                      <th align="center" >VIP会员</th>
+                    </tr>
+                    <tr>
+                      <td  align="center">文章案例产品等点评</td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['comments']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['comments']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['comments']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['comments']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['comments']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['comments']] : '不允许' ;?></td>
+                      
+              
+                    </tr>
+                    
+                     <tr>
+                      <td  align="center">企业点评</td>
+                      
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['dianping']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['dianping']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['dianping']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['dianping']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['dianping']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['dianping']] : '不允许' ;?></td>
+ 
+                    </tr>
+                       <?php if($__USER_TYPE['material'] !== (int)$__USER_INFO['type'] ){ ?>                  
+                     <tr>
+                      <td  align="center">案例发布</td>
+                       <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['case']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['case']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['case']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['case']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['case']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['case']] : '不允许' ;?></td>
+                      
+                    </tr>
+                       <?php }?>              
+                                      
+                     <?php if($__USER_TYPE['designer'] !== (int)$__USER_INFO['type'] ){ ?>                 
+                     <tr>
+                      <td  align="center">发布优惠信息</td>
+                       <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['preferential']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['preferential']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['preferential']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['preferential']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['preferential']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['preferential']] : '不允许' ;?></td>
+                      
+                    </tr>
+                    
+                          <?php if($__USER_TYPE['material'] !== (int)$__USER_INFO['type'] ){ ?>   
+                    <tr>
+                      <td  align="center">发布在建工地</td>
+                      
+                        <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['site']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['site']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['site']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['site']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['site']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['site']] : '不允许' ;?></td>
+                      
+
+                    </tr>
+                        <?php }?>                               
+                    <tr>
+                      <td  align="center">发布商品</td>
+                          <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['products']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['products']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['products']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['products']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['products']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['products']] : '不允许' ;?></td>
+                    
+                    </tr>
+                    <?php }?>                
+                                    
+                    <tr>
+                      <td  align="center">发布装修日记</td>
+                        <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['diary']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['diary']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['diary']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['diary']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['diary']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['diary']] : '不允许' ;?></td>
+
+                    </tr>
+               
+                      <tr>
+                      <td  align="center">竞标权限</td>
+                        <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['general']['bid']]) ? $__SITE_AUTHORITY_MEAN[$authority['general']['bid']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['rule']['bid']]) ? $__SITE_AUTHORITY_MEAN[$authority['rule']['bid']] : '不允许' ;?></td>
+                      <td  align="center"><?php echo isset($__SITE_AUTHORITY_MEAN[$authority['vip']['bid']]) ? $__SITE_AUTHORITY_MEAN[$authority['vip']['bid']] : '不允许' ;?></td> 
+                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+<?php  }?>
+                    
+                    <div class="module_default">
+                        <div class="hd clearfix">
+                            <a class="more" target="_blank" href="<?php echo mkUrl::linkTo('case');?>">更多</a>最新案例</div>
+                        <div class="bd bbsList">
+                            <ul id="bbsnewlist" class="clearfix">
+                                <?php foreach($newCases as $val){ ?>
+                                <li>
+                                    <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"><?php echo $val['title'];?></a>
+                                </li>
+                                <?php }?>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+          
+            <div class="clear">
+            </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	    
+    </body>
+</html>

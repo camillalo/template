@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/zb.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body id="w_body">
+  <?php  require TEMPLATE_PATH.'public/zb_public.html';?>
+<div class="w_980">
+  <div class="zb_main">
+		<div class="zb_box1">
+			<div class="left">
+			  
+			  <div class="zb_header_left"> 
+
+<img src="<?php echo URL;?>themes/v3.0/images/zb/gj.gif" width="328" height="145" /><br>
+      
+        <br>
+		<div class="cont_sjxcgh">
+			<li>● 获取最规范的预算模板</li>			
+			<li>● 获取最新的人工费报价</li>
+			<li>● 熟悉各项目施工造价</li>
+			<li>● 了解常用建材品牌行情</li>
+			<li>● 比较同等材料的市场最低报价</li>
+		</div>
+      </div>
+			</div>
+			
+			
+			
+<?php  require TEMPLATE_PATH.'public/zb_public2.html';?>
+		
+		
+		
+		</div>
+		<div class="ad980">
+			<img src="<?php echo URL;?>themes/v3.0/images/zb/zb_980.gif" />
+		</div>
+		
+		<div class="l980">
+			
+			<h1>听 施工工艺 ----熟悉项目施工造价</h1>
+		</div>
+		<div class="gj_list">
+			<div class="img">
+				<img src="<?php echo URL;?>themes/v3.0/images/zb/g1.gif" />
+			</div>
+			<div class="info">
+				<p>
+					<b>1. &nbsp;</b>我们引入竞争机制，四家装修公司装修竞标
+				</p>
+				
+				<p>
+					<b>2. &nbsp;</b>不同工艺的施工成本都大不相同,例如同样一套门套的施工工艺分九种,价格不一样，效果、耐用程度也都不一样。那么究竟哪种工艺比较适合您的家呢？
+				</p>
+			</div>
+		</div>
+		<div class="gj_t1">
+		<h1>选 装修材料 了解常用建材品牌行情</h1>
+		</div>
+		<div class="gj_list">
+			<div class="img">
+				<img src="<?php echo URL;?>themes/v3.0/images/zb/g2.gif" />
+			</div>
+			<div class="info">
+				<p>
+					<b>1. &nbsp;</b>建材品牌琳琅满目，常用的地板、瓷砖、卫浴产品、油漆、水管等品牌都有很多，每个品牌的不同产品价格也千差万别，怎么知道自己喜欢的产品的市场最低报价呢？怎么知道自己有没有被宰呢
+				</p>
+				
+				<p>
+					<b>2. &nbsp;</b>联系我们，我们会及时更新近千种材料的市场最低价格，供您参考。
+				</p>
+			</div>
+		</div>
+  </div>
+</div>
+
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+</body>
+</html>

@@ -1,0 +1,84 @@
+.search_here{
+float:left;
+width:980px;
+height:40px;
+line-height:40px;
+color:#9A9A9A;
+}
+.search_here a{
+color:#9A9A9A;
+}
+
+.search_here strong{
+color:#0477B6;
+}
+
+
+.search_main {
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 978px;
+	border: solid 1px #D8D8D8;
+	border-top: 3px solid #0F9BE8  ;
+	padding-bottom:10px;
+
+	float:left;
+}
+.search_list {
+
+    width:960px;
+}
+.search_list li {
+    border-bottom: 1px dotted #DDDDDD;
+    height: auto;
+	width:920px;
+	padding:5px 10px 5px 10px;
+
+    overflow: hidden;
+
+}
+.search_list .title {
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+.search_list .title a {
+    color: #898989;
+	font-weight:bold;
+}
+.search_list .title a:hover {
+    color: orange;
+}
+.search_list .content {
+    color: #999999;
+    font-size: 12px;
+    height: auto;
+    line-height: 25px;
+    margin-top: 5px;
+}
+.search_list .links {
+    color: #999999;
+    height: auto;
+    margin-top: 5px;
+    overflow: hidden;
+}
+.search_list .links a {
+    color: green;
+}
+.showtime {
+    height: 38px;
+    line-height: 38px;
+	padding-right:10px;
+    text-align: right;
+    width: 950px;
+	background: url("../images/tiao10.gif") repeat-x scroll 0 0 transparent;
+    height: 38px;
+}
+.sorry {
+    height: 25px;
+    line-height: 25px;
+    margin-left: 60px;
+    text-align: center;
+    width: 700px;
+}

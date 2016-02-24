@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <div class="neiye" id="rightbox">
+		      		       <h3>
+			<ul class="tabs">
+               <li><a <?php if($_GET['act'] === 'about') { ?>class="active" <?php }?> href="<?php echo mkUrl::linkTo('company','about',array('id'=>$company_id));?>">企业简介</a></li>
+				<li><a <?php if($_GET['act'] === 'photo') { ?>class="active" <?php }?>  href="<?php echo mkUrl::linkTo('company','photo',array('id'=>$company_id));?>">企业照片</a></li>
+				<li><a <?php if($_GET['act'] === 'credit') { ?>class="active" <?php }?>  href="<?php echo mkUrl::linkTo('company','credit',array('id'=>$company_id));?>">荣誉资质</a></li>
+				<li><a <?php if($_GET['act'] === 'contact') { ?>class="active" <?php }?>  href="<?php echo mkUrl::linkTo('company','contact',array('id'=>$company_id));?>">联系方式</a></li>
+			</ul>
+			</h3>
+			
+		
+			
+			<div id="jianjie2">
+                        <?php foreach($datas as $val){ ?>    
+                            <img width="300" height="200" src="<?php echo URL,$val['pic'];?>" alt="<?php echo $val['title'];?>" />
+                        <?php }?>
+					
+		</div>
+                <div style="padding-left: 50px;">
+                    <?php if(!empty($datas)) echo $links;?>
+                </div>
+                    
+		</div>
+            
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+    <?php  require COMPANY_TEMPLATE.'/root.html';?>
+     
+    </body>
+
+</html>        

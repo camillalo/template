@@ -1,0 +1,18 @@
+<div class="header_a">
+    <b>&nbsp;</b>
+
+    <a <?php if($_GET['ctl'] === 'gs'){ ?> class="a cur" <?php  } else{?> class="a"<?php }?> href="<?php echo mkUrl::linkTo('gs','main');?>">装修公司</a>
+    <b>|</b>
+    <a <?php if($_GET['ctl'] === 'bdmap'){ ?> class="a cur" <?php  } else{?> class="a"<?php }?> href="<?php echo mkUrl::linkTo('bdmap','main');?>">地图找装修</a>       
+    <b>|</b>
+    <a <?php if($_GET['ctl'] === 'sjs'){ ?> class="a cur" <?php  } else{?> class="a"<?php }?> href="<?php echo mkUrl::linkTo('sjs','main');?>">设计师</a>
+    <b>|</b>
+    <a <?php if($_GET['ctl'] === 'material'){ ?> class="a cur"  <?php  } else{?> class="a" <?php }?>  href="<?php echo mkUrl::linkTo('material','main');?>" >材料商</a>
+    <b>|</b>
+    <a <?php if($_GET['ctl'] === 'preferential'){ ?> class="a cur" <?php  } else{?> class="a"<?php }?> href="<?php echo mkUrl::linkTo('preferential','main');?>">优惠信息</a>
+    <b>|</b>
+    <a <?php if($_GET['ctl'] === 'site'){ ?> class="a cur" <?php  } else{?> class="a"<?php } ?> href="<?php echo mkUrl::linkTo('site','main');?>">在建工地</a>
+    
+    <b>|</b>
+    <a <?php if($_GET['ctl'] === 'team'){ ?> class="a cur" <?php  } else{?> class="a"<?php } ?> href="<?php echo mkUrl::linkTo('team','main');?>">找工队</a>
+</div>

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/reg.css" rel="stylesheet" type="text/css" />
+    </head>
+
+
+<body>
+<div class="w_980">
+	<?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+
+<div class="w_980">
+<div class="user_reg">
+		    <div class="hd">
+			    <h3>注册<span class="txt">只需要花几秒时间注册即可注册为会员</span></h3>
+			    <div class="reg_step reg_step_1">
+				    <ul>
+					    <li class="s_1">1.选择注册会员类型</li>
+					    <li class="s_2">2.填写会员资料</li>
+					    <li class="s_3">3.注册成功</li>
+				    </ul>
+			    </div>
+		    </div>
+		    <div class="bd">
+			    <ul class="clearfix">
+				    <li class="item">
+					    <p class="t_txt">如果您正在或准备装修房子</p>
+					    <h3>业主</h3>
+					    <p>找公司、找设计、团建材<br>发招标、获设计、比预算<br>看案例、写日记、交流经验<br>...</p>
+                                                            
+					    <a href="<?php echo mkUrl::linkTo('register','main',array('type'=>1));?>" class="link link_1" id="memberno_2">现在注册</a>			
+                                    </li>
+                                   <li class="item">
+					    <p class="t_txt">如果您是装修公司</p>
+					    <h3>装修公司</h3>
+					    <p>建店铺、建网站，展示企业<br>在线投标、网上接单、受理咨询<br>发资讯、传案例、写日记<br>...</p>
+					    <a href="<?php echo mkUrl::linkTo('register','main',array('type'=>2));?>" class="link link_3" id="memberno_3">现在注册</a>			
+                                    </li>    
+                                       
+				    <li class="item">
+					    <p class="t_txt">如果您是建材、家居销售商</p>
+					    <h3>材料商</h3>
+					    <p>建店铺、发商品、发信息<br>在线销售、网上接单<br>建网站、展示企业<br>...</p>
+					    <a href="<?php echo mkUrl::linkTo('register','main',array('type'=>3));?>" class="link link_2" id="memberno_4">现在注册</a>			
+                                    </li>
+                                    <li class="item">
+                                        <p class="t_txt">如果您是装潢设计师</p>
+                                        <h3>设计师</h3>
+                                        <p>免费建立设计师主页<br>装修设计项目网上投标<br>设计作品展示<br>...</p>
+                                        <a href="<?php echo mkUrl::linkTo('register','main',array('type'=>4));?>" class="link link_4" id="memberno_5">现在注册</a>			
+                                </li>
+				  
+			    </ul>
+		    </div>
+	    </div>
+
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+</body>
+</html>

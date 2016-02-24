@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<title>后台管理中心</title>
+<link href="../statics/css/public/reset.css" rel="stylesheet" type="text/css"/>
+<link href="../statics/css/admin/zh-cn-system.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../statics/js/jquery.js"></script>
+</head>
+    <style>
+        body {background: #e2e9ea url(../statics/images/admin/left_bg.png) repeat-y -40px top;}
+    </style>    
+<body>
+<div class="col-left left_menu">
+    <div style="height: 516px;" id="Scroll">
+          <div id="leftMain">
+          <?php foreach($showMenu as $val){ ?>
+          <h3 class="f14"  >
+              <span class="switchs cu on"  id="jq_<?php echo $val['link'];?>"  title="展开与收缩"></span>
+              <?php echo $val['name'];?>
+          </h3>
+          <script>
+              $(document).ready(function(){
+                  $("#jq_<?php echo $val['link'];?>").click(function(){
+                      if($(this).hasClass('on')){
+                          $(this).removeClass('on');
+                      }else{
+                           $(this).addClass('on');
+                      }
+                      $(".jq_<?php echo $val['link'];?>").toggle();
+                  });
+              });
+          </script>
+          <ul class="jq_<?php echo $val['link'];?>">
+              <?php foreach($val['item'] as $v){ 
+
+              ?>
+                  <li class="sub_menu" >
+                      <a style="outline:none;" target="mainFrame" hidefocus="true" href="<?php echo $v['link'];?>">
+                          <?php echo $v['name'];?>
+                      </a>
+                  </li>
+              <?php }?>
+          </ul>
+          <?php  }?>
+          <script>
+              $(document).ready(function(){
+                  $(".sub_menu").click(function(){
+                      $(".sub_menu").each(function(a){
+                           $(this).removeClass(' on fb blue');
+                      });
+                      $(this).addClass(' on fb blue');
+                  });
+
+                  parent.checkDefault('<?php echo $defaultUrl;?>');
+     
+                  
+              });
+          </script>
+          
+        </div>
+    </div>
+  
+</div>
+    
+</body>
+</html>

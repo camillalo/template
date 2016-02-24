@@ -1,0 +1,154 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=bidding" ><em>招标列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑招标</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=bidding&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">发布人:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['name']?>" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">区域:</th>
+                        <td>
+                            <?php echo html::select('area_id',$areas,$data['area_id']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">手机:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['mobile']?>" name="mobile" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">性别:</th>
+                        <td>
+                             <?php echo html::select('sex',$__SEX,$data['sex']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">楼盘名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['building_name']?>" name="building_name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">详细地址:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['addr']?>" name="addr" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">装修方式:</th>
+                        <td>
+                             <?php echo html::radio('way',$__DECORATE_TYPE,$data['way']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">空间类型:</th>
+                        <td>
+                            <?php echo html::select('type_root',$types,$data['type_root']);?> 
+                            <?php if(!empty($data['type_id'])){ echo html::select('type_id',$child,$data['type_id']); } else{ ?>
+                            <select name="type_id" id="type_id" style="display: none;"></select>
+                            <?php }?>
+                        </td>
+                    </tr>
+                <script>
+                    $("#type_root").change(function(){
+                            if($(this).val() > 0){
+                                $.get('index.php?ctl=ajax&act=getCategory&parent_id='+$(this).val()+'&category_type=<?php echo $__CATEGORY_TYPE['bidding'];?>',function(data){
+                                    if(data.ret == -1){
+                                        alert(data.message);
+                                    }else{
+                                        if(data.message.length > 0){
+                                            $("#type_id").show().html(makeCategorySelect(data.message));
+                                        }else{
+                                             $("#type_id").html('').hide();
+                                        }
+                                    }                                
+                                },'json'); 
+                            }else{
+                                 $("#type_id").html('').hide();
+                            }
+                    });
+                     function makeCategorySelect(data){
+                        var str ='<option value="0" >请选择.....</option>';
+                            for(a in data){
+                               
+                                str+='<option value="'+data[a].category_id+'" >'+data[a].category_name+'</option>';
+                                
+                            }                        
+                        return str;
+                    }
+                </script>
+                    <tr>
+                        <th width="140">最喜欢风格:</th>
+                        <td>
+                            <?php echo html::select('style_id',$styles,$data['style_id']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">预算:</th>
+                        <td>
+                            <?php echo html::select('budget_id',$budgets,$data['budget_id']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">面积㎡:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['area']?>" name="area" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">开始装修时间:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['start_time']?>" name="start_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否拿到钥匙:</th>
+                        <td>
+                            <?php echo html::radio('is_key',$__WHETHER,$data['is_key']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否有监理需求:</th>
+                        <td>
+                            <?php echo html::radio('is_supervision',$__WHETHER,$data['is_supervision']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否有材料需求:</th>
+                        <td>
+                             <?php echo html::radio('is_material',$__HAVE,$data['is_material']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">要求:</th>
+                        <td><textarea name="demand" cols="50" rows="10"><?php echo $data['demand']?></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">查看招标花费金币数:</th>
+                        <td><input type="text" size="10" value="<?php echo $data['gold']?>" name="gold" class="input-text">如果填0代表不可以使用金币来查看！（查看招标的顺序是优先包时会员，包条数会员，再到充金币会员！）另外包时会员可以直接被客户选择的！</td>
+                    </tr>
+                     <tr>
+                        <th width="140">客户反馈:</th>
+                        <td><textarea name="feedback" cols="50" rows="10"><?php echo $data['feedback']?></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否显示:</th>
+                        <td>
+                            <?php echo html::radio('is_show',$__SHOW,$data['is_show']);?>
+                        </td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

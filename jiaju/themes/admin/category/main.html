@@ -1,0 +1,84 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            
+            <a href="index.php?ctl=category&act=add" ><em>新增分类</em></a>
+            <span>|</span>
+            <?php foreach($__CATEGORY_TYPE_MEAN as $k=>$v){ ?>
+            <a href="index.php?ctl=category&category_type=<?php echo $k;?>" <?php  if($_GET['category_type'] === (int)$k) { ?> class="on" <?php }?> ><em><?php echo $v;?></em></a>
+            <span>|</span>
+            <?php }?>
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="category">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="hidden" name="category_type" id="category_type" value="<?php echo $_GET['category_type'];?>" />
+                                <input type="hidden" name="parent_id" id="parent_id" value="<?php echo $_GET['parent_id'];?>" />
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div>
+            注意：分类的级别请按照目前的级别设定；
+                            否则您将在页面做2次开发；
+                            每个类型的最后一级分类可以随意修改(新增或删除)；
+                            不过装修流程最好不用修改已经很全了；<b>一级分类切勿删除（可新增或者修改）</b>
+        </div>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                        <th align="center" >分类名称</th>
+                        <th align="center" >分类类型</th>
+                        <th align="center" >上级分类</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if($_GET['parent_id'] > 0){ ?>
+                    <tr>
+                        <td colspan="5" align="center"><a href="index.php?ctl=category&act=main&category_type=<?php echo $_GET['category_type'];?>&parent_id=<?php echo $back_parent_id;?>">返回上一级</a></td>
+                    </tr>
+                    <?php }?>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><?php echo $val['category_id'];?></td>
+                        <td align="center" ><?php echo $val['category_name'];?></td>
+                        <td align="center" ><?php echo $__CATEGORY_TYPE_MEAN[$val['category_type']];?></td>
+                        <td align="center" ><?php echo isset($parent_category[$val['parent_id']])?$parent_category[$val['parent_id']] : '';?></td>
+                        <td width="15%" align="center">
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=category&act=edit&category_id=<?php echo $val['category_id'];?>">修改</a>
+                            </font> | 
+                           
+                            
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=category&act=main&category_type=<?php echo $val['category_type'];?>&parent_id=<?php echo $val['category_id'];?>">子分类</a>
+                            </font> | 
+                            
+                            <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=category&act=del&category_id=<?php echo $val['category_id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                            </font>
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>

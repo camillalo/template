@@ -1,0 +1,31 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+               <a href="index.php?ctl=designer" ><em>设计师列表</em></a>
+            <span>|</span>
+            <a href="###" class="on"><em>推广设计师</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form action="index.php?ctl=designer&act=promotion&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">推广:</th>
+                        <td><input type="text" size="10" value="<?php echo $data['orderby'];?>" name="orderby" class="input-text">数字 最好预留空隙 比如现在排在第一名的排名是 10 那么我可以设置成20排在第一 2个数字间存在空隙以便下次推荐其他家到中间位置</td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

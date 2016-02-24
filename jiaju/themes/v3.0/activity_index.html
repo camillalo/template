@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/tg.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+	
+		<body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+	  
+	  <div class="w_980">
+         
+         <div class="tg_here">
+		<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 团购活动 
+	</div>
+	  <div class="dp_zhu">
+                <div class="dp_serach">
+                    <p><strong>区&nbsp;&nbsp;&nbsp;&nbsp;域:</strong>
+                        <span>
+                              <a <?php if(empty($_GET['area_id'])) echo 'class="select"';?>  href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('area_id'=>0)));?>" >全部</a>
+                            <?php foreach($areas as $k=>$val){ ?>
+                            <a  <?php if($_GET['area_id'] === (int)$k) echo 'class="select"';?> title="<?php echo $val,$title;?>"  href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('area_id'=>$k)));?>"><?php echo $val;?></a>
+                            <?php }?>
+                                                        
+          
+                        </span>
+                    </p>
+                </div>
+                <div class="dp_serach">
+                    <p><strong>类&nbsp;&nbsp;&nbsp;&nbsp;型:</strong>
+                        <span>
+                             <a <?php if(empty($_GET['type'])) echo 'class="select"';?>  href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('type'=>0)));?>" >全部</a>
+                            <?php foreach($__ACTIVITY_TYPE_MEAN as $k=>$val){ ?>
+                            <a  <?php if($_GET['type'] === (int)$k) echo 'class="select"';?> title="<?php echo $val,$title;?>"  href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('type'=>$k)));?>"><?php echo $val;?></a>
+                            <?php }?>
+                                      
+                        </span>
+                    </p>
+                </div>
+            </div>
+			
+		<div class="huodong_main">
+                <div class="tg_nav">
+                    <a href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('st'=>0)));?>" <?php if($_GET['st'] === 0){ ?>  class="cur" <?php }?>>全部团购</a>
+					<a href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('st'=>1)));?>" <?php if($_GET['st'] === 1){ ?>  class="cur" <?php }?>>正在报名中</a>
+					<a href="<?php echo mkUrl::linkTo('activity','main',array_merge($url,array('st'=>2)));?>" <?php if($_GET['st'] === 2){ ?>  class="cur" <?php }?>>已开始、结束</a>
+				</div>
+                      <?php foreach($datas as $val){ ?>
+				<div class="tg_list">
+				<div class="t1">
+				<?php echo $val['title'];?>
+				</div>
+					<div class="tg_list_left">
+                                            <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$val['id']));?>"  ><img src="<?php echo URL,$val['face_pic'];?>" /> </a>
+					</div>
+				 <div class="tg_list_right">
+					<p>
+						<span>活动亮点：</span><?php echo $val['coupon'];?></p>
+					</p>
+					<p>报名截至：<?php echo $val['reg_time'];?></p>
+					<p>活动地点：<?php echo $val['addr'];?></p>
+					<p>活动日期：<span><?php echo $val['bg_time'],'至',$val['end_time'];?></span></p>
+					<p>活动状态：<strong><?php if($val['reg_time'] >= $today && $val['bg_time'] >=$today ){ ?>
+                                                    正在火热报名中
+                                                    <?php } elseif($val['end_time'] < $today ){ ?>
+                                                    活动圆满结束
+                                                    <?php } else{ ?> 
+                                                   火爆进行中
+                                                    <?php }?></strong></p>
+                                                    
+                        <p>                            
+                     <?php if($val['reg_time'] >= $today){ ?>
+                           <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$val['id']));?>"  ><img src="<?php echo URL;?>themes/v3.0/images/tg_bm.gif" /></a>
+                            <?php } elseif($val['end_time']<$today ){ ?>
+                           <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$val['id']));?>"  ><img src="<?php echo URL;?>themes/v3.0/images/tg_bm1.gif" /></a>
+                        <?php }else{?>
+                         <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$val['id']));?>"  ><img src="<?php echo URL;?>themes/v3.0/images/tg_bm.gif" /></a>
+                        <?php }?>
+					
+					</p>
+					 <?php if($val['end_time'] < $today){ ?><p class="p4"></p> <?php  }?>
+				</div>
+					
+                                </div>
+                <?php   }?>
+            </div>
+            	  <div class="clear"></div>
+<div style="padding-left: 50px;"><?php echo $links;?></div>
+	  </div>
+
+		<div class="clear"></div>
+</div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

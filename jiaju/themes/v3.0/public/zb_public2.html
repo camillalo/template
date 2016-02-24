@@ -1,0 +1,79 @@
+	<div class="right">
+				<div class="t1">
+				<a href="javascript:void(0);" id="zb_btn1" onmousemove="qv_zb(1)" class="a1 hover"></a>
+				<a href="javascript:void(0);" id="zb_btn2" onmousemove="qv_zb(2)" class="a2"></a>
+				</div>
+				<div class="zhu" id="zhu_zb1" style="display:block">
+			
+				   <form name="simpleorders" method="post" target="hiden_frm" action="<?php echo URL;?>index.php?ctl=tenders&act=save">
+				  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="27%" align="center">地区：</td>
+                      <td width="73%" align="left"><label>
+                                 <?php echo html::select('area_id',$areas);?>
+                      </label></td>
+                    </tr>
+                    <tr>
+                      <td align="center">预算：</td>
+                      <td align="left"> <select  name="budget_id">
+                    <option value="0">请选择</option>
+                    <?php foreach(category::getInstance()->getChildCol($__CATEGORY_TYPE['bidding'],$__BIDDING_ROOT['budget']) as $k=>$v){ ?>
+                    <option value="<?php echo $k;?>" >
+                        <?php echo $v;?>
+                    </option>
+                    <?php }?>
+                </select> 		</td>
+                    </tr>
+                    <tr>
+                      <td align="center">姓名：</td>
+                      <td align="left"><label>
+                       <input type="text" value="" id="name" name="name" class="text">
+                      </label></td>
+                    </tr>
+                    <tr>
+                      <td align="center">手机：</td>
+                      <td align="left"><input type="text" value="" maxlength="13" id="mobile" name="mobile" class="text"></td>
+                    </tr>
+               
+                    <tr>
+                      <td colspan="2" align="center"><label>
+                        <input name="Submit2" type="image" value="提交" src="<?php echo URL;?>themes/v3.0/images/zb/zb_btn.gif" />
+                      </label></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">或拨打电话 ： <font><?php echo $__SETTING['tel'];?></font> </td>
+                    </tr>
+                                  </table></form>
+				</div>
+				
+				
+				<div class="zhu" id="zhu_zb2" style="display:none">
+				    <form name="telorders" method="post" target="hiden_frm" action="<?php echo URL;?>index.php?ctl=tenders&act=save2">
+
+				  <dl id="flash_zhaobiao_form">
+                                    <dt></dt>
+                                    <dd>
+                                    <div id="yiyou-note">已有 <em><?php echo $total2;?></em> 位业主通过此方法找到装修公司</div>
+                                    </dd>
+                                    <dd>
+                                    <div id="my-phone">我的手机：</div>
+                                    </dd>
+                                    <dd>
+                                    <input type="text" name="mobile" id="mobile" class="text" maxlength="11" value="">
+                                    </dd>
+                                <dd id="submit_border_2">
+
+
+
+                            <input name="Submit2" type="image" value="提交" src="<?php echo URL;?>themes/v3.0/images/zb/zb_btn.gif" />
+
+
+
+                                <span class="phone-to">或拨打</span><span class="phone-no"><?php echo $__SETTING['tel'];?></span>
+                                </dd>
+
+                                </dl>
+                                              </form>     
+                                </div>
+
+				</div>

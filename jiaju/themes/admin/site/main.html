@@ -1,0 +1,122 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=site&act=main" class="on"><em>站点配置</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=site&act=main" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">默认站点名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $__SETTING['site_name'];?>" name="data[site_name]" class="input-text"> 比如就叫家装网这样简单的名字</td>
+                    </tr>
+                    <tr>
+                        <th width="140">默认站点标题:</th>
+                        <td><input type="text" size="60" value="<?php echo isset($__SETTING['title']) ? $__SETTING['title'] : '';?>" name="data[title]" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">默认seo关键字:</th>
+                        <td>
+                            <textarea cols="50" rows="10" name="data[keyword]" ><?php echo $__SETTING['keyword'];?></textarea>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">默认seo描述:</th>
+                        <td>
+                            <textarea cols="50" rows="10" name="data[description]" ><?php echo $__SETTING['description'];?></textarea>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">所在城市:</th>
+                        <td><input type="text" size="40" value="<?php echo isset($__SETTING['city_name'])?$__SETTING['city_name'] : '';?>" name="data[city_name]" class="input-text"> 比如上海（地图用到）</td>
+                    </tr>
+                     <tr>
+                        <th width="140">模版选择:</th>
+                        <td>
+                            <select name="data[template]">
+                                <?php foreach( getTemplateArr()  as  $v){ ?>
+                                <option <?php if(isset($__SETTING['template']) && $__SETTING['template'] == $v ){ ?> selected="selected"  <?php }?> value="<?php echo $v;?>"><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                            修改后前台将会变样子（需要清理缓存）
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="140">QQ登陆验证代码:</th>
+                        <td>
+                             <textarea cols="50" rows="4"  name="data[qqhtml]" ><?php echo isset($__SETTING['qqhtml']) ?stripslashes($__SETTING['qqhtml']) : '' ;?></textarea> 
+                            QQ申请登陆的时候需要填写一段代码在网站首页进行验证这里就是</td>
+                    </tr>
+                     <tr>
+                        <th width="140">QQAPPID:</th>
+                        <td><input type="text" size="20" value="<?php echo $__SETTING['qqappid'];?>" name="data[qqappid]" class="input-text"> 如果填写了QQAPPKEY也不能为空在腾讯申请 QQ联合登录时用</td>
+                    </tr>
+                      <tr>
+                        <th width="140">QQAPPKEY:</th>
+                        <td><input type="text" size="50" value="<?php echo $__SETTING['qqappkey'];?>" name="data[qqappkey]" class="input-text">  QQ联合登录时用</td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="140">站长email:</th>
+                        <td><input type="text" size="20" value="<?php echo $__SETTING['email'];?>" name="data[email]" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">客服电话:</th>
+                        <td><input type="text" size="20" value="<?php echo $__SETTING['tel'];?>" name="data[tel]" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">QQ:</th>
+                        <td><input type="text" size="40" value="<?php echo join('、',$__SETTING['qq']);?>" name="data[qq]" class="input-text">多个QQ请用、隔开 </td>
+                    </tr>
+         
+                    <tr>
+                        <th width="140">QQ群:</th>
+                        <td><input type="text" size="20" value="<?php echo $__SETTING['qqqun'];?>" name="data[qqqun]" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">COOKIE加密串:</th>
+                        <td><input type="text" size="20" value="<?php echo $__SETTING['cookie'];?>" name="data[cookie]" class="input-text"> *建议定期修改</td>
+                    </tr>
+                     <tr>
+                        <th width="140">网站简介:</th>
+                        <td>
+                            <textarea cols="50" rows="10"  name="data[introduction]" ><?php echo $__SETTING['introduction'];?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">JS统计:</th>
+                        <td>
+                            <textarea cols="80" rows="20"  name="data[tongji]" ><?php echo isset($__SETTING['tongji']) ?stripslashes($__SETTING['tongji']) : '' ;?></textarea>*所有需要再前台出现的JS统计代码都放在这里
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">ICP:</th>
+                        <td><input type="text" size="20" value="<?php echo isset($__SETTING['icp'])? $__SETTING['icp'] : '' ;?>" name="data[icp]" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">URL重写:</th>
+                        <td>
+                            <input  value="1" type="radio" name="data[is_rewrite]" id="is_rewrite" <?php if($__SETTING['is_rewrite']) echo 'checked="checked"';?> />开启
+                            <input  value="0" type="radio" name="data[is_rewrite]" id="is_rewrite" <?php if(!$__SETTING['is_rewrite']) echo 'checked="checked"';?> />不开启        
+                        </td>
+                    </tr>
+                              
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

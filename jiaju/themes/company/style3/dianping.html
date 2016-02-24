@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+            <div class="neiye" id="rightbox">	
+        	<h3>
+			<ul class="tabs">
+                <li><a class="active" href="<?php echo mkUrl::linkTo('company','dianping',array('id'=>$company_id));?>">点评</a></li>
+			
+                <li><a  class="jq_dianping" href="###">我要评价</a></li>
+			</ul>
+			</h3>
+			
+			<div class="tips">
+			
+                            <p class="left">业主评价共计有<?php echo $totalnum;?>条，为了尽可能保证评价的真实性，只有注册用户才可以作出评价。</p>
+                        
+			</div>
+            <div id="pingjia">
+            
+                
+             <?php foreach($datas as $val){ ?>   
+            <div class="pingjia_box">
+                <a target="_blank" title="<?php echo $val['realname'];?>" href="###" class="evaluate_avatar"><img src="<?php echo URL;?>themes/company/style1/images/head.jpg" width="50" height="50"></a>
+			 <div class="right">
+			       <div class="title">
+				   
+				   <span class="pingjia star3">服务：<?php echo $val['service'];?> </span><span class="pingjia star3">设计：<?php echo $val['design'];?> </span><span class="pingjia star3">施工：<?php echo $val['process'];?> </span><span class="pingjia star3">售后：<?php echo $val['sales'];?> </span>
+				   <span class="date"><?php echo $val['create_time'];?></span>
+				   <div class="clear"></div>
+				   </div>
+			
+                             <p><b>点评：</b><?php echo $val['dianping'];?></p>
+                            <p><b>项目：</b><?php echo $val['project'];?></p>
+                            <?php if(!empty($val['revert'])){ ?>
+                            <p><b>企业回复：</b><?php echo $val['revert'];?></p>
+                            <?php }?>
+			</div>
+            <div class="clear"></div>
+            
+              </div>
+	<?php  }?>		  
+			  
+	
+			  
+	
+                   
+<div class="clear"></div>
+                   <!--翻页-->
+                   <div style="padding-left: 50px;">
+                    <?php echo $links;?>
+              </div>
+                <!--翻页 结束-->
+            </div>
+
+
+        </div>
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+  <?php  require COMPANY_TEMPLATE.'/root.html';?>
+ <script>
+
+    $(document).ready(function(){
+            $(".jq_dianping").click(function(){
+                if(is_login){
+                    $("#jq_pingjia_dialog").dialog({
+                        width:720,
+                        height:750,
+                        modal: true,
+                        buttons: {
+                            '确定':function(){
+                                var data = $(this).find('form').serialize();
+                                $.ajax({
+                                    url:'<?php echo mkUrl::linkTo("company","dianpingSave",array("id"=>$company_id));?>',
+                                    type:'POST',
+                                    data:data,
+                                    dataType:'json',
+                                    success:function(data){
+                                        if(data.ret == 0){
+                                            alert(data.message);
+                                            $("#jq_pingjia_dialog").dialog("close");
+                                        }else{
+                                            alert(data.message);
+                                        }
+                                    }
+                                });
+                            },
+                            '取消':function(){
+                                $("#jq_pingjia_dialog").dialog("close");
+                            }
+                        }
+                    });
+                }else {
+                    ajaxLogin();
+                }
+            });
+    });
+    
+</script>  
+
+<div id="jq_pingjia_dialog" style=" display: none;" title="我要评价">
+    <form>
+    <div class="contenter_edit">
+            <p class="edit_title">
+                    请对<?php echo $company['company_name'];?> 做出评价<span></span>
+                    </p>
+            <div class="edit_tishi m10">
+                    <strong >重要提示：</strong>
+                <p class="d_t_font">本站保证仅评价用户才具有评价内容删除修改权，请放心评价。</p>
+                <p class="d_t_font">注意：请大家真实客观评价，装修评价一旦审核为真实绝对不会被删除！<?php echo $__SETTING['site_name'];?>客服每天会严格审核评价信息，会及时协调装饰公司和业主解决装修问题，尽心尽力为您解决问题。</p>
+                <p class="d_t_font">郑重承诺：装修评价终身免费！<?php echo $__SETTING['site_name'];?>尽心尽力服务于业主，我们始终和业主站在一起，<?php echo $__SETTING['site_name'];?>就是业主的地盘。希望您的发言能够真正为您解决装修问题并且帮到新的业主！</p>
+
+            </div>
+
+            <table width="100%" cellspacing="0" cellpadding="0" border="0" align="left" class="edit_table">
+                    <tbody>
+                    <tr height="30">
+                    <td width="70" align="right">施工评价：</td>
+                    <td width="170" align="left">
+                        <?php echo html::radio('process',$__DIANPING_MEANS,4);?>
+                    </td>
+                    <td width="70" align="right">服务评价：</td>
+                    <td width="170" align="left">
+                      <?php echo html::radio('service',$__DIANPING_MEANS,4);?>
+                    </td>
+                </tr>
+                    <tr height="30">
+                    <td width="70" align="right">设计评价：</td>
+                    <td width="170" align="left">
+                        <?php echo html::radio('design',$__DIANPING_MEANS,4);?>
+                    </td>
+                    <td width="70" align="right">售后评价：</td>
+                    <td width="170" align="left">
+                     <?php echo html::radio('sales',$__DIANPING_MEANS,4);?>
+                    </td>
+                </tr>
+                <tr height="90">
+                    <td align="right">评价内容：</td>
+                    <td align="left" colspan="3">
+                            <textarea rows="4" cols="30" style="width:300px; height: 70px; line-height: 18px; padding: 5px 0px;  border:1px solid #aaa; color:#888888;font-size: 12px;" 
+                                      name="dianping" id="dianping"></textarea>
+                        <span id="bookpjTip">写点评价吧，您的评价内容对您的售后服务质量有重要监督作用，对其他用户具有重要参考价值。</span>
+                    </td>
+                </tr>
+                <tr height="90">
+                    <td align="right">装修项目：</td>
+                    <td align="left" colspan="3">
+                            <textarea rows="4" cols="30" name="project" id="project" style="width:300px; line-height: 18px;  height: 70px; padding: 5px 0px; color:#888888; border:1px solid #aaa;font-size: 12px;"></textarea>
+                        <span id="bookdescTip">如:描述您的装修小区，面积，风格等等。便于公司看到您的评价后进行售后服务。2室房屋装修</span>
+                    </td>
+                </tr>
+                <tr height="30">
+                    <td align="right" style="LINE-HEIGHT: 30px; HEIGHT: 30px">称呼：</td>
+                    <td align="left" style="LINE-HEIGHT: 30px; HEIGHT: 30px" colspan="3">
+                        <input type="text" id="realname" value="" maxlength="16" style="width:180px; border:1px solid #aaa; height: 20px;" name="realname" size="15">
+                        <span id="realNameTip">只能输入1-16个字</span>
+                    </td>
+                </tr>
+                <tr height="30">
+                    <td align="right" style="LINE-HEIGHT: 30px; HEIGHT: 30px">手机号码：</td>
+                    <td align="left" style="LINE-HEIGHT: 30px; HEIGHT: 30px" colspan="3">
+                        <input type="text" size="32" name="contact" id="contact" maxlength="100" style="width:180px; border:1px solid #aaa;color:#888888; height: 20px;" value="">
+                    <span id="contactTip">用于本站解决争端或提供更优质的服务(本站绝对保密)</span>
+                    </td>
+                </tr>
+              
+            </tbody>
+            </table>
+    
+        </div>
+</form>
+</div>  
+    </body>
+
+</html>     

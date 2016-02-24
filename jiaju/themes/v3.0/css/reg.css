@@ -1,0 +1,240 @@
+/* CSS Document */
+
+.user_reg {
+    border: 1px solid #EBEBE9;
+	border-top: solid 3px #0F97E3;
+	width:938px;
+	float:left;
+	padding:20px;
+	margin-top:10px;
+	background:#FFFFFF;
+}
+.user_reg .hd {
+    border-bottom: 1px solid #DDDDDD;
+    padding: 10px;
+	float:left;
+	width:918px;
+}
+.user_reg .hd h3 {
+    color: #333333;
+    font: 24px/28px "΢���ź�";
+	float:left;
+	width:350px;
+	font-weight:bold;
+}
+.user_reg .hd h3 .txt {
+    color: #888888;
+    font-family: Arial;
+    font-size: 12px;
+    padding-left: 8px;
+}
+.user_reg .hd .reg_step {
+    height: 25px;
+	float:right;
+    width: 454px;
+	background:url(../images/user_sp.png) no-repeat;
+}
+.user_reg .hd .reg_step_1 {
+    background-position: 0 0;
+}
+.user_reg .hd .reg_step_2 {
+    background-position: 0 -26px;
+}
+.user_reg .hd .reg_step_3 {
+    background-position: 0 -52px;
+}
+
+
+.user_reg .hd .reg_step li {
+    color: #333333;
+    float: left;
+    font: bold 14px/25px Arial;
+    text-align: center;
+}
+.user_reg .hd .reg_step .s_1 {
+    width: 182px;
+}
+.user_reg .hd .reg_step .s_2 {
+    width: 149px;
+}
+.user_reg .hd .reg_step .s_3 {
+    width: 123px;
+}
+.user_reg .hd .reg_step_1 .s_1, .user_reg .hd .reg_step_2 .s_2, .user_reg .hd .reg_step_3 .s_3 {
+    color: #FFFFFF;
+}
+.user_reg .bd {
+float:left;
+width:888px;
+padding:20px 0px 20px 50px;
+}
+
+.user_reg .bd ul{
+float:left;
+width:888px;
+height:auto;
+}
+
+.user_reg .bd .item {
+    float: left;
+    width: 220px;
+
+}
+.user_reg .bd .item h3 {
+    color: #333333;
+    font: bold 14px/24px Arial;
+    margin: 10px 0 12px;
+}
+.user_reg .bd .item .t_txt {
+    color: #555555;
+}
+.user_reg .bd .item p {
+    color: #999999;
+	line-height:20px;
+}
+.user_reg .bd .item .link {
+    display: block;
+    font: 0pt/1000px Arial;
+    height: 41px;
+    margin-top: 20px;
+    overflow: hidden;
+    width: 148px;
+	background:url(../images/user_sp.png) no-repeat;
+}
+.user_reg .bd .item .link_1 {
+    background-position: 0 -78px;
+}
+.user_reg .bd .item .link_2 {
+    background-position: 0 -119px;
+}
+.user_reg .bd .item .link_3 {
+    background-position: 0 -160px;
+}
+.user_reg .bd .item .link_4 {
+    background-position: 0 -201px;
+}
+.user_reg .tips_sys {
+    padding-left: 140px;
+}
+.user_reg .tips_sys .reg_success_s {
+    background-position: -149px -78px;
+    left: 250px;
+}
+
+.reg_form{
+float:left;
+width:978px;
+height:auto;
+border: 1px solid #EBEBE9;
+border-top: solid 3px #0F97E3;
+background:#FFFFFF;
+margin-top:10px;
+padding-bottom:10px;
+}
+
+
+#zhuce_left {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 10px;
+    width: 180px;
+}
+#zhuce_left p {
+    margin-top: 10px;
+}
+#zhuce_left h2 {
+    color: #0F97E3 ;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+
+#zhuce_right {
+    border-left: 1px dashed #CCCCCC;
+    float: right;
+    margin-top: 25px;
+    padding-left: 30px;
+    width: 720px;
+}
+#zhuce_right a{
+color:#666666;
+
+}
+#zhuce_right .dangqian {
+    background: none repeat scroll 0 0 #FFF6DE;
+    border: 1px solid #FFBA00;
+    color: #F94D09;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    width: 85%;
+}
+#zhuce_right .td_r {
+    color: #666666;
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 10px;
+    text-align: right;
+    width: 60px;
+}
+#zhuce_right td {
+    color: #999999;
+    font-size: 12px;
+    height: 20px;
+    padding-top: 10px;
+}
+#zhuce_right td:hover {
+    color: #666666;
+}
+#zhuce_right td span.sex {
+    color: #666666;
+    font-size: 13px;
+}
+#zhuce_right td p {
+    margin-top: 10px;
+}
+#zhuce_right .pic_tips {
+    margin-right: 10px;
+    vertical-align: -6px;
+}
+#zhuce_right .tips {
+    color: #999999;
+    font-size: 14px;
+    margin-left: 10px;
+}
+#zhuce_right .loading {
+    color: #999999;
+    display: none;
+    font-size: 14px;
+}
+#zhuce_right .changeCode {
+    cursor: pointer;
+}
+#zhuce_right .hongxing {
+    color: #C90000;
+}
+
+#zhuce_right .text {
+    background: url("../images/input_bg.gif") repeat-x scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    color: #666666;
+    height: 20px;
+    line-height: 20px;
+    padding: 3px 5px;
+    width: 200px;
+}
+#zhuce_right .text:hover {
+    background: url("../images/input_bg_hover.gif") repeat-x scroll 0 0 #FEFEDA;
+    border: 1px solid #89C857;
+}
+
+#zhuce_right .zhuce {
+    background: url("../images/reg1.gif") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    cursor: pointer;
+    height: 38px;
+    width: 104px;
+}

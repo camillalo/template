@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/ask.css" rel="stylesheet" type="text/css" />
+</head>
+
+	<body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+	  
+
+	  <?php  require TEMPLATE_PATH.'ask_top.html';?>
+	    <div class="w_980">
+	   		<div class="ask_box1">
+				<div class="img"><?php echo pluginsAds(17);?></div>
+			  <div class="ask_box1_center">
+					<div class="ask_a"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/ask/ask_a.guf.GIF" border="0" /></a></div>
+					<div class="jcquestion_title">
+                                             <?php $recommend = recommend::getInstance()->load('ask-001',9);?>
+                                           <?php if(isset($recommend[0])){ ?>  
+				<p class="bigtitle"> <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a></p>
+                                 <?php }?>
+                                
+				<ul>		   <?php for($i=1;$i<5;$i++){
+                                                            if(isset($recommend[$i])){
+                                                        ?>		
+                                                <li>
+							<span>·</span>
+							 <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                                                <?php echo $recommend[$i]['title'];?>
+                                                            </a>
+						</li>
+						 <?php }}?>	
+						</ul>
+			</div>
+				</div>
+				
+				<div class="ask_box1_right">
+				<table width="100%" height="172" cellspacing="0" cellpadding="0" border="0" class="ask_question_tab">
+				  <tbody>
+                                        <?php for($i=5;$i<=8;$i++){
+                                                            if(isset($recommend[$i])){
+                                                        ?>	
+                                      <tr><td><a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                                                <?php echo $recommend[$i]['title'];?>
+                                                            </a></td></tr>
+                                <?php }}?>	
+                                  </tbody>
+                                </table>
+				</div>
+			</div>
+			<div class="ask_right">
+				<ul>
+                                    <?php foreach(recommend::getInstance()->load('ask-002',5) as $val){ ?>
+					<li><span>·</span>	
+                                            <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,8);?></a>
+                                        </li>
+                                        <?php }?>
+				</ul>
+			</div>
+	   </div>
+	   
+	    <div class="w_980">
+			<div class="ask_left">
+				<div class="title">问题分类</div>
+                                <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['ask'],0) as $k=>$v){ ?>
+                                <span><a target="_blank" title="关于装修过程中<?php echo $v;?>的问题"  href="<?php echo mkUrl::linkTo('ask','list',array('cid'=>$k));?>"><?php  echo $v;?></a></span>
+				<p>
+                                        <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['ask'],$k) as $key=>$val){ ?>
+                                        <a target="_blank" title="关于装修过程中<?php echo $val;?>的问题"  href="<?php echo mkUrl::linkTo('ask','list',array('cid'=>$key));?>"><?php echo $val;?></a>
+                                        <?php }?>
+                                </p>
+                                <?php }?>
+			  
+			</div>
+			<div class="ask_center_zhu">
+			<div class="ask_center">
+				<div class="title"><div class="t1">已解决问题</div></div>
+				<ul>
+                                        
+                                    <?php foreach($has as $val){ ?>
+						<li>
+							<span>·</span>
+                                                        <a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('ask','detail',array('id'=>$val['id']));?>">
+							<?php if($val['orderby'] > 0){ ?>
+                                                        <font style="color:#990000; font-weight:bold;">【置顶】</font>
+                                                        <?php }?>
+                                                        <?php echo $val['title'];?></a>
+							<p>回答<?php echo $val['num'];?></p>
+						</li>
+                                    <?php }?>
+						
+				</ul>
+			</div>
+			
+			<div class="ask_center mgt10">
+				<div class="title"><div class="t1">待解决的问题</div></div>
+				<ul>
+                                    <?php foreach($wait as $val){ ?>
+						<li>
+							<span>·</span>
+                                                        <a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('ask','detail',array('id'=>$val['id']));?>">
+							<?php if($val['orderby'] > 0){ ?>
+                                                        <font style="color:#990000; font-weight:bold;">【置顶】</font>
+                                                        <?php }?>
+                                                        <?php echo $val['title'];?></a>
+							<p>回答<?php echo $val['num'];?></p>
+						</li>
+                                    <?php }?>
+						
+				</ul>
+			</div>
+			</div>
+			<?php  require TEMPLATE_PATH.'ask_right.html';?>	
+		</div>
+		<div class="clear"></div>
+</div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

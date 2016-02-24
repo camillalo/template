@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/xgt.css" rel="stylesheet" type="text/css" />
+        <script language="javascript" src="<?php echo URL;?>statics/js/jquery.lazyload.min.js"></script>
+        <script language="javascript" src="<?php echo URL;?>statics/js/jquery.masonry.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                
+                var $container = $('#container');
+                findDimensions();
+                $container.imagesLoaded( function(){
+                    $container.masonry({
+                        itemSelector : '.masonry-brick',
+                        columnWidth: 236,
+                        isAnimated: true,
+                        animationOptions: {
+                            duration: 500
+                        }
+
+                    });
+                });
+                $(".jq_lazyload").lazyload();
+                window.onresize=findDimensions;
+            });
+            
+            function findDimensions() //函数：获取尺寸
+            {
+                var winWidth;
+		//获取窗口宽度 -- 获取窗口高度
+		if (window.innerWidth){
+			winWidth = window.innerWidth;
+			winHeight = window.innerHeight;
+		}else if ((document.body) && (document.body.clientWidth)){
+			winWidth = document.body.clientWidth;
+			winHeight = document.body.clientHeight;
+		}
+		//通过深入Document内部对body进行检测，获取窗口大小
+		if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
+		{
+			winHeight = document.documentElement.clientHeight;
+			winWidth = document.documentElement.clientWidth;
+		}
+
+                var container_w=Math.floor(parseInt((winWidth))/237);
+                //alert(container_w*238);
+                $('#container').css('width',container_w*238 +'px');
+               
+			
+            }
+	
+
+        </script>
+    </head>
+
+
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+        </div>
+        <div class="clear"></div>
+        <div id="imgContainer">
+            <div id="imgid"  class="clearfix" style="width: 980px;">
+                <div class="small_cage">
+                    <dl>热门推荐：</dl>
+                    <dt>
+                         <?php $i = 0; foreach($cates as $k=>$v){ $i++;?>
+     
+                         <span <?php if($i == 1){ ?>class="br_left "  <?php }?> ><a  title="<?php echo $v;?>" class="a" href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>$k));?>"><?php echo $v;?></a></span>
+
+                      <?php }?>
+                      
+                    <span class="br_right"> <a class="a" href="<?php echo mkUrl::linkTo('content','diary');?>">装修日记</a></span>				
+                    </dt>
+                </div>
+            </div>
+
+            <ul class="fine_work masonry" id="container" style=" margin: 0 auto;">
+                <li  class="box col1  masonry-brick">
+                    <b class="b1"></b>
+                    <div id="isearch">
+                        <dl>
+                            <dd>
+                                <ul>
+                                    <li class="hometype">
+                                        <b class="t">
+                                            <i>
+                                                <a href="###" >文章分类</a>
+                                            </i>
+                                        </b>
+                                        <div class="cage_list">
+                                            <?php foreach($leftCates as $k=>$v){ ?>
+                                                    <em>  <a  title="<?php echo $v;?>" href="<?php echo mkUrl::linkTo('content','list',array('cate_id' => $k));?>"><?php echo $v;?></a></em>
+                                            <?php }?>
+                                            
+                                        </div>
+                                    </li>
+                                     <li class="hometype">
+                                        <b class="t">
+                                            <i>
+                                                <a href="###" >TAG标签</a>
+                                            </i>
+                                        </b>
+                                        <div class="cage_list">
+                                             <?php foreach($tags as $val){ ?>
+                                                    <em> <a target="_blank" title="<?php echo $val['tag'];?>" href="<?php echo mkUrl::linkTo('content','tag',array('id'=>$val['id']));?>"><?php echo $val['tag'];?></a></em>
+                                             <?php }?>
+                                            
+                                        </div>
+                                    </li>
+                                    
+                                    
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>     
+                    <b class="b2"></b>							
+                </li>
+                <?php foreach($datas as $val){?>
+                <li class="box col1 masonry-brick" >
+                    <b class="b1"></b>
+                    <div>
+                          <?php if(!empty($val['face_pic'])){ ?>
+                        <label  class="a">
+                            <a target="_blank" title="<?php echo $val['title'];?>" class="y1" href="<?php echo mkUrl::linkTo('content','detail',array('id'=>$val['content_id']));?>">
+                                <img  width="200" height="180" alt="<?php echo $val['title'];?>"  class="jq_lazyload" src="<?php echo URL;?>themes/v3.0/images/loading.gif" data-original="<?php echo URL,$val['face_pic'];?>" >   
+                            </a>
+                        </label>
+                          <?php }?>
+                        <p>
+                            <label class="cname">
+                                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('content','detail',array('id'=>$val['content_id']));?>"><?php echo $val['title'];?></a>
+                            </label>
+                        </p>
+                        <p class="fine_fg">
+                            <?php echo $val['description'];?>
+                            <label><span>人气：<?php echo $val['pv_num'];?></span></label>
+                        </p>	
+
+                        
+                        <p class="cl"></p>					
+                    </div>
+                    <b class="b2"></b>				
+                </li>
+                <?php }?>
+                <?php foreach($cases as $val){?>
+                <li class="box col1 masonry-brick" >
+                    <b class="b1"></b>
+                    <div>
+                       <?php if(!empty($val['face_pic'])){ ?>
+                        <label  class="a">
+                            <a target="_blank" title="<?php echo $val['title'];?>" class="y1" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>">
+                                <img  width="200" height="180" alt="<?php echo $val['title'];?>"  class="jq_lazyload" src="<?php echo URL;?>themes/v3.0/images/loading.gif" data-original="<?php echo URL,$val['face_pic'];?>" >   
+                            </a>
+                        </label>
+                        <?php }?>
+                        <p>
+                            <label class="cname">
+                                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$val['case_id']));?>"><?php echo $val['title'];?></a>
+                            </label>
+                        </p>
+                        <p class="fine_fg">
+                            <?php echo $val['description'];?>
+                            <label><span>人气：<?php echo $val['pv_num'];?></span></label>
+                        </p>	
+
+                        
+                        <p class="cl"></p>					
+                    </div>
+                    <b class="b2"></b>				
+                </li>
+                <?php }?>
+
+            </ul>
+            <div ><div style="width: 500px; margin: 0 auto;"><?php echo $links;?></div></div>
+        </div>
+
+
+        <div class="clear"></div>	
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	
+    </body>
+</html>

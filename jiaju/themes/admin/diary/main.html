@@ -1,0 +1,188 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm" id="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=diary" class="on"><em>装修日记列表</em></a>
+                             
+            <span>|</span>
+            <a href="index.php?ctl=diary&act=add"><em>新增装修日记</em></a>
+                
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="diary">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                     <tr>
+                        <th colspan="5" align="left" ><input type="checkbox" name="jq_checkAll" id="jq_checkAll" />全选 
+                            <input type="button" name="jq_tui" class="button" id="jq_tui" value="       推送      " />
+                            <input type="button" name="jq_del" class="button" id="jq_del" value="       删除      " />
+                            <div id="jq_tui_div" class="table-list" style="display:none;" title="日记推送">
+                                <table >
+                                    <tr>
+                                    <td colspan="2">已经选择的要推送的日记ID为:<b id="jq_checked_id_str"></b></td>
+                                    </tr>
+                       
+                                    <tr>
+                                        <td>
+                                           请选择推荐位： 
+                                        </td>
+                                        <td>
+                                            <?php
+                                                import::getMdl('recommendGroup');
+                                                $pages = recommendGroupMdl::getInstance()->getAllRecommendGroup();
+                                                import::getMdl('recommendSign');
+                                                foreach($pages as $val){
+                                                    $signs = recommendSignMdl::getInstance()->getRecommendSignPairByGroupId($val['group_id']);
+                                            ?>
+                                            <div >
+                                                <b ><input type="checkbox" class="jq_checkAll_sign" /><?php echo $val['group_name'];?>:</b>
+                                                <span><?php echo  html::checkbox('sign_id',$signs);?></span>
+                                            </div>
+                                            
+                                            <?php }?>
+                                        </td>
+                                    </tr>
+                                </table>                               
+                            </div>
+                            
+                            
+                            <script>
+                                $(document).ready(function(){
+                                    $("#jq_checkAll").click(function(){
+                                        if($(this).attr('checked') == 'checked'){
+                                            $(".jq_id_checkAll").attr('checked',true);
+                                        }else{
+                                           $(".jq_id_checkAll").attr('checked',false); 
+                                        }
+                                    });
+                                    $("#jq_del").click(function(){  
+                                        var i = 0;
+                                        $(".jq_id_checkAll").each(function(){
+                                            if($(this).attr('checked') == 'checked') i++;
+                                        });
+                                        if(i>0){ 
+                                            i = 0;
+                                            var id = $(".jq_id_checkAll").serialize();
+                                            if(confirm('您确定删除这些日记么！')){
+                                                $("#hiden_frm").attr('src',"index.php?ctl=diary&act=del&"+id+"&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>");
+                                            }
+                                        }else alert('请选择要删除的日记');
+                                        
+                                    });
+                                    
+                          
+                                    
+                                      $(".jq_checkAll_sign").click(function(){
+                                        if($(this).attr('checked') == 'checked'){
+                                            $(this).parent().parent().find('span input').attr('checked',true);
+                                        }else{
+                                           $(this).parent().parent().find('span input').attr('checked',false);
+                                        }
+                                     
+                                    });
+                                    
+                                    $("#jq_tui").click(function(){
+                                        var i = 0;
+                                        var id = '';
+                                        $(".jq_id_checkAll").each(function(){
+                                            if($(this).attr('checked') == 'checked'){ 
+                                                i++;
+                                                id+= $(this).val() + ',';
+                                            }
+                                        });                                       
+                                        if(i>0){ 
+                                            $("#jq_checked_id_str").html(id);
+                                            var data = $(".jq_id_checkAll").serialize();
+                                            
+                                            
+                                            $("#jq_tui_div").dialog({
+                                                width:900,
+                                                height:600,
+                                                buttons:{
+                                                    '确认推送':function(){
+                                                      $.ajax({
+                                                          url : 'index.php?ctl=recommend&act=save&type=<?php echo $__RECOMMEND_TYPE["diary"];?>',
+                                                          type:'POST',
+                                                          data:$("#jq_tui_div input").serialize() + '&'+data,
+                                                          success:function(data){
+                                                              if(data.ret == 0){
+                                                                  alert('推送成功');
+                                                              }else{
+                                                                  alert('推送失败');
+                                                              }
+                                                              $("#jq_tui_div").dialog('close');
+                                                          },
+                                                          dataType:'json'
+                                                      });
+                                                    },
+                                                    '取消':function(){
+                                                         $("#jq_tui_div").dialog('close');
+                                                    }
+                                                }
+                                            });
+                                        
+                                        
+                                        }else alert('请选择要推送的日记');
+                                    });
+                                    
+                                    
+                                });
+                            </script>
+                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th width="10%">序号</th>
+                      <th align="center" >标题</th>
+                      <th align="center" >类别</th>
+                      <th align="center" >显示</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><input type="checkbox" class="jq_id_checkAll" name="id[]" value="<?php echo $val['id'];?>" /><?php echo $val['id'];?></td>
+                        <td align="center" ><?php echo $val['title'];?></td>
+                        <td align="center" ><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['contents'],$val['cate_id']);?></td>
+                           <td align="center" ><?php if($val['is_show']){ ?><font color="green" >显示</font> <?php }else{ ?> <font color="red" >待审核</font> <?php }?></td>
+                        <td width="15%" align="center">
+                               <font color="#cccccc">
+                                <a href="index.php?ctl=diary&act=edit&id=<?php echo $val['id'];?>">审核修改</a>
+                            </font> | 
+                            <font color="#cccccc">
+                            <a href="index.php?ctl=recommend&act=add&type=<?php echo $__RECOMMEND_TYPE['diary'];?>&mdl_id=<?php echo $val['id'];?>">推送</a>
+                            </font> | 
+                        
+                            <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=diary&act=del&id=<?php echo $val['id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                            </font>
+                              
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

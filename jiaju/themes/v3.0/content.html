@@ -1,0 +1,744 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/xzx.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	 <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+     <div class="header_a">
+		<b>&nbsp;</b>
+	
+		 <?php  foreach($cates as $k=>$v){ ?>
+     
+       <a  title="<?php echo $v;?>" class="a" href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>$k));?>"><?php echo $v;?></a>
+       <b>|</b>
+        <?php }?>
+    
+        <a class="a" href="<?php echo mkUrl::linkTo('content','diary');?>">装修日记</a>
+	</div>
+        </div>
+        <div class="clear"></div>
+       
+        <div class="w_980">
+	<div class="index_980">
+	
+
+
+
+<div class="xzx_main">
+<div class="top_ad">
+	<?php echo pluginsAds(18);?>
+</div>
+
+
+
+<div class="clear"></div>
+
+<div class="xzx_main">
+    <div class="xzx_box1">
+		<div class="xzx_box1_left">
+                    <?php pluginsRecommendLunBo('content-lunbo-001',324,356);?>
+                
+                </div>
+		<div class="xzx_box1_center">
+                    <?php $recommend = recommend::getInstance()->load('content-hot-001',5);?>
+				      <?php if(isset($recommend[0])){ ?>
+			<div class="t1">一周精彩推荐</div>
+			<div class="t2">
+				 <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a>
+                                <p><?php echo mb_substr($recommend[0]['description'],0,120);?>..</p>
+			</div>
+                        <?php }?>
+			<ul class="l_t1">
+			     
+							    <?php for($i=1;$i<4;$i++){
+                                                            if(isset($recommend[$i])){
+                                                        ?>
+							<li>					
+                                                            <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                                                <?php echo $recommend[$i]['title'];?>
+                                                            </a>
+                                                        </li>
+                                                        <?php }}?>
+				
+			</ul>
+			<div class="t3">
+                                <?php if(isset($recommend[4])){ ?>
+				<div class="left">
+			 <a target="_blank" href="<?php echo $recommend[4]['link'];?>" title="<?php echo $recommend[4]['title'];?>" ><?php echo mb_substr($recommend[4]['title'],0,20);?></a>
+                                <p><?php echo mb_substr($recommend[4]['description'],0,80);?>..</p>
+				</div>
+                                <?php }?>
+				<div class="img">
+                                    <?php echo pluginsAds(19);?>
+                                </div>
+			</div>
+		</div>
+		<div class="xzx_box1_right">
+			<div class="list">
+				<div class="t1">
+					<p>行业资讯</p><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>279));?>">更多>></a>
+				</div>
+				<ul class="">
+                                   <?php foreach(recommend::getInstance()->load('content-hynew-001',6) as $val){ ?>
+                            <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,12);?></a></li>
+                            <?php }?>
+			
+				</ul>
+			</div>
+			
+			<div class="list" style="margin-top:10px; height:154px;">
+				<div class="t1">
+					<p>热门标签</p>
+				</div>
+				<div class="b_a">
+				 <?php foreach($tags as $val){ ?>
+                                    <a target="_blank" title="<?php echo $val['tag'];?>" href="<?php echo mkUrl::linkTo('content','tag',array('id'=>$val['id']));?>"><?php echo $val['tag'];?></a>
+                                <?php }?>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div class="clear"></div>
+
+
+<div class="xzx_main">
+<div class="b1">装房先了解装修流程</div>
+<div class="b1_table">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><a  href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>21));?>" title="收房准备中" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/1.gif" width="117" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>22));?>" title="装修准备中" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/2.gif" width="106" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>23));?>" title="拆改/隐蔽工程" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/3.gif" width="106" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>24));?>" title="泥瓦工程" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/4.gif" width="106" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>25));?>" title="木工工程" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/5.gif" width="106" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>26));?>" title="油漆工程" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/6.gif" width="105" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>27));?>" title="安装/收尾工程" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/7.gif" width="107" height="122" border="0" /></a></td>
+      <td><a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>28));?>" title="软装进行中" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/8.gif" width="104" height="122" border="0" /></a></td>
+      <td> <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>29));?>" title="即将入住" target="_blank"><img src="<?php echo URL;?>themes/v3.0/images/xzx/9.gif" width="94" height="122" border="0" /></a></td>
+    </tr>
+  </table>
+</div>
+<div class="b2">
+	<div class="b2_left">
+	1.装修准备
+	</div>
+	<div class="b2_right">
+		<p>我要提问</p>
+		<span>
+		
+                    <a target="_blank" href="<?php echo mkUrl::linkTo('ask');?>">有问题、点这里！</a>
+		</span>
+	</div>
+</div>
+
+<div class="b2_1">
+    
+    
+                <?php $recommend = recommend::getInstance()->load('content-zbleft-001',1);?>
+	
+                          <?php if(isset($recommend[0])){ ?>
+                                <div class="box1">
+                                        <div class="img">
+                                            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><img width="318" height="218" src="<?php echo URL,$recommend[0]['face_pic'];?>" /></a>
+
+                                        </div>
+                                        <p><A target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['description'],0,120);?>..</A></p>
+
+                                </div>
+                     <?php }?>
+                          
+	
+	<div class="box2">
+            <p>价格
+                <?php foreach(category::getInstance()->getChild($__CATEGORY_TYPE['case'],$__CASE_CATEGORY['price']) as $val){ ?>
+                <a  style="width:50px;" title="<?php echo $val['category_name'];?>装修案例"  href="<?php echo  mkUrl::linkTo('case','main',array('p'=>$val['category_id']));?>"><?php echo $val['category_name'];?></a>
+                <?php }?>
+            </p>
+	<p>风格
+            <?php foreach(category::getInstance()->getChild($__CATEGORY_TYPE['case'],$__CASE_CATEGORY['style']) as $val){ ?>
+            <a style="width:50px;" title="<?php echo $val['category_name'];?>装修案例"  href="<?php echo  mkUrl::linkTo('case','main',array('st'=>$val['category_id']));?>"><?php echo $val['category_name'];?></a>
+            <?php }?>	
+	</p>
+            <p>面积
+                <?php foreach(category::getInstance()->getChild($__CATEGORY_TYPE['case'],$__CASE_CATEGORY['area']) as $val){ ?>
+                <a style="width:70px;" title="<?php echo $val['category_name'];?>装修案例"  href="<?php echo  mkUrl::linkTo('case','main',array('a'=>$val['category_id']));?>"><?php echo $val['category_name'];?></a>
+                <?php }?>
+            </p>
+	</div>
+</div>
+<div class="b2_2">
+	<div class="box1">
+		<div class="left">
+                    <?php $recommend = recommend::getInstance()->load('content-zbfg-001',5);?>
+                        <?php if(isset($recommend[0])){ ?>
+			<div class="t1">
+                            <div class="img"><a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" /></a></div>
+				<div class="info">
+				 <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a>
+                                <p><?php echo mb_substr($recommend[0]['description'],0,110);?>..</p>
+				</div>
+			</div>
+                        <?php }?>
+			<ul>
+                        <?php for($i=1;$i<5;$i++){
+                            if(isset($recommend[$i])){
+                        ?>
+				<li>					
+                                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                        <?php echo $recommend[$i]['title'];?>
+                                    </a>
+                                </li>
+			 <?php }}?>
+			</ul>
+		</div>
+	  <div class="right">
+			<div class="t1">装修预算小工具</div>
+			<div class="t2">
+			
+			<table width="100%" height="141" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+				 <td align="center">
+                    <a href="<?php echo mkUrl::linkTo('tools','diban');?>" target="_blank">
+                    <img src="<?php echo URL;?>themes/v3.0/images/tool/1.gif" width="69" height="63" />
+                    </a>
+                    </td>
+                    <td align="center">
+                    <a href="<?php echo mkUrl::linkTo('tools','dizhuan');?>" target="_blank">
+                    <img src="<?php echo URL;?>themes/v3.0/images/tool/2.gif" width="69" height="63" />
+                    </a>
+                    </td>
+                    <td align="center">
+                     <a href="<?php echo mkUrl::linkTo('tools','qiangzhuan');?>" target="_blank">
+                    <img src="<?php echo URL;?>themes/v3.0/images/tool/3.gif" width="69" height="63" />
+                     </a>
+                    </td>
+              
+              </tr>
+              <tr>
+				 <td align="center">
+                    <a href="<?php echo mkUrl::linkTo('tools','chuanlian');?>" target="_blank">
+                    <img src="<?php echo URL;?>themes/v3.0/images/tool/4.gif" width="69" height="63" />
+                    </a>
+                    </td>
+                    <td align="center">
+                    <a href="<?php echo mkUrl::linkTo('tools','main');?>" target="_blank">
+                    <img src="<?php echo URL;?>themes/v3.0/images/tool/5.gif" width="69" height="63" />
+                    </a></td>
+                    <td align="center">
+                    <a href="<?php echo mkUrl::linkTo('tools','bizhi');?>" target="_blank">
+                    <img src="<?php echo URL;?>themes/v3.0/images/tool/6.gif" width="69" height="63" />
+                    </a></td>
+              </tr>
+            </table></div>
+		    
+	  </div>
+	</div>
+
+	<div class="box2">
+		<ul>
+                    
+                    
+			<?php foreach(recommend::getInstance()->load('content-zbsx-001',8) as $val){ ?>
+                        <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></li>	
+                        <?php }?>
+
+			
+		</ul>
+		<div class="img"><img src="<?php echo URL;?>themes/v3.0/images/zhuyi.gif" /></div>
+	</div>
+	<div class="box3">
+                 <?php $recommend = recommend::getInstance()->load('content-zbsp-001',11);?>
+				      <?php if(isset($recommend[0])){ ?>
+		<div class="left">
+			<div class="t1">看视屏学装修</div>
+			<div class="img">
+                            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><img  src="<?php echo URL,$recommend[0]['face_pic']?>" /></a>
+				<p>   <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,15);?></a></p>
+			</div>
+		</div>
+               <?php }?>                       
+		<div class="right">
+			<div class="t1">
+			
+				<a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>280));?>">+更多</a>
+			</div>
+			
+			<ul>
+                               <?php for($i=1;$i<11;$i++){
+                                    if(isset($recommend[$i])){
+                                ?>
+				<li>					
+                                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                        <?php echo $recommend[$i]['title'];?>
+                                    </a>
+                                </li>
+                                <?php }}?>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="clear"></div>
+<div class="xzx_main">
+<div class="b3">
+	<div class="b3_left">
+	1.家装进行中
+	</div>
+	<div class="b3_right">
+		<p>我要提问</p>
+		<span>
+		
+                      <a target="_blank" href="<?php echo mkUrl::linkTo('ask');?>">有问题、点这里！</a>
+                    
+		</span>
+	</div>
+</div>
+<div class="b2_1">
+	 <?php $recommend = recommend::getInstance()->load('content-zingleft-001',1);?>
+	
+            <?php if(isset($recommend[0])){ ?>
+                <div class="box1">
+                        <div class="img">
+                            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><img width="318" height="238" src="<?php echo URL,$recommend[0]['face_pic'];?>" /></a>
+
+                        </div>
+                        <p><A target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['description'],0,120);?>..</A></p>
+
+                </div>
+        <?php }?>
+	
+	<div class="box3">
+		<div class="title">常规装修知识</div>
+		<p>
+			 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>30));?>" title="收房小常识" target="_blank">
+                                     收房小常识                                 </a>
+                            |       
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>31));?>" title="交房流程" target="_blank">
+                                     交房流程                                 </a>
+                             |      
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>32));?>" title="相关法规文件" target="_blank">
+                                     相关法规文件                                 </a>
+                               |
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>40));?>" title="瓷砖" target="_blank">
+                                     瓷砖                                 </a>
+                                   |
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>41));?>" title="石材" target="_blank">
+                                     石材                                 </a>
+                                   |
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>42));?>" title="泥瓦施工验收" target="_blank">
+                                     泥瓦施工验收                                 </a>
+                                |
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>57));?>" title="木地板" target="_blank">
+                                     木地板                                 </a>
+                               |    
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>58));?>" title="地毯" target="_blank">
+                                     地毯                                 </a>
+                              |     
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>59));?>" title="灯具" target="_blank">
+                                     灯具                                 </a>
+                             |      
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>60));?>" title="洁具" target="_blank">
+                                     洁具                                 </a>
+                             |
+                                  <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>155));?>" title="定设计/装修方案" target="_blank">
+                                     定设计/装修方案                                 </a>
+                                   |
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>156));?>" title="选择装修公司" target="_blank">
+                                     选择装修公司                                 </a>
+                                  | 
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>157));?>" title="配置资金预算" target="_blank">
+                                     配置资金预算                                 </a>
+                                  | 
+                                 <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>33));?>" title="装修小常识" target="_blank">
+                                     装修小常识                                 </a>
+                                  |<a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>70));?>" title="保洁" target="_blank">
+                                     保洁                                 </a>
+		</p>
+	</div>
+</div>
+
+<div class="b3_liat">
+	<div class="t1">
+		<p>装修<font>常识</font></p>
+		<span></span>
+		<a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>33));?>" target="_blank" class="more">+更多</a>
+	</div>
+      <?php $recommend = recommend::getInstance()->load('content-zingcs-001',14);
+                                        ?>
+	<div class="img">
+	   <?php if(isset($recommend[0])){ ?>
+            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                               
+	<p><?php echo $recommend[0]['title'];?></p>
+         <?php }?>
+	</div>
+	
+	<div class="img">
+	   <?php if(isset($recommend[1])){ ?>
+            <a target="_blank" href="<?php echo $recommend[1]['link'];?>" title="<?php echo $recommend[1]['title'];?>" >
+                <img alt="<?php echo $recommend[1]['title'];?>" src="<?php echo URL,$recommend[1]['face_pic'];?>" border="0" /></a> 
+                                               
+	<p><?php echo $recommend[1]['title'];?></p>
+         <?php }?>
+	</div>
+	
+	<ul>    <?php for($i=2;$i<14;$i++){
+                    if(isset($recommend[$i])){
+                ?>
+                <li>					
+                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                        <?php echo mb_substr($recommend[$i]['title'],0,14);?>
+                    </a>
+                </li>
+                <?php }}?>
+	</ul>
+						
+						
+</div>
+
+<div class="b3_liat">
+	<div class="t1">
+		<p>材料<font>选购</font></p>
+		<span></span>
+                <a href="<?php echo mkUrl::linkTo('mall');?>" target="_blank" class="more">+更多</a>
+	</div>
+	  <?php $recommend = recommend::getInstance()->load('content-zingcl-001',14);
+                                        ?>
+	<div class="img">
+	   <?php if(isset($recommend[0])){ ?>
+            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                               
+	<p><?php echo $recommend[0]['title'];?></p>
+         <?php }?>
+	</div>
+	
+	<div class="img">
+	   <?php if(isset($recommend[1])){ ?>
+            <a target="_blank" href="<?php echo $recommend[1]['link'];?>" title="<?php echo $recommend[1]['title'];?>" >
+                <img alt="<?php echo $recommend[1]['title'];?>" src="<?php echo URL,$recommend[1]['face_pic'];?>" border="0" /></a> 
+                                               
+	<p><?php echo $recommend[1]['title'];?></p>
+         <?php }?>
+	</div>
+	
+	<ul>    <?php for($i=2;$i<14;$i++){
+                    if(isset($recommend[$i])){
+                ?>
+                <li>					
+                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                        <?php echo mb_substr($recommend[$i]['title'],0,14);?>
+                    </a>
+                </li>
+                <?php }}?>
+	</ul>
+						
+						
+</div>
+
+<div class="b3_box3">
+	<Div class="t1">装修风水</Div>
+        <?php $recommend = recommend::getInstance()->load('content-zingfs-001',11); ?>
+	<div class="img">
+	<?php if(isset($recommend[0])){ ?>
+            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                               
+	<p><?php echo $recommend[0]['title'];?></p>
+         <?php }?>
+	</div>
+	
+	<ul>
+		 <?php for($i=1;$i<11;$i++){
+                    if(isset($recommend[$i])){
+                ?>
+                <li>					
+                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                        <?php echo mb_substr($recommend[$i]['title'],0,14);?>
+                    </a>
+                </li>
+                <?php }}?>
+			
+	</ul>
+</div>
+
+</div>
+<div class="clear"></div>
+
+<div class="xzx_main" style="padding-bottom:10px; float:left;">
+  <div class="b4">
+	<div class="b4_left">
+	3.装修结束
+	</div>
+	<div class="b4_right">
+		<p>我要提问</p>
+		<span>
+		
+                      <a target="_blank" href="<?php echo mkUrl::linkTo('ask');?>">有问题、点这里！</a> 
+		</span>
+	</div>
+</div>
+
+<div class="b2_1">
+    
+     <?php $recommend = recommend::getInstance()->load('content-zoverleft-001',1);?>
+	
+            <?php if(isset($recommend[0])){ ?>
+                <div class="box1">
+                        <div class="img">
+                            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><img width="318" height="238" src="<?php echo URL,$recommend[0]['face_pic'];?>" /></a>
+
+                        </div>
+                        <p><A target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['description'],0,120);?>..</A></p>
+
+                </div>
+        <?php }?>
+
+	
+	<div class="b4_box1">
+		<div class="title">
+			<p>养护<font>秘籍</font></p>
+			<a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>281));?>">更多</a>
+		</div>
+            <?php $recommend = recommend::getInstance()->load('content-zxover-miji',7);
+                                        ?>
+		<div class="left">
+                     <?php if(isset($recommend[0])){ ?>
+			<div class="img">
+				
+                                <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                                    <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                             
+			</div>
+			<p><a target="_blank" href="<?php echo $recommend[0]['link'];?>"><?php echo $recommend[0]['title'];?></a></p>
+                           <?php }?>
+		</div>
+		<div class="right">
+			<ul>
+			 <?php for($i=1;$i<7;$i++){
+                            if(isset($recommend[$i])){
+                        ?>
+                        <li>					
+                            <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                <?php echo mb_substr($recommend[$i]['title'],0,14);?>
+                            </a>
+                        </li>
+                        <?php }}?>
+	
+			
+		</ul>
+		</div>
+		
+		<div class="title" style="margin-top:10px; border-top: solid 1px #DCDCDC">
+			<p>家居<font>健康</font></p>
+			<a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>282));?>">更多</a>
+		</div>
+		  <?php $recommend = recommend::getInstance()->load('content-zxover-jk',7);
+                                        ?>
+		<div class="left">
+                     <?php if(isset($recommend[0])){ ?>
+			<div class="img">
+				
+                                <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                                    <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                             
+			</div>
+			<p><a target="_blank" href="<?php echo $recommend[0]['link'];?>"><?php echo $recommend[0]['title'];?></a></p>
+                           <?php }?>
+		</div>
+		<div class="right">
+			<ul>
+			 <?php for($i=1;$i<7;$i++){
+                            if(isset($recommend[$i])){
+                        ?>
+                        <li>					
+                            <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                <?php echo mb_substr($recommend[$i]['title'],0,14);?>
+                            </a>
+                        </li>
+                        <?php }}?>
+	
+			
+		</ul>
+		</div>
+	</div>
+  </div>
+  
+  <div class="b4_center">
+  	<div class="list">
+		<div class="t1">
+		  <p>家具篇</p>
+		  <span>
+	
+		  </span>
+		  <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>185));?>" class="more">+更多</a>
+		</div>
+		<?php $recommend = recommend::getInstance()->load('content-zxover-jiajup',4);
+                                        ?>
+		<div class="img">  <?php if(isset($recommend[0])){ ?>
+                                                <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                                                    <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                                <?php }?>
+                
+                </div>
+		
+		<div class="right">
+		<div class="t2"><?php if(isset($recommend[0])){ ?>
+                     <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a>
+                                    <p><?php echo mb_substr($recommend[0]['description'],0,110);?>..</p>
+                    <?php }?>
+		  </div>
+			
+			<ul>
+                            
+			   <?php for($i=1;$i<4;$i++){
+                                if(isset($recommend[$i])){
+                            ?>
+                            <li>					
+                                <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                    <?php echo $recommend[$i]['title'];?>
+                                </a>
+                            </li>
+                            <?php }}?>
+			
+	
+			
+		</ul>
+		</div>
+	</div>
+	
+	<div class="list">
+		<div class="t1">
+		  <p>软装篇</p>
+		  <span>
+		
+		  </span>
+		  <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>186));?>" class="more">+更多</a>
+		</div>
+		
+		<?php $recommend = recommend::getInstance()->load('content-zxover-rz',4);
+                                        ?>
+		<div class="img">  <?php if(isset($recommend[0])){ ?>
+                                                <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                                                    <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                                <?php }?>
+                
+                </div>
+		
+		<div class="right">
+		<div class="t2"><?php if(isset($recommend[0])){ ?>
+                     <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a>
+                                    <p><?php echo mb_substr($recommend[0]['description'],0,110);?>..</p>
+                    <?php }?>
+		  </div>
+			
+			<ul>
+                            
+			   <?php for($i=1;$i<4;$i++){
+                                if(isset($recommend[$i])){
+                            ?>
+                            <li>					
+                                <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                    <?php echo $recommend[$i]['title'];?>
+                                </a>
+                            </li>
+                            <?php }}?>
+			
+	
+			
+		</ul>
+		</div>
+	</div>
+	
+	<div class="list">
+		<div class="t1">
+		  <p>品牌电器</p>
+		  <span>
+		
+		
+		  </span>
+		  <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>185));?>" class="more">+更多</a>
+		</div>
+		
+		<?php $recommend = recommend::getInstance()->load('content-zxover-dq',4);
+                                        ?>
+		<div class="img">  <?php if(isset($recommend[0])){ ?>
+                                                <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                                                    <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                                <?php }?>
+                
+                </div>
+		
+		<div class="right">
+		<div class="t2"><?php if(isset($recommend[0])){ ?>
+                     <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a>
+                                    <p><?php echo mb_substr($recommend[0]['description'],0,110);?>..</p>
+                    <?php }?>
+		  </div>
+			
+			<ul>
+                            
+			   <?php for($i=1;$i<4;$i++){
+                                if(isset($recommend[$i])){
+                            ?>
+                            <li>					
+                                <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                    <?php echo $recommend[$i]['title'];?>
+                                </a>
+                            </li>
+                            <?php }}?>
+			
+	
+			
+		</ul>
+		</div>
+	</div>
+  </div>
+  
+  <div class="b4_you">
+  	<div class="box">
+		<div class="t1">装修日记</div>
+                
+                 <?php foreach(recommend::getInstance()->load('content-index-diary',3) as $val){ ?>
+		<div class="p_img">
+			<div class="img"><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['face_pic'];?>" border="0" /></a></div>
+			<p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></p>
+		</div>
+                <?php }?> 
+		
+	</div>
+	
+	<div class="box m10">
+		<div class="t1">精彩问吧</div>
+	<ul>
+                     <?php foreach(recommend::getInstance()->load('content-index-ask',6) as $val){ ?>
+			<li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></li>
+		 <?php }?> 
+			
+	  </ul>
+		
+		
+	</div>
+  </div>
+</div>
+
+
+</div>
+	</div>
+
+</div>
+    <div class="clear"></div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

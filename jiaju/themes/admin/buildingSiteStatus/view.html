@@ -1,0 +1,40 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=buildingSiteStatus" ><em>工地流程列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>查看工地流程</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th >工地ID:</th>
+                        <td><?php echo $data['site_id']?></td>
+                    </tr>
+                    <tr>
+                        <th >工地流程:</th>
+                        <td><?php echo $data['status']?></td>
+                    </tr>
+
+            <tr>
+                <th >流程日记:</th>
+                <td>
+                  <?php echo $data['content']?>
+                    
+                </td>
+            </tr>    
+
+            </tbody>
+            </table>
+
+
+    </div>
+
+</body>
+</html>
+    

@@ -1,0 +1,177 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=site&act=sms" class="on"><em>短信配置</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=site&act=sms" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    
+                    <tr>
+                        <th >短信服务商:</th>
+                        <td class="jq_service_sms" style="height: 80px; line-height: 25px;">
+                            体验包 ，100条10元，5000条350元，1万条600元，大于1万条按5.5分每条；<br />
+                            联系QQ<font color="red">9577669</font>(大客户小利--官方短信合作) <br />
+                            或者通过官方客服 330680860、330682860联系
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >短信账号:</th>
+                        <td>
+                            <input type="text" size="40" name="data[username]" value="<?php echo isset($sms['username']) ? $sms['username'] : ''; ?>" /> 更换服务商后请手动修改账号和密码！
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >短信密码:</th>
+                        <td>
+                            <input type="password" size="40" name="data[password]" value="<?php echo isset($sms['password']) ? $sms['password'] : ''; ?>" /> 更换服务商后请手动修改账号和密码！
+                        </td>
+                    </tr>
+                    
+                     <tr>
+                        <th >管理通知手机号:</th>
+                        <td>
+                            <input type="text" size="100" name="data[admintel]" value="<?php echo isset($sms['admintel']) ? $sms['admintel'] : ''; ?>" />
+                            多个管理员手机号用英文,隔开
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >快捷通知管理员:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[fastadmin]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['fastadmin']) ? (int)$sms['fastadmin'] : 0 );?>        
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[fastadmincontent]"><?php echo isset($sms['fastadmincontent']) ? $sms['fastadmincontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >招标通知管理员:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[tendersadmin]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['tendersadmin']) ? (int)$sms['tendersadmin'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[tendersadmincontent]"><?php echo isset($sms['tendersadmincontent']) ? $sms['tendersadmincontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >团购报名通知管理员:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[tuanadmin]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['tuanadmin']) ? (int)$sms['tuanadmin'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[tuanadmincontent]"><?php echo isset($sms['tuanadmincontent']) ? $sms['tuanadmincontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th >快捷招标短信:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[fast]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['fast']) ? (int)$sms['fast'] : 0 );?>
+                                (快捷招标指的是指留手机号码的)
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[fastcontent]"><?php echo isset($sms['fastcontent']) ? $sms['fastcontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th >招标通知短信:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[tenders]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['tenders']) ? (int)$sms['tenders'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[tenderscontent]"><?php echo isset($sms['tenderscontent']) ? $sms['tenderscontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >装修公司投标提醒业主:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[bid]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['bid']) ? (int)$sms['bid'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[bidcontent]"><?php echo isset($sms['bidcontent']) ? $sms['bidcontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th >业主选择了装修公司提醒装修公司:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[choose]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['choose']) ? (int)$sms['choose'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[choosecontent]"><?php echo isset($sms['choosecontent']) ? $sms['choosecontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >预约设计师（提醒设计师）:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[designer]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['designer']) ? (int)$sms['designer'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[designercontent]"><?php echo isset($sms['designercontent']) ? $sms['designercontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>申请免费量房（提醒装修公司）:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[liangf]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['liangf']) ? (int)$sms['liangf'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[liangfcontent]"><?php echo isset($sms['liangfcontent']) ? $sms['liangfcontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>预约工地（提醒装修公司）:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[site]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['site']) ? (int)$sms['site'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[sitecontent]"><?php echo isset($sms['sitecontent']) ? $sms['sitecontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    
+                    
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存设置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

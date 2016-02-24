@@ -1,0 +1,75 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=site&act=sms" class="on"><em>短信配置</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=site&act=sms" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    
+                    <tr>
+                        <th width="140">短信服务商:</th>
+                        <td class="jq_service_sms">
+                             <div style="height: 30px;" >
+                                 <b>客亲通短信</b> 106会员短信通道  <a target="_blank" href="http://www.k-3g.com">http://www.k-3g.com/</a>  1508661231,023-68857788 QQ：130818316 
+                             </div>
+                             <div style="height: 30px;" >
+                                 <b>沃科短信</b>106会员短信通道  <a target="_blank" href="http://www.myw2k.cn">http://www.myw2k.cn</a>  13957723441,0577-88901321 QQ：35182095 
+                             </div>
+                            <div style=" height: 30px; line-height: 30px; font-size: 15px;" ><?php echo html::radio('data[service]',array(1=>'客亲通',2=>'沃科信息'),isset($sms['service']) ? $sms['service'] : 0  );?></div> 
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">短信账号:</th>
+                        <td>
+                            <input type="text" size="40" name="data[username]" value="<?php echo isset($sms['username']) ? $sms['username'] : ''; ?>" /> 更换服务商后请手动修改账号和密码！
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">短信密码:</th>
+                        <td>
+                            <input type="password" size="40" name="data[password]" value="<?php echo isset($sms['password']) ? $sms['password'] : ''; ?>" /> 更换服务商后请手动修改账号和密码！
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">快捷招标短信:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[fast]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['fast']) ? (int)$sms['fast'] : 0 );?>
+                                (快捷招标指的是指留手机号码的)
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[fastcontent]"><?php echo isset($sms['fastcontent']) ? $sms['fastcontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th width="140">招标通知短信:</th>
+                        <td>
+                            <div>
+                                <?php echo html::radio('data[tenders]',array(1=>'开启短信通知',0=>'不使用短信通知'),isset($sms['tenders']) ? (int)$sms['tenders'] : 0 );?>
+                            </div>
+                            <div>
+                                <textarea cols="50" rows="5" name="data[tenderscontent]"><?php echo isset($sms['tenderscontent']) ? $sms['tenderscontent'] : '' ;?></textarea> *{***}以{}(英文状态下的{})包含的标签及括号内内容都为程序要替换的内容尽量别删除！
+                                <!---注意如果短信开关的KEY事fast 那么内容请用fastcontent 新增接口以固定模式--->
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存设置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

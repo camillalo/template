@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/sjs.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/zx_public.html';?>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+	<div class="sjs_here">
+		<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 找公司 > 设计师
+	</div>
+	
+	<div class="sjs_nav">
+		<p>
+			<strong>区域:</strong>
+			<span>
+			   <a <?php if(empty($areaid)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('sjs','main',array_merge($url,array('areaid'=>0)));?>">不限</a>
+                        <?php foreach($quxian as $k=>$v){?>
+			<a <?php if($k == $areaid){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('sjs','main',array_merge($url,array('areaid'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>
+		<p>
+			<strong>工作经验:</strong>
+			<span>
+			   <a <?php if(empty($w)){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('sjs','main',array_merge($url,array('w'=>0)));?>">不限</a>
+                        <?php foreach($__WORK as $k=>$v){?>
+			<a <?php if($k == $w){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('sjs','main',array_merge($url,array('w'=>$k)));?>"><?php echo $v;?></a>
+                        <?php }?>
+			</span>
+		</p>
+		
+		
+	</div>
+	
+	
+	<div class="sjs_main">
+		<div class="title">
+			设计师列表
+		</div>
+		  <?php foreach($datas as $val){ ?>        
+		<div class="list">
+			<div class="img">
+				<a href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['id']));?>" target="_blank" title="<?php echo $val['name'];?><?php echo $val['position'];?>">
+                       <?php if(!empty($val['face_pic'])){?>    <img alt="<?php echo $val['name'];?><?php echo $val['position'];?>" width="130" height="130" src="<?php echo URL,$val['face_pic'];?>">
+                           <?php } else echo '未上传LOGO';?>
+     
+                            
+                            
+                    </a>
+			</div>
+			<div class="sjs_info">
+				<p><a  title="<?php echo $val['name'];?><?php echo $val['position'];?>" target="_blank" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$val['id']));?>"><?php echo $val['name'];?><?php echo $val['position'];?></a>
+					<br/>
+					<?php if(!empty($val['orderby'])){?><span><font color="#FB0102;">推广</font></span><?php }?>
+					<?php if(!empty($val['is_authentication'])){?><span><font color="#007E00;">实名</font></span><?php }?>
+					<?php if(!empty($val['is_gold'])){?><span><font color="#FFA401;">金牌</font></span><?php }?>
+					
+				</p>
+				<p style="margin-top:10px;"> 从业经验：<?php echo isset($__WORK[$val['from_time']]) ? $__WORK[$val['from_time']] : '';?></p>
+				<p>设计风格：<?php echo $val['style'];?></p>
+				<p style="margin-top:15px;"><a href="<?php echo mkUrl::linkTo('designer','booking',array('id'=>$val['id']));?>" class="sjs_btn">预约设计</a></p>
+			</div>
+                    
+                    <?php foreach($val['case'] as $case){ ?>
+			<div class="sjs_img">
+                            <div class="s_img">
+                                <a target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$case['case_id']));?>"><img width="145" height="95"  src="<?php echo URL,$case['face_pic'];?>" /></a>
+                            </div>
+                            <p><a target="_blank" href="<?php echo mkUrl::linkTo('case','detail',array('id'=>$case['case_id']));?>"><?php echo $case['title'];?></a></p>       
+			</div>
+		   <?php  }?>
+			
+		</div>
+		   <?php  }?> 
+		   <div class="clear"></div>
+		      <div class="page-bar"> <?php echo $links;?></div>
+  </div>
+  
+  
+</div>	
+<?php  require TEMPLATE_PATH.'public/root.html';?>		
+ </body>
+</html>

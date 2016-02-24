@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 客服QQ
+				</div>
+               
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            可以设定多个QQ号码！
+                        </div>
+                    </div>
+
+                    <div class="module_default">
+                        <div class="hd">客服QQ</div>
+                        <div class="bd gongneng">
+
+
+
+
+                            <?php if(empty($data)){ ?>
+                            <form  action="<?php echo mkUrl::linkTo('user','qq');?>" target="hiden_frm" name="form1" id="myform" method="post">
+                                <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                    <tbody>
+                                        <tr>
+                                            <th width="140">客服名称:</th>
+                                            <td><input type="text" size="20" value="" name="name" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">QQ号码:</th>
+                                            <td><input type="text" size="20" value="" name="qq" class="input-text"> </td>
+                                        </tr>
+                                        <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+                            <?php }else{ ?>
+                            <form  action="<?php echo mkUrl::linkTo('user','qq',array('id'=>$data['id']));?>" target="hiden_frm" name="form1" id="myform" method="post">
+                                <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                    <tbody>
+                                        <tr>
+                                            <th width="140">客服名称:</th>
+                                            <td><input type="text" size="20" value="<?php echo $data['name'];?>" name="name" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">QQ号码:</th>
+                                            <td><input type="text" size="20" value="<?php echo $data['qq'];?>" name="qq" class="input-text"> </td>
+                                        </tr>
+                                        <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+                            <?php }?>           
+
+                        </div>
+                        <div class="panes">
+                            <!--收件箱开始-->
+                            <div style="display: block;">  
+
+                            <table class="table_a" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                    <th align="center" >客服名称</th>
+                                    <th align="center" >QQ号码</th>
+                                        <th>管理操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php  foreach($datas as $val){ ?>
+                                    <tr>
+                                        <td align="center" ><?php echo $val['name'];?></td>
+                                        <td align="center" ><?php echo $val['qq'];?></td>
+                                        <td  align="center">
+                                        <font color="#cccccc">
+                                            <a href="<?php echo mkUrl::linkTo('user','qq',array('id'=>$val['id']));?>">修改</a>
+                                        </font> | 
+                                        <font color="#cccccc">
+                                            <a target="hiden_frm" href="<?php echo mkUrl::linkTo('user','delQQ',array('id'=>$val['id']));?>">删除</a>
+                                        </font>
+                                            | 
+                                        <font color="#cccccc">
+                                        <?php if($defaultAddrId == $val['id']){ ?>
+                                        默认地址
+                                        <?php }else{ ?>
+                                        <a target="hiden_frm" href="<?php echo mkUrl::linkTo('user','defaultQQ',array('id'=>$val['id']));?>">设为默认</a>
+                                        <?php }?>
+                                        </font> 
+                                        </td>
+                                    </tr>
+                                    <?php }?>
+                                </tbody>
+                            </table>
+                                <div style="height: 100px;"></div>
+                            </div>
+                        </div>                                  
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

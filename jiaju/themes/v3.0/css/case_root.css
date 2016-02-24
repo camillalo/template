@@ -1,0 +1,125 @@
+
+.foot {
+    background: url("../images/foot_Bg.gif") repeat-x scroll center  0 #FFFFFF ;
+    float: left;
+    height: 350px;
+    margin: 0;
+    width: 100%;
+	margin-top:10px;
+}
+
+#dibuer {
+    height: 280px;
+    margin: 10px auto 0;
+}
+#dibuer, .dibu {
+    float: none;
+}
+.dibua {
+    height: 280px;
+    margin: 20px auto 0;
+    width: 960px;
+}
+.dibu {
+    margin: 0 auto;
+    padding: 30px 0 0;
+}
+.dibu ul {
+    float: left;
+    
+    line-height: 2em;
+    padding-left: 50px;
+    width: 130px;
+}
+.dibu ul li {
+    color: #666666;
+    float: left;
+    width: 130px;
+}
+.dibu ul li a {
+    color: #666666;
+}
+.dibu h4 {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    width: 130px;
+}
+
+#dibuer .bottom_nav {
+    color: #666666;
+    float: left;
+    margin-top: 20px;
+    text-align: center;
+    width: 960px;
+}
+#dibuer .bottom_nav a {
+    color: #666666;
+    margin: 0 10px;
+    text-decoration: none;
+}
+#dibuer .copyright {
+    color: #666666;
+    float: left;
+    padding: 15px 0;
+    text-align: center;
+    width: 960px;
+}
+
+.pinglun {
+    background: url("../images/xgt/tiao.gif") repeat-x scroll 0 0 transparent;
+    float: left;
+    height: auto;
+    margin-top: 10px;
+    width: 100%;
+}
+.pinglun_title {
+    border: medium none;
+    color: #F54100;
+    float: left;
+    font-size: 14px;
+    font-weight: 100;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    text-align: left;
+    width: 100%;
+    
+}
+.pinglun_liuyan {
+    border-bottom: 1px solid #DDDDDD;
+    color: #898989;
+    float: left;
+    height: auto;
+    line-height: 22px;
+    padding: 5px 20px;
+    width: 90%;
+}
+.tijiao {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    height: auto;
+    padding: 10px;
+    width: 100%;
+}
+.btn_hl {
+    background: url("../images/btn_bg.gif") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    width: 65px;
+}
+
+ul.multipage{ width:100%; padding:5px 0; overflow:auto;}
+ul.multipage li{ float:left; display:inline; margin:0px 3px; font-size:12px; color:#444; line-height:20px;}
+ul.multipage li.current{ font-weight:700;}
+ul.multipage li a,
+ul.multipage li span{ float:left; padding:0 5px; border:1px solid #DDD; text-decoration:none; color:#444;}
+ul.multipage li a:hover{ text-decoration:none; background:#DFE8F6; border:1px solid #99BBE8;}
+ul.multipage li.link{ padding:0;}
+ul.multipage input.input{ width:20px; height:17px; border:1px solid #DDD; font-family:'Tahoma';}
+ul.multipage input.btn{ width:27px; height:21px; border:0; }
+ul.multipage li .no_page{ border:1px solid #DDD; color:#AAA;}
+ul.multipage li .current_page{ padding:0; border:0; color:#444; line-height:22px;}
+

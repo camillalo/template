@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/tg.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+	  
+	   <div class="w_980">
+	<div class="tg_here">
+		<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a>  > <a href="<?php echo mkUrl::linkTo('activity');?>">团购</a>
+	</div>
+	
+	<div class="tg_main">
+		<div class="box1">
+		  <div class="left">
+				<div class="title">
+                                    <a href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$data['id']));?>"><font style="color:#D49000;">【正在召集】</font><?php echo $data['title'];?></a>
+				</div>
+				<div class="zhu">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td colspan="2">所在区域：<?php echo areaInt::getInstance()->getAreaName($data['area_id']);?></td>
+                                            <td width="31%">活动时间：9：00-9000</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="65%">活动地点：<?php echo $data['addr'];?></td>
+                                            <td width="4%"><img src="<?php echo URL;?>themes/v3.0/images/zhong.gif" width="22" height="23" /></td>
+                                            <td valign="middle">距离报名时间还有<strong><?php 
+												$regT = strtotime($data['reg_time']) - NOWTIME;
+												if( $regT > 0){
+													echo ceil($regT/86400);
+												}else{
+													echo 0;
+												}
+											?></strong>天</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">报名截至：<strong><?php echo $data['bg_time'],'至',$data['end_time'];?></strong></td>
+                                            <td>团购热线:<strong><?php echo $__SETTING['tel'];?></strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td width="11%" valign="top">活动优惠：</td>
+                                                <td width="89%"><?php echo $data['coupon'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">&nbsp;</td>
+                                                <td>
+                                                <br>
+                                                <?php foreach($__SETTING['qq'] as $val){ ?>
+                                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $val;?>&site=qq&menu=yes">
+                                                    <img border="0" src="http://wpa.qq.com/pa?p=3:<?php echo $val;?>:50" alt="<?php echo $__SETTING['site_name'];?>" title="<?php echo $__SETTING['site_name'];?>">
+                                                </a>
+                                                <?php }?>  
+                                            </tr>
+
+                                            </table>
+                                            </td>
+                                        </tr>
+                                        </table>
+				</div>
+			    
+			</div>
+			
+
+			
+		
+			
+			
+		</div>
+		
+		<div class="bm_list">
+                <div class="title">快速报名</div>
+                <div class="zhu">
+			<form  action="<?php echo URL;?>index.php?ctl=activity&act=join&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                            <td width="21%" align="right"><font>*</font>姓名：</td>
+                            <td width="50%"><label>
+                                <input type="text" class="text" name="name" />
+                            </label></td>
+                            <td width="29%">请填写您的真实姓名</td>
+                            </tr>
+                            <tr>
+                            <td align="right"><font>*</font>手机号码：</td>
+                            <td><input type="text" class="text" name="tel" /></td>
+                            <td>方便通知您</td>
+                            </tr>
+                            <tr>
+                            <td align="right">小区名称：</td>
+                            <td><input type="text" class="text" name="addr" /></td>
+                            <td>您所在的小区名称</td>
+                            </tr>
+                            <tr>
+                            <td align="right">QQ：</td>
+                            <td><input type="text" class="text" name="qq" /></td>
+                            <td>为方便服务</td>
+                            </tr>
+                            <tr>
+                            <td align="right">&nbsp;</td>
+                            <td><label>
+                                <input name="Submit2" type="image" value="提交" src="<?php echo URL;?>themes/v3.0/images/tjbm.gif" />
+                            </label></td>
+                            <td>&nbsp;</td>
+                            </tr>
+                        </table>
+			  </form>
+                </div>
+		</div>
+            <script>
+                $(document).ready(function(){
+                     $(".desc").click(function(){
+                         $("#jq_baoming").dialog({width:450,height:220});
+                     });   
+                });
+            </script>
+		
+		<div class="bm_list" style="margin-right:0px; float:right">
+			<div class="title">已经报名</div>
+		  <div class="zhu1">
+                        <ul>
+                            <?php foreach($joins as $val){ ?>
+                                <li> <?php echo mb_substr($val['name'],0,1);?>***------<?php echo mb_substr($val['tel'],0,4);?>***--------<?php echo $val['addr'];?></li>
+                            <?php }?>
+                        </ul>
+		  </div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="tg_desc">
+			<div class="title">活动详情</div>
+			<div class="desc">
+			<?php echo $data['details'];?>
+      
+			</div>
+		</div>
+                <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+                <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+		<div class="tg_desc">
+			<div class="title">活动地图</div>
+        
+                        <div style="height: 500px; width: 978px;" id="allmap"></div>
+                  
+		</div>
+                <div id="mapshowcontent" style="display: none;">
+                    <p style="font-size: 14px; font-weight: bold;color: #3399ff;">地址：<?php echo areaInt::getInstance()->getAreaName($data['area_id']);?><?php echo $data['addr'];?></p>
+                    <p  style="font-size: 14px; font-weight: bold; margin-top: 5px; color: #3399ff; ">团购热线:<strong><?php echo $__SETTING['tel'];?></strong></p>
+                </div>
+                <script type="text/javascript">
+                    var content = $("#mapshowcontent").html();
+                    var map = new BMap.Map("allmap");
+                    var point = new BMap.Point(<?php echo $data['lng']/100000;?>, <?php echo $data['lat']/100000;?>);
+                    var marker = new BMap.Marker(point);
+                    var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+                    map.centerAndZoom(point, 15);
+                    map.addOverlay(marker);
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+                    marker.addEventListener("click", function(){          
+                        this.openInfoWindow(infoWindow);
+                    });
+                </script>
+                
+	</div>
+	
+</div>    
+        
+   <div class="clear"></div> 
+   <div></div>
+   
+   
+   <div id="jq_baoming" title="团购报名" style="display: none;">
+			<form  action="<?php echo URL;?>index.php?ctl=activity&act=join&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr height="30">
+                            <td width="21%" align="right"><font>*</font>姓名：</td>
+                            <td  width="50%"><label>
+                                <input type="text" class="text" name="name" />
+                            </label></td>
+                            <td width="29%">请填写您的真实姓名</td>
+                            </tr>
+                            <tr height="30">
+                            <td align="right"><font>*</font>手机号码：</td>
+                            <td><input type="text" class="text" name="tel" /></td>
+                            <td>方便通知您</td>
+                            </tr>
+                            <tr height="30">
+                            <td align="right">小区名称：</td>
+                            <td><input type="text" class="text" name="addr" /></td>
+                            <td>您所在的小区名称</td>
+                            </tr>
+                            <tr height="30">
+                            <td align="right">QQ：</td>
+                            <td><input type="text" class="text" name="qq" /></td>
+                            <td>为方便服务</td>
+                            </tr>
+                            <tr height="40">
+                            <td align="right">&nbsp;</td>
+                            <td><label>
+                                <input name="Submit2" type="image" value="提交" src="<?php echo URL;?>themes/v3.0/images/tjbm.gif" />
+                            </label></td>
+                            <td>&nbsp;</td>
+                            </tr>
+                        </table>
+			  </form>
+                </div>
+	<?php  require TEMPLATE_PATH.'public/root.html';?>
+ </body>
+</html>

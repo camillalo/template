@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>后台管理中心</title>
+        <link href="../statics/css/public/reset.css" rel="stylesheet" type="text/css" />
+        <style type="text/css">
+            .mainnav_title{ display:none;}
+            h1 { height:30px;line-height:30px;font-size:14px;padding-left:15px;background:#EEE;border-bottom:1px solid #ddd;border-right:1px solid #ddd;overflow:hidden;zoom:1;margin-bottom:10px;}
+            h1 b {color:#3865B8;}
+            h1 span {color:#ccc;font-size:10px;margin-left:10px;}
+            #Profile{ width:48%; height:191px; float:left;margin:5px 15px 0 15px;}
+            #system {width:48%;float:left;margin:5px 15px 0  15px;}
+            .list ul{ border:1px #ddd solid;  overflow:hidden;border-bottom:none;}
+            .list ul li{ border-bottom:1px #ddd solid; height:26px;  line-height:26px; color:#777;padding-left:5px;}
+            .list ul li span{ display:block; float:left; color:#777;width:100px;}
+
+            #sitestats {width:48%; height:191px; float:left;margin:5px 0  0 0;overflow:hidden;}
+            #sitestats ul {overflow:hidden;zoom:1;border:1px solid #ddd;padding:2px 0 0 2px;_margin:2px 0 0 3px;height:132px;}
+            #sitestats ul li {float:left;height:44px; float:left; width:16.5%;_width:16.3%;text-align:center;border-right:1px solid #fff;border-bottom:none;}
+            #sitestats ul li b {float:left;width:100%;height:21px;line-height:22px;  background:#EFEFEF;color:#777;font-weight:normal;}
+            #sitestats ul li span {float:left;width:100%;color:#3865B8;background:#F8F8F8;height:21px;line-height:21px;overflow:hidden;zoom:1;}
+
+            #yourphpnews {width:48%;float:left;margin:5px 15px 0 0;}
+
+            #tabs {margin:0px auto;overflow:hidden;border:1px solid #ccc; height:214px;}
+            #tabs .title {overflow:hidden;height:27px;}
+            #tabs .title ul li {float:left;margin-left:-1px;height:26px;line-height:26px;background:#EAEEF4;padding:0px 10px;border:1px solid #ccc;border-top:0;border-bottom:0;}
+            #tabs .title ul li.on {background:#FFF;height:27px;}
+            #tabs .content_1 { overflow:hidden;border-top:none;}
+            #tabs .tabbox {display:none;padding:10px;}
+
+            #tabs .tabbox ul li {padding-left:13px;border-bottom:1px #ddd dashed; height:27px;  line-height:26px;color:#333 }
+            #tabs .tabbox ul li a {color:#333}
+            #tabs .tabbox ul li a:hover {color:#FB0000;}
+            #tabs .tabbox ul li span.date {float:right;color:#777}
+        </style>
+    </head>
+    <body>
+        <div id="Profile" class="list">
+            <h1><b>个人信息</b><span>Profile&nbsp; Info</span></h1>
+            <ul>
+                <li><span>会员名:</span><?php echo $_SESSION['admin']['realname'];?>&nbsp;&nbsp;&nbsp;<a href="index.php?ctl=admin&act=edit2"> 修改资料</a></li>
+                <li><span>所属会员组:</span><?php echo $group['group_name'];?></li>
+                <li><span>上一次登陆时间:</span><?php echo $_SESSION['admin']['last_t'];?></li>
+                <li><span>上次登陆IP:</span><?php echo $_SESSION['admin']['last_ip'];?></li>
+                <li><span>本次登陆IP:</span><?php echo getIp();?></li>
+            </ul>
+        </div>
+
+        <div id="sitestats">
+            <h1><b>网站统计</b><span>Site&nbsp; Stats</span></h1>
+            <div>
+                <?php  $where = array();?>
+                <ul>
+                    <li><b>文章系统</b><br><span><?php import::getMdl("content"); echo contentMdl::getInstance()->getContentCount($where);?></span></li>		
+             
+                    <li><b>管理员数</b><span><?php import::getMdl('admin'); echo adminMdl::getInstance()->getAdminCount($where);?></span></li>
+                    <li><b>分类数</b><span><?php import::getMdl('category'); echo  categoryMdl::getInstance()->getCategoryCount($where);?></span></li>
+                    <li><b>案例数</b><span><?php import::getMdl('case'); echo caseMdl::getInstance()->getCaseCount($where);?></span></li>
+                    <li><b>装修日记</b><span><?php import::getMdl('diary'); echo diaryMdl::getInstance()->getDiaryCount($where);?></span></li>
+                    <li><b>招标数据</b><span><?php import::getMdl('bidding'); echo  biddingMdl::getInstance()->getBiddingCount($where);  ?></span></li>
+                    <li><b>快捷招标</b><span><?php import::getMdl('biddingQuick'); echo  biddingQuickMdl::getInstance()->getBiddingQuickCount($where);?></span></li>
+                    <li><b>问吧问题</b><span><?php  import::getMdl('ask'); echo askMdl::getInstance()->getAskCount($where);?></span></li>
+                    <li><b>团购活动</b><span><?php import::getMdl('activity'); echo activityMdl::getInstance()->getActivityCount($where);?></span></li>
+                    <li><b>优惠信息</b><span><?php import::getMdl('preferential'); echo  preferentialMdl::getInstance()->getPreferentialCount($where);?></span></li>
+                    <li><b>产品数量</b><span><?php import::getMdl('products');  echo productsMdl::getInstance()->getProductsCount($where);?></span></li>
+                    <li><b>导购需求</b><span><?php import::getMdl('demand'); echo  demandMdl::getInstance()->getDemandCount($where);?></span></li>
+                    <li><b>业主</b><span><?php import::getMdl('users'); echo usersMdl::getInstance()->getUsersCount(array('type'=>$__USER_TYPE['owner'])); ?></span></li>
+                    <li><b>设计师</b><span><?php  echo usersMdl::getInstance()->getUsersCount(array('type'=>$__USER_TYPE['designer']));?></span></li>
+                    <li><b>装修公司</b><span><?php echo usersMdl::getInstance()->getUsersCount(array('type'=>$__USER_TYPE['company']));?></span></li>
+                    <li><b>材料商</b><span><?php  echo usersMdl::getInstance()->getUsersCount(array('type'=>$__USER_TYPE['material'])); ?></span></li>
+                    <li><b>在建工地</b><span><?php  import::getMdl('buildingSite'); echo  buildingSiteMdl::getInstance()->getBuildingSiteCount($where);?></span></li>
+                </ul></div>
+        </div>
+
+
+        <div id="system" class="list">
+            <h1><b>系统信息</b><span>System&nbsp; Info</span></h1>
+            <ul>
+                <li>
+                    <span>操作系统:</span><?php echo PHP_OS;?>
+                </li>
+                <li><span>运行环境:</span><?php echo $_SERVER['SERVER_SOFTWARE'];?></li>
+                <li><span>安全模式:</span><?php echo ini_get('safe_mode') ? '是':'否';?></li>
+                <li><span>GD</span><?php
+$rel=gd_info();
+echo $rel['GD Version'];
+echo "支持图片";
+echo ($rel['GIF Read Support']&&$rel['GIF Create Support'])?'gif/':'';
+echo isset($rel['JPG Support'])?'jpeg/':'';
+echo isset($rel['PNG Support'])?'png':'';
+unset($rel);
+?></li>
+                <li><span>版本:</span>v3.7&nbsp;&nbsp;&nbsp; [<a href="http://www.qdjiazhuang.com" target="_blank">访问官网</a>]</li>
+                <li><span>上传限制:</span><?php echo ini_get('upload_max_filesize');?></li>	
+				<li><span>作者:</span><a href="http://www.dede168.com" target="_blank">dede168源码网</a></li>
+                <li><span>QQ群:</span>97206582</li>
+            </ul>
+        </div>
+
+
+        <div id="yourphpnews" class="list" >
+            <h1><b>官方动态</b><span>&nbsp; News</span></h1>
+
+            <?php 
+               $news = fileCache::getInstance()->load("huiswnews");
+               if(empty($news)){    
+                    $data = @file_get_contents('http://www.qdjiazhuang.com//?ctl=install&act=tongji&key='.SITE_KEY.'&host='.$_SERVER['HTTP_HOST']);//官网动态最好别删除否则不能及时获得补丁信息 
+                    $data = json_decode($data,true);
+                    if(empty($data)) $data = array();
+                    $news = $data;
+                    fileCache::getInstance()->put("huiswnews",$news);
+               }
+             
+            ?>
+      
+                    <ul>
+                        <?php foreach($news as $val){ ?>
+                        <li><a target="_blank" href="http://www.qdjiazhuang.com//index.php?ctl=article&id=<?php echo $val['content_id'];?>"><?php echo $val['title'],'.......',$val['create_time'];?></a></li>
+                        <?php }?>
+                    </ul>
+              
+
+        </div>
+        
+    </body>
+</html>

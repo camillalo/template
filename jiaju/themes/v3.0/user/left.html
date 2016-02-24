@@ -1,0 +1,265 @@
+<script>
+    $(document).ready(function(){
+         $(".item .parent").click(function(){
+             $(this).parent().find(".son").toggle();
+         });
+        
+    });
+    
+</script>
+<div class="col_sub">
+    <div class="user_pgHeader">
+        <?php echo isset($__USER_TYPE_MEAN[$__USER_INFO['type']]) ?$__USER_TYPE_MEAN[$__USER_INFO['type']] : '';?>管理后台
+    </div>
+    <ul class="user_nav" id="ctl00_user_nav">
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                账号管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"> <a href="<?php echo mkUrl::linkTo('user','info');?>" <?php if($_GET['act'] === 'info'){ ?>style="color:#be0033;" <?php  }?>  >修改信息</a></li>
+                <?php if($__USER_TYPE['company'] === (int)$__USER_INFO['type'] || $__USER_TYPE['material'] === (int)$__USER_INFO['type']){ ?>
+                 <li class="item_in"> <a href="<?php echo mkUrl::linkTo('user','authenticate');?>" <?php if($_GET['act'] === 'authenticate'){ ?>style="color:#be0033;" <?php  }?>  >营业执照认证</a></li>
+                <?php }else{ ?>
+                <li class="item_in"> <a href="<?php echo mkUrl::linkTo('user','authenticate');?>" <?php if($_GET['act'] === 'authenticate'){ ?>style="color:#be0033;" <?php  }?>  >实名认证</a></li>
+
+                <?php }?>
+            </ul>
+        </li>
+        
+              <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                积分管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','integral');?>" <?php if($_GET['act'] === 'integral'){ ?>style="color:#be0033;" <?php  }?>  >我的积分</a></li>
+
+
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','integralUsed');?>" <?php if($_GET['act'] === 'integralUsed'){ ?>style="color:#be0033;" <?php  }?>  >积分使用</a></li>
+               
+                 <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','exchange');?>" <?php if($_GET['act'] === 'exchange'){ ?>style="color:#be0033;" <?php  }?>  >兑换抽奖管理</a></li>
+               
+            </ul>
+        </li>
+      
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                信息管理
+            </a>
+
+            <ul class="son">
+
+
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','ask');?>" <?php if($_GET['act'] === 'ask'){ ?>style="color:#be0033;" <?php  }?>  >我的问题</a></li>
+               
+             
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','answer');?>" <?php if($_GET['act'] === 'answer'){ ?>style="color:#be0033;" <?php  }?>  >我的回答</a></li>
+               
+            </ul>
+        </li>
+
+
+
+        <?php if($__USER_TYPE['company'] === (int)$__USER_INFO['type'] || $__USER_TYPE['material'] === (int)$__USER_INFO['type']){
+        import::getMdl('company');
+        $is_company = companyMdl::getInstance()->getCompany($uid); 
+        if($is_company){
+        ?>
+        <li class="item"><a  class="parent"  href="javascript:void(0);">商铺资料</a>
+            <ul class="son">
+                <li class="item_in"><a target="_blank" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$uid));?>"  >商铺链接</a></li>
+                <li class="item_in"><a  href="<?php echo mkUrl::linkTo('user','template');?>"  >模版中心</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','company');?>" <?php if($_GET['act'] === 'company'){ ?>style="color:#be0033;" <?php  }?>  >公司资料</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','addr');?>" <?php if($_GET['act'] === 'addr'){ ?>style="color:#be0033;" <?php  }?>  >联系方式</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','qq');?>" <?php if($_GET['act'] === 'qq'){ ?>style="color:#be0033;" <?php  }?>  >客服QQ</a></li>    
+                
+
+
+            </ul>
+        </li>
+         <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                荣誉、相册
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','picsAdd');?>" <?php if($_GET['act'] === 'picsAdd'){ ?>style="color:#be0033;" <?php  }?>  >发布图片</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','pics');?>" <?php if($_GET['act'] === 'pics'){ ?>style="color:#be0033;" <?php  }?>  >荣誉、相册</a></li>
+            </ul>
+        </li>
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                优惠信息
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','preferentialAdd');?>" <?php if($_GET['act'] === 'preferentialAdd'){ ?>style="color:#be0033;" <?php  }?>  >发布优惠</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','preferential');?>" <?php if($_GET['act'] === 'preferential'){ ?>style="color:#be0033;" <?php  }?>  >优惠信息</a></li>
+
+            </ul>
+        </li>
+
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                商品管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','productsAdd');?>" <?php if($_GET['act'] === 'productsAdd'){ ?>style="color:#be0033;" <?php  }?>  >发布商品</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','products');?>" <?php if($_GET['act'] === 'products'){ ?>style="color:#be0033;" <?php  }?>  >商品管理</a></li>
+
+            </ul>
+        </li>
+
+        <?php if($__USER_TYPE['company'] === (int)$__USER_INFO['type']){ ?>
+
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                点评管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','mydianping');?>" <?php if($_GET['act'] === 'mydianping'){ ?>style="color:#be0033;" <?php  }?>  >点评管理</a></li>
+            </ul>
+        </li>
+
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                案例管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','caseAdd');?>" <?php if($_GET['act'] === 'caseAdd'){ ?>style="color:#be0033;" <?php  }?>  >发布案例</a></li>  
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','case');?>" <?php if($_GET['act'] === 'case'){ ?>style="color:#be0033;" <?php  }?>  >案例管理</a></li>      
+            </ul>
+        </li>
+
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                设计师管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','designerAdd');?>" <?php if($_GET['act'] === 'designerAdd'){ ?>style="color:#be0033;" <?php  }?>  >添加设计师</a></li>  
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','designerList');?>" <?php if($_GET['act'] === 'designerList'){ ?>style="color:#be0033;" <?php  }?>  >设计师管理</a></li>            </ul>
+        </li>
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                工地管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','siteAdd');?>" <?php if($_GET['act'] === 'siteAdd'){ ?>style="color:#be0033;" <?php  }?>  >添加工地</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','siteList');?>" <?php if($_GET['act'] === 'siteList'){ ?>style="color:#be0033;" <?php  }?>  >在建工地</a></li>
+            </ul>
+        </li>
+
+        <li class="item"><a  class="parent"  href="javascript:void(0);">预约管理</a>
+            <ul class="son">
+
+
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','quantityRoom');?>" <?php if($_GET['act'] === 'quantityRoom'){ ?>style="color:#be0033;" <?php  }?>  >量房申请</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','bookingDesign');?>" <?php if($_GET['act'] === 'bookingDesign'){ ?>style="color:#be0033;" <?php  }?>  >设计申请</a></li>
+
+
+            </ul>
+        </li>
+        <?php }?>   
+
+
+        <?php } else{ ?>
+        <li class="item"><a  class="parent" href="javascript:void(0);">开通商铺</a>
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','company');?>" <?php if($_GET['act'] === 'company'){ ?>style="color:#be0033;" <?php  }?>  >免费开通</a></li>  
+            </ul></li>
+        <?php 
+
+        }
+        }?>
+
+        <?php if($__USER_TYPE['designer'] === (int)$__USER_INFO['type']){ 
+        import::getMdl('designer');
+        $designerMenuInfo = designerMdl::getInstance()->getDesignerByUid($uid); 
+        if($designerMenuInfo){
+        ?>
+        <li class="item"><a class="parent" href="javascript:void(0);">博客资料</a>
+            <ul class="son">
+                <li class="item_in"><a target="_blank" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$designerMenuInfo['id']));?>"  >我的博客</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','designer');?>" <?php if($_GET['act'] === 'designer'){ ?>style="color:#be0033;" <?php  }?>  >我的资料</a></li>
+            </ul>
+        </li>
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                预约管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','bookingDesign');?>" <?php if($_GET['act'] === 'bookingDesign'){ ?>style="color:#be0033;" <?php  }?>  >邀我设计</a></li>
+            </ul>
+        </li>
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                案例管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','caseAdd');?>" <?php if($_GET['act'] === 'caseAdd'){ ?>style="color:#be0033;" <?php  }?>  >发布案例</a></li>  
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','case');?>" <?php if($_GET['act'] === 'case'){ ?>style="color:#be0033;" <?php  }?>  >案例管理</a></li>      
+            </ul>
+        </li>
+
+        <?php } else{ ?>
+        <li class="item"><a class="parent"  href="javascript:void(0);">开通博客</a>
+            <ul>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','designer');?>" <?php if($_GET['act'] === 'designer'){ ?>style="color:#be0033;" <?php  }?>  >免费开通</a></li>
+            </ul>
+        </li>    
+        <?php
+        }
+        }
+        ?>
+          <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                招标管理
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('tenders');?>" >发布招标</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','mytenders');?>" <?php if($_GET['act'] === 'mytenders'){ ?>style="color:#be0033;" <?php  }?>  >我的招标</a></li>
+                <?php if($__USER_TYPE['company'] === (int)$__USER_INFO['type'] || $__USER_TYPE['material'] === (int)$__USER_INFO['type']){
+              
+                if($is_company){
+                ?>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','mybids');?>" <?php if($_GET['act'] === 'mybids'){ ?>style="color:#be0033;" <?php  }?>  >竞标信息</a></li>
+                <?php }}?>
+                <?php if($__USER_TYPE['designer'] === (int)$__USER_INFO['type']){ 
+              
+                if($designerMenuInfo){
+                ?> 
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','mybids');?>" <?php if($_GET['act'] === 'mybids'){ ?>style="color:#be0033;" <?php  }?>  >竞标信息</a></li>
+                <?php }}?>
+            </ul>
+        </li>
+
+        <li class="item">
+            <a class="parent" href="javascript:void(0);">
+                装修日记
+            </a>
+
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','diaryAdd');?>" <?php if($_GET['act'] === 'diaryAdd'){ ?>style="color:#be0033;" <?php  }?>  >发表日记</a></li>
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','diary');?>" <?php if($_GET['act'] === 'diary'){ ?>style="color:#be0033;" <?php  }?>  >日记列表</a></li>
+
+            </ul>
+        </li>
+
+        <li class="item"><a class="parent"  href="javascript:void(0);">投诉建议</a>
+            <ul class="son">
+                <li class="item_in"><a href="<?php echo mkUrl::linkTo('user','message');?>" <?php if($_GET['act'] === 'message'){ ?>style="color:#be0033;" <?php  }?>  >意见或投诉</a></li>
+            </ul>
+        </li>    
+
+    </ul>
+</div>

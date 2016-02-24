@@ -1,0 +1,17 @@
+<?php return array (
+  'charset' => '1',
+  'UC_CONNECT' => 'mysql',
+  'UC_DBHOST' => 'localhost',
+  'UC_DBUSER' => 'root',
+  'UC_DBPW' => '',
+  'UC_DBNAME' => 'ultrax',
+  'UC_DBCHARSET' => 'gbk',
+  'UC_DBTABLEPRE' => '`ultrax`.pre_ucenter_',
+  'UC_DBCONNECT' => '0',
+  'UC_KEY' => '',
+  'UC_API' => '',
+  'UC_CHARSET' => 'gbk',
+  'UC_IP' => '',
+  'UC_APPID' => '2',
+  'UC_PPP' => '20',
+);?>

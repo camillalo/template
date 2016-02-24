@@ -1,0 +1,79 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=biddingBid&bid=<?php echo $bid;?>" ><em>竞标管理列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=biddingBid&act=add&bid=<?php echo $bid;?>" class="on"><em>新增竞标管理</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+     <form  enctype="multipart/form-data"    action="index.php?ctl=biddingBid&act=add&bid=<?php echo $bid;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th >投标人ID:</th>
+                        <td><input type="text" value="" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >主材料费用:</th>
+                        <td><input type="text" value="" name="main_material" class="input-text">元 </td>
+                    </tr>
+                    <tr>
+                        <th >辅材料费用:</th>
+                        <td><input type="text" value="" name="vice_material" class="input-text">元 </td>
+                    </tr>
+                    <tr>
+                        <th >人工费用:</th>
+                        <td><input type="text" value="" name="artificial" class="input-text"> 元</td>
+                    </tr>
+                    <tr>
+                        <th >管理费用:</th>
+                        <td><input type="text" value="" name="management" class="input-text">元</td>
+                    </tr>
+                    <tr>
+                        <th >设计费用:</th>
+                        <td><input type="text" value="" name="design" class="input-text"> 元</td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否显示:</th>
+                        <td>
+                            <?php echo html::radio('is_show',$__SHOW);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">装饰效果:</th>
+                        <td class="jq_detail">
+                            <div><input type="file" name="details[]" ><a href="###" class="jq_add">添加</a></div>
+                            
+                        </td>
+                    </tr>
+                    <script>
+                         $(document).ready(function(){
+                             $(".jq_add").click(function(){
+                                 var str ='<div><input type="file" name="details[]" ><a href="###" class="jq_del">移除</a></div>';
+                                 $(".jq_detail").append(str);
+                             });
+                             $(document).on('click','.jq_del',function(){
+                                 $(this).parent('div').remove();
+                             });
+                         });   
+                    </script>
+                    <tr>
+                        <th >留言:</th>
+                        <td><textarea name="message" cols="50" rows="10"></textarea></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

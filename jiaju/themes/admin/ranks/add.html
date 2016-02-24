@@ -1,0 +1,57 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=ranks" ><em>会员等级列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=ranks&act=add" class="on"><em>新增会员等级</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=ranks&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">等级名称:</th>
+                        <td><input type="text" size="40" value="" name="rank_name" class="input-text"> </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">等级图标:</th>
+                        <td><input type="text"  name="icon" > </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">等级到期图标:</th>
+                        <td><input type="text"  name="icon1" > </td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标天数:</th>
+                        <td><input type="text" size="40" value="" name="day" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标条数:</th>
+                        <td><input type="text" size="40" value="" name="num" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标金币数:</th>
+                        <td><input type="text" size="40" value="" name="gold" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">开通价格:</th>
+                        <td><input type="text" size="10" value="" name="prices" class="input-text"> 元</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

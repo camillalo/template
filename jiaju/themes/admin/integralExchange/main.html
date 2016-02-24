@@ -1,0 +1,72 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=integralExchange" class="on"><em>积分兑换物品列表</em></a>
+                             
+            <span>|</span>
+            <a href="index.php?ctl=integralExchange&act=add"><em>新增积分兑换物品</em></a>
+                
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="integralExchange">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                      <th align="center" >用户ID</th>
+                      <th align="center" >产品ID</th>
+                      <th align="center" >类型</th>
+                      <th align="center" >消耗积分</th>
+                      <th align="center" >联系人</th>
+                      <th align="center" >联系方式</th>
+                      <th align="center" >操作时间</th>
+                      <th align="center" >状态</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><?php echo $val['id'];?></td>
+                        <td align="center" ><?php echo $val['username'];?></td>
+                        <td align="center" ><?php echo $val['product_name'];?></td>
+                        <td align="center" ><?php echo $val['type'] ? '抽奖' :'兑换' ;?></td>
+                        <td align="center" ><?php echo $val['integral'];?></td>
+                        <td align="center" ><?php echo $val['name'];?></td>
+                        <td align="center" ><?php echo $val['tel'];?></td>
+                        <td align="center" ><?php echo date('Y-m-d H:i:s',$val['t']);?></td>
+                        <td align="center" ><?php echo $val['status'] ? '已处理' : '未处理';?></td>
+                        <td width="15%" align="center">
+                           <font color="#cccccc">
+                                <a href="index.php?ctl=integralExchange&act=edit&id=<?php echo $val['id'];?>">修改</a>
+                            </font>  
+                                                        
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

@@ -1,0 +1,53 @@
+ <form name="simpleorders" method="post" target="hiden_frm" action="<?php echo URL;?>index.php?ctl=tenders&act=save">        
+<div class="anli_198">
+		  	<div class="title">
+				免费量房
+			</div>
+			<div class="lf">
+			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td colspan="2">1:免费量房，免费设计预算</td>
+                </tr>
+                <tr>
+                  <td colspan="2">2:网站客服以及装修评价监督</td>
+                </tr>
+                <tr>
+                  <td width="24%" align="right">地区:</td>
+                  <td width="76%"><label>
+                    <?php echo html::select('area_id',areaInt::getInstance()->getAreas());?>
+                  </label></td>
+                </tr>
+                <tr>
+                  <td align="right">预算:</td>
+                  <td><label>
+                   <select  name="budget_id">
+                    <option value="0">请选择</option>
+                    <?php foreach(category::getInstance()->getChildCol($__CATEGORY_TYPE['bidding'],$__BIDDING_ROOT['budget']) as $k=>$v){ ?>
+                    <option value="<?php echo $k;?>" >
+                        <?php echo $v;?>
+                    </option>
+                    <?php }?>
+                </select> 	
+                  </label></td>
+                </tr>
+                <tr>
+                  <td align="right">姓名:</td>
+                  <td> <input type="text" style="width: 80px;" value="" id="name" name="name" >
+				  	<font>*</font>				  </td>
+                </tr>
+      
+                <tr>
+                  <td align="right">手机:</td>
+                  <td><input type="text" value="" style="width: 80px;" maxlength="13" id="mobile" name="mobile" >
+				  <font>*</font>				  </td>
+                </tr>
+                <tr>
+                  <td align="right">&nbsp;</td>
+                  <td><label>
+                      <input name="Submit2" type="image" value="提交" src="<?php echo URL;?>themes/v3.0/images/company/fabu.gif" />
+                  </label></td>
+                </tr>
+              </table>
+			</div>
+		  </div>
+ </form>   

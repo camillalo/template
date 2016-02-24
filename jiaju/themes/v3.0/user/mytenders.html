@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 发布招标
+				</div>
+             
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            发布招标可以得到免费量房、免费设计、免费报价等多项优惠服务！选择保障公司更享受网站的保障监督！
+                                       <?php  $isVip = usersMdl::getInstance()->checkIsVip($uid); if($isVip){?>    
+                              
+                                  剩余查看条数：<em class="red" id="ctl00_col_main_Jfcount"><?php echo $__USER_INFO['num'];?></em>
+                                     剩余金币：<em class="red" id="ctl00_col_main_Jfcount"><?php echo $__USER_INFO['gold'];?></em>
+                                   VIP到期日期：<em class="red" id="ctl00_col_main_Jfcount"><?php echo date('Y-m-d H:i:s',$__USER_INFO['day']);?></em>
+                             
+                                <?php }?> 
+                        </div>
+                      
+                    </div>
+
+                    <div class="module_default">
+                        <div class="tabsclass">
+                            <ul class="css-tabs">
+                                <li><a href="<?php echo mkUrl::linkTo('tenders');?>">发布招标</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="panes">
+                            <!--收件箱开始-->
+                            <div style="display: block;">
+                                <table width="100%" cellspacing="0" class="table_a">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">序号</th>
+                                            <th align="center" >发布人</th>
+
+                                            <th align="center" >楼盘名称</th>
+                                            <th align="center" >联系方式</th>
+                                            <th align="center" >详细地址</th>
+
+                                            <th align="center" >查看</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php  foreach($datas as $val){ ?>
+                                        <tr>
+                                            <td width="10%" align="center"><?php echo $val['id'];?></td>
+                                            <td align="center" ><?php echo $val['name'];?></td> 
+
+                                            <td align="center" ><?php echo $val['building_name'];?></td>
+                                            <td align="center" ><?php echo $val['mobile'];?></td>
+                                            <td align="center" ><?php echo $val['addr'];?></td>
+
+                                            <td align="center" ><?php  if($val['is_show']){ ?><a target="_blank" href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$val['id']));?>">查看</a><?php }else{ ?>等待确认<?php }?></td>
+
+                                        </tr>
+                                        <?php }?>
+                                    </tbody>
+                                </table>
+                                <div id="pages"><?php echo $links;?></div>
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div> 
+            </div>
+
+
+
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="clear">
+        </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

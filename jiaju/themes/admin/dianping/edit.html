@@ -1,0 +1,86 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=dianping" ><em>点评列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑点评</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=dianping&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+
+        
+                    <tr>
+                        <th width="140">工艺:</th>
+                        <td>
+                        <?php foreach($__DIANPING_MEANS as $k=>$v){ ?>
+                            <input type="radio" name="process" value="<?php echo $k;?>" <?php if($k==$data['process']) echo 'checked="checked"';?>> <?php echo $v;?>
+                            <?php }?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">服务:</th>
+                        <td>
+                            <?php foreach($__DIANPING_MEANS as $k=>$v){ ?>
+                            <input type="radio" name="service" value="<?php echo $k;?>" <?php if($k==$data['service']) echo 'checked="checked"';?>> <?php echo $v;?>
+                            <?php }?>
+                        </td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">设计:</th>
+                        <td>
+                        <?php foreach($__DIANPING_MEANS as $k=>$v){ ?>
+                            <input type="radio" name="design" value="<?php echo $k;?>" <?php if($k==$data['design']) echo 'checked="checked"';?>> <?php echo $v;?>
+                            <?php }?>
+                        </td>
+                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">售后:</th>
+                        <td>
+                            <?php foreach($__DIANPING_MEANS as $k=>$v){ ?>
+                            <input type="radio" name="sales" value="<?php echo $k;?>" <?php if($k==$data['sales']) echo 'checked="checked"';?>> <?php echo $v;?>
+                            <?php }?>
+                        </td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">评价:</th>
+                        <td><textarea name="dianping" cols="50" rows="10"><?php echo $data['dianping']?></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">装修项目:</th>
+                        <td><textarea name="project" cols="50" rows="10"><?php echo $data['project']?></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">联系方式:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['contact']?>" name="contact" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">称呼:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['realname']?>" name="realname" class="input-text"> </td>
+                    </tr>
+                      <tr>
+                        <th width="140">是否显示:</th>
+                        <td>
+                            <?php echo html::radio('is_show',$__SHOW,$data['is_show']);?>
+                        </td>
+                    </tr>
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

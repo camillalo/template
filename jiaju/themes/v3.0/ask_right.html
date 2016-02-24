@@ -1,0 +1,23 @@
+<div class="ask_right1">
+    <div class="title">装修问题专家</div>
+    <div class="ask_qv">
+            <a href="#" class="hover" id="ask1" onmousemove="ask_qv(1);">装修公司</a>
+            <a href="#" id="ask2" onmousemove="ask_qv(2);">设计师</a>
+    </div>
+    <ul class="gs_ul" id="ask_ul1">
+            <?php foreach(recommend::getInstance()->load('ask-003',5) as $val){ ?>
+            <li><a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img alt="<?php echo $val['title'];?>" border="0" src="<?php echo URL,$val['face_pic'];?>"></a></li>
+            <?php }?>
+    </ul>
+    <ul class="sheji" id="ask_ul2" style="display:none;">
+            <?php foreach(recommend::getInstance()->load('ask-004',5) as $val){ ?>
+            <li>
+                <div class="img"><a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img width="45" height="45" alt="<?php echo $val['title'];?>" border="0" src="<?php echo URL,$val['face_pic'];?>"></a></div>
+                    <div class="msg">
+                            <a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a>
+                    </div>
+            </li>
+            <?php }?>
+    </ul>
+
+    </div>

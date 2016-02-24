@@ -1,0 +1,30 @@
+﻿/*
+ *  网站通用页面，网站固有页面
+ *  User: jia qeeka UED
+ *  Date: 12-05-07
+ *  Time: 下午2:44
+ *  Log:
+ */
+.wrap{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+/* 简约头部 */
+.simple_head{ height:30px; background:#f2f2f2; margin-bottom:5px; padding:2px 0; line-height:30px;}
+.simple_head .wrap{ position:relative;}
+.simple_head .simple_logo{}
+.simple_head .simple_logo a{
+font-size:14px;
+font-weight:bold;
+color:#FFFFFF;
+}
+.simple_head .simple_list{ position:absolute; left:210px; top:0;}
+.simple_head .simple_list .last{ border-right:none;}
+.simple_head .simple_list li{ float:left;}
+.simple_head .simple_list li a{ display:inline-block; height:100%; padding:0 15px; border-right:1px solid #ccc; font:700 14px \5b8b\4f53; text-decoration:none !important; line-height:30px;}
+.simple_head .shopAdd{ display:block; height:26px; width:94px; background:url(shop_add.png) no-repeat; position:absolute; top:2px; right:0; text-indent:-1000em; overflow:hidden;}
+.simple_head .short_list{ height:22px; width:600px; background:url(short_list.png) repeat-x; position:absolute; top:4px; left:590px;}
+.simple_head .short_list li{ float:left; font:700 12px \5b8b\4f53; line-height:22px; text-align:center;}
+.simple_head .short_list li a{ border-right:1px solid #eee; padding:0 16px; text-decoration:none;}
+.simple_head .short_list a.last{ border-right:none;}

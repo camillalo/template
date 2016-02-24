@@ -1,0 +1,60 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=group" class="on"><em>角色列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=group&act=add"><em>新增角色</em></a>
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="group">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                        <th align="center" >角色名称</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><?php echo $val['group_id'];?></td>
+                        <td align="center" ><?php echo $val['group_name'];?></td>
+                        <td width="15%" align="center">
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=group&act=edit&group_id=<?php echo $val['group_id'];?>">修改</a>
+                            </font> | 
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=group&act=privilege&group_id=<?php echo $val['group_id'];?>">设置权限</a>
+                            </font> | 
+                            <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=group&act=del&group_id=<?php echo $val['group_id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                            </font>
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>

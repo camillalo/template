@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<?php echo URL;?>statics/My97DatePicker/WdatePicker.js"></script>
+    </head>
+
+   
+      <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 添加工地
+				</div>
+             
+     
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+						添加工地的好处就是可以被业主直接预约参观！预约后在工地管理中可以被查看到！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">基本信息</div>
+					<div class="bd gongneng">
+                                           
+                      <form  enctype="multipart/form-data" action="<?php echo mkUrl::linkTo('user','siteAdd');?>" target="hiden_frm" name="form1" id="myform" method="post">
+                            <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                               <tbody>      
+                    <tr>
+                        <th width="140">区县:</th>
+                        <td class="jq_area_id">
+                            <?php echo html::select('area_id',$quxian);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">设计师:</th>
+                        <td >
+                            <?php echo html::select('designer_id',$designerPair);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">工地名称:</th>
+                        <td><input type="text"  size="50" value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >缩略图:</th>
+                        <td> <input type="file"  name="face_pic" /></td>
+                    </tr>
+                    <tr>
+                        <th width="140">空间:</th>
+                        <td >
+                            <?php echo html::select('space_id',$spaces);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">风格:</th>
+                        <td >
+                            <?php echo html::select('style_id',$styles);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">面积:</th>
+                        <td >
+                            <?php echo html::select('a_id',$areas);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">价格:</th>
+                        <td >
+                            <?php echo html::select('price_id',$prices);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">开始时间:</th>
+                        <td><input type="text"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});"  value="" name="bg_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td><textarea name="description" cols="50" rows="10"></textarea></td>
+                    </tr>
+                                    <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                            </tbody>
+                            </table>
+                           
+                        </form>
+                                            
+                                            
+                                            
+                                            
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

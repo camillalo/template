@@ -1,0 +1,16 @@
+RewriteEngine on
+ErrorDocument 404  /404.php
+RewriteCond %{REQUEST_URI} !^.*(.css|.js|.gif|.png|.jpg|.jpeg)$
+RewriteRule ^([a-zA-Z]+)\.html$    index\.php?ctl=$1  [L]
+RewriteRule ^(index|gs|sjs|tenders|site|activity|preferential|case|ask|content|mall|material|bdmap|jifen|tools|team)$    	   index\.php?ctl=$1  [L]
+RewriteRule ^(index|gs|sjs|tenders|site|activity|preferential|case|ask|content|mall|material|bdmap|jifen|tools|team)\/$    	   index\.php?ctl=$1  [L]
+RewriteRule ^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)\.html$    index\.php?ctl=$1&act=$2  [L]
+RewriteRule ^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)_([0-9]+)\.html$    index\.php?ctl=$1&act=$2&id=$3  [L]
+RewriteRule ^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)_([0-9a-zA-Z-_]+)\.html$    index\.php?ctl=$1&act=$2&argument=$3  [L]
+
+RewriteRule ^company([0-9]+)$    index\.php?ctl=company&id=$1  [L]
+RewriteRule ^company([0-9]+)/([a-zA-Z]+)$    index\.php?ctl=company&act=$2&id=$1 [L]
+RewriteRule ^company([0-9]+)/([a-zA-Z]+)_([0-9a-zA-Z-_]+)\.html$    index\.php?ctl=company&act=$2&id=$1&argument=$3   [L]
+RewriteRule ^designer([0-9]+)$   index\.php?ctl=designer&id=$1  [L]
+RewriteRule ^designer([0-9]+)/([a-zA-Z]+)$    index\.php?ctl=designer&act=$2&id=$1 [L]
+RewriteRule ^designer([0-9]+)/([a-zA-Z]+)_([0-9a-zA-Z-_]+)\.html$    index\.php?ctl=designer&act=$2&id=$1&argument=$3   [L]

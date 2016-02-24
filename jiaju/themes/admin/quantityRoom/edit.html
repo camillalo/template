@@ -1,0 +1,50 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=quantityRoom" ><em>申请量房列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑申请量房</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  action="index.php?ctl=quantityRoom&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">用户ID:</th>
+                        <td><input type="text" value="<?php echo $data['uid']?>" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">预约企业ID:</th>
+                        <td><input type="text"  value="<?php echo $data['company_id']?>" name="company_id" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">称呼:</th>
+                        <td><input type="text"  value="<?php echo $data['name']?>" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">联系方式:</th>
+                        <td><input type="text" value="<?php echo $data['tel']?>" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">预约日期:</th>
+                        <td><input type="text"  onFocus="WdatePicker({startDate:'<?php echo date('Y-m-d',NOWTIME);?>'})"  value="<?php echo $data['date']?>" name="date" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">详情:</th>
+                        <td><textarea name="description" cols="50" rows="10"><?php echo $data['description']?></textarea></td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认修改">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

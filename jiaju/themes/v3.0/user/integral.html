@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+         <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+               
+     
+                <div class="user_here">
+                    <strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 积分使用
+                </div>
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+						这个是您的积分！获取积分可以通过以下途径：  
+                                                <?php foreach($__INTEGRAL_GAIN_MEAN as $k=>$v){if($k != $__INTEGRAL_GAIN['other']){ ?>
+                                                    <?php echo $v;?> <?php echo isset($integralSetting[$k]) ? (int)$integralSetting[$k]: 0; ?>分、
+                                                <?php }}?>  或者参与网站的活动赢得系统赠送积分！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					  <div class="tabsclass">
+                                            <ul class="css-tabs">
+                                                <li><a target="_blank" href="<?php echo mkUrl::linkTo('user','integral');?>" >积分使用</a></li>
+
+                                            </ul>
+                                         </div>
+				
+                                                <div class="panes">
+                                                            <!--收件箱开始-->
+                                                    <div style="display: block;">
+                                                                    <table width="100%" cellspacing="0" class="table_a">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>序号</th>
+                                                                                <th>用途</th>
+                                                                                <th>积分</th>
+                                                                                <th>时间</th>
+                                                                                <th>失效时间</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <?php  foreach($datas as $val){ ?>
+                                                                            <tr>
+                                                                                <td><?php echo $val['id'];?></td>
+                                                                                <td ><?php echo isset($__INTEGRAL_GAIN_MEAN[$val['type']]) ? $__INTEGRAL_GAIN_MEAN[$val['type']] : '系统扣除';?></td>
+                                                                                <td  ><?php echo $val['num'] ? $val['num'] : '已使用';?></td>
+                                                                                <td ><?php echo date('Y-m-d H:i:s',$val['t']);?></td>
+                                                                                 <td ><?php echo date('Y-m-d H:i:s',$val['expires_t']);?></td>
+                                                                            </tr>
+                                                                            <?php }?>
+                                                                        </tbody>
+                                                                    </table>
+                                                                <div id="pages"><?php echo $links;?></div>
+                                                    </div>                
+                                            </div>
+                                </div>
+                                <div class="clear"></div>
+                                </div> 
+            </div>
+
+
+                                            
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

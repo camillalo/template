@@ -1,0 +1,89 @@
+<style>
+    /* 轮显广告 */
+    #lunxian<?php echo $id;?>{ width:<?php echo $width;?>px; height:<?php echo $height;?>px; background:#000; overflow:hidden}
+
+    #lunxian<?php echo $id;?> .container{width:28; height:<?php echo $height;?>px; overflow:hidden;position:relative;}
+
+    #lunxian<?php echo $id;?> .slider{position:absolute;}
+    #lunxian<?php echo $id;?> .slider li{ list-style:none;display:inline;}
+    #lunxian<?php echo $id;?> .slider img{ width:<?php echo $width;?>px; height:<?php echo $height;?>px; display:block; overflow:hidden}
+
+    #lunxian<?php echo $id;?> .slider2{width:2000px;}
+    #lunxian<?php echo $id;?> .slider2 li{float:left;}
+
+    #lunxian<?php echo $id;?> .num{ position:absolute; right:5px; bottom:5px; }
+    #lunxian<?php echo $id;?> .num li{
+            float: left;
+            color: #FF7300;
+            text-align: center;
+            line-height: 16px;
+            width: 16px;
+            height: 16px;
+            font-family: Arial;
+            font-size: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            margin: 3px 1px;
+            border: 1px solid #FF7300;
+            background-color: #fff;
+    }
+    #lunxian<?php echo $id;?> .num li.on{
+            color: #fff;
+            line-height: 21px;
+            width: 21px;
+            height: 21px;
+            font-size: 16px;
+            margin: 0 1px;
+            border: 0;
+            background-color: #FF7300;
+            font-weight: bold;
+    }
+    /* 轮显广告结束 */
+</style>
+<div id="lunxian<?php echo $id;?>">
+    <div class="container" id="idTransformView<?php echo $id;?>">
+        <ul class="slider" id="idSlider<?php echo $id;?>" style="top: 0px;">
+            <?php foreach ($ads as $val){ ?>
+            <li><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>">
+                    <img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['pic'];?>"></a></li>
+            <?php }?>
+
+        </ul>
+        <ul class="num" id="idNum<?php echo $id;?>">
+            <?php $i=0; foreach ($ads as $val){ $i++;?>
+            <li><?php echo $i;?></li>
+            <?php }?>
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            var index_an_pic_num<?php echo $id;?>  = $("#idNum<?php echo $id;?> li").length;
+            var this_num<?php echo $id;?>      = 0;
+            var height<?php echo $id;?> = <?php echo $height;?>;
+            var an<?php echo $id;?> = null;
+            function an_step<?php echo $id;?>(){
+                this_num<?php echo $id;?> ++;
+                if(this_num<?php echo $id;?> == index_an_pic_num<?php echo $id;?>) this_num<?php echo $id;?> = 0;
+                $("#idNum<?php echo $id;?> li").eq(this_num<?php echo $id;?>).mouseover();
+            }                    
+            $("#idNum<?php echo $id;?> li").mouseover(function(){
+                if(an<?php echo $id;?>){
+                    clearTimeout(an<?php echo $id;?>);
+                }
+                this_num<?php echo $id;?> = $(this).index();
+                $("#idNum<?php echo $id;?> li").each(function(e){
+                    if(e ==  this_num<?php echo $id;?>){
+                        $(this).addClass('on');
+                    }else{
+                        $(this).removeClass('on');
+                    }
+                });
+                $("#idSlider<?php echo $id;?>").stop().animate({'top': '-'+this_num<?php echo $id;?> * height<?php echo $id;?> +'px'},'slow');
+                an<?php echo $id;?> = setTimeout(an_step<?php echo $id;?>,5000);
+            });
+            $("#idNum<?php echo $id;?> li").eq(0).mouseover();                              
+        });
+    </script>
+
+</div>

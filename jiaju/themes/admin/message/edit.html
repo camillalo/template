@@ -1,0 +1,50 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=message" ><em>网站留言列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑网站留言</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=message&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">用户ID:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['uid']?>" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">称呼:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['name']?>" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">联系方式:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['tel']?>" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">标题:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['title']?>" name="title" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td><textarea name="content" cols="50" rows="10"><?php echo $data['content']?></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">创建时间:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['create_time']?>" name="create_time" class="input-text"> </td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认修改">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

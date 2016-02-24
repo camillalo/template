@@ -1,0 +1,99 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm" id="hiden_frm"  style="display:none;"></iframe>    
+
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <?php $pagename=null;  foreach($pages as $val){ ?>
+            <a href="index.php?ctl=recommend&act=main&page_id=<?php echo $val['group_id'];?>" 
+               <?php if($_GET['page_id'] == $val['group_id']) { $pagename = $val['group_name']; ?> class="on"  <?php }?>>
+                <em><?php echo $val['group_name'];?></em>
+            </a>
+            <span>|</span>
+            <?php }?>
+        </div>
+    </div>
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <?php $signname=null; foreach($signs as $val){ ?>
+                 <a href="index.php?ctl=recommend&act=main&page_id=<?php echo $_GET['page_id'];?>&sign_id=<?php echo $val['id'];?>"
+                    <?php if($_GET['sign_id'] == $val['id']) {  $signname = $val['name'];?> class="on"  <?php }?>>
+                     <em><?php echo $val['name'];?></em>
+                 </a>
+                <span>|</span>
+            <?php }?>
+        </div>
+    </div>
+<form   action="index.php?ctl=recommend&act=update&page_id=<?php echo $_GET['page_id'];?>&back_url=<?php echo urlencode($url);?>" target="hiden_frm" name="form1" id="myform" method="post">
+    <div class="pad-lr-10">  
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                        <th align="center" >推荐标题</th>
+
+                        <th align="center" >推荐页面</th>
+                        <th align="center" >推荐位名称</th>
+                        <th align="center" >来源模块</th>
+                        <th align="center" >源ID</th>
+                        <th align="center" >连接</th>
+                        <th align="center" >排序</th>
+                        <th width="15%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><input type="checkbox" class="jq_id_checkAll" name="recommend_id[]" value="<?php echo $val['recommend_id'];?>" /><?php echo $val['recommend_id'];?></td>
+                        <td align="center" ><?php echo $val['title'];?></td>
+  
+                        <td align="center" ><?php echo $pagename;?></td>
+                        <td align="center" ><?php echo $signname;?></td>
+                        <td align="center" ><?php echo $__RECOMMEND_TYPE_MEAN[$val['type']];?></td>
+                        <td align="center" ><?php echo $val['mdl_id'];?></td>
+                        <td align="center" ><?php echo $val['link'];?></td>
+                        <td align="center" ><input type="text" size="5" name="order[<?php echo $val['recommend_id'];?>]" value="<?php echo $val['order'];?>" /></td>
+                        <td width="15%" align="center">
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=recommend&act=edit&recommend_id=<?php echo $val['recommend_id'];?>">修改</a>
+                            </font> | 
+                            <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=recommend&act=del&recommend_id=<?php echo $val['recommend_id'];?>&back_url=<?php echo urlencode($url);?>">删除</a>
+                            </font>
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <?php if(!empty($datas)){ ?><div class="btn"><input class="button" type="submit" name="bt1" value=" 更新排序 " /> <input type="checkbox" name="jq_checkAll" id="jq_checkAll" />全选  <input type="button" name="jq_del" class="button" id="jq_del" value=" 批量删除 " /></div> <?php }?>
+        </div>
+    </div>
+</form> 
+<script>
+    $(document).ready(function(){
+        $("#jq_checkAll").click(function(){
+            if($(this).attr('checked') == 'checked'){
+                $(".jq_id_checkAll").attr('checked',true);
+            }else{
+               $(".jq_id_checkAll").attr('checked',false); 
+            }
+        });
+        $("#jq_del").click(function(){  
+            var i = 0;
+            $(".jq_id_checkAll").each(function(){
+                if($(this).attr('checked') == 'checked') i++;
+            });
+            if(i>0){ 
+                i = 0;
+                var id = $(".jq_id_checkAll").serialize();
+                if(confirm('您确定删除这些推荐内容么！')){
+                    $("#hiden_frm").attr('src',"index.php?ctl=recommend&act=del&"+id+"&back_url=<?php echo urlencode($url);?>");
+                }
+            }else alert('请选择要删除的推荐内容');
+
+        });
+    });
+</script>
+</body>
+</html>

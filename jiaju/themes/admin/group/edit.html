@@ -1,0 +1,29 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=group" ><em>角色列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑角色</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form action="index.php?ctl=group&act=edit&group_id=<?php echo $group_id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">角色名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['group_name'];?>" name="group_name" class="input-text"> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

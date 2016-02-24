@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/product.css" rel="stylesheet" type="text/css" />
+    </head>
+
+   <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+<div class="w_980">
+	<div class="product_here">
+		<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 商城  
+                    <?php if(!empty($category_id)){ ?> > <?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['products'],$category_id); }?>
+                    
+                    <?php if(!empty($brand_id)) { ?> ><?php echo brandMdl::getInstance()->getBrandName($brand_id); }?>
+	</div>
+	<div class="product_cate">
+		<div class="title">
+			<p>热门产品推荐</p>
+                        <a href="<?php echo mkUrl::linkTo('mall');?>">当前分类共有<?php echo $totalnum;?>商品</a>
+		</div>
+            		 <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ ?>
+		<div class="list">
+
+                
+                                    <a  <?php if($category_id == $k){?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>" title="<?php echo $v;?>">
+                                        <b><?php echo $v;?></b>
+                                    </a>
+                              
+                               <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],$k) as $key=>$val){ ?>
+                          
+                                    <a <?php if($category_id == $key){?>class="cur"<?php }?>  href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$key));?>" title="<?php echo $val;?>"><?php echo $val;?></a>
+                           
+                                <?php }?>
+          
+		</div>
+                               <?php }?>
+		
+	</div>
+	
+	<div class="clear"></div>
+<?php if(!empty($brands)){ ?>
+        <div class="product_cate">
+		<div class="title">
+			<p>品牌</p>
+		</div>
+            		 
+		<div class="list">
+                     <a <?php if(empty($brand_id)){ ?>class="cur"<?php }?> href="<?php echo mkUrl::linkTo('mall','list',array_merge($url,array('brand'=>0)));?>" title="PHP装修系统">全部</a> 
+                                
+                                <?php foreach($brands as $val){ ?>
+                                <a   <?php if($brand_id == $val['brand_id']){?>class="cur"
+                                    <?php }?>
+                                    title="<?php echo $val['brand_name'];?>" href="<?php echo mkUrl::linkTo('mall','list',array_merge($url,array('brand'=>$val['brand_id'])));?>"><?php echo $val['brand_name'];?></a>
+                                <?php }?>
+
+                
+          
+		</div>
+                            
+		
+	</div>
+	
+	<div class="clear"></div>
+        <?php }?>
+	<div class="product_main">
+			<div class="t1">
+                            <a class="cur" href="<?php echo mkUrl::linkTo('mall');?>">商品展示</a>
+			</div>
+			<div class="list">
+			 <?php foreach($datas as $val){ ?>
+				<div class="p_list">
+					<div class="img">
+					<a title="<?php echo $val['product_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>">  <img alt="<?php echo $val['product_name'];?>"  src="<?php echo URL,$val['face_pic'];?>" width="220" height="200" border="0" />
+                     </a>
+					</div>
+					<p><a title="<?php echo $val['product_name'];?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>"><?php echo $val['product_name'];?></a></p>
+                                          <p style="color: red;" >商城价：<?php echo empty($val['mall_price']) ? '面议' : round($val['mall_price']/100,2);?></p>
+				</div>
+				<?php }?>
+				<div class="clear"></div>
+            <div style="padding:10px 100px;"><?php echo $links;?></div>
+			</div>
+			
+	</div>
+</div>
+<div class="clear"></div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	
+    </body>
+</html>

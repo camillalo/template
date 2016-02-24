@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/jc_nei.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+            <?php  require TEMPLATE_PATH.'public/notice.html';?>
+
+        </div>
+        <div class="clear"></div>
+        <div class="w_980">
+            <div class="jc_nei_here">
+                <strong>当前位置：</strong><a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 商城 > <?php echo $data['product_name'];?>
+            </div>
+
+            <div class="jc_left">
+                <div class="box1">
+                    <h1><?php echo $data['product_name'];?></h1>
+
+                    <div class="img">
+                        <a href="#"><img src="<?php echo URL,$data['face_pic'];?>" border="0" /></a> 
+                    </div>
+
+                    <div class="info">
+
+                        <p>市场价：<del>￥<?php echo empty($data['market_price']) ? '面议': round($data['market_price']/100,2);?></del></p>
+                        <p>特价：<font>￥<?php echo empty($data['mall_price']) ? '面议': round($data['mall_price']/100,2);?></font></p>
+                                    
+                        <p>品牌：<span><?php echo brandMdl::getInstance()->getBrandName($data['brand_id']);?></span></p>
+                        <p>类型：<span><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['products'],$data['category_id']);?></span></p>
+                        <p>型号：<span><?php echo $data['model'];?></span></p>
+
+                        <p>如果您对产品感兴趣，请和我联系！</p>
+                        <p class="p1">
+                            <a target="_blank"  href="<?php echo mkUrl::linkTo('mall','application');?>">立刻申请</a>
+                        </p>
+
+                    </div>
+
+                    <div class="share">
+                        <!-- Baidu Button BEGIN -->
+                        <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                            <a class="bds_tsina"></a>
+                            <a class="bds_qzone"></a>
+                            <a class="bds_tqq"></a>
+                            <a class="bds_renren"></a>
+                            <a class="bds_t163"></a>
+                            <a class="bds_baidu"></a>
+                            <a class="bds_kaixin001"></a>
+                            <a class="bds_mshare"></a>
+                            <a class="bds_douban"></a>
+                            <span class="bds_more">更多</span>
+                            <a class="shareCount"></a>
+                        </div>
+                        <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+                        <script type="text/javascript" id="bdshell_js"></script>
+                        <script type="text/javascript">
+                            document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                        </script>
+                        <!-- Baidu Button END -->
+                    </div>
+                </div>
+
+                <div class="box2">
+                    <div class="title">
+                        <p>产品介绍</p>
+                    </div>
+                    <div class="info">
+                        <?php foreach($data['pics'] as $val){?> 
+                        <p><img src="<?php echo URL,$val;?>" /></p>
+                        <?php }?>
+                        <p>
+
+                            <?php echo $data['description'];?>
+                        </p>
+                    </div>
+                </div>
+
+                <div> <?php pluginsComments($__COMMENTS_TYPE['products'],$id);?></div>
+
+            </div>
+
+            <div class="jc_right">
+                <div class="box1">
+
+                    <div class="title">商家信息</div>
+                    <?php if(!empty($data['company_id']) && !empty($company)){ ?>
+                    <div class="img">
+                        <a  target="_blank" title="<?php echo $company['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company['uid']));?>"><img alt="<?php echo $company['company_name'];?>" src="<?php echo URL,$company['logo'];?>" /></a>
+                    </div>
+                    <p><a  tittarget="_blank"le="<?php echo $company['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$company['uid']));?>"><?php echo $company['company_name'];?></a></p>
+
+                    <?php foreach($addrs as $val){ ?>
+                    <p><?php echo $val['name'];?></p>
+                    <div class="line"></div>
+                    <span>联系人：<font><?php echo $val['contact'];?></font></span>
+                    <span>电话：<font class="font1"><?php echo $val['tel'];?></font></span>
+                    <span>手机：<font class="font1"><?php echo $val['mobile'];?></font></span>
+                    <span>地址：<font><?php echo $val['addr'];?></font></span>
+                    <?php }?>
+                    <?php foreach($qqs as $val){ ?>
+                    <span>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?php echo $val['qq'];?>&amp;site=qq&amp;menu=yes" style="margin-right:5px;">
+                            <img border="0" src="http://wpa.qq.com/pa?p=2:<?php echo $val['qq'];?>:46" alt="点击在线咨询" title="点击在线咨询" style="vertical-align: 0px;">
+                        </a><?php echo $val['name'];?>
+                    </span>
+                    <?php }?>
+                    <?php }else{?>
+                    <span>客服热线：<?php echo $__SETTING['tel'];?></span><span>
+                        <?php foreach($__SETTING['qq'] as $val){ ?>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $val;?>&site=qq&menu=yes">
+                            <img border="0" src="http://wpa.qq.com/pa?p=2:<?php echo $val;?>:47" alt="<?php echo $__SETTING['site_name'];?>" title="<?php echo $__SETTING['site_name'];?>">
+                        </a>
+                        <?php }?>
+                    </span>
+                    <?php }?>
+                </div>
+
+                <?php if(!empty($loves)){?>
+                <div class="box1" style=" margin-top:10px;">
+                    <div class="title">猜您感兴趣</div>
+                    
+                    <?php foreach($loves as $val){ ?>
+                    <div class="list">
+                        <div class="img">
+                            <a target="_blank" title="<?php echo $val['product_name'];?>" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>"><img alt="<?php echo $val['product_name'];?>" src="<?php echo URL,$val['face_pic'];?>" border="0" /></a>
+                        </div>
+                        <p><a target="_blank" title="<?php echo $val['product_name'];?>" href="<?php echo mkUrl::linkTo('mall','detail',array('id'=>$val['id']));?>"><?php echo $val['product_name'];?></a></p>
+             
+                          <p>原价：<font>￥<del><?php echo round($val['market_price']/100,2);?></del></font></p>
+                          <p>特价：<font>￥<?php echo round($val['mall_price']/100,2);?></font></p>
+                    </div>
+                    <?php }?>
+                </div>
+                <?php }?>
+                
+            </div>
+        </div>
+        <div class="clear"></div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>		
+    </body>
+</html>

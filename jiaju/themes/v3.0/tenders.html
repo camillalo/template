@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/zb.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body id="w_body">
+  <?php  require TEMPLATE_PATH.'public/zb_public.html';?>
+
+<div class="w_980">
+	<div class="zb_main">
+		<div class="zb_box1">
+			<div class="left">
+			  <table width="100%" height="376" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="4" align="center"><img src="<?php echo URL;?>themes/v3.0/images/zb/top.gif" width="467" height="100" /></td>
+                </tr>
+                <tr>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/1.gif" width="79" height="95" /></a></td>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/2.gif" width="79" height="95" border="0" /></a></td>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/3.gif" width="79" height="95" border="0" /></a></td>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/4.gif" width="79" height="95" border="0" /></a></td>
+                </tr>
+                <tr>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/5.gif" width="79" height="95" border="0" /></a></td>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/6.gif" width="79" height="95" border="0" /></a></td>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/7.gif" width="79" height="95" border="0" /></a></td>
+                  <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/zb/8.gif" width="79" height="95" border="0" /></a></td>
+                </tr>
+              </table>
+			</div>
+		  <?php  require TEMPLATE_PATH.'public/zb_public2.html';?>
+			</div>
+		</div>
+		<div class="ad980">
+			<img src="<?php echo URL;?>themes/v3.0/images/zb/zb_980.gif" />
+		</div>
+		
+		<div class="zb_list">
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr class="th">
+              <td align="center">小区</td>
+              <td align="center">预算</td>
+              <td align="center">是否有材料需求</td>
+              <td align="center">是否需要监理</td>
+              <td align="center">面积</td>
+              <td align="center">发布时间</td>
+              <td align="center">装修方式</td>
+                <td align="center">查看</td>
+            </tr>
+          
+			
+	
+	 <?php $i=0; foreach($datas as $val){ $i++;?>
+			
+            <tr>
+               <td align="center">                        <a title="<?php if(isset($areas[$val['area_id']])) echo $areas[$val['area_id']];?><?php echo $val['building_name'];?><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?>" href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$val['id']));?>" target="_blank"><?php if(isset($areas[$val['area_id']])) echo $areas[$val['area_id']];?><?php echo $val['building_name'];?><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?>招标</a>
+</td> 
+              <td align="center"><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['budget_id']);?></td>
+               <td align="center"> <?php echo isset($__HAVE[$val['is_material']]) ? $__HAVE[$val['is_material']] : '';?></td>
+              <td align="center"><?php echo isset($__WHETHER[$val['is_supervision']]) ? $__WHETHER[$val['is_supervision']] : '';?></td>
+             
+              <td align="center"><?php echo $val['area']?>㎡     </td>
+              <td align="center"> <?php echo date('Y-m-d H:i:s',$val['create_time']);?> </td>
+             
+              <td align="center"><?php echo isset($__DECORATE_TYPE[$val['way']]) ? $__DECORATE_TYPE[$val['way']] :'' ;?></td>
+               <td align="center"> <a target="_blank" title="<?php if(isset($areas[$val['area_id']])) echo $areas[$val['area_id']];?><?php echo $val['building_name'];?><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?>" href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$val['id']));?>" >查看</a>
+</td>
+            </tr>
+			
+	  <?php }?>      		
+			
+			
+          </table>
+		</div>
+		<div class="clear"></div>
+     <div style=" padding-left: 20px;">    <?php echo $links;?></div>
+	</div>
+</div>
+
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+</body>
+</html>

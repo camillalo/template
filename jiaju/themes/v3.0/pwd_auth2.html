@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+            <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+        
+        </div>
+        <div class="clear"></div>
+<div class="w_980">
+<div class="login_main">
+	       
+		        <div class="zhu">
+                     <table style="font-size: 14px; width: 300px; height: 100px; margin-top: 50px; margin-left: 300px;" >
+               
+                         <form method="post" target="hiden_frm"  action="<?php  echo $link;?>">
+                                   <tr>
+                                       <td>新密码：</td>
+                                       <td><input type="text" name="pwd" value=""/> </td>
+                                   </tr>
+                                   <tr>
+                                       <td>确认密码：</td>
+                                       <td><input type="text" name="pwd2" value=""/></td>
+                                   </tr>
+                               
+                              
+                                   <tr>
+                                       <td colspan="2"><input style=" width: 100px; height: 30px; line-height: 30px; border: dotted 1px #cccccc; margin-left: 80px;  " type="submit" value="确认修改" /></td>
+                                   </tr>
+                            </form>   
+                              
+                            
+                    </table>	
+                </div>
+	   </div>
+
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=message" ><em>网站留言列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>查看网站留言</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">用户ID:</th>
+                        <td><?php echo $data['uid']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">称呼:</th>
+                        <td><?php echo $data['name']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">联系方式:</th>
+                        <td><?php echo $data['tel']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">标题:</th>
+                        <td><?php echo $data['title']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td><?php echo $data['content']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">创建时间:</th>
+                        <td><?php echo $data['create_time']?></td>
+                    </tr>
+
+            </tbody>
+            </table>
+
+
+    </div>
+
+</body>
+</html>
+    

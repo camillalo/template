@@ -1,0 +1,32 @@
+        <div id="footer">
+            <div id="footer_line">
+                <p class="banquan">
+  Copyright @ 2008~2011 <?php echo $_SERVER['HTTP_HOST'];?> Corporation,All Rights Reserved                </p>
+                <p class="footer_nav">
+                  <?php 
+                    if(!isset($systemContents)) { 
+                        import::getMdl('content'); 
+                        $systemContents = contentMdl::getInstance()->getContentsByCateId($__PINDAO_ROOT['system'],6,'ASC'); 
+                    }
+                foreach($systemContents as $val) { ?>
+                <a title="<?php echo $__SETTING['site_name'],$val['title'];?>" href="<?php echo mkUrl::linkTo('content','system',array('id'=>$val['content_id']));?>"><?php echo $val['title'];?></a>
+                <?php }?>
+                </p>
+                <div class="clear">
+                </div>
+                <p class="banquan">
+                    <a href="#" style="margin-left: 0pt;"> <?php echo $__SETTING['site_name'];?></a>版权所有&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                </p>
+                <p class="footer_nav">
+                    客服邮箱：<?php echo $__SETTING['email'];?>
+                </p>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=4&amp;pos=left" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <?php require COMPANY_TEMPLATE.'/public_js_css.html';?>   
+        <link href="<?php echo URL;?>themes/company/style0/css/company.css" rel="stylesheet" type="text/css" />
+    </head>
+  
+    <body>
+<?php  require COMPANY_TEMPLATE.'/header.html';?>    
+        <!--中部内容开始-->
+        <div id="main">
+<?php  require COMPANY_TEMPLATE.'/left.html';?>    
+         <div id="rightbox">
+	<!--轮显广告结束-->
+	
+	<div class="discount">
+		<div class="detail_title">
+			<?php echo $siteInfo['name'];?>
+		</div>
+		<div class="detail_cont">
+                    <div style="height: 20px;"></div>
+			<ul class="sp_progress">
+				<li class="">开工大吉</li>
+				<li  <?php if($siteInfo['status']<2){?>class="current" <?php }?>  <?php if($siteInfo['status'] >= 2){?>class="current_down" <?php }?> >水电改造</li>
+				<li  <?php if($siteInfo['status'] <3){?>class="current" <?php }?>  <?php if($siteInfo['status'] >= 3){?>class="current_down" <?php }?> >泥瓦工阶段</li>
+				<li  <?php if($siteInfo['status'] <4){?>class="current" <?php }?>  <?php if($siteInfo['status'] >= 4){?>class="current_down" <?php }?> >木工阶段</li>
+				<li  <?php if($siteInfo['status'] <5){?>class="current" <?php }?>  <?php if($siteInfo['status'] >= 5){?>class="current_down" <?php }?> >油漆阶段</li>
+				<li  <?php if($siteInfo['status'] <6){?>class="current" <?php }?>  <?php if($siteInfo['status'] >= 6){?>class="current_down" <?php }?> >安装阶段</li>
+				<li  <?php if($siteInfo['status']<7){?>class="current" <?php }?>  <?php if($siteInfo['status'] >= 7){?>class="current_down" <?php }?> >验收完成</li>
+			</ul>
+			<dl>
+				<dt>
+                                    <?php if(!empty($siteInfo['face_pic'])){?><img width="268" height="243" alt="" src="<?php echo  URL,$siteInfo['face_pic'];?>">
+                                        <?php }?>
+                                </dt>
+				<dd><span> 描述：<?php echo $siteInfo['description'];?><br>
+                 户型：<?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['case'],$siteInfo['space_id']);?>
+				<br>
+				                  面积：<?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['case'],$siteInfo['a_id']);?><br>
+				                  风格：<?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['case'],$siteInfo['style_id']); ?><br>
+                                                   价格：<?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['case'],$siteInfo['price_id']); ?><br>    
+				                <?php if(!empty($siteInfo['designer_name'])){?>
+                            设计师：<a target="_blank" title="<?php echo $siteInfo['designer_name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$siteInfo['designer_id']));?>"><?php echo $siteInfo['designer_name'];?></a>  
+                            <?php }?><br>
+				</span>
+				<span>
+				<a class="thickbox online_bm" title="预约参观" href="javascript:void(0);"><input rel="<?php echo $siteInfo['id'];?>" type="button" class="butt struction_bnt" value=""></a>
+				</span></dd>
+			</dl>
+		</div>
+	</div>
+        <?php foreach($datas as $val){ ?>
+	<h2 class="shop_const"><?php echo isset($__SITE_STATUS_MEANS[$val['status']]) ? $__SITE_STATUS_MEANS[$val['status']] : '阶段详情' ;?></h2>
+	<div class="discount2">
+		<p>
+                    <?php echo $val['content'];?>
+                </p>
+	</div>
+        <?php }?>
+</div>
+            
+        </div>
+        <!-- Baidu Button BEGIN -->
+        <!-- Baidu Button END -->
+        <div class="clear">
+        </div>
+    <?php  require COMPANY_TEMPLATE.'/root.html';?>
+    <script>
+                        $(document).ready(function(e){
+                            $(".struction_bnt").click(function(){
+                                if(is_login === false){
+                                    ajaxLogin();
+                                }else{
+                                    var id = $(this).attr('rel');
+                                    $("#jq_yycc_baoming_form").dialog({
+                                        width :400,
+                                        height:240,
+                                         modal: true,
+                                        buttons:{
+                                            '确认报名':function(){
+                                                $.ajax({
+                                                url:'<?php echo URL;?>index.php?ctl=ajax&act=siteApply&id='+id,
+                                                type:'POST',
+                                                data:$(this).find('form').serialize(),
+                                                dataType:'json',
+                                                success:function(data){
+                                                    if(data.ret < 0){
+                                                        alert(data.message);
+                                                    } else{
+                                                        alert(data.message);
+                                                        $("#jq_yycc_baoming_form").dialog('close');
+                                                    }
+                                                }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            
+                        });
+                    </script>
+<div id="jq_yycc_baoming_form" title="我想预约报名参观" style="display: none;">
+         <form  name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="100">称呼：</th>
+                        <td><input type="text"  size="20"  value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="100">联系方式:</th>
+                        <td><input type="text" size="20"  value="" name="phone" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="100">要求:</th>
+                        <td><textarea name="comment" cols="30" rows="5"></textarea></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </form>
+    
+    
+</div>	    
+    </body>
+
+</html>        

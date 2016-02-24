@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/zb.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="w_body">
+  <?php  require TEMPLATE_PATH.'public/zb_public.html';?>
+
+
+
+<div class="w_980">
+  <div class="zb_main">
+		<div class="zb_box1">
+		  <div class="left">
+		  
+		  <div class="zb_header_left"> 
+
+<img src="<?php echo URL;?>themes/v3.0/images/zb/lf.gif" width="328" height="145" /><br>
+      
+        <br>
+		<div class="cont_sjxcgh">
+			<li>● 激光电子仪器，免费量房、验房</li>
+			<li>● 首席设计现场设计规划</li>
+			<li>● 采光、功能区规划、空间利用的专业建议</li>
+			<li>● 现场手绘房型改造平面图</li>			
+			<li>● 预估每类项目的预算报价</li>
+		</div>
+      </div>
+		  </div>
+	
+                    
+                    
+                       <?php  require TEMPLATE_PATH.'public/zb_public2.html';?>
+		</div>
+		<div class="ad980">
+			<img src="<?php echo URL;?>themes/v3.0/images/zb/zb_980.gif" />
+		</div>
+		
+		<div class="l980">
+			
+			<h1>免费量房</h1><p>免费预算，免费设计基础
+			</p>
+		</div>
+		<div class="lf_list">
+			<div class="img">
+				<img src="<?php echo URL;?>themes/v3.0/images/zb/lf_pic1.jpg" width="368" height="239" />			</div>
+			<div class="info">
+				<b>1</b>
+				<p>量房-花费时间不多。要规划房屋布局制定装修预算</p>
+				<span>量房首先对装修的报价会产生直接影响。量房过程也是业主与设计师进行现场沟通的过程，花费时间不多，但看似简单的工作却影响和决定着接下来的每个装修环节。</span>
+			</div>
+		</div>
+		
+		<div class="lf_list">
+			<div class="img">
+				<img src="<?php echo URL;?>themes/v3.0/images/zb/lf_pic2.jpg" width="368" height="239" />			</div>
+			<div class="info">
+				<b>1</b>
+				<p>准确量房才可以做到合理设计，预算准确，施工严谨</p>
+				<span>量房首先对装修的报价会产生直接影响。量房过程也是业主与设计师进行现场沟通的过程，花费时间不多，但看似简单的工作却影响和决定着接下来的每个装修环节。</span>
+			</div>
+		</div>
+		
+		<div class="lf_list">
+			<div class="img">
+				<img src="<?php echo URL;?>themes/v3.0/images/zb/lf_pic3.jpg" width="368" height="239" />			</div>
+			<div class="info">
+				<b>1</b>
+				<p>量房需要专业水平</p>
+				<span>量房首先对装修的报价会产生直接影响。量房过程也是业主与设计师进行现场沟通的过程，花费时间不多，但看似简单的工作却影响和决定着接下来的每个装修环节</span>
+			</div>
+		</div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+</body>
+</html>

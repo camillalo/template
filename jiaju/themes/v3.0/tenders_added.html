@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+<meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+<meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+<?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/reg.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+
+<div class="w_980">
+	<div class="reg_form">
+			<div id="zhuce_left">
+	 
+						 <!--注册优势介绍开始-->
+						 
+						 
+	 
+<h2>我们能为您做什么？</h2>
+<p>1、您填写的资料越详细，越有助于装饰公司为您做适合您的量房设计及预算，达到让您满意的装修效果。</p>
+						
+<p>2、注册即可申请“量房设计、免费报价、免费出平面图”。一分钟填写信息，让您的装修更轻松！</p>
+						
+<p>3、<?php echo $__SETTING['site_name'];?>三大保障体系，让您装修无后顾之忧！</p>
+<p>
+    【发布提示】若您在发布装修需求过程中遇到问题可联系<?php echo $__SETTING['site_name'];?>在线客服：<?php foreach($__SETTING['qq'] as $val){ ?>
+                                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $val;?>&site=qq&menu=yes">
+                                            <img border="0" src="http://wpa.qq.com/pa?p=2:<?php echo $val;?>:47" alt="<?php echo $__SETTING['site_name'];?>" title="<?php echo $__SETTING['site_name'];?>">
+                                        </a>
+                                        <?php }?>    
+</p>
+						 
+						 <!--注册优势介绍结束-->
+						
+						
+					</div>
+					
+					
+					
+					<div id="zhuce_right"> 
+                                            <p class="dangqian "  id="jq_show_message"> <img src="<?php echo URL;?>themes/v3.0/images/dengpao.gif"/>最多可以选择<?php echo $maxNum;?>家装修公司为您报价!</p>
+					 	    <form   action="<?php echo URL;?>index.php?ctl=tenders&act=added" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <?php if(!empty($companies)){ ?>
+                     <tr>
+                        <th width="140">选择装修公司:</th>
+                        <td>
+                       
+                            <ul>
+                                <?php foreach($companies as $val){ ?>
+                                <li style="float: left;width: 170px; margin-left: 5px; height: 90px;">
+                                   <label for="companyId_<?php echo $val['uid'];?>"> <img style="width: 170px; height: 60px;"  src="<?php echo URL,$val['logo'];?>"/></label>
+                                    <p><input class="jq_company_check"  type="checkbox" name="companyId[]" id="companyId_<?php echo $val['uid'];?>" value="<?php echo $val['uid'];?>" /> <label for="companyId_<?php echo $val['uid'];?>"><?php echo $val['company_name'];?></label></p>
+                                </li>
+                                <?php }?>
+                            </ul>
+                        </td>
+                    </tr>
+                    <script>
+                        $(document).ready(function(){
+                            var maxNum = <?php echo $maxNum;?>;
+                             $('.jq_company_check').click(function(){
+                                var checknum = 0;
+                                $(".jq_company_check").each(function(){
+                                    if($(this).attr('checked') === true) checknum++;
+                                });
+
+                                $(".jq_company_check").each(function(){
+                                        if(checknum >= maxNum){
+                                        if($(this).attr('checked') === true) $(this).show();
+                                        else $(this).hide();
+                                        }else{
+                                        $(this).show(); 
+                                        }
+                                });
+
+                            });
+                        });
+                    </script>
+                    <?php }?>
+                    <tr>
+                        <th width="140">楼盘名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['building_name']?>" name="building_name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">详细地址:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['addr']?>" name="addr" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">装修方式:</th>
+                        <td>
+                             <?php echo html::radio('way',$__DECORATE_TYPE,$data['way']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">空间类型:</th>
+                        <td class="jq_tenders_added">
+                            <?php echo html::select('type_root',$types,$data['type_root']);?> 
+                            <?php if(!empty($data['type_id'])){ echo html::select('type_id',$child,$data['type_id']); } else{ ?>
+                            <select name="type_id" id="type_id" style="display: none;"></select>
+                            <?php }?>
+                        </td>
+                    </tr>
+                <script>
+                    $(".jq_tenders_added #type_root").change(function(){
+                            if($(this).val() > 0){
+                                $.get('<?php echo URL;?>index.php?ctl=ajax&act=getCategory&parent_id='+$(this).val()+'&category_type=<?php echo $__CATEGORY_TYPE['bidding'];?>',function(data){
+                                    if(data.ret == -1){
+                                        alert(data.message);
+                                    }else{
+                                        if(data.message.length > 0){
+                                            $(".jq_tenders_added #type_id").show().html(makeCategorySelect(data.message));
+                                        }else{
+                                             $(".jq_tenders_added #type_id").html('').hide();
+                                        }
+                                    }                                
+                                },'json'); 
+                            }else{
+                                 $(".jq_tenders_added #type_id").html('').hide();
+                            }
+                    });
+                     function makeCategorySelect(data){
+                        var str ='<option value="0" >请选择.....</option>';
+                            for(a in data){
+                               
+                                str+='<option value="'+data[a].category_id+'" >'+data[a].category_name+'</option>';
+                                
+                            }                        
+                        return str;
+                    }
+                </script>
+                    <tr>
+                        <th width="140">性别:</th>
+                        <td>
+                            <?php echo html::select('sex',$__SEX,$data['sex']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">最喜欢风格:</th>
+                        <td>
+                            <?php echo html::select('style_id',$styles,$data['style_id']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">预算:</th>
+                        <td>
+                            <?php echo html::select('budget_id',$budgets,$data['budget_id']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">面积㎡:</th>
+                        <td><input type="text" size="10" value="<?php echo $data['area']?>" name="area" class="input-text"> ㎡</td>
+                    </tr>
+                    <tr>
+                        <th width="140">开始装修时间:</th>
+                        <td><input type="text" size="20" value="<?php echo $data['start_time']?>" name="start_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否拿到钥匙:</th>
+                        <td>
+                            <?php echo html::radio('is_key',$__WHETHER,$data['is_key']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否有监理需求:</th>
+                        <td>
+                            <?php echo html::radio('is_supervision',$__WHETHER,$data['is_supervision']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否有材料需求:</th>
+                        <td>
+                             <?php echo html::radio('is_material',$__HAVE,$data['is_material']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">要求:</th>
+                        <td><textarea name="demand" cols="50" rows="10"><?php echo $data['demand']?></textarea></td>
+                    </tr>
+            </tbody>
+            </table>
+                                                        <div class="btn" style="margin-top: 20px;">
+                <input type="submit"  style="width: 100px; height: 30px; line-height: 30px; font-size: 15px; margin-left: 200px;" value=" 确认发布 ">
+            </div>
+        </form>
+						</div>
+	
+	</div>
+</div>
+
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+
+</body>
+</html>

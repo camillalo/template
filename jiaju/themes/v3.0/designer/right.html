@@ -1,0 +1,108 @@
+	<div class="blog_right">
+				<div class="tou">
+					<div class="t1"></div>
+					<div class="info">
+						<div class="img_info">
+							<div class="img">
+                                                           <a title="<?php echo $data['position'],$data['name'],'的博客';?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$id));?>"><img width="200" height="200"  src="<?php echo URL,$data['face_pic'];?>" border="0" /></a>
+							</div>
+							<p><a  title="<?php echo $data['position'],$data['name'],'的博客';?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$id));?>">
+                                                <?php echo $data['name'];?>
+                                            </a> </p>
+							
+						</div>
+						<div class="table">
+						  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                                                        <tr>
+
+                                                            <td colspan="3" align="center"> <a title="<?php echo $data['position'],$data['name'],'的博客';?>" href="<?php echo mkUrl::linkTo('designer','booking',array('id'=>$id));?>"><img src="<?php echo URL;?>themes/v3.0/images/blog/yuyue.gif" width="73" height="25" border="0" /></a></td>
+                                                        </tr>
+
+                                                      </table>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="list1">
+					
+					
+					<div class="t1" >
+                                            基本信息
+					</div>
+					
+					<div class="tj">
+					  	  <table width="100%" height="176" border="0" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                      <td align="center" colspan="2">
+                                                        <?php if($is_authentication){?><font style="color: green;">[实名]</font><?php }?>
+                                                        <?php if(!empty($data['orderby'])){?><font style="color: red;">[推广]</font><?php }?>
+                                                        <?php if(!empty($data['is_gold'])){?><font style="color: orange;">[金牌]</font><?php }?>
+                                      </td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="2">
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+<span class="bds_more">分享到：</span>
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6463174" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+                                          </td>
+                                      </tr>
+                    <tr>
+                      <td width="31%" valign="top"><p>当前级别：</p></td>
+                      <td width="69%" valign="top"><strong style="color:#FF0000;"><?php echo $data['position'];?></strong></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><p>任职公司：</p></td>
+                      <td valign="top">
+                          <?php if(!empty($companyname)) { ?>
+                                <a style="font-size:14px; color:#666666" target="_blank" title="<?php echo $companyname;?>"
+                                   href="<?php echo mkUrl::linkTo('company','main',array('id'=>$data['uid']));?>"><?php echo $companyname;?></a>
+                                <?php }else{ ?>自由职业<?php }?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><p>从业时间：</p></td>
+                      <td valign="top"><strong style="color:#FF6501;"><?php echo isset($__WORK[$data['from_time']])? $__WORK[$data['from_time']] : '';?></strong></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><p>毕业院校：</p></td>
+                      <td valign="top"><?php echo $data['school'];?></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><p>擅长风格：</p></td>
+                      <td valign="top"><?php echo $data['style'];?></td>
+                    </tr>
+                    <?php if(!empty($data['qq'])){ ?>
+                    <tr>
+                      <td valign="top"><p>联系QQ:</p></td>
+                      <td valign="top"><img  style="CURSOR: pointer" onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&uin=<?php echo $data['qq'];?>&site=qq&menu=yes', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');"  border="0" SRC="http://wpa.qq.com/pa?p=1:<?php echo $data['qq'];?>:1" alt="点击这里给我发消息"></td>
+                    </tr>
+                    <?php }?>
+                    
+                     <?php if(!empty($data['tel'])){ ?>
+				<tr>
+                      <td valign="top"><p>联系电话:</p></td>
+					<td valign="top"><?php echo $data['tel'];?>
+                                        </td>	</tr>
+                                <?php }?>
+                    
+                  </table>
+                </div>
+					
+				
+			</div>
+		</div>

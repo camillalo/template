@@ -1,0 +1,51 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=message" ><em>网站留言列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=message&act=add" class="on"><em>新增网站留言</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=message&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">用户ID:</th>
+                        <td><input type="text" size="40" value="" name="uid" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">称呼:</th>
+                        <td><input type="text" size="40" value="" name="name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">联系方式:</th>
+                        <td><input type="text" size="40" value="" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">标题:</th>
+                        <td><input type="text" size="40" value="" name="title" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">描述:</th>
+                        <td><textarea name="content" cols="50" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">创建时间:</th>
+                        <td><input type="text" size="40" value="" name="create_time" class="input-text"> </td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

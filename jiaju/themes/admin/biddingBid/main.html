@@ -1,0 +1,78 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=biddingBid&bid=<?php echo $bid;?>" class="on"><em>竞标管理列表</em></a>
+                             
+            <span>|</span>
+            <a href="index.php?ctl=biddingBid&act=add&bid=<?php echo $bid;?>"><em>新增竞标管理</em></a>
+                
+        </div>
+    </div>
+    <div class="pad-lr-10">
+
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="5%">序号</th>
+                      <th align="center" >投标人ID</th>
+                      <th align="center" >主材料</th>
+                      <th align="center" >辅材料</th>
+                      <th align="center" >人工</th>
+                      <th align="center" >管理</th>
+                      <th align="center" >设计</th>
+                      <th align="center" >是否入围</th>
+                      <th align="center" >是否中标</th>
+                       <th align="center" >是否显示</th>
+                      <th  width="20%" align="center" >留言</th>
+                        <th width="25%">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="5%" align="center"><?php echo $val['id'];?></td>
+                        <td align="center" ><?php echo $val['username'],'(ID:',$val['uid'],')';?></td>
+                        <td align="center" ><?php echo round($val['main_material']/100,2);?></td>
+                        <td align="center" ><?php echo round($val['vice_material']/100,2);?></td>
+                        <td align="center" ><?php echo round($val['artificial']/100,2);?></td>
+                        <td align="center" ><?php echo round($val['management']/100,2);?></td>
+                        <td align="center" ><?php echo round($val['design']/100,2);?></td>
+                        
+                        <td align="center" ><?php echo $val['is_shortlisted'] ? '入围': '未入围';?></td>
+                        <td align="center" ><?php echo $val['is_win'] ? '中标' : '未中标';?></td>
+                        <td align="center" ><?php if($val['is_show']){ ?><font color="green" >显示</font> <?php }else{ ?> <font color="red" >待审核</font> <?php }?></td>
+                        <td align="center"  width="20%"><?php echo $val['message'];?></td>
+                        <td width="25%" align="center">
+                            <font color="#cccccc">
+                                <a href="index.php?ctl=biddingBid&act=edit&id=<?php echo $val['id'];?>">审核修改</a>
+                            </font> | 
+                            <?php if(empty($data['bid_id'])){ ?>
+                                <?php if(!$val['is_shortlisted']){?>
+                                    <font color="#cccccc">
+                                    <a target="hiden_frm" href="index.php?ctl=biddingBid&act=setRw&id=<?php echo $val['id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">设为入围</a>
+                                    </font>
+                                <?php }?>
+                                <?php if(!$val['is_win']){?>
+                                    <font color="#cccccc">
+                                    <a target="hiden_frm" href="index.php?ctl=biddingBid&act=setWin&id=<?php echo $val['id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">设为中标</a>
+                                    </font>
+                                <?php }?>
+                            <?php }?>
+                            <font color="#cccccc">
+                              <a target="hiden_frm" href="index.php?ctl=biddingBid&act=del&id=<?php echo $val['id'];?>&back_url=<?php echo urlencode($url.'&page='.$_GET['page']);?>">删除</a>
+                            </font>
+                              
+                        </td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

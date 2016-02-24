@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>
+        <link href="<?php echo URL;?>themes/v3.0/css/blog.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<?php echo URL;?>statics/My97DatePicker/WdatePicker.js"></script>
+    </head>
+
+    <body id="blog_body">
+        <iframe name="hiden_frm"  style="display:none;"></iframe>   
+        <div class="blog_header">
+            <div class="w_980">
+                <div class="blog_nav">
+                    <div class="left">
+                        <a href="<?php echo mkUrl::linkTo('index');?>"><?php echo $__SETTING['site_name']?></a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('gs');?>">找公司</a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('tenders');?>">招标</a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('activity');?>">团购</a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('ask');?>">问吧</a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('content');?>">学装修</a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('mall');?>">商城</a><b></b>
+                        <a target="_blank" href="<?php echo mkUrl::linkTo('sjs');?>">设计师</a>
+
+                    </div>
+                    <div class="right">
+                        <a href="<?php echo mkUrl::linkTo('case');?>" >回图库首页</a> 
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="w_980">
+
+
+            <div class="blog_left">
+                <div class="blog_name">
+                    <h1><?php echo $data['position'],$data['name'],'的博客';?></h1>
+                    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].mkUrl::linkTo('designer','main',array('id'=>$data['id']));?>"><?php echo 'http://'.$_SERVER['HTTP_HOST'].mkUrl::linkTo('designer','main',array('id'=>$data['id']));?></a>
+                </div>
+                <?php require TEMPLATE_PATH.'designer/menu.html';?>
+
+
+
+
+
+                <div class="blog_main">
+                    <div class="t1">
+                        <p>免费预约咨询</p>
+                    </div>
+                    <div class="info">
+                        <p>
+                            <font>郑重提示：</font>委托设计的时候请在网站的监督下进行这样可以保障您的利益不受损失！<font>投诉与咨询热线: <?php echo $__SETTING['tel'];?></font>
+                        </p>
+                    </div>
+
+                    <div class="info_table">
+                        <form    action="<?php echo mkUrl::linkTo('designer','booking',array('id'=>$id));?>" target="hiden_frm" name="form1" id="myform" method="post">
+                            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                                <tbody>
+
+                                    <tr>
+                                        <td >称呼:</td>
+                                        <td><input type="text" class="text"  value="" name="name" > </td>
+                                    </tr>
+                                    <tr>
+                                        <td >电话:</td>
+                                        <td><input type="text" class="text"  value="" name="tel" > </td>
+                                    </tr>
+                                    <tr>
+                                        <td >预约日期:</td>
+                                        <td><input type="text" class="text"  value="" onFocus="WdatePicker({startDate:'<?php echo date('Y-m-d',NOWTIME);?>'})"  name="date" > </td>
+                                    </tr>
+                                    <tr>
+                                        <td >设计要求及房型介绍:</td>
+                                        <td><textarea name="description" cols="50" rows="10"></textarea></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div>  <input type="submit" class="btn" value="立刻预约" /></div>
+
+                        </form>
+                        <div style="height: 40px;"></div>
+                    </div>
+
+                </div>  
+
+            </div>
+            <?php require TEMPLATE_PATH.'designer/right.html';?>
+
+        </div>
+        <div class="clear"></div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>
+    </body>
+</html>

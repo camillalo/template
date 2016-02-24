@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/jc.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="w_body">
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+            <?php  require TEMPLATE_PATH.'public/notice.html';?>
+        </div>
+        <div class="clear"></div>
+        <div class="w_980">
+            <div class="u_here">
+                <p><strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > 商城</p>
+            </div>
+        </div>
+        <div class="w_980">
+
+            <div class="jc_left">
+                <div class="box">
+                    <div class="left">
+                        <div class="t1">
+                            <p>行业新闻</p>
+                            <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>279));?>">更多>></a>
+                        </div>
+                        <ul>
+                            <?php foreach(recommend::getInstance()->load('mall-hynew-001',5) as $val){ ?>
+                            <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,12);?></a></li>
+                            <?php }?>
+                        </ul>
+                    </div>
+
+                    <div class="right">
+                     <?php pluginsAdsLunbo(8,496,170);?>
+                    
+                    </div>
+                </div>
+
+                <div class="box1">
+                    <div class="t1">
+                        <a class="jq_cate_hd" href="javascript:void(0);" rel="1" >建材产品分类</a>
+                        <a  class="jq_cate_hd" href="javascript:void(0);" rel="2" > 建材品牌分类</a>
+                    </div>
+                    <script>
+                        $(document).ready(function(){
+                            $(".jq_cate_hd").mouseover(function(){
+                                var index = $(this).index();
+                                $(".jq_cate_hd").each(function(a){
+                                    if(a == index){
+                                        $(this).addClass("cur");
+                                        $("#jq_cate_"+$(this).attr('rel')).show();
+                                    }else{
+                                        $(this).removeClass("cur");
+                                        $("#jq_cate_"+$(this).attr('rel')).hide();
+                                    }
+                                });
+                            });
+                            $(".jq_cate_hd").eq(0).mouseover();
+                        });
+                    </script>
+                    <div class="zhu" id="jq_cate_1">
+
+
+
+                        <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ ?>
+
+                        <div class="list">
+                            <p> 
+                                <strong><a title="<?php echo $v;?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>"><?php echo $v;?></a></strong>
+                                <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],$k) as $k1=>$v1){ ?>
+                                <a  title="<?php echo $v1;?>" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k1));?>"><?php echo $v1;?></a>
+                                <?php }?>
+
+                            </p>
+                        </div>
+                        <?php }?>
+
+                    </div>
+                    <div class="zhu" id="jq_cate_2">
+
+
+
+                        <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ ?>
+
+                        <div class="list">
+                            <p> 
+                                <strong><a title="<?php echo $v;?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>"><?php echo $v;?></a></strong>
+                               
+                                <?php $cateIds = category::getInstance()->getAllLastChildIds($__CATEGORY_TYPE['products'],$k);
+                                
+                                foreach( brandMapMdl::getInstance()->getAllBrandsByCateIds($cateIds,10) as $val){ ?>
+                                
+                                <a  title="<?php echo $val['brand_name'];?>" href="<?php echo mkUrl::linkTo('mall','list',array('brand_id'=>$val['brand_id']));?>"><?php echo $val['brand_name'];?></a>
+                                
+                                <?php }?>
+
+                            </p>
+                        </div>
+                        <?php }?>
+
+                    </div>
+                    
+                </div>
+
+                <div class="box2">
+                  <?php echo pluginsAds(15);?>
+                </div>
+            </div>
+
+            <div class="jc_right">
+                <div class="box1">
+                    <div class="t1">
+                        <p>最新商家</p>
+                        <a href="<?php echo mkUrl::linkTo('material');?>">更多&gt;&gt;</a>
+                    </div>
+                    <ul><?php foreach(recommend::getInstance()->load('mall-right-company001',6) as $val){ ?>
+                        <li class="jc_right_ul_li ">
+                            <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>">>><?php echo mb_substr($val['title'],0,12);?></a>
+                            <span>
+                                <a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['face_pic'];?>" /></a>
+                            </span>
+                        </li>
+                        <?php }?>
+                        
+                        
+                    </ul>
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $(".jc_right_ul_li").mouseover(function(){
+                            var index = $(this).index();
+                            $(".jc_right_ul_li").each(function(a){
+                                if(a == index){
+                                     $(this).addClass('hover');
+                                     $(this).find('span').show();
+                                }else{
+                                     $(this).removeClass('hover');
+                                     $(this).find('span').hide();
+                                }
+                            });
+                         
+                            
+                        });
+                        $(".jc_right_ul_li").eq(0).mouseover();
+                    });
+                </script>
+ <?php foreach(recommend::getInstance()->load('mall-brand-001',6) as $val){ ?>
+                <div class="ad_box">
+                   <a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['face_pic'];?>" /></a>
+                </div>
+      <?php }?>
+    
+            </div>
+            <div class="clear"></div>
+            <div class="p_main">
+                <div class="t1">
+                    <p>推荐建材店铺</p>
+                    <a href="<?php echo mkUrl::linkTo('material');?>">更多店铺&gt;&gt;</a>
+                </div>
+                <div class="list">
+                     <?php foreach(recommend::getInstance()->load('mall-company-002',10) as $val){ ?>
+                            <a title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>">
+                                <img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['face_pic'];?>" />
+                                <?php echo mb_substr($val['title'],0,10);?>
+                            </a>
+
+                    <?php }?>
+                  
+
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="p_main">
+                <div class="t1">
+                    <p>商品推荐第一屏</p>
+                   
+                </div>
+                <div class="p_nav">
+                 <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ ?>
+                   <a title="<?php echo $v;?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>"><?php echo $v;?></a>
+                  <?php }?>
+                </div>
+                <div class="list1">
+                     <?php foreach(recommend::getInstance()->load('mall-floor-001',12) as $val){ ?>
+                    <a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>">
+                        <img alt="<?php echo $val['title'];?>"  src="<?php echo URL,$val['face_pic'];?>" border="0" />
+                        <p> <?php echo $val['title'];?></p>
+                        <?php $local = json_decode($val['description'],true);?>
+                            <?php if(!empty($local)){ ?>
+                                    <p>特价：<font>￥<?php echo empty($local['mall_price']) ? '面议': round($local['mall_price']/100,2);?></font></p>
+                    <?php }?>
+                    </a>
+                 
+                     <?php }?>
+                   
+
+                </div>
+            </div>
+                <div class="clear"></div>
+
+            <div class="p_main">
+                <div class="t1">
+                    <p>商品推荐第二屏</p>
+                   
+                </div>
+                <div class="p_nav">
+                 <?php foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ ?>
+                   <a title="<?php echo $v;?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>"><?php echo $v;?></a>
+                  <?php }?>
+                </div>
+                <div class="list1">
+                     <?php foreach(recommend::getInstance()->load('mall-floor-002',12) as $val){ ?>
+                    <a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>">
+                        <img alt="<?php echo $val['title'];?>"  src="<?php echo URL,$val['face_pic'];?>" border="0" />
+                        <p> <?php echo $val['title'];?></p>
+                        <?php $local = json_decode($val['description'],true);?>
+                            <?php if(!empty($local)){ ?>
+                                    <p>特价：<font>￥<?php echo empty($local['mall_price']) ? '面议': round($local['mall_price']/100,2);?></font></p>
+                    <?php }?>
+                    </a>
+                 
+                     <?php }?>
+                   
+
+                </div>
+            </div>
+        </div>
+        <div  class="clear"></div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	
+    </body>
+</html>

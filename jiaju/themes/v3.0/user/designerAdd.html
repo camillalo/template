@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 开通博客
+				</div>
+              
+              
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            添加资料后您将有自己的设计师博客
+                        </div>
+                    </div>
+
+                    <div class="module_default">
+                        <div class="hd">基本信息</div>
+                        <div class="bd gongneng">
+
+                            <form enctype="multipart/form-data"  action="<?php echo mkUrl::linkTo('user','designer');?>" target="hiden_frm" name="form1" id="myform" method="post">
+                                <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                    <tbody>
+                                        <tr>
+                                            <th width="140">注册地区:</th>
+                                            <td class="jq_user_city">
+                                              <?php echo html::select('area_id',$areas);?>
+                                            </td>
+                                        </tr>
+                                        
+
+                                        <tr>
+                                            <th width="140">名字:</th>
+                                            <td><input type="text" size="20" value="" name="name" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">头像:</th>
+                                            <td> <input type="file"  name="face_pic" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">职位:</th>
+                                            <td><input type="text" size="20" value="" name="position" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">毕业院校:</th>
+                                            <td><input type="text" size="40" value="" name="school" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">工作经验:</th>
+                                            <td><?php echo html::select('from_time',$__WORK);?> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">设计风格:</th>
+                                            <td><input type="text" size="40" value="" name="style" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">QQ:</th>
+                                            <td><input type="text" size="40" value="" name="qq" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">联系方式:</th>
+                                            <td><input type="text" size="40" value="" name="tel" class="input-text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <th width="140">自我介绍:</th>
+                                            <td><textarea name="about" cols="50" rows="10"></textarea></td>
+                                        </tr>
+                                        <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

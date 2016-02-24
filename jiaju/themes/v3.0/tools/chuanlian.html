@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/tools.css" rel="stylesheet" type="text/css" />
+
+
+    </head>
+
+    <SCRIPT>
+<!--
+
+function IsDigit(cCheck)
+{
+return ((('0'<=cCheck) && (cCheck<='9'))||cCheck=='.');
+}
+function CheckNum(charValue,alertValue,obj)
+{
+for(var iIndex=0;iIndex<charValue.length;iIndex++)
+{
+var cCheck=charValue.charAt(iIndex);
+if(!IsDigit(cCheck))
+{
+alert(alertValue);
+obj.focus();
+return false;
+}
+}
+}
+function window_cloth(form)
+{
+//检查输入
+if(checkclothInput(form)==false) return;
+var window_width=0,window_height=0,clothnum=0,clothwidth=0;
+//给各个变量赋值
+window_width=form.window_width.value;
+window_height=form.window_height.value;
+clothwidth=form.clothwidth.value;
+//开始计算
+//<a href="http://ruanzhuang.pchouse.com.cn/chuanglian/" target="_blank" class="cmsLink">窗帘</a>所需布料（米）= [ （窗户宽+0.15米×2）×2] ÷ 布宽×（0.15米+窗户高+0.5米+0.2米）
+clothnum=((parseFloat(window_width)+parseFloat(0.15*2))*2)/clothwidth*(parseFloat(0.15)+parseFloat(window_height)+parseFloat(0.5)+parseFloat(0.2))
+form.clothnum.value=Math.round(clothnum);
+}
+function  checkclothInput(form)
+{
+if(form.window_height.value==""){
+alert("请输入窗户高度");
+form.window_height.focus();
+return false;
+}
+if(CheckNum(form.window_height.value,"窗户高度只能输入数字格式！",form.window_height)==false)
+return false;
+if(form.window_width.value==""){
+alert("请输入窗户宽度");
+form.window_width.focus();
+return false;
+}
+if(CheckNum(form.window_width.value,"窗户宽度只能输入数字格式！",form.window_width)==false)
+return false;
+if(form.clothwidth.value==""){
+alert("请输入布料宽度");
+form.clothwidth.focus();
+return false;
+}
+if(CheckNum(form.clothwidth.value,"布料宽度只能输入数字格式！",form.clothwidth)==false)
+return false;
+}
+//-->
+</SCRIPT>
+
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+            
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+        
+        <div class="user_main">
+  
+               <div class="user_left">
+                    <div class="title">工具箱</div>
+                    
+               <?php  foreach($tools_array as $key=> $val) { ?>
+                      <div class="dalei">
+                        <a <?php if($_GET['act'] == $key){ ?> style="color:#be0033;" <?php }?>
+                            title="<?php echo $__SETTING['site_name'],$val['title'];?>" 
+                            href="<?php echo mkUrl::linkTo('tools',$key);?>"><?php echo $val;?></a>
+                        </div>  
+                    
+                    <?php }?>
+
+
+                  
+                                    
+               </div>
+               <div class="user_right">
+                 <div class="user_center"> 
+                     
+                        <div class="artCon">
+                        
+                        <table width="100%" height="530" cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+              <td height="30" bgcolor="#f4f4f4" align="center"><strong><?php echo $title;?></strong></td>
+            </tr>
+            <tr>
+              <td valign="top" align="center">
+             <form name="wallpaperfrm" action="" method="post">
+<table width="476" cellspacing="0" align="center" style="margin-top: 10px" class="table1">
+<tbody>
+<tr>
+<td class="title">1、请输入窗户信息</td>
+</tr>
+<tr>
+<td class="elem">窗户高度
+<input type="text" name="window_height" class="inputinset">
+米</td>
+</tr>
+<tr>
+<td class="elem">窗户宽度
+<input type="text" name="window_width" class="inputinset">
+米</td>
+</tr>
+<tr>
+<td class="title">2、请输入布料信息</td>
+</tr>
+<tr>
+<td class="elem">布料宽度
+<input type="text" value="1.5" name="wallpaperpm" class="inputinset" id="clothwidth">
+米</td>
+</tr>
+<tr>
+<td height="35">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="开始计算" onclick="window_cloth(this.form)" class="btnA">
+
+<input type="reset" value="重新计算" class="btnA"></td>
+</tr>
+<tr>
+<td><h3>计算结果：</h3></td>
+</tr>
+<tr>
+<td class="elem">您所需要布料是
+<input type="text" name="clothnum" class="inputinset2">
+米</td>
+</tr>
+</tbody>
+</table>
+</form>
+              </td>
+            </tr></tbody></table>
+          
+</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+
+        <div class="clear"></div>
+
+    <?php  require TEMPLATE_PATH.'public/root.html';?>
+
+    </body>
+</html>

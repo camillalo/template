@@ -1,0 +1,430 @@
+/* CSS Document */
+
+#imgid {
+    margin: 0 auto;
+    overflow: hidden !important;
+    position: relative;
+    width: 90%;
+
+}
+
+.small_cage {
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.small_cage dl {
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 25px;
+    padding: 12px 0 0 10px;
+    width: 80px;
+}
+.small_cage dt {
+    float: left;
+    height: 44px;
+    line-height: 44px;
+    overflow: hidden;
+}
+.small_cage dt span {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #F5A663;
+    float: left;
+    height: 18px;
+    line-height: 18px;
+    margin: 12px -1px 5px 0;
+    overflow: hidden;
+    padding: 3px 20px 4px;
+    text-align: center;
+}
+.small_cage dt a {
+    color: #F5A663;
+}
+.small_cage dt span.bg_c {
+    background: url("../images/xgt/xiaoguotu_xz_bg.gif") repeat scroll 0 0 transparent;
+}
+.small_cage dt .bg_c a {
+    color: #FFFFFF;
+}
+
+.small_cage dt span.br_right {
+    border-radius: 0 5px 5px 0;
+    margin-right: 0;
+}
+
+.small_cage dt span.br_left {
+    border-radius: 5px 0 0 5px;
+}
+
+.upload_use {
+    float: right;
+    height: 25px;
+    margin: 15px 5px 0 0;
+    width: 92px;
+}
+.upload_use .upload_ind {
+    background: url("../images/xgt/xiaoguotu_synthesis2.gif") no-repeat scroll -68px -347px transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    width: 92px;
+}
+
+
+
+.fine_work .box {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    font-size: 12px;
+    line-height: 1.4em;
+    margin: 5px 0;
+    z-index: 9;
+}
+
+.fine_work .col1 {
+    overflow: hidden;
+    width: 226px;
+}
+
+
+.fine_work .box div {
+    background: url("../images/xgt/fworks_bg2.gif") repeat-y scroll 0 0 transparent;
+    overflow: hidden;
+    padding: 10px 13px 5px;
+    width: 200px;
+}
+.fine_work .box div img {
+}
+.fine_work .box div p {
+    color: #888888;
+    line-height: 24px;
+}
+.fine_work .cname {
+    display: block;
+    line-height: 18px;
+    margin: 5px 0 0;
+    overflow: hidden;
+    width: 200px;
+}
+.fine_work .cname {
+    color: #000000;
+    font-size: 13px;
+}
+
+.fine_work .cname a{
+color: #000000;
+}
+.fine_work .cname strong {
+    color: #999999;
+    font-size: 12px;
+    font-weight: normal;
+}
+.fine_work .box div .g {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll 0 -137px transparent;
+    padding-left: 20px;
+}
+.fine_work .box div .r {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll 0 -122px transparent;
+    margin-right: 5px;
+    padding-left: 15px;
+}
+.fine_work .fine_fg {
+    border-top: 1px solid #F5F2F2;
+    margin-top: 5px;
+    padding: 5px 0;
+}
+.fine_work .fine_fg code {
+    float: left;
+}
+.fine_work .fine_fg label {
+    float: right;
+    margin-top: -1px;
+}
+.clearfix .now_none {
+    padding: 30px;
+    text-align: center;
+}
+#fine_box {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    margin: 2px auto;
+}
+#fine_left {
+    border: 1px solid #E9E9E9;
+    float: left;
+    height: 98%;
+    margin: 0 0 0 10px;
+}
+#fine_left #dis {
+    color: #FF0000;
+    font-size: 100px;
+    height: 540px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+#fine_left #dis img {
+    display: block;
+    margin: 0 auto;
+}
+#fine_left #note {
+    bottom: 10px;
+    height: 24px;
+    line-height: 24px;
+    margin: 0 auto;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+#fine_left #note ul {
+    height: 20px;
+    margin: 0 auto;
+    position: relative;
+}
+#fine_left #note ul li {
+    float: left;
+    line-height: 15px;
+    padding-left: 20px;
+}
+#fine_left #note ul .l1 {
+    left: 0;
+}
+#fine_left #note ul .l2 {
+    font-weight: 600;
+    margin: 0 auto;
+    position: relative;
+    width: 150px;
+}
+#fine_left #note ul .l3 div {
+    float: left;
+}
+#fine_left a {
+    color: #0033FF;
+}
+#fine_right {
+    float: right;
+    margin-right: 0;
+    width: 120px;
+}
+#small_right {
+    float: right;
+    margin-right: 8px;
+    width: 94px;
+}
+#small_right {
+    margin-top: 28px;
+    width: 94px;
+}
+
+
+
+#isearch div.cage_list {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px dashed #CCCCCC;
+    float: left;
+    overflow: hidden;
+    padding: 0 0 10px;
+    width: 200px;
+}
+.cage_list b, .cage_list em, .cage_list em a {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    white-space: nowrap;
+}
+.cage_list b, .cage_list em {
+    vertical-align: middle;
+}
+.cage_list em {
+    background: url("../images/xgt/xiaoguotu_synthesis2.gif") no-repeat scroll 0 -402px transparent;
+    margin: 4px 5px 4px 0;
+    padding-left: 10px;
+	font-style: normal;
+}
+.cage_list b, .cage_list em a {
+    background: url("../images/xgt/xiaoguotu_synthesis2.gif") no-repeat scroll right -425px transparent;
+    padding-right: 10px;
+}
+.cage_list em a img {
+    padding-top: 10px;
+}
+#isearch li a.fc {
+    color: #FE7A00;
+}
+#isearch a.gz {
+    background: url("../images/xgt/xiaoguotu_synthesis2.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 33px;
+    width: 113px;
+}
+#isearch a.gz1 {
+    background-position: -3px -467px;
+}
+#isearch a.gz2 {
+    background-position: -3px -499px;
+}
+#isearch .gz_new {
+    background: url("../images/xgt/xiaoguotu_synthesis2.gif") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 17px;
+    margin-left: 10px;
+    padding: 0;
+    width: 42px;
+}
+#isearch li.gz_li {
+    margin: 14px 0 0;
+}
+#isearch li.gz_li1 {
+    margin: 5px 0 0;
+}
+#isearch .gz_new1 {
+    background-position: -124px -467px;
+}
+#isearch .gz_new2 {
+    background-position: -176px -467px;
+}
+.cage_list dt {
+
+    display: inline;
+    float: left;
+    height: 22px;
+    margin: 4px;
+    min-width: 40px;
+}
+.cage_list dt span {
+
+    display: inline;
+    float: left;
+    height: 22px;
+    width: 10px;
+}
+.cage_list dt span.ps_right {
+    background-position: right center;
+}
+.cage_list dt a {
+    display: inline;
+    float: left;
+    height: 22px;
+    line-height: 22px;
+}
+.cage_list b {
+    color: #FF0000;
+    float: left;
+    font-weight: normal;
+    width: auto;
+}
+#content_fluid li {
+    border: 1px solid #000000;
+    float: left;
+    height: 200px;
+    margin: 0 8px;
+    overflow: hidden;
+    width: 200px;
+}
+.s_nav {
+    float: left;
+    margin-top: 10px;
+    position: fixed;
+    width: 265px;
+    z-index: 9;
+}
+.s_nav #b1 {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll -12px -159px transparent;
+    display: block;
+    font-size: 0;
+    height: 9px;
+    width: 225px;
+}
+.s_nav #b2 {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll -11px -169px transparent;
+    clear: both;
+    display: block;
+    height: 12px;
+    width: 225px;
+}
+.s_nav #filterBtn {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll -282px 2px transparent;
+    color: #000000;
+    float: right;
+    font-size: 12px;
+    height: 81px;
+    padding: 95px 6px 122px 0;
+    position: relative;
+    right: 12px;
+    width: 31px;
+    z-index: 999;
+}
+.s_nav #isearch {
+    background: url("../images/xgt/reply_bg1.gif") repeat-y scroll right center #FFFFFF;
+    display: none;
+    float: left;
+    line-height: 22px;
+    padding: 5px 8px;
+    width: 209px;
+}
+#isearch a {
+    white-space: nowrap;
+}
+.s_nav_hide {
+    width: 31px;
+}
+.s_nav_hide #b1, .s_nav_hide #b2 {
+    display: none;
+}
+#isearch .t {
+    clear: both;
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 1px 0 0;
+    width: 100% !important;
+}
+#isearch .t i {
+    color: #5CC13D;
+    font-size: 14px;
+}
+#isearch .t code a {
+    background: url("http://img.to8to.com/front_end/bg/reply_bg2.gif") no-repeat scroll right 2px transparent;
+    border: 1px solid #E6E6E6;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 12px;
+    padding: 1px 20px 1px 5px;
+}
+#isearch li {
+    overflow: hidden;
+}
+#isearch li a {
+    color: #000000;
+}
+#isearch .t a {
+    color: #5CC13D;
+    font-size: 14px;
+	font-style: normal;
+}
+#isearch .t code a {
+    color: #333333;
+}
+.fine_work .box .b1 {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll 0 -193px transparent;
+    display: block;
+    font-size: 0;
+    height: 5px;
+    width: 226px;
+}
+
+.fine_work .box .b2 {
+    background: url("../images/xgt/reply_bg.gif") no-repeat scroll 0 -202px transparent;
+    clear: both;
+    display: block;
+    font-size: 0;
+    height: 4px;
+    width: 226px;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+     <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+               
+        <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 修改信息
+				</div>
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+				
+				<div class="user_right">
+				<div class="yellow_tip">
+					<div class="hd">
+						<s class="s"></s>温馨提示</div>
+					<div class="bd">
+						通过认证可以获得更多的权益！
+					</div>
+				</div>
+				
+				<div class="module_default">
+					<div class="hd">认证管理</div>
+					<div class="bd gongneng">
+                                   <?php if(empty($userEx['is_authentication'])){ ?>        
+                                     <form method="post" enctype="multipart/form-data" id="myform" name="form1" target="hiden_frm" action="<?php echo mkUrl::linkTo('user','authenticate');?>">
+                                        <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                            <tbody>
+
+
+                                                <tr>
+                                                    <th width="100">证件上传:</th>
+                                                    <td><input type="file"  name="certificate" ></td>
+                                                </tr>
+                                                 <?php if(!empty( $userEx['certificate'])) { ?> 
+                                                <tr>
+                                                    <th width="100">证件:</th>
+                                                    <td><img  src="<?php echo URL.$userEx['certificate']?>" /></td>
+                                                </tr>
+                                               <?php }?>
+                                                <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                        </tbody>
+                                        </table>
+                           
+                                     </form>
+                                            
+                                 <?php } else {?>           
+                                 <div style="padding-left: 100px; padding-top: 50px; padding-bottom: 50px; color: red; font-size: 18px;">已通过认证</div>
+                                     <?php  }?>       
+					</div>
+				</div>
+				
+				</div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

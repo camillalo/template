@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>PHP地方装修门户系统</title>
+        <script type="text/javascript" src="../statics/js/jquery.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#code').click(function(){
+                    $(this).attr('src','index.php?ctl=code&tag='+new Date().getTime());
+                });
+            });
+
+            function changeCode(){
+                $('#code').click();
+            }
+        </script>
+        <style type="text/css">
+            body{background:#75cbfa url('../statics/images/admin/login_bg.gif') repeat-x left top;}
+            *{margin:0; padding:0;font-family:"宋体";font-size:12px; }
+
+            ul{list-style:none}
+            a{color:#000; font-size:12px; text-decoration:none}
+            input,textarea,select{font-size:12px;padding:1px;}
+            .login{margin:180px auto; width:440px; height:180px; overflow:hidden; background:url('../statics/images/admin/login_k_bg1.gif') repeat-x left top;}
+            .login_bg{margin:7px; padding:2px; height:162px; background:url('../statics/images/admin/login_k_bg2.gif') repeat-x left top}
+            .login_bg2{background:#057fcc; height:162px;}
+            .login_title{padding-top:29px; background:url(../statics/images/admin/login_title.gif) no-repeat 10px 5px;}
+            .login form{padding-left:120px; background:url(../statics/images/admin/login_icon.gif) no-repeat 15px center; margin-top:18px;}
+            .login_left{width:195px; float:left}
+            .login_left p{height:28px; line-height:28px;}
+            .login_left label{display:block; float:left; width:50px; color:#FFFFFF; text-align:right}
+            .login_left .f{width:140px; float:right}
+            .login_right{width:84px; float:right; margin-right:8px; display:inline}
+            .login h2{font-size:12px; padding:5px;}
+            .login form input{padding:3px 0}
+            .login .btn{text-align:center; height:30px; line-height:30px; padding-top:10px;}
+        </style>
+    </head>
+
+    <body>
+        <iframe name="hiden_frm"  style="display:none;"></iframe>
+        <div class="login">
+            <div class="login_bg">
+                <div class="login_bg2">
+                    <div class="login_title">
+                        <form name="login" action="index.php?ctl=login&act=login" target="hiden_frm" method="post">
+                            <div class="login_left">
+                                <p><label>用户名：</label><input name="username" value="" class="f" /></p><div class="clear"></div>
+                                <p><label>密码：</label><input type="password" name="password" value="" class="f" /></p><div class="clear"></div>
+
+                                <p><label>验证码：</label>
+
+                                    <span  style="margin-left: 0px; padding:0; display:block">
+                                        <input name="code" value="" style="width:50px; display:block; float:left; margin-left:0px; display:inline"/>
+                                        <img style="display:block; float:left; margin-left: 10px; cursor:pointer" src="index.php?ctl=code" border="0" id="code"/>
+                                    </span>
+
+
+                                </p><div class="clear"></div>
+                            </div>
+                            <div class="login_right"><input type="hidden" name="submit" value="true" /><input type="image" name="submit" src="../statics/images/admin/login_btn.gif" /></div>
+                            <div class="clear"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

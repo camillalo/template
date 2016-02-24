@@ -1,0 +1,113 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x"> 
+        <a href="###" class="on" ><em>模块生成</em></a>
+    </div>
+</div>      
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+<form action="index.php?ctl=model&act=make" target="hiden_frm" name="form1" id="myform" method="post">
+    <div class="pad-lr-10">
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    <th colspan="5">
+                         （非开发者务用此模块！数据库需要额外建立好！另外下面具体字段项目不需要出现主键）
+                    </th>
+                    </tr>
+                    <tr>
+                        <th align="center" >模块中文名</th>
+                        <th align="center" >模块英文名称</th>
+                        <th align="center" >数据库（不含前缀）</th>
+                        <th align="center" >主键</th>
+                        <th align="center" >模块</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" size="30" value="" name="cnname" class="input-text"></td>
+                        <td><input type="text" size="30" value="" name="mdlname" class="input-text"></td>
+                        <td><input type="text" size="30" value="" name="dbname" class="input-text"></td>
+                        <td><input type="text" size="30" value="" name="index" class="input-text"></td>
+                        <td>
+                            <input type="checkbox" name="mdl[]" value="1" />数据;
+                            <input type="checkbox" name="mdl[]" value="2" />增加;
+                            <input type="checkbox" name="mdl[]" value="3" />修改;
+                            <input type="checkbox" name="mdl[]" value="4" />删除;
+                            <input type="checkbox" name="mdl[]" value="5" />查看;
+                           
+                        </td>
+                    </tr>                   
+                </tbody>
+            </table>
+            
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th align="center" >字段英文(主键不用再这里填写了)</th>
+                        <th align="center" >字段中文说明</th>
+                        <th align="center" >类型</th>
+                        <th align="center" >设置</th>
+                    </tr>
+                </thead>
+                <tbody class="jq_list">
+                    <tr>
+                        <td><input type="text" size="10" value="" name="info[enname][1]" class="input-text"></td>
+                        <td><input type="text" size="10" value="" name="info[cnname][1]" class="input-text"></td>
+                        <td>
+                            <select name="info[type][1]">
+                                <option value="1">数字</option>
+                                <option value="2">文本</option>
+                                <option value="3">编辑器</option>
+                                <option value="4">图片</option>
+                                <option value="5">文本框</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="1" name="info[is_show][1]" class="input-text">列表中显示
+                            <input type="checkbox" value="1" name="info[is_null][1]" class="input-text">允许为空
+                            <input type="checkbox" value="1" name="info[keyword][1]" class="input-text">模糊查询
+                            <input type="checkbox" value="1" name="info[search][1]" class="input-text">直接查询
+                            <a href="###" class="jq_add">增加字段</a>
+                        </td>
+                    </tr>                   
+                </tbody>
+            </table>
+            <script>
+                $(document).ready(function(){
+                    var num = 1;
+                    $(".jq_add").click(function(){
+                        num ++;
+                        var str ='<tr>';
+                        str+='<td><input type="text" size="10" value="" name="info[enname]['+num+']" class="input-text"></td>';
+                        str+='<td><input type="text" size="10" value="" name="info[cnname]['+num+']" class="input-text"></td>';
+                        str+='<td>';
+                        str+='    <select name="info[type]['+num+']">';
+                        str+='        <option value="1">数字</option>';
+                        str+='        <option value="2">文本</option>';
+                        str+='        <option value="3">编辑器</option>';
+                        str+='        <option value="4">图片</option> <option value="5">文本框</option>';
+                        str+='    </select>';
+                        str+='</td>';
+                        str+='<td>';
+                        str+='    <input type="checkbox" value="1" name="info[is_show]['+num+']" class="input-text">列表中显示';
+                        str+='    <input type="checkbox" value="1" name="info[is_null]['+num+']" class="input-text">允许为空';
+                        str+='    <input type="checkbox" value="1" name="info[keyword]['+num+']" class="input-text">模糊查询';
+                        str+='    <input type="checkbox" value="1" name="info[search]['+num+']" class="input-text">直接查询';
+                        str+='    <a href="###" class="jq_del">移除</a>';
+                        str+='</td>';
+                        str+='</tr>  ';
+                        $(".jq_list").append(str);
+                    });
+                    $(document).on('click','.jq_del',function(){
+                        $(this).parent().parent('tr').remove();
+                    });
+                });
+            </script>            
+            <div id="btn"><input type="submit" class="button" value="确认生成"></div>
+        </div>
+    </div>
+</form>    
+</body>
+</html>

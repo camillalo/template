@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/zb.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body id="w_body">
+  <?php  require TEMPLATE_PATH.'public/zb_public.html';?>
+<div class="w_980">
+  <div class="zb_main">
+		<div class="zb_box1">
+			<div class="left">
+			  <div class="zb_header_left"> 
+
+<img src="<?php echo URL;?>themes/v3.0/images/zb/wn.gif" width="328" height="145" /><br>
+      
+        <br>
+		<div class="cont_sjxcgh">
+			<li>● 注册成为本站会员，报修只要用户一个电话</li>
+			<li>● 会员在线报修，报修问题24小时响应</li>
+			<li>● 装潢公司与土拨鼠网签订5年质保承诺</li>
+			<li>● 装饰协会、消费者协会和土拨鼠网会共同提供三重权益保障</li>
+			<li>● 没有问题就是最好的质保</li>
+		</div>
+      </div>
+			</div>
+			
+
+				
+		<?php  require TEMPLATE_PATH.'public/zb_public2.html';?>		
+		
+		
+		</div>
+		<div class="ad980">
+			<img src="<?php echo URL;?>themes/v3.0/images/zb/zb_980.gif" />
+		</div>
+		
+		<div class="l980">
+			
+			<h1>装修保障计划</h1>
+		</div>
+		
+		<div class="wuzb_list">
+		1. 乙方（承包方）违反《住宅装饰装修验收标准》标准号DB31/30-2003（即俗称315标准）的施工质量问题； 2. 乙方（承包方）使用劣质、假冒材料 3. 乙方实际使用材料（品牌、型号、规格）与合同预算中不相符合 4. 甲方（发包方）已按照合同支付款项，但乙方（承包方）不按照合同履行义务 5. 甲方（发包方）已按照合同支付款项，乙方（承包方）卷款失踪 
+		</div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+
+</body>
+</html>

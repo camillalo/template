@@ -1,0 +1,47 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=security" ><em>公司保障列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=security&act=add" class="on"><em>新增公司保障</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+     <form    action="index.php?ctl=security&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">公司ID:</th>
+                        <td><input type="text" size="10" value="" name="uid" class="input-text">  (在公司列表中查看ID)</td>
+                    </tr>
+                    <tr>
+                        <th width="140">保障金:</th>
+                        <td><input type="text" size="10" value="" name="money1" class="input-text">元 </td>
+                    </tr>
+                    <tr>
+                        <th width="140">活动保障金:</th>
+                        <td><input type="text" size="10" value="" name="money2" class="input-text"> 元</td>
+                    </tr>
+                    <tr>
+                        <th width="140">特殊服务:</th>
+                        <td><textarea name="special" cols="50" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">售后服务:</th>
+                        <td><textarea name="after_sales" cols="50" rows="10"></textarea></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

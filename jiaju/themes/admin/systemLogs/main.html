@@ -1,0 +1,62 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+<iframe name="hiden_frm"  style="display:none;"></iframe>    
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=systemLogs" class="on"><em>系统日志列表</em></a>
+                             
+ 
+        </div>
+    </div>
+    <div class="pad-lr-10">
+         <form method="get" action="index.php" name="searchform">
+            <input type="hidden" name="ctl" value="systemLogs">
+            <table width="100%" cellspacing="0" class="search-form">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="explain-col">
+                                <input type="text" size="10" name="keyword" class="input-text" value="<?php echo $_GET['keyword'];?>">
+                                <input type="submit" name="dosubmit" class="button" value="确定搜索">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                      <th align="center" >用户</th>
+                      <th align="center" >标题</th>
+                      <th align="center" >地址</th>
+                      <th  width="20%" align="center" >原始数据</th>
+                       <th  width="20%" align="center" >现在数据</th>
+                        <th align="center" >IP</th>
+                        <th align="center" >时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach($datas as $val){ ?>
+                    <tr>
+                        <td width="10%" align="center"><?php echo $val['id'];?></td>
+                        <td align="center" ><?php echo $val['username'];?></td>
+                       
+                        <td align="center" ><?php echo $val['title'];?></td>
+                         <td align="center" ><?php echo $val['url'];?></td>
+                        <td  width="20%" align="center" ><?php echo var_export(json_decode($val['raw_data'],true));?></td>
+                         <td width="20%" align="center" ><?php echo var_export(json_decode($val['processed_data'],true));?></td>
+                         <td align="center" ><?php echo $val['ip'];?></td>
+                         <td align="center" ><?php echo date('Y-m-d H:i:s',$val['t']);?></td>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+            <div id="pages"><?php echo $links;?></div>
+        </div>
+    </div>
+</body>
+</html>
+    

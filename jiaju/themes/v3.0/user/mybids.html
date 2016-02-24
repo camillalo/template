@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+   <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 竞标信息
+				</div>
+             
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            如果是VIP会员的话可以选择包时(包时会员能在用户发布招标的时候直接被选择)或者包条数优先查看用户联系方式！如果您不是VIP会员那么可以通过竞标的方式 如果业主让你入围或者中标也会看到用户的信息！
+                        </div>
+                    </div>
+
+                    <div class="module_default">
+            
+
+                        <div class="panes">
+                            <!--收件箱开始-->
+                            <div style="display: block;">
+                                <table width="100%" cellspacing="0" class="table_a">
+                                    <thead>
+                                    
+                                
+                                    <tr >
+                                            <th width="10%">序号</th>
+                                            <th width="15%" align="center" >发布人</th>
+
+                                            <th width="15%"  align="center" >楼盘名称</th>
+                                            <th width="15%"  align="center" >联系方式</th>
+                                            <th width="15%"  align="center" >详细地址</th>
+
+                                            <th width="30%"  align="center" >操作</th>
+
+                                            </tr>
+                                </thead>
+                                <tbody>
+                                    <?php  foreach($datas as $val){ 
+                                    $yes = isset($types[$val['id']]) ? (int)$types[$val['id']] : 0;
+                                    ?>
+                                    <tr>
+                                        <td width="10%" align="center"><?php echo $val['id'];?></td>
+                                        <td width="15%" align="center" ><?php echo mb_substr($val['name'],0,1);?><?php echo isset($__SEX[$val['sex']]) ? $__SEX[$val['sex']] : '';?></td> 
+
+                                        <td width="15%" align="center" ><?php echo $val['building_name'];?></td>
+                                        <td width="15%" align="center" ><?php echo $yes ? $val['mobile'] : '***';?></td>
+                                        <td width="15%" align="center" ><?php echo $yes ? $val['addr'] : '***';?></td>
+
+                                        <td width="30%" align="center" >
+                                            <?php  if($val['is_show']){ ?>
+                                            <a target="_blank" href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$val['id']));?>">查看</a>
+                                            <?php  $bidinfo = isset($bids[$val['id']]) ? $bids[$val['id']] : array();
+                                                if(empty($bidinfo)){
+                                            ?>
+                                            <a target="_blank" href="<?php echo mkUrl::linkTo('user','biddingBidAdd',array('bid'=>$val['id']));?>">补充竞标</a>
+                                            <?php }else{ if(!$bidinfo['is_win']){ ?>
+                                            <a target="_blank" href="<?php echo mkUrl::linkTo('user','biddingBidEdit',array('bid'=>$val['id']));?>">修改竞标</a>
+                                            <?php }else{?>
+                                            <font color="red">中标啦！</font>
+                                            <?php }}?>
+                                            <?php }else{ ?>等待确认<?php }?>
+                                        </td>
+                                    </tr>
+                                    <?php }?>
+                                </tbody>
+                                </table>
+                                <div id="pages"><?php echo $links;?></div>
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div> 
+            </div>
+
+
+
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="clear">
+        </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+        <title>后台管理中心</title>
+        <link href="../statics/css/public/reset.css" rel="stylesheet" type="text/css"/>
+        <link href="../statics/css/admin/zh-cn-system.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="../statics/js/jquery.js"></script>
+    </head>
+    <body scroll="no" class="objbody">
+        <iframe name="hiden_frm"  style="display:none;"></iframe>   
+        <div style="width: auto;" class="header">
+            <div class="logo lf"><a href="/" target="_blank"></a></div>
+            <div class="rt-col">
+                <div class="tab_style white cut_line text-r">
+                    <a href="http://www.qdjiazhuang.com" target="_blank">官方网站</a>
+                    <span>|</span>
+                    <a target="hiden_frm" href="index.php?act=clear">清除缓存</a>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="log white cut_line">
+                    您好！<?php echo $_SESSION['admin']['realname'];?>  [<?php echo $group['group_name'];?>]
+                    <span>|</span>
+                    <a href="index.php?ctl=login&act=logout">[退出]</a>
+                    <span>|</span> 
+                    <a href="/" target="_blank" id="site_homepage">站点首页</a>
+                </div>
+                <ul class="nav white" id="top_menu">
+                    <?php $i=0; foreach($menu as $k=>$val){  $i++;?>
+                        <li  class=" <?php if($i ==1) echo 'on ';?> top_menu">
+                            
+                            <a href="index.php?ctl=index&act=left&index=<?php echo $k;?>" target="leftFrame" hidefocus="true" style="outline: medium none;"><?php echo $val['name'];?></a>
+                            
+                        </li>
+                    <?php }?>
+                </ul>
+                <script>
+                    $("#top_menu li").click(function(){
+                        var index = $(this).index();
+                        $(this).addClass('on');
+                        $("#top_menu li").each(function(a){
+                            if(a!=index){
+                                   $(this).removeClass('on');
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <div style="display: none;"><iframe ></iframe></div>
+    </body>
+</html>

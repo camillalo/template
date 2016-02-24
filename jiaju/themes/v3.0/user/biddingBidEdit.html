@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+     <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 编辑投标
+				</div>
+           
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            投标的重要性就是：一、你很可能被业主选择；二、多了一个地方能展示出来自己的企业或博客;
+                        </div>
+                    </div>
+
+                    <div class="module_default">
+                        <div class="hd">基本信息</div>
+                        <div class="bd gongneng">
+
+                            <form  enctype="multipart/form-data"  action="<?php echo mkUrl::linkTo('user','biddingBidEdit',array('bid'=>$bid));?>" target="hiden_frm" name="form1" id="myform" method="post">
+                                <table width="100%" cellspacing="0" cellpadding="0" class="gongneng_table">
+                                    <tbody>
+                                        <tr>
+                                            <th >主材料费用:</th>
+                                            <td><input type="text" value="<?php echo round($data['main_material']/100,2);?>" name="main_material" class="input-text"> 元</td>
+                                        </tr>
+                                        <tr>
+                                            <th >辅材料费用:</th>
+                                            <td><input type="text" value="<?php echo round($data['vice_material']/100,2);?>" name="vice_material" class="input-text"> 元</td>
+                                        </tr>
+                                        <tr>
+                                            <th >人工费用:</th>
+                                            <td><input type="text" value="<?php echo round($data['artificial']/100,2);?>" name="artificial" class="input-text"> 元</td>
+                                        </tr>
+                                        <tr>
+                                            <th >管理费用:</th>
+                                            <td><input type="text" value="<?php echo round($data['management']/100,2);?>" name="management" class="input-text"> 元</td>
+                                        </tr>
+                                        <tr>
+                                            <th >设计费用:</th>
+                                            <td><input type="text" value="<?php echo round($data['design']/100,2);?>" name="design" class="input-text"> 元</td>
+                                        </tr>
+
+                                        <?php if($isVip){ ?>
+                                        <tr>
+                                            <th width="140">装饰效果:</th>
+                                            <td class="jq_detail">
+                                                <?php foreach($data['detail_pics'] as $v) {?>
+                                                <div>
+                                                    <input type="hidden" name="oldpics[]" value="<?php echo $v;?>" />
+                                                    <img width="80" height="80" src="<?php echo URL.$v;?>" /><a href="###" class="jq_del">移除</a>
+                                                </div>
+                                                <?php }?>
+                                                <div><input type="file" name="details[]" ><a href="###" class="jq_add">添加</a></div>
+
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            $(document).ready(function(){
+                                                $(".jq_add").click(function(){
+                                                    var str ='<div><input type="file" name="details[]" ><a href="###" class="jq_del">移除</a></div>';
+                                                    $(".jq_detail").append(str);
+                                                });
+                                                $(document).on('click','.jq_del',function(){
+                                                    $(this).parent('div').remove();
+                                                });
+                                            });   
+                                        </script>
+                                        <?php } else{ ?>
+
+                                        <tr>
+                                            <th width="140">装饰效果:</th>
+                                            <td class="jq_detail">
+
+                                                <div>只有VIP会员才能上传装饰效果！</div>
+
+                                            </td>
+                                        </tr>
+                                        <?php  }?>
+                                        <tr>
+                                            <th >留言:</th>
+                                            <td><textarea name="message" cols="50" rows="10"><?php echo $data['message']?></textarea></td>
+                                        </tr>
+                                        <th align="center" colspan="2"><input type="submit" value="保存" class="btn_submit" id="ctl00_col_main_Save" name="ctl00$col_main$Save"></th>
+
+                                    </tbody>
+                                </table>
+
+                            </form>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

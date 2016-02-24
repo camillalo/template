@@ -1,0 +1,55 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=integralShop" ><em>积分产品列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑积分产品</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=integralShop&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th >产品名称:</th>
+                        <td><input type="text" size="80" value="<?php echo $data['product_name']?>" name="product_name" class="input-text"> </td>
+                    </tr>
+
+                    <tr>
+                        <th >缩略图:</th>
+                        <td><input type="file"  name="face_pic" ><?php if(!empty( $data['face_pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['face_pic']?>" /> <?php }?></td>
+                    </tr>
+                    <tr>
+                        <th >库存:</th>
+                        <td><input type="text" value="<?php echo $data['num']?>" name="num" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >市场价格:</th>
+                        <td><input type="text" value="<?php echo round($data['market_price']/100,2);?>" name="market_price" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >兑换消耗积分:</th>
+                        <td><input type="text" value="<?php echo $data['exchange_integral']?>" name="exchange_integral" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >抽奖消耗积分:</th>
+                        <td><input type="text" value="<?php echo $data['lottery_integral']?>" name="lottery_integral" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >抽奖概率:</th>
+                        <td><input type="text" value="<?php echo $data['lottery_probability']?>" name="lottery_probability" class="input-text"> *最好在100以上意思就是1%的机会中奖</td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认修改">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

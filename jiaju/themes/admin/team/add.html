@@ -1,0 +1,57 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=team" ><em>工队列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=team&act=add" class="on"><em>新增工队</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+     <form  enctype="multipart/form-data"    action="index.php?ctl=team&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th >工队队名:</th>
+                        <td><input type="text" value="" name="name" class="input-text"> </td>
+                    </tr>
+
+                    <tr>
+                        <th >工队头像:</th>
+                        <td><input type="file"  name="face_pic" > </td>
+                    </tr>
+                    <tr>
+                        <th >联系电话:</th>
+                        <td><input type="text" value="" name="tel" class="input-text"> </td>
+                    </tr>
+         
+                    <tr>
+                        <th >联系地址:</th>
+                        <td><input type="text" value="" name="addr" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th >介绍:</th>
+                        <td><textarea name="info" cols="50" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th >排序:</th>
+                        <td><input type="text" value="" name="orderby" class="input-text">数字越大排名越前 </td>
+                    </tr>
+                    <tr>
+                        <th >是否保障:</th>
+                        <td><input type="text" value="" name="is_security" class="input-text"> 0代表没有保障 1代表有保障 </td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

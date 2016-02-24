@@ -1,0 +1,65 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+         <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=admin" ><em>管理员列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=admin&act=add" class="on"><em>新增管理员</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form action="index.php?ctl=admin&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">用户名:</th>
+                        <td><input type="text" size="40" value="" name="username" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">真实名称:</th>
+                        <td><input type="text" size="40" value="" name="realname" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">密码:</th>
+                        <td><input type="password" class="input-text" id="password" name="password"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">确认密码:</th>
+                        <td><input type="password" class="input-text" id="password2" name="password2"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">角色:</th>
+                        <td>
+                            <select name="group_id">
+                                <option value="0">请选择角色</option>
+                                <?php foreach($groups as $val){ ?>
+                                <option value="<?php echo $val['group_id'];?>"><?php echo $val['group_name'];?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">手机号码:</th>
+                        <td><input type="text" size="40" value="" name="mobile" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">电话号码:</th>
+                        <td><input type="text" size="40" value="" name="tel" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">EMAIL:</th>
+                        <td><input type="text" size="40" value="" name="email" class="input-text"> </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

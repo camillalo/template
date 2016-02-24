@@ -1,0 +1,46 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=preferential" ><em>优惠信息列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>查看优惠信息</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">优惠标题:</th>
+                        <td><?php echo $data['title']?></td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">优惠海报:</th>
+                        <td><?php if(!empty( $data['face_pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['face_pic']?>" /> <?php }?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否显示:</th>
+                        <td>
+                          <?php if($data['is_show']){ ?><font color="green" >显示</font> <?php }else{ ?> <font color="red" >待审核</font> <?php }?>
+                        </td>
+                    </tr>
+            <tr>
+                <th width="140">优惠内容:</th>
+                <td>
+                  <?php echo $data['content']?>
+                    
+                </td>
+            </tr>    
+
+            </tbody>
+            </table>
+
+
+    </div>
+
+</body>
+</html>
+    

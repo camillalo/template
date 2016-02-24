@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/jifen.css" rel="stylesheet" type="text/css" />  
+
+</head>
+
+<body id="w_body">
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+     <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+	<div class="jf_main">
+		<div class="jf_main_left">
+			<div class="box">
+			<div class="a">
+				<a href="#"><img src="<?php echo URL;?>themes/v3.0/images/jf/jf.gif" border="0" /></a> 
+			</div>
+			<div class="b">
+                            <?php pluginsAdsLunbo(14,530,140);?>
+                                
+			</div>
+			</div>
+			
+			<div class="p"> 
+				<div class="t1">
+					<a href="#" class="cur">热门产品</a>
+				</div>
+				<div class="p_zhu">
+                                    
+                                    <?php foreach($hotProducts as $val){?>
+                                    <div class="p_list">
+                                            <div class="img">
+                                                <img width="167" height="139" src="<?php echo URL,$val['face_pic'];?>">
+                                            </div>
+                                            <p><?php echo $val['product_name'];?></p>
+                                            <strong>兑换：<font><?php echo $val['exchange_integral'];?></font>积分</strong>
+                                            <strong>抽奖：<font><?php echo $val['lottery_integral'];?></font>积分</strong>
+                                            <span>
+                                                    <?php if($val['num'] > 0 && $val['is_show']){ ?>
+                                                    <a class="jq_duihuan" rel="<?php echo $val['id'];?>" href="javascript:void(0);">兑换</a><a class="jq_choujiang" rel="<?php echo $val['id'];?>"  href="javascript:void(0);">抽奖</a>
+                                                    <?php } else{ ?>   
+                                                    <p style="background: #cccccc; height: 25px; width: 120px; margin-left: 20px; line-height: 25px; " ><b>抢完了</b></p>
+                                                    <?php }?>
+                                            </span>
+                                    </div>
+                                    <?php }?>
+                                
+                                    
+                                    
+                                </div>
+			</div>
+			
+			<div class="p_main">
+				<div class="t1">
+					<div class="b1">积分兑换、抽奖</div>
+					
+				</div>
+				<Div class="clear"></Div>
+				
+                                 <?php foreach($goods as $val){?>
+				<div class="p_list">
+					 <div class="img">
+                                                <img width="167" height="139" src="<?php echo URL,$val['face_pic'];?>">
+                                            </div>
+					 <p><?php echo $val['product_name'];?></p>
+                                            <strong>兑换：<font><?php echo $val['exchange_integral'];?></font>积分</strong>
+                                            <strong>抽奖：<font><?php echo $val['lottery_integral'];?></font>积分</strong>
+                                            <span>
+                                                    <?php if($val['num'] > 0 && $val['is_show']){ ?>
+                                                    <a class="jq_duihuan" rel="<?php echo $val['id'];?>" href="javascript:void(0);">兑换</a><a class="jq_choujiang" rel="<?php echo $val['id'];?>"  href="javascript:void(0);">抽奖</a>
+                                                    <?php } else{ ?>   
+                                                    <p style="background: #cccccc; height: 25px; width: 120px; margin-left: 20px; line-height: 25px; " ><b>抢完了</b></p>
+                                                    <?php }?>
+                                            </span>
+				</div>
+				
+				 <?php }?>
+				
+				
+				
+			</div>
+			
+			
+		</div>
+            
+            <div id="jf_duihuan" title="积分兑换" style="display: none;">
+                <form>
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <th height="30" width="80" >联系人:</th>
+                            <td><input type="text" value="" name="name" ></td>
+                        </tr>
+                        <tr>
+                            <th height="30" width="80" >联系方式:</th>
+                            <td><input type="text" value="" name="tel" ></td>
+                        </tr>
+                        <tr>
+                            <th >描述:</th>
+                            <td><textarea name="description" cols="50" rows="5"></textarea><br />（实物填写地址，虚拟物品填写账号等信息）</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+            <div id="jf_choujiang" title="积分抽奖" style="display: none;">
+                <form>
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <th height="30" width="80" >联系人:</th>
+                            <td><input type="text" value="" name="name" ></td>
+                        </tr>
+                        <tr>
+                            <th height="30" width="80" >联系方式:</th>
+                            <td><input type="text" value="" name="tel" ></td>
+                        </tr>
+                        <tr>
+                            <th >描述:</th>
+                            <td><textarea name="description" cols="50" rows="5"></textarea><br />（实物填写地址，虚拟物品填写账号等信息）</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+            <script>
+                var myIntegral = 0;
+                $(document).ready(function(){
+                   $(".jq_duihuan").click(function(){
+                       var id = $(this).attr('rel');
+                       if(is_login){
+                           $("#jf_duihuan").dialog({
+                               width:500,
+                               height:300,
+                               modal: true,
+                               buttons:{
+                                   '确定兑换':function(){
+                                       var data = $("#jf_duihuan form").serialize();
+                                       $.ajax({
+                                           url:'<?php echo URL;?>index.php?ctl=jifen&act=exchange&id='+id,
+                                           data:data,
+                                           type:'POST',
+                                           dataType:'json',
+                                           success:function(data){
+                                               if(data.ret == 0) {
+                                                   alert(data.message);
+                                                   $("#jf_duihuan").dialog('close');
+                                               }else{
+                                                   alert(data.message);
+                                               }
+                                           }
+                                       });
+                                       
+                                   },
+                                   '取消兑换':function(){
+                                       $(this).dialog('close');
+                                   }
+                               }
+                           });                     
+                       }else{
+                            alert('需要登录后操作');
+                            location.href ='<?php echo mkUrl::linkTo("login");?>';
+                       }
+                       
+                   });
+                    
+                   
+                   $(".jq_choujiang").click(function(){
+                       var id = $(this).attr('rel');
+                       if(is_login){
+                           $("#jf_choujiang").dialog({
+                               width:500,
+                               height:300,
+                               modal: true,
+                               buttons:{
+                                   '确定抽奖':function(){
+                                       var data = $("#jf_choujiang form").serialize();
+                                       $.ajax({
+                                           url:'<?php echo URL;?>index.php?ctl=jifen&act=lottery&id='+id,
+                                           data:data,
+                                           type:'POST',
+                                           dataType:'json',
+                                           success:function(data){
+                                               if(data.ret == 0) {
+                                                   alert(data.message);
+                                                   $("#jf_choujiang").dialog('close');
+                                               }else{
+                                                   alert(data.message);
+                                               }
+                                           }
+                                       });
+                                       
+                                   },
+                                   '取消抽奖':function(){
+                                       $(this).dialog('close');
+                                   }
+                               }
+                           });                     
+                       }else{
+                            alert('需要登录后操作');
+                            location.href ='<?php echo mkUrl::linkTo("login");?>';
+                       }
+                       
+                   });
+                    
+                });
+                
+            </script>
+		
+		
+		<div class="jf_main_right">
+			<div class="box1">
+                            <?php if(empty($userinfo)){?>
+                            <div style="padding: 5px; width: 210px; text-align: center;">
+                                <p><a href="<?php echo mkUrl::linkTo('login');?>"><img src="<?php echo URL;?>themes/v3.0/images/denglu_btn.gif" /></a></p> 
+                                <?php if(QQ_APPID ){ ?> 
+                                <p style="margin-top: 10px;"> <a href="javascript:toQzoneLogin();"><img src="<?php echo URL;?>statics/images/qq_login.png" /></a></p>
+                                 <?php }?>   
+                            </div>
+                                    
+                            <?php  } else{ ?>
+				<div class="t1">
+                                    
+					<div class="img">
+                                            <?php if(empty($userinfo['tx'])){ ?>
+                                            <a href="<?php echo mkUrl::linkTo('user');?>"><img src="<?php echo URL;?>themes/v3.0/images/jf/user.png" border="0" /></a> 
+                                            <?php }else{?>
+                                            <a href="<?php echo mkUrl::linkTo('user');?>"><img src="<?php echo URL,$userinfo['tx'];?>" border="0" /></a> 
+                                            <?php }?>
+					</div>
+					<p>您好：<?php echo $userinfo['realname'];?></p>
+					<p>剩余积分：<font><?php echo $userinfo['jifen']?></font></p>     
+                                  
+                                        
+				</div>
+				
+				<ul>
+                                        <li><a href="<?php echo mkUrl::linkTo('user');?>">进入用户中心</a></li>
+					<li><a href="<?php echo mkUrl::linkTo('user','exchange');?>">抽奖兑换物品</a></li>
+					<li><a href="<?php echo mkUrl::linkTo('user','integral');?>">我的积分余额</a></li>
+				</ul>
+			  <?php  }?>    
+			</div>
+			
+			<div class="box2">
+				<div class="t1">兑换名单</div>
+                                <?php foreach($duihuan as $val){ ?>
+				<p>
+                                    <font><?php echo $val['username'];?></font>在<span><?php echo date('Y-m-d H:i:s',$val['t']);?></span><br>
+				 兑换了<span><?php echo $val['product_name'];?></span>
+				</p>
+				<?php }?>
+				
+			</div>
+			<div class="box2">
+				<div class="t1">抽奖中奖名单</div>
+				  <?php foreach($choujiang as $val){ ?>
+				<p>
+                                    <font><?php echo $val['username'];?></font>在<span><?php echo date('Y-m-d H:i:s',$val['t']);?></span><br>
+				 抽中了<span><?php echo $val['product_name'];?></span>
+				</p>
+				<?php }?>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

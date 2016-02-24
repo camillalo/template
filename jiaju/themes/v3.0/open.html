@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+<link href="<?php echo URL;?>themes/v3.0/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo URL;?>themes/v3.0/css/bind.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+		<div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+        
+        </div>
+        <div class="clear"></div>
+<div class="w_980">
+
+	       
+                  
+<div class="reg_main">
+<div class="reg_tip_contant">
+	<div class="reg_head">
+		<div class="dl_nav2">
+			<a href="###" id="sso_lab_reg" class="dl_selected" >第一次登陆，完善账号信息</a>
+			<a href="###" id="sso_lab_build">已有<?php echo $__SETTING['site_name'];?>账号，直接绑定</a> 
+		</div>
+	</div>
+    <script>
+        $(document).ready(function(){
+            $("#sso_lab_reg").click(function(){
+                $("#sso_menu_reg").show();
+                $("#sso_menu_build").hide();
+                $(this).addClass('dl_selected');
+                $("#sso_lab_build").removeClass('dl_selected');
+            });
+            $("#sso_lab_build_btn").click(function(){
+                 $("#sso_lab_build").click();
+            });
+             $("#sso_lab_build").click(function(){
+                $("#sso_menu_reg").hide();
+                $("#sso_menu_build").show();
+                $(this).addClass('dl_selected');
+                $("#sso_lab_reg").removeClass('dl_selected');
+            });
+        });
+    </script>
+	<!--** 新注册**-->
+	<div class="reg_tip_contant3" id="sso_menu_reg">
+		<div class="yb_info">
+			<p>
+				<span><img class="login-img30" src="<?php echo $openinfo['img'];?>"></span>
+				<span><b><?php echo $openinfo['nickname'];?></b></span>
+				<span>欢迎您！您正通过</span>
+				<span>QQ</span>
+				<span>登录<?php echo $__SETTING['site_name'];?>。</span>
+			</p>
+			<p style="font-size:14px; font-weight:bold; margin:10px 0 3px;">填写您的邮箱和用户名后，下次就可以使用 <strong>QQ</strong> 直接登录了</p>
+			<p class="gray">如果您以前已经注册过，请点击 <a href="###" id="sso_lab_build_btn" style="color:#F60;">直接绑定&gt;&gt;</a></p>
+		</div>
+		<form target="hiden_frm" action="<?php echo mkUrl::linkTo('register','save2'); ?>" name="reg1" method="post">
+		<div class="line">
+			<div class="lineLeft"><label><font color="red">* </font>会员名：</label></div>
+			<div class="divcenter">
+                            <input type="text" type="text" name="username"  value="<?php echo $openinfo['nickname'];?>" class="text inputWidth" />
+			</div>
+			
+		</div>
+		<div class="line">
+			<div class="lineLeft"><label><font color="red">* </font>E-mail：</label></div>
+			<div class="divcenter">
+				<input type="text" name="email" rel="email" value="" class="text inputWidth" />
+			</div>
+			
+		</div>                      
+		<div class="line">
+			<div class="lineLeft"><label for="input_1"><font color="red">* </font>密码：</label></div>
+			<div class="divcenter">
+				<input type="password" name="password"  value="" class="text inputWidth" />
+			</div>
+			
+		</div>			
+		<div class="line">
+			<div class="lineLeft"><label for="input_1"><font color="red">* </font>确认密码：</label></div>
+			<div class="divcenter">
+				<input type="password" name="password2"  value="" class="text inputWidth" />
+			</div>
+			
+		</div>
+		<button class="Q" style=" border: 0px;" type="submit">完善资料</button>
+		</form>
+	</div>
+        <!--** 已有帐号绑定**-->
+
+    <form target="hiden_frm" method="post" action="<?php echo mkUrl::linkTo('login','loging');?>">	
+	<div class="reg_tip_contant3" id="sso_menu_build" style="display:none;">
+		<div class="yb_info">
+			<p>
+				<span><img class="login-img30" src="<?php echo $openinfo['img'];?>"></span>
+				<span><b><?php echo $openinfo['nickname'];?></b></span>
+				<span>欢迎您！您正通过</span>
+				<span>QQ</span>
+				<span>登录<?php echo $__SETTING['site_name'];?>。</span>
+			</p>
+			<p style="font-size:14px; font-weight:bold; margin:10px 0 3px;">绑定您的<?php echo $__SETTING['site_name'];?>用户名后，下次就可以使用 <strong>QQ</strong> 直接登录了</p>
+		</div> 
+		<div class="line">
+			<div class="lineLeft"><label><font color="red">* </font>会员名：</label></div>
+			<div class="divcenter">
+                            <input type="text" type="text" name="username"  value="<?php echo $openinfo['nickname'];?>" class="text inputWidth" />
+
+			</div>
+		</div>
+		<div class="line">
+			<div class="lineLeft"><label for="input_1"><font color="red">* </font>密码：</label></div>
+			<div class="divcenter">
+				<input type="password" name="password" tabindex="11" value="" class="text inputWidth" />
+			</div>
+		</div>
+            <button class="Q" style=" border: 0px;" type="submit">绑定帐号</button>
+	</div>
+	<!--** 已有帐号绑定**-->
+</div>
+</div>
+
+  
+
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=bidding" ><em>招标列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>查看招标</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">使用VIP的用户有：</th>
+                        <td>
+                            <?php $i=0; foreach($looks as $val){ $i++; ?>
+                            <p>
+                               <?php echo $i;?>、uid(<?php echo $val['uid'];?>),公司名称（<?php echo $val['company_name'];?>）,用户名(<?php echo $val['username'];?>)
+                                
+                            </p>
+                            
+                            <?php }?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">发布人:</th>
+                        <td><?php echo $data['name']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">区域:</th>
+                        <td><?php echo empty($area['area_name']) ? '': $area['area_name'];?> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">手机:</th>
+                        <td><?php echo $data['mobile']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">性别:</th>
+                        <td><?php echo isset($__SEX[$data['sex']]) ? $__SEX[$data['sex']] : '未知';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">楼盘名称:</th>
+                        <td><?php echo $data['building_name']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">详细地址:</th>
+                        <td><?php echo $data['addr']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">装修方式:</th>
+                        <td><?php echo isset($__DECORATE_TYPE[$data['way']]) ? $__DECORATE_TYPE[$data['way']] : '';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">空间类型:</th>
+                        <td><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_root']);?><?php if(!empty($data['type_id'])) echo '(',category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_id']),')';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">最喜欢风格:</th>
+                        <td><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['style_id']);?> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">预算:</th>
+                        <td>
+                        <?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['budget_id']);?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="140">面积㎡:</th>
+                        <td><?php echo $data['area']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">开始装修时间:</th>
+                        <td><?php echo $data['start_time']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否拿到钥匙:</th>
+                        <td><?php echo isset($__WHETHER[$data['is_key']]) ? $__WHETHER[$data['is_key']] : '';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否有监理需求:</th>
+                        <td><?php echo isset($__WHETHER[$data['is_supervision']]) ? $__WHETHER[$data['is_supervision']] : '';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否有材料需求:</th>
+                        <td><?php echo isset($__HAVE[$data['is_material']]) ? $__HAVE[$data['is_material']] : '';?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">要求:</th>
+                        <td><?php echo $data['demand']?></td>
+                    </tr>
+                      <tr>
+                        <th width="140">客服反馈:</th>
+                        <td><?php echo $data['feedback']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">是否显示:</th>
+                        <td><?php echo isset($__SHOW[$data['is_show']]) ?$__SHOW[$data['is_show']]:''; ?></td>
+                    </tr>
+
+            </tbody>
+            </table>
+
+
+    </div>
+
+</body>
+</html>
+    

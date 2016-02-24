@@ -1,0 +1,34 @@
+ <div class="header_a">
+    <p>最新公告:</p>
+    <span>服务热线：<?php echo $__SETTING['tel'];?></span>
+  <div id="scrollDiv">
+    <ul style="margin-top: 0px;">
+         <?php 
+               if(!isset($newGG)){
+                    import::getMdl('content');
+                    $newGG = contentMdl::getInstance()->getContentsByCateId($__PINDAO_ROOT['gg'],8);
+                }
+            ?>
+             <?php foreach($newGG  as  $val){?>
+            <li>
+                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo mkUrl::linkTo('content','detail',array('id'=>$val['content_id']));?>">
+                    <?php echo $val['title'];?>
+                </a>
+            </li>
+            <?php }?>
+    </ul>
+    </div>
+    	<script>
+        $('#scrollDiv').vTicker({
+                            speed: 500,
+                            pause: 3000,
+                            showItems: 1,
+                            animation: 'fade',
+                            mousePause: false,
+                            height: 0,
+                            direction: 'up'});
+		
+
+    </script>
+  
+</div>

@@ -1,0 +1,49 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=ranks" ><em>会员等级列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>查看会员等级</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">等级名称:</th>
+                        <td><?php echo $data['rank_name']?></td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">等级图标:</th>
+                        <td><?php if(!empty( $data['icon'])) { ?> <img  src="<?php echo URL.$data['icon']?>" /> <?php }?></td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">等级到期图标:</th>
+                        <td><?php if(!empty( $data['icon1'])) { ?> <img  src="<?php echo URL.$data['icon1']?>" /> <?php }?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标天数:</th>
+                        <td><?php echo $data['day']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">可看招标条数:</th>
+                        <td><?php echo $data['num']?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">开通价格:</th>
+                        <td><?php echo round($data['prices']/100,2);?></td>
+                    </tr>
+            </tbody>
+            </table>
+
+
+    </div>
+
+</body>
+</html>
+    

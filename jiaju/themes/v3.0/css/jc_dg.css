@@ -1,0 +1,207 @@
+.jsdg_main {
+    float: left;
+    height: auto;
+    width: 980px;
+
+}
+.jsdg_main .left {
+border: solid 1px #D8D8D8;
+border-top:solid 3px #0477B6;
+    float: left;
+    height: 250px;
+    padding: 20px;
+    width: 445px;
+
+}
+.jsdg_main .right {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D8D8D8;
+    border-top:3px solid #0477B6;
+    float: right;
+    height: 289px;
+    width: 480px;
+}
+.jsdg_main .right .title {
+    background: url("../images/jc/jc_tiao10.gif") repeat-x scroll 0 0 transparent;
+    color: #0477B6;
+    float: left;
+    font-weight: bold;
+    height: 33px;
+    line-height: 33px;
+    padding-left: 10px;
+    width: 470px;
+}
+.jsdg_main .right .msg {
+    float: left;
+    height: 210px;
+    padding: 5px 20px;
+    width: 440px;
+}
+.jsdg_main .right .msg table {
+height:200px;
+    color: #666666;
+    font-size:12px;
+}
+.jsdg_main .right .msg table td {
+    line-height: 35px;
+    font-size:12px;
+}
+.jsdg_main .right .msg table td .text {
+    border: 1px solid #D8D8D8;
+    height: 18px;
+    font-size:12px;
+    width: 134px;
+}
+.jsdg_main .right .msg table td .select {
+    border: 1px solid #D8D8D8;
+    height: 20px;
+    width: 134px;
+}
+.jsdg_main .right .msg table font {
+    color:#666666;
+    font-size:12px;
+}
+.jsdg_main .right .msg table .table_btn {
+    border-top: 1px dotted #D8D8D8;
+    float: left;
+    height: 50px;
+    padding: 10px 0 0 100px;
+    text-align: center;
+    width: 340px;
+}
+.jsdg_main .right .msg table .table_btn_an {
+    background: url("../images/ask/ask_btn.gif") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 37px;
+    padding-left: 20px;
+    text-align: left;
+    width: 138px;
+}
+.jsdg_new {
+
+    background: url("../images/login_bg.gif") no-repeat scroll 600px 20px #FFFFFF;
+border: solid 1px #D8D8D8;
+border-top:solid 3px #0477B6;
+    float: left;
+    height: 330px;
+    margin-top: 10px;
+    width: 978px;
+}
+.jsdg_new .left {
+    float: left;
+    padding: 30px;
+    width: 500px;
+}
+.jsdg_new .left p {
+    color: #0577B6;
+    float: left;
+    font-weight: bold;
+    line-height: 25px;
+    margin: 0;
+    padding: 0;
+    width: 400px;
+}
+.jsdg_new .left span {
+    color: #898989;
+    float: left;
+    line-height: 25px;
+    margin: 0;
+    padding: 0;
+    width: 400px;
+}
+.jsdg_new .right {
+    float: right;
+    height: auto;
+    padding-left: 100px;
+    padding-top: 230px;
+    width: 300px;
+}
+.jsdg_new .right a {
+    background: url("../images/dianpin_btn.gif") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 20px;
+    width: 114px;
+}
+.jsdg_quan {
+
+border: solid 1px #D8D8D8;
+border-top:solid 3px #0477B6;
+    float: left;
+    height: auto;
+    margin-top: 10px;
+    width: 978px;
+	background:#FFFFFF;
+}
+.jsdg_quan .title {
+    background: url("../images/jc/jc_tiao15.gif") repeat-x scroll 0 0 transparent;
+    color: #0475B7;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 10px;
+    width: 950px;
+}
+.jsdg_quan .zhu {
+    float: left;
+    height: auto;
+    padding-bottom: 10px;
+    width: 960px;
+}
+.jsdg_quan .zhu .list {
+    border-bottom: 1px dotted #D8D8D8;
+    float: left;
+    height: 78px;
+    width: 960px;
+}
+.jsdg_quan .zhu .list .left {
+    float: left;
+    height: 38px;
+    padding-left: 20px;
+    padding-top: 20px;
+    width: 730px;
+}
+.jsdg_quan .zhu .list .left p {
+    color: #0576B8;
+    float: left;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    width: 700px;
+}
+.jsdg_quan .zhu .list .left span {
+    color: #585858;
+    float: left;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    width: 700px;
+}
+.jsdg_quan .zhu .list .right {
+    display: inline;
+    float: right;
+    height: 65px;
+    margin-right: 20px;
+    margin-top: 7px;
+    width: 113px;
+}
+.jsdg_quan .zhu .list .right img {
+    height: 65px;
+    width: 113px;
+}
+.jsdg_quan .lc {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    height: 130px;
+    width: 960px;
+}

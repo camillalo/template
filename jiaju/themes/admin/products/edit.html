@@ -1,0 +1,202 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=products" ><em>产品列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑产品</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=products&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">产品名称:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['product_name']?>" name="product_name" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">产品型号:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['model']?>" name="model" class="input-text"> </td>
+                    </tr>
+                   <tr>
+                        <th width="140">选择分类:</th>
+                        <td class="jq_category_id">
+                            <?php echo $select;?>
+                           
+                        </td>
+                    </tr>
+                <script>
+                    $(document).ready(function(){
+                        var defaultCategory = 0;
+                        function makeCategorySelect(id,data){
+                            var str ='<select name="'+id+'" id="'+id+'"><option value="0" >请选择.....</option>';
+                                for(a in data){
+                                    if(data[a].category_id != defaultCategory){
+                                        str+='<option value="'+data[a].category_id+'" >'+data[a].category_name+'</option>';
+                                    }
+                                }                        
+                                str+='</select>';
+                            return str;
+                        }
+
+                        $(".jq_category_id").on('change','select',function(){
+                            var index = $(this).index();
+                            var val   = $(this).val();
+                            var category_type = "<?php echo $__CATEGORY_TYPE['products'];?>";
+                            $(".jq_category_id select").each(function(a){
+                                if(a > index){
+                                    $(this).remove();
+                                }
+                            });
+                            if(val > 0){
+                                $.get('index.php?ctl=ajax&act=getCategory&parent_id='+val+'&category_type='+category_type,function(data){
+                                    if(data.ret == -1){
+                                        alert(data.message);
+                                    }else{
+                                        if(data.message.length>0){
+                                            $(".jq_category_id").append(makeCategorySelect('cates[]',data.message));
+                                        }else{
+                                            $.get('index.php?ctl=ajax&act=getBrand&category_id='+val,function(res){
+                                                   var data = res.message;
+                                                   var str ='<option value="0">请选择品牌</option>';
+                                                    for(a in data){
+                                                        str+='<option value="'+data[a].brand_id+'" >'+data[a].brand_name+'</option>';
+                                                    }      
+                                                    $("#brand_id").html(str);
+                                            },'json');
+                                        }
+                                    }
+                                },'json');
+                            }
+                        });
+                    });
+                </script>
+                    <tr>
+                        <th width="140">品牌:</th>
+                        <td>
+                             <select name="brand_id" id="brand_id">
+                                <option value="0">请选择品牌</option>
+                                <?php foreach($brands as $val){ ?>
+                                <option <?php if($val['brand_id'] == $data['brand_id']) echo 'selected="selected"'; ?> value="<?php echo $val['brand_id'];?>"><?php echo $val['brand_name'];?></option>
+                                <?php }?>
+                            </select>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th width="140">缩略图:</th>
+                        <td><input type="file"  name="face_pic" ><?php if(!empty( $data['face_pic'])) { ?> <img width="80" height="80" src="<?php echo URL.$data['face_pic']?>" /> <?php }?></td>
+                    </tr>
+                    <tr>
+                        <th width="140">已上传图片:</th>
+                        <td class="jq_detail">
+                            <?php foreach($data['detail_pics'] as $v) {?>
+                            <div style="float: left;">
+                                <input type="hidden" name="oldpics[]" value="<?php echo $v;?>" />
+                                <img width="80" height="80" src="<?php echo URL.$v;?>" /><br /><a href="###" class="jq_del">移除</a>
+                            </div>
+                            <?php }?>
+              
+                            
+                        </td>
+                    </tr>
+                    <script>
+                         $(document).ready(function(){
+                             $(document).on('click','.jq_del',function(){
+                                 $(this).parent('div').remove();
+                             });
+                         });   
+                    </script>
+                    
+                    
+                    <tr>
+                        <th width="140">详细图片:</th>
+                        <td>
+                            <input type="file" name="file_upload_1" value="上传" id="file_upload_1" >
+                        </td>
+                    </tr>
+                    <tr style="display:none;" id="flash_uploaded">
+                        <th width="140">新上传图片:</th>
+                        <td  class="flashupload">
+                           
+                        </td>
+                    </tr>
+                        <script>
+                            var  imgurl = '<?php echo URL;?>';
+                            $(document).ready(function(){
+                             
+                                $("#file_upload_1").uploadify({
+                                        'buttonImage' : '/statics/flashupload/browse-btn.png',
+                                        'fileTypeDesc' : 'Image Files',
+                                        'fileTypeExts' : '*.gif; *.jpg; *.png;*.bmp;*.jpeg',
+                                        swf           : '/statics/flashupload/uploadify.swf',
+                                        uploader      : 'index.php?ctl=ajax&act=upload',
+                                        uploadLimit : 20,
+                                        onUploadSuccess:function(file, data, response){
+                                            if(data != 'no'){
+                                                $("#flash_uploaded").show();
+                                                $(".flashupload").append(mkUploadImageHtml(data));
+                                            }
+                                        }
+                                });
+                                
+                                $(".jq_del").click(function(){
+                                    $(this).parent().remove();
+                                });
+
+                            });   
+                            function mkUploadImageHtml(data){
+                                var datas = data.split("|||");
+                                var str ='';
+                                str +='<div style="float:left; margin-left: 5px; width: 100px; height: 120px;"><input type="hidden" name="detailPics[]" value="'+datas[0]+'" />';
+                                str +='<img width="100" height="100" src="'+imgurl+datas[0]+'" /><br />';
+                                
+                                str +='<a target="hiden_frm" onclick="$(this).parent().remove();" href="index.php?ctl=ajax&act=delPic&pic='+encodeURI(datas[0])+'&token='+datas[1]+'">删除</a>';
+                                str +='</div>';
+                                return str;
+                            }
+                          </script>  
+                    
+                    <tr>
+                        <th width="140">市场价格:</th>
+                        <td><input type="text" size="40" value="<?php echo round($data['market_price']/100,2);?>" name="market_price" class="input-text"> 填0代表面议</td>
+                    </tr>
+                    <tr>
+                        <th width="140">商城价格:</th>
+                        <td><input type="text" size="40" value="<?php echo round($data['mall_price']/100,2);?>" name="mall_price" class="input-text"> 填0代表面议</td>
+                    </tr>
+
+            <tr>
+                <th width="140">详情:</th>
+                <td>
+                     <script type="text/plain" id="description_edit" style="width:600px"><?php echo $data['description']?></script>
+                     <script>
+
+                         var editor_adescription = new baidu.editor.ui.Editor({
+                                //关闭字数统计
+                                wordCount:false,
+                                //关闭elementPath
+                                elementPathEnabled:false,
+                                textarea:'description'
+                                //更多其他参数，请参考editor_config.js中的配置项
+                         });
+                         editor_adescription.render('description_edit');
+                     </script>
+                </td>
+            </tr>    
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="保存">
+                <input type="reset" class="button" value="重置">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

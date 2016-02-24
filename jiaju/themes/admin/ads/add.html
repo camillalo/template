@@ -1,0 +1,62 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=ads" ><em>广告列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=ads&act=add" class="on"><em>新增广告</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=ads&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">广告位:</th>
+                        <td>
+                            <?php echo html::select('site_id',$adSites);?>
+                            注：文字广告图片和代码项可以不填写！图片广告代码项可不填写！代码广告图片项可以不填写！</td>
+                    </tr>
+                   
+                    <tr>
+                        <th width="140">广告名称:</th>
+                        <td><input type="text" size="40" value="" name="title" class="input-text"> </td>
+                    </tr>
+
+                    <tr>
+                        <th width="140">图片:</th>
+                        <td><input type="file"  name="pic" > </td>
+                    </tr>
+                    <tr>
+                        <th width="140">代码:</th>
+                        <td><textarea name="code" cols="50" rows="10"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="140">生效时间:</th>
+                        <td><input type="text" size="40" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" name="bg_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">失效时间:</th>
+                        <td><input type="text" size="40" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" name="end_time" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">排序:</th>
+                        <td><input type="text" size="5" value="" name="orderby" class="input-text">数字越小排序越前 </td>
+                    </tr>
+                    <tr>
+                        <th width="140">链接地址:</th>
+                        <td><input type="text" size="50" value="" name="link" class="input-text">请填写绝对的HTTP://地址 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

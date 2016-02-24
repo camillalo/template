@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/user_new.css" rel="stylesheet" type="text/css" />
+    </head>
+
+   
+      <body id="w_body">
+       <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+           
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+     
+                  <div class="user_here">
+					<strong>当前位置：</strong> <a href="<?php echo mkUrl::linkTo('index');?>">首页</a> > <a href="<?php echo mkUrl::linkTo('user');?>">用户中心</a> > 工地管理
+				</div>
+              
+
+                <?php  require TEMPLATE_PATH.'user/left.html';?>
+
+                <div class="user_right">
+                    <div class="yellow_tip">
+                        <div class="hd">
+                            <s class="s"></s>温馨提示</div>
+                        <div class="bd">
+                            添加工地的好处就是可以被业主直接预约参观！预约后在工地管理中可以被查看到！
+
+
+                        </div>
+                    </div>
+
+                    <div class="module_default">
+                        <div class="tabsclass">
+                            <ul class="css-tabs">
+                                <li><a href="<?php echo mkUrl::linkTo('user','siteAdd');?>">新增在建工地</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="panes">
+                            <!--收件箱开始-->
+                            <div style="display: block;">
+                                <table width="100%" cellspacing="0" class="table_a">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">序号</th>
+                                    
+                                            <th align="center" >区县</th>
+                                            <th align="center" >工地名称</th>
+                                            <th align="center" >空间</th>
+                                            <th align="center" >预算</th>
+                                            <th align="center" >面积</th>
+                                            <th align="center" >风格</th>
+                                            <th align="center" >工程进度</th>
+                                            <th width="15%">管理操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php  foreach($datas as $val){ ?>
+                                        <tr>
+                                            <td width="10%" align="center"><?php echo $val['id'];?></td>
+                                     
+                                            <td align="center" ><?php echo $val['area_name'];?></td>
+                                            <td align="center" ><a target="_blank" href="<?php echo mkUrl::linkTo('company','sitedetail',array('id'=>$uid,'site_id'=>$val['id']));?>"><?php echo $val['name'];?></a></td>
+                                            <td align="center" ><?php echo $val['space_name'];?></td>
+                                            <td align="center" ><?php echo $val['price_name'];?></td>
+                                            <td align="center" ><?php echo $val['a_name'];?></td>
+                                            <td align="center" ><?php echo $val['style_name'];?></td>
+                                            <td align="center" ><?php echo isset($__SITE_STATUS_MEANS[$val['status']]) ? $__SITE_STATUS_MEANS[$val['status']] : '待发布进度';?></td>
+                                            <td width="15%" align="center">
+                                                <font color="#cccccc">
+                                                    <a href="<?php echo mkUrl::linkTo('user','siteStatus',array('id'=>$val['id']));?>">发布进度</a>
+                                                </font> |
+                                                <font color="#cccccc">
+                                                    <a href="<?php echo mkUrl::linkTo('user','siteEdit',array('id'=>$val['id']));?>">修改</a>
+                                                </font> |
+                                                <font color="#cccccc">
+                                                    <a href="<?php echo mkUrl::linkTo('user','siteView',array('id'=>$val['id']));?>">查看预约</a>
+                                                </font> 
+                                            </td>
+                                        </tr>
+                                        <?php }?>
+                                    </tbody>
+                                </table>
+                                <div id="pages"><?php echo $links;?></div>
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div> 
+            </div>
+
+
+
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="clear">
+        </div>
+        </div>
+        <?php  require TEMPLATE_PATH.'public/root.html';?>	   
+    </body>
+
+</html>

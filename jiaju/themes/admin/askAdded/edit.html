@@ -1,0 +1,34 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=askAdded" ><em>补充列表</em></a>
+            <span>|</span>
+            <a class="on" href="###"><em>编辑补充</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form  enctype="multipart/form-data"  action="index.php?ctl=askAdded&act=edit&id=<?php echo $id;?>" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                                    <tr>
+                        <th width="140">问题ID:</th>
+                        <td><input type="text" size="40" value="<?php echo $data['ask_id']?>" name="ask_id" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">问题补充:</th>
+                        <td><textarea name="added" cols="50" rows="10"><?php echo $data['added']?></textarea></td>
+                    </tr>
+
+            </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认修改">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    

@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php  require TEMPLATE_PATH.'public/css_js.html';?>
+<link href="<?php echo URL;?>themes/v3.0/css/zb_nei.css?v=20121212" rel="stylesheet" type="text/css" />
+</head>
+
+<div class="w_980">
+    <?php  require TEMPLATE_PATH.'public/top.html';?>	
+    <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+    <?php  require TEMPLATE_PATH.'public/menu.html';?>
+   <?php  require TEMPLATE_PATH.'public/notice.html';?>
+</div>
+<div class="clear"></div>
+<div class="w_980">
+<div id="content">
+
+    <div id="order_info">
+		  <div id="info_title">
+			<h2>订单信息：<?php if(isset($areas[$data['area_id']])) echo $areas[$data['area_id']];?><?php echo $data['building_name'];?><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_root']);?></h2>
+			<ul>
+			  <li>发布时间：<?php echo date('Y-m-d',$data['create_time']);?></li>
+			</ul>
+		  </div>
+		  <!--房屋信息开始-->
+		  <div class="info_houses left">
+			<h3 class="info1">房屋信息</h3>
+			<span class="left"><strong>房屋类型：</strong><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_root']);?><br>
+			<strong>房屋面积：</strong><?php echo $data['area']?>㎡<br>
+			<strong>是否拿到钥匙：</strong><?php echo isset($__WHETHER[$data['is_key']]) ? $__WHETHER[$data['is_key']] : '';?></span>
+			<span class="right"><strong>户型结构：</strong><?php if(!empty($data['type_id'])) echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_id']); 
+                            else echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_root']);?><br>
+                        <strong>是否需要监理：</strong><?php echo isset($__WHETHER[$data['is_supervision']]) ? $__WHETHER[$data['is_supervision']] : '';?>
+                        </span>
+                  
+                  </div>
+		  <!--房屋信息结束-->
+		  <!--设计需求 开始-->
+		  <div class="info_houses right">
+			<h3 class="info2">装修需求</h3>
+			<span class="left"><strong>装修类型：</strong><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['type_root']);?><br>
+			<strong>计划费用：</strong> <?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['budget_id']);?><br>
+			<strong>希望开工日期：</strong><?php echo $data['start_time']?></span> <span class="right"><strong>喜欢风格：</strong><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$data['style_id']);?> <br>
+			<strong>装修方式：</strong><?php echo isset($__DECORATE_TYPE[$data['way']]) ? $__DECORATE_TYPE[$data['way']] : '';?>
+                        <br />
+                        <strong>是否需要材料：</strong><?php echo isset($__HAVE[$data['is_material']]) ? $__HAVE[$data['is_material']] : '';?>  
+                        </span> </div>
+		  <!--设计需求 结束-->
+		  <div class="line"></div>
+		  <div class="clear"></div>
+		  <!--业主信息 开始-->
+		  <div class="info_owner">
+			<h3 class="info3">业主信息</h3>
+            
+			<div class="left"><strong>业主：</strong><?php echo mb_substr($data['name'],0,1);?><?php echo isset($__SEX[$data['sex']]) ? $__SEX[$data['sex']] : '';?><br>
+			<strong>所在区域：</strong>
+			<?php if(isset($areas[$data['area_id']])) echo $areas[$data['area_id']];?>
+                        
+                        <?php if(empty($uid)){ ?>
+			<br>
+			<strong>联系方式：</strong>******* 
+			<br>
+			<strong>装修要求：</strong>******* 
+                        
+                        <a href="<?php echo mkUrl::linkTo('login');?>" class="login">立即登陆后竞标</a>	
+                        <?php }else{ ?>
+                            <?php if($look || (int)$uid === (int)$data['uid']){ ?>
+                                <br>
+                                <strong>联系方式：</strong><?php echo $data['mobile']?>
+                                <br>
+                                <strong>详细地址：</strong><?php echo $data['addr']?>
+                                <br>    
+                                <strong>装修要求：</strong><?php echo $data['demand']?> 
+                            <?php }else{ ?>
+                                <br>
+                                <strong>联系方式：</strong>******** 
+                                <br>
+                                <strong>装修要求：</strong>******** 
+                                <a target="hiden_frm" href="<?php echo mkUrl::linkTo('tenders','use',array('id'=>$id));?>" style=" color: red;" class="login">立刻使用VIP竞标</a>	
+                            <?php }?>
+                        <?php }?>
+               </div>
+               
+               <div class="cont_right">
+	           	      <dl id="status">
+		               <dt>招标状态</dt>
+                               <dd class="state" style=" <?php if(empty($data['bid_id'])){?>color: green; <?php }?> font-weight: bold;  "><?php if(empty($data['bid_id'])){?>招标中<?php }else echo '结束';?></dd>
+		             </dl>
+		                          <dl>
+		               <dt>投标数</dt>
+		               <dd id="bidnum"><?php echo $data['bid_num'];?></dd>
+		             </dl>
+		             <dl>
+		               <dt>浏览人数</dt>
+		               <dd><?php echo $data['pv'];?></dd>
+		             </dl>
+	           </div>
+		  </div>
+		  <!--业主信息 结束-->
+		  <div id="info_end">通过<?php echo $__SETTING['site_name'];?>认证，成为<?php echo $__SETTING['site_name'];?>VIP会员，让客户放心选择您的公司，请拨<?php echo $__SETTING['tel'];?>，详情请登入：<a target="_blank" title="<?php echo $__SETTING['site_name'];?>" href="<?php echo mkUrl::linkTo('content','system',array('id'=>7));?>">VIP介绍</a></div>
+		</div>
+        <div class="clear"></div>
+        <?php if(!empty( $data['feedback'])){ ?>
+        <div style=" width: 953px; height: 60px; padding: 10px; font-size: 13px; border: #ff6600  dotted 2px ; margin-top: 5px;">
+            <span style=" font-weight: bold; color: red;">客服反馈：</span>
+            <?php echo $data['feedback'];?>
+            <span style=" font-weight: bold; color: red;">更多详情请咨询<?php echo $__SETTING['tel'];?></span>
+            
+        </div> 
+        <div class="clear"></div>
+        <?php }?>
+    <!--投标记录 开始-->
+    <div class="zb_detail_content">
+        <div class="hd clearfix">
+            <div class="left filter">
+                <ul class="clearfix">
+                    <li <?php if($_GET['ty'] == 0){ ?>class="select"<?php }?>><a href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$id));?>">默认排序</a></li>
+                    <li  <?php if($_GET['ty'] == 1){ ?>class="select"<?php }?>><a href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$id,'ty'=>1));?>">报价低-高</a></li>
+                    <li  <?php if($_GET['ty'] == 2){ ?>class="select"<?php }?>><a href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$id,'ty'=>2));?>">仅显示入围标</a></li>
+                    <li  <?php if($_GET['ty'] == 3){ ?>class="select"<?php }?>><a href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$id,'ty'=>3));?>">仅显示中标</a></li>
+                </ul>
+            </div>
+            <div class="center" style="float:left;line-height:50px;">
+               投标数：<?php echo $totalnum;?>位   
+            </div>
+           <?php if(empty($data['bid_id'])){?> <div class="right myTB">
+                装修公司/设计师：
+                <a class="link" href="<?php echo mkUrl::linkTo('user','biddingBidAdd',array('bid'=>$id));?>" target="_blank">我要投标</a>
+            </div>
+           <?php }?>
+        </div>
+        <div class="bd">
+            
+            
+        <?php foreach($datas as $val){
+            if(isset($companyInfo[$val['uid']])|| isset($designerInfo[$val['uid']])){ 
+        ?> 
+          <div class="item">
+                <div class="i_hd clearfix">
+                    <div class="main">
+                       
+                        <p class="modify">
+                            提示：投标者与 <?php echo date('Y-m-d H:i:s',$val['t']);?>做了修改</p>
+                    </div>
+                    <div class="sub">
+                        投标者基本信息</div>
+                </div>
+                <div class="i_bd clearfix">
+                    <div class="main">
+                        <div class="baojia">
+                            <div class="bj_hd">
+                                <s class="s"></s><span class="title">报价：</span></div>
+                            <div class="bj_bd">
+                                <table width="100%" class="table_bj">
+                                    <tbody><tr class="head">
+                                        <td>
+                                            主材费 </td>
+                                        <td>
+                                            辅材费 </td>
+                                        <td>
+                                            人工费 </td>
+                                        <td>
+                                            管理费 </td>
+                                        <td>
+                                            设计费 </td>
+                                        <td>
+                                            装修总价 </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                           <?php echo $uid === (int)$data['uid'] ? round($val['main_material']/100,2) : '业主登陆查看';?> </td>
+                                        <td>
+                                            <?php echo $uid === (int)$data['uid'] ?round($val['vice_material']/100,2):'****';?> </td>
+                                        <td>
+                                            <?php echo $uid === (int)$data['uid'] ?round($val['artificial']/100,2):'***';?> </td>
+                                        <td>
+                                            <?php echo $uid === (int)$data['uid'] ?round($val['management']/100,2):'***';?> </td>
+                                        <td>
+                                           <?php echo $uid === (int)$data['uid'] ?round($val['design']/100,2) : '***';?> </td>
+                                        <td>
+                                            <span class="red">¥ <?php echo $uid === (int)$data['uid'] ?round($val['total']/100,2):'业主登陆查看';?></span><span class="zongjia_icon"></span> </td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
+                        </div>
+                        <div class="liuyan">
+                            <div class="bj_hd">
+                                <s class="s"></s><span class="title">留言：</span></div>
+                            <div class="bj_bd">
+                                <?php echo $val['message'];?>
+                              </div>
+                        </div>
+                        <?php $pics = json_decode($val['detail_pics'],true);
+                            $pics = empty($pics) ? array() : $pics;
+                            if(!empty($pics)){
+                        ?>
+                        <div class="liuyan">
+                            <div class="bj_hd">
+                                <s class="s"></s><span class="title">装修效果：</span></div>
+                            <div class="bj_bd">
+                                <?php foreach($pics as $pic){ ?>
+                                <img alt="<?php echo $__SETTING['site_name'];?>" src="<?php echo URL,$pic;?>" />
+                                <br />
+                                <?php }?>
+                            </div>
+                        </div>
+                        <?php }?>
+                        
+                       
+                        <div class="bot_info clearfix">
+                             <?php if($uid === (int)$data['uid'] && empty($data['bid_id'])){ ?>
+                            <div class="left" style=" color: black; font-size: 15px; font-weight: bold;">  业主评标：
+                                
+                                <?php if(!$val['is_shortlisted']){?>
+                                <a target="hiden_frm" onclick="return confirm('设为入围后该竞标者能看到您的联系方式！您确定这么做么！');" href="<?php echo mkUrl::linkTo('tenders','setRw',array('id'=>$val['id']));?>" class="green">设为入围</a> 
+                                    ︱
+                                <?php }?>
+                                <a target="hiden_frm" onclick="return confirm('设为中标后您的竞标信息就结束了,中标企业会看到您的联系方式！您确定已经选择了该竞标者为您服务么！');"  href="<?php echo mkUrl::linkTo('tenders','setWin',array('id'=>$val['id']));?>" class="orange">设为中标</a>
+                            </div>
+                                 <?php  }?>
+                        </div>
+                    
+                        
+                            <?php if($val['is_win']){ ?> <div class="zhongbiao png_ie6"></div> <?php } else{ 
+                            if($val['is_shortlisted']){
+                            ?>
+                            <div class="ruwei png_ie6"></div>
+                            <?php }}?>
+                  </div>
+                    <div class="sub">
+                        <?php if(isset($companyInfo[$val['uid']])){ 
+                        $cinfo = $companyInfo[$val['uid']];
+                        ?>
+                        <div class="user_face">
+                            <a title="<?php echo $cinfo['company_name'];?>" href="<?php echo mkUrl::linkTo('company','main',array('id'=>$val['uid']));?>" target="_blank">
+                                <img alt="<?php echo $cinfo['company_name'];?>" width="126" height="63" src="<?php echo URL,$cinfo['logo'];?>"></a></div>
+                        <p class="gs">
+                            <a  title="<?php echo $cinfo['company_name'];?>"  href="<?php echo mkUrl::linkTo('company','main',array('id'=>$val['uid']));?>" target="_blank"><?php echo $cinfo['company_name'];?></a>
+                        </p>
+                        <?php if($val['is_authentication']){ ?>
+                        <p class="rz">
+                          <img alt="认证企业" src="<?php echo URL;?>themes/v3.0/images/renzheng.gif" />
+                        </p>
+                        <?php }?>
+                        <?php }else{
+                        $dinfo = $designerInfo[$val['uid']];
+                        ?>
+                        <div class="user_face">
+                            <a title="<?php echo $dinfo['name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$dinfo['id']));?>" target="_blank">
+                                <img width="60" height="60" alt="<?php echo $dinfo['name'];?>" src="<?php echo URL,$dinfo['face_pic'];?>"></a></div>
+                        <p class="gs">
+                            <a title="<?php echo $dinfo['name'];?>" href="<?php echo mkUrl::linkTo('designer','main',array('id'=>$dinfo['id']));?>" target="_blank"><?php echo $dinfo['name'];?></a>
+                        </p>
+                         <?php if($val['is_authentication']){ ?>
+                        <p class="rz">
+                          <img alt="认证设计师" src="<?php echo URL;?>themes/v3.0/images/renzheng.gif" />
+                        </p>
+                        <?php }?>
+                        
+                        <?php }?>
+                        
+                        <ul class="count">
+                            <li>投标次数：<span class="black"> <?php echo isset($countinfo[$val['uid']]['cn']) ?$countinfo[$val['uid']]['cn']:0; ?></span></li>
+                            <li>入围次数：<span class="green"> <?php echo isset($countinfo[$val['uid']]['sn']) ?$countinfo[$val['uid']]['sn']:0; ?></span></li>
+                            <li>中标次数：<span class="orange"><strong> <?php echo isset($countinfo[$val['uid']]['wn']) ?$countinfo[$val['uid']]['wn']:0; ?></strong></span></li>
+                          
+                        </ul>
+                    </div>
+                </div>
+          </div>
+			
+        <div class="clear"></div>
+    <?php  }}?>	
+    <?php if(!empty($datas)){ ?><div style="padding-left: 50px;"><?php echo $links;?></div> <?php }?>
+        </div>
+	</div>
+    <!--投标记录 结束-->
+    <!--最新订单 开始-->
+    <div id="order_new">
+      <div id="info_title3">
+        <h2>最新订单</h2>
+        <span class="more"><a href="<?php echo mkUrl::linkTo('tenders');?>">更多</a></span></div>
+      <table cellspacing="0" cellpadding="0">   
+        <tbody>
+            <tr>
+                <th>订单信息</th>
+                <th>业主</th>
+                <th>类型</th>
+                <th>装修方式</th>
+                <th>面积</th>
+                <th>预算</th>
+                <th>订单日期</th>
+            </tr>
+            <?php foreach($newBidding as $val){ ?>
+            <tr>
+                <td><a title="<?php if(isset($areas[$val['area_id']])) echo $areas[$val['area_id']];?><?php echo $val['building_name'];?><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?>" href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$val['id']));?>" target="_blank"><?php if(isset($areas[$val['area_id']])) echo $areas[$val['area_id']];?><?php echo $val['building_name'];?><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?>招标</a>
+</td>
+                <td><?php echo mb_substr($val['name'],0,1);?><?php echo isset($__SEX[$val['sex']]) ? $__SEX[$val['sex']] : '';?></td>
+                <td><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?></td>
+                <td><?php echo isset($__DECORATE_TYPE[$val['way']]) ? $__DECORATE_TYPE[$val['way']] :'' ;?></td>
+                <td><?php echo $val['area'];?>㎡</td>
+                <td><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['budget_id']);?></td>
+                <td><?php echo date('Y-m-d',$val['create_time']);?></td>
+            </tr> 
+            <?php }?>
+      </tbody>
+      </table>
+  </div>
+    <!--最新订单 结束-->
+</div>
+</div>
+<div class="clear"></div>
+<?php  require TEMPLATE_PATH.'public/root.html';?>	
+ </body>
+</html>

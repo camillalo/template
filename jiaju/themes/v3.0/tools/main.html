@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/tools.css" rel="stylesheet" type="text/css" />
+
+
+    </head>
+    
+    
+<script>
+
+<!--
+<!-- 计算涂料公式主程序 -->
+function IsDigit(cCheck)
+{
+ return ((('0'<=cCheck) && (cCheck<='9'))||cCheck=='.');
+ }
+function CheckNum(charValue,alertValue,obj)
+{
+	for(var iIndex=0;iIndex<charValue.length;iIndex++)
+	{
+		var cCheck=charValue.charAt(iIndex);
+		if(!IsDigit(cCheck))
+		{
+		alert(alertValue);
+		obj.focus();
+		return false;
+		}
+	}
+}
+function wall_paint(form)
+{
+ //检查输入
+ if(checkpaintInput(form)==false) return;
+ var room_long=0,room_width=0,room_height=0,door_height=0,door_width=0,door_num=0;
+ var window_height=0,window_width=0,window_num=0;
+ var paintnum=0;
+ var rate=0;
+ //给各个变量赋值
+ room_long=form.room_long.value;
+ room_width=form.room_width.value;
+ room_height=form.room_height.value;
+ 
+ door_height=form.door_height.value;
+ door_width=form.door_width.value;
+ door_num=form.door_num.value;
+ 
+ window_height=form.window_height.value;
+ window_width=form.window_width.value;
+ window_num=form.window_num.value;
+ rate=form.paint.value;
+ //开始计算
+ paintnum=(parseFloat(room_long)+parseFloat(room_width))*2*room_height+parseFloat(room_long*room_width);
+ paintnum=paintnum-parseFloat(window_height*window_width*window_num);
+ paintnum=paintnum-parseFloat(door_height*door_width*door_num);
+ var actnum=(Math.round(paintnum/rate*100))/100;
+// if(paintnum%rate!=0)
+ //{
+ //paintnum=(paintnum/rate+0.5);
+ //}
+ //paintnum=Math.round(paintnum);
+// form.wallpaintnum.value=actnum;
+  document.getElementById("rt").innerHTML=actnum+"升";
+ //form.buypaintnum.value=paintnum
+}
+function checkpaintInput(form)
+{
+	if(form.room_long.value==""){
+		alert("请输入房间长度");
+		form.room_long.focus();
+		return false;
+		}
+	if(CheckNum(form.room_long.value,"房间长度只能输入数字格式！",form.room_long)==false)
+	return false;
+
+	if(form.room_width.value==""){
+		alert("请输入房间宽度");
+	    form.room_width.focus();
+		return false;
+		}
+	if(CheckNum(form.room_width.value,"房间宽度只能输入数字格式！",form.room_width)==false)
+	return false;
+
+	if(form.room_height.value==""){
+		alert("请输入房间高度");
+		form.room_height.focus();
+		return false;
+		}
+	if(CheckNum(form.room_height.value,"房间高度只能输入数字格式！",form.room_height)==false)
+	return false;
+
+	if(form.door_height.value==""){
+		alert("请输入房门高度");
+		form.door_height.focus();
+		return false;
+		}
+	if(CheckNum(form.door_height.value,"房门高度只能输入数字格式！",form.door_height)==false)
+	return false;
+
+	if(form.door_width.value==""){
+		alert("请输入房门宽度");
+		form.door_width.focus();
+		return;
+		}
+	if(CheckNum(form.door_width.value,"房门宽度只能输入数字格式！",form.door_width)==false)
+	return false;
+
+	if(form.door_num.value==""){
+		alert("请输入房门扇数");
+		form.door_num.focus();
+		return false;
+		}
+
+	if(CheckNum(form.door_num.value,"房门扇数只能输入数字格式！",form.door_num)==false)
+	return false;
+	
+	if(form.window_height.value==""){
+	  alert("请输入窗户高度");
+	  form.window_height.focus();
+	   return false
+		}
+	if(CheckNum(form.window_height.value,"窗户高度只能输入数字格式！",form.window_height)==false)
+	return false;
+
+	if(form.window_width.value==""){
+		alert("请输入窗户宽度");
+		form.window_width.focus();
+		return false;
+		}
+	if(CheckNum(form.window_width.value,"窗户宽度只能输入数字格式！",form.window_width)==false)
+	return false;
+
+	if(form.window_num.value==""){
+		alert("请输入窗户扇数");
+		form.window_num.focus();
+		return false;
+		}
+	if(CheckNum(form.window_num.value,"窗户扇数只能输入数字格式！",form.window_num)==false)
+	return false;
+	if(form.paint.value==""){
+		alert("请您输入涂料的覆盖率");
+		form.paint.focus();
+		return false;
+		}
+	if(CheckNum(form.paint.value,"涂料的覆盖率只能输入数字格式！",form.paint)==false)
+	return false;
+} 
+</script>
+
+
+
+
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+            
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+        
+        <div class="user_main">
+  
+               <div class="user_left">
+                    <div class="title">工具箱</div>
+                    
+               <?php  foreach($tools_array as $key=> $val) { ?>
+                      <div class="dalei">
+                        <a <?php if($_GET['act'] == $key){ ?> style="color:#be0033;" <?php }?>
+                            title="<?php echo $__SETTING['site_name'],$val['title'];?>" 
+                            href="<?php echo mkUrl::linkTo('tools',$key);?>"><?php echo $val;?></a>
+                        </div>  
+                    
+                    <?php }?>
+
+
+                  
+                                    
+               </div>
+               <div class="user_right">
+                 <div class="user_center"> 
+                     
+                        <div style="height: 550px;"><div class="artCon"><table width="100%" height="213" cellspacing="0" cellpadding="0" border="0" align="center" class="bk-w">
+        <tbody><tr>
+          <td valign="top" height="213" align="center"><table width="100%" height="530" cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+              <td height="30" bgcolor="#f4f4f4" align="center"><strong><?php echo $title;?></strong></td>
+            </tr>
+            <tr>
+              <td valign="top" align="center"><br>
+                <table width="90%" cellspacing="0" cellpadding="4" border="0" bgcolor="#FFFFFF">
+                <form action="" method="post" name="form2">
+                  <tbody><tr bgcolor="#eeeeee">
+                    <td height="30" align="left" colspan="2"><span class="STYLE4">1、请您输入居室信息</span></td>
+                  </tr>
+                  <tr>
+                    <td width="18%" align="left">房间长度</td>
+                    <td width="82%" align="left"><input name="room_long" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房间宽度</td>
+                    <td align="left"><input name="room_width" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房间高度</td>
+                    <td align="left"><input name="room_height" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr bgcolor="#eeeeee">
+                    <td height="30" align="left" colspan="2"><span class="STYLE4">2、请您输入室内门窗信息</span></td>
+                  </tr>
+                  <tr>
+                    <td align="left">房门高度</td>
+                    <td align="left"><input name="door_height" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">窗户高度</td>
+                    <td align="left"><input name="window_height" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房门宽度</td>
+                    <td align="left"><input name="door_width" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">窗户宽度</td>
+                    <td align="left"><input name="window_width" size="18" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房门扇数</td>
+                    <td align="left"><input name="door_num" size="18" class="cold">
+        个 </td>
+                  </tr>
+                  <tr>
+                    <td align="left">窗户扇数</td>
+                    <td align="left"><input name="window_num" size="18" class="cold">
+        个</td>
+                  </tr>
+                  <tr>
+                    <td align="left">输入涂料的覆盖率</td>
+                    <td align="left"><input name="paint" value="8.6" .htmlsize="7">
+        平米/升</td>
+                  </tr>
+                  <tr bgcolor="#eeeeee">
+                    <td height="30" align="left" colspan="2"><span class="STYLE4">说明：8.6平米/升是行业标准。如果您知道您所要购买的涂料具体的覆盖率，请输入。</span></td>
+                  </tr>
+                  <tr>
+                    <td align="left">计算的结果是</td>
+                    <td align="left"><span style="color:#ff0000; font-size:20px; font-weight:bold;" id="rt" class="redb"></span></td>
+                  </tr>
+                  <tr>
+                    <td align="left">&nbsp;</td>
+                    <td align="left"><input type="button" onclick="wall_paint(this.form)" value="  计算  " name="Submit">
+                        <input type="reset" value="重新输入" name="Submit"></td>
+                  </tr>
+                
+              </tbody></table>
+			  </form>
+			  </td>
+            </tr></tbody></table></td>
+        </tr>
+      </tbody></table>
+</div></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+
+        <div class="clear"></div>
+
+    <?php  require TEMPLATE_PATH.'public/root.html';?>
+
+    </body>
+</html>

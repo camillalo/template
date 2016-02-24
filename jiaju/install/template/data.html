@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PHP装饰系统安装程序</title>
+<link rel="stylesheet" type="text/css" href="template/css.css" />
+<script type="text/javascript" src="template/jquery.js"></script>
+<script type="text/javascript">
+var $time=0;
+var $totaltime=5;
+$is_time=$totaltime;
+function time_go(){
+	$is_time=$is_time-1;
+	$time=$time+1;
+	$('#is_time').html($is_time);
+	if($time==$totaltime){
+		$url=$('#time_url').find('a').attr('href');
+		location.href=$url;
+	}
+	setTimeout("time_go()",1000);
+}
+</script>
+</head>
+
+<body>
+<div class="top">
+ <div class="head">
+  <div class="head_logo"><a href="http://www.qdjiazhuang.com/" target="_blank"><img   src="template/logo.png" title="青岛家装网" border="0" /></a></div>
+  <div class="head_info"><a href="http://www.qdjiazhuang.com/">官方网站</a><a href="http://www.qdjiazhuang.com/">技术论坛</a><a href="http://www.qdjiazhuang.com/">使用帮助</a></div>
+  <div class="clear"></div>
+ </div>
+</div>
+<div class="contain">
+	<div class="step"></div><!--安装过程-->
+	<form name="form1" action="?do=install" method="post">
+	<div class="body">
+	
+		<p class="title">数据库设置</p>
+		<ul class="ck_ul">
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">数据库主机：</span><span class="lf"><input class="inpt" name="localhost" value="localhost"/></span></li>
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">数据库名称：</span><span class="lf"><input class="inpt" name="db_name" value=""/></span></li>
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">数据库用户名：</span><span class="lf"><input class="inpt" name="db_user" value="root"/></span></li>
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">数据库密码：</span><span class="lf"><input class="inpt" name="db_password" value=""/></span></li>
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">数据表前缀：</span><span class="lf"><input class="inpt" name="db_pre" value="zx_"/><label></label></span></li>
+			
+		</ul>
+		<p class="title">管理员账号</p>
+		<ul class="ck_ul">
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">用户名：</span><span class="lf"><input class="inpt" name="username" value="admin"/></span></li>
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">密码：</span><span class="lf"><input class="inpt" name="password" value="admin"/></span></li>
+			<li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">确认密码：</span><span class="lf"><input class="inpt" name="password2" value="admin"/></span></li>
+                        <li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">管理邮箱：</span><span class="lf"><input class="inpt" name="mail" value=""/></span></li>
+                        <li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">官方授权KEY：</span><span class="lf"><input class="inpt" name="sitekey" value="OI324DF54rsUku654Frl2LK"/></span></li>
+                        <li style="padding-left:150px;"><span class="lf" style="width:100px; text-align:right">网站地址：</span><span class="lf"><?php echo $_SERVER['HTTP_HOST'];?></span></li>
+		</ul>
+	</div><!--内容部分-->
+	<div class="btn"><input type="button" value="上一步：检查安装环境" class="inp" onclick="javascript:location.href='?do=check'" /><input type="submit" value="开始安装" class="inp"/></div><!--按钮-->
+	</form>
+</div>
+</body>
+</html>

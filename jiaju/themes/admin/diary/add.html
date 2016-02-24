@@ -1,0 +1,66 @@
+<?php require TEMPLATE_PATH.'header.html';?>
+<body>
+    <iframe name="hiden_frm"  style="display:none;"></iframe>   
+    <div class="subnav">
+        <div class="content-menu ib-a blue line-x"> 
+            <a href="index.php?ctl=diary" ><em>装修日记列表</em></a>
+            <span>|</span>
+            <a href="index.php?ctl=diary&act=add" class="on"><em>新增装修日记</em></a>
+        </div>
+    </div>  
+    <div class="pad_10">
+        <form enctype="multipart/form-data"  action="index.php?ctl=diary&act=add" target="hiden_frm" name="form1" id="myform" method="post">
+            <table width="100%" cellspacing="0" cellpadding="0" class="table_form">
+                <tbody>
+                    <tr>
+                        <th width="140">标题:</th>
+                        <td><input type="text" size="40" value="" name="title" class="input-text"> </td>
+                    </tr>
+                    <tr>
+                        <th width="140">类别:</th>
+                        <td>
+                            <?php echo html::select('cate_id',$cates);?>
+                        </td>
+                    </tr>
+              
+                    <tr>
+                        <th width="140">是否显示:</th>
+                        <td>
+                            <?php echo html::radio('is_show',$__SHOW);?>
+                        </td>
+                    </tr>
+            <tr>
+                <th width="140">日记内容:</th>
+                <td>
+                     <script type="text/plain" id="contents_edit" style="width:700px"></script>
+                  <script>
+
+                         var editor_acontent = new baidu.editor.ui.Editor({
+                                //focus时自动清空初始化时的内容
+                                toolbars:[['FontSize','Indent', '|',
+                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyJustify','Map', 'GMap','InsertTable','DeleteTable','InsertImage','ImageCenter']],
+                                autoClearinitialContent:true,
+                                //关闭字数统计
+                                wordCount:false,
+                                //关闭elementPath
+                                elementPathEnabled:false,
+                                textarea:'contents'
+                                //更多其他参数，请参考editor_config.js中的配置项
+                         });
+                         editor_acontent.render('contents_edit');
+                     </script>
+                </td>
+            </tr>    
+                   
+                </tbody>
+            </table>
+            <div class="btn">
+                <input type="submit" class="button" value="确认保存">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+    
+

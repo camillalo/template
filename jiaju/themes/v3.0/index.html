@@ -1,0 +1,750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/index.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+            <div class="ad980">
+               <?php echo pluginsAds(3);?>
+            
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+            <div class="index_980">
+                <div class="index_box">
+                    <div class="left">
+                        <div class="index_flash">
+                            <?php  pluginsRecommendLunBo('index-lunbo-001',300,385);?>
+                        </div>
+
+                        <div class="b1">
+                            <div class="t1">
+                                <p>最新团购活动</p>
+                                <a   target="_blank"  href="<?php echo mkUrl::linkTo('activity');?>">更多</a>
+                            </div>
+                            <?php 
+                                 import::getMdl('activity');
+                                $activity = activityMdl::getInstance()->getNewActivity();
+                            ?>
+                            <?php if(!empty($activity)){?>
+                            <div class="hd_left">
+                                <a title="<?php echo $activity['title'];?>" target="_blank" href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$activity['id']));?>"><img width="90" height="90" src="<?php echo URL,$activity['face_pic'];?>"></a>
+                            </div>
+                            <div class="hd_right">
+                                <a title="<?php echo $activity['title'];?>" target="_blank"  href="<?php echo mkUrl::linkTo('activity','detail',array('id'=>$activity['id']));?>"><?php echo mb_substr($activity['title'],0,10);?></a>
+                                <p>报名截至 <font color="#898989"><?php echo $activity['reg_time'];?></font></p>
+                                <p>集合时间 <font color="#898989"><?php  echo $activity['bg_time'];?></font></p>
+                                <p>活动地址 <font color="#898989"><?php echo $activity['addr'];?></font></p>
+                            </div>
+                            <?php }?>
+                        </div>
+                    </div>
+
+                    <div class="m980_center">
+                        <div class="title">
+                            <p>
+                                热点头条
+                            </p>
+                            <a href="<?php echo mkUrl::linkTo('content');?>">更多</a>
+                        </div>
+                        
+                         <?php $recommend = recommend::getInstance()->load('index-hot-news01',5);?>
+				      <?php if(isset($recommend[0])){ ?>
+                        <div class="title_box">
+                             <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,20);?></a>
+                                <p><?php echo mb_substr($recommend[0]['description'],0,55);?>..</p>
+                        </div>
+                                        <?php }?>
+                        <ul class="l_t1">
+                              <?php for($i=1;$i<5;$i++){
+                                                            if(isset($recommend[$i])){
+                                                        ?>
+							<li>					
+                                                            <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                                                                <?php echo $recommend[$i]['title'];?>
+                                                            </a>
+                                                        </li>
+                                                        <?php }}?>
+                        </ul>
+                        
+                        <div class="title_box1">
+                            
+                             <?php foreach(recommend::getInstance()->load('index-company-001',4) as $val){ ?>
+                            <div class="title_box1_list">
+                                <div class="img">
+                                    <a target="_blank"  title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img src="<?php echo URL,$val['face_pic'];?>"></a>					</div>
+                                <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,12);?></a></p>
+                            </div>
+                             <?php }?>
+                           
+                        </div>
+                        <div class="title1"> <p>业内快讯</p> <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>279));?>">更多</a></div>
+
+                        <ul class="l_t3">
+                               <?php foreach(recommend::getInstance()->load('index-hynews-001',4) as $val){ ?>
+                            <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></li>
+                            <?php }?>
+                        </ul>
+                    </div>
+
+                    <div class="m980_right">
+                        <div class="title">
+                            <p>
+                                网站公告
+                            </p>
+                        </div>
+
+                        <ul>
+               
+                               <?php $i=0; foreach(recommend::getInstance()->load('index-gg-001',7) as $val){  $i++;?>
+                               <li <?php if($i==1){?>class="top" <?php }?>><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,18);?></a></li>
+                            <?php }?>
+
+
+                        </ul>
+                        <div class="title">
+                            <p>
+                                专家导购 
+                            </p>
+                        </div>
+
+                        <ul>
+                        <?php foreach(recommend::getInstance()->load('index-zjdg-001',5) as $val){  ?>
+                               <li ><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,16);?></a><p><?php echo date('m-d');?></p></li>
+                            <?php }?>
+                
+                     
+
+                        </ul>
+
+                        <div class="sj">
+                            
+                            <div class="t1"><p>本期明星商家</p><a href="<?php echo mkUrl::linkTo('gs');?>">更多</a></div>
+                              <?php $recommend = recommend::getInstance()->load('index-mx-company',5);?>
+				      <?php if(isset($recommend[0])){ ?>
+                            <div class="img"><img src="<?php echo URL,$recommend[0]['face_pic'];?>" /></div>
+                            <div class="info">
+                               
+                                <p><?php echo mb_substr($recommend[0]['description'],0,25);?>  <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >详情</a></p>
+                            </div>
+                            <?php }?>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="index_dh">
+                    <div class="dh dh1">
+                        <p><a href="<?php echo mkUrl::linkTo('tenders','liangfang');?>">免费量房</a> |　<A href="<?php echo mkUrl::linkTo('tenders','sheji');?>">设计</A> | <a href="<?php echo mkUrl::linkTo('tenders','fangan');?>">免费3套方案</a></p>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+                <div class="index_box">
+                    <div class="index_lc">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><img src="<?php echo URL;?>themes/v3.0/images/lc/1.gif" width="212" height="82" /></td>
+                                <td><img src="<?php echo URL;?>themes/v3.0/images/lc/2.gif" width="191" height="82" /></td>
+                                <td><img src="<?php echo URL;?>themes/v3.0/images/lc/3.gif" width="198" height="82" /></td>
+                                <td><img src="<?php echo URL;?>themes/v3.0/images/lc/4.gif" width="176" height="82" /></td>
+                                <td><img src="<?php echo URL;?>themes/v3.0/images/lc/5.gif" width="181" height="82" /></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="index_lc_left"> 
+                        <ul>
+                            <li class="top">
+                                <p class="p1">区域</p>
+                                <p class="p2">楼盘</p>
+                                <p class="p3">项目</p>
+                                <p class="p4">面积</p>
+                                <p class="p5">预算</p>
+                                <p class="p6">发布时间</p>
+                                <p class="p7">方式</p>
+                                <p class="p8">更多</p>
+                            </li>
+                                                        <?php      import::getMdl('bidding');
+    $newBidding = biddingMdl::getInstance()->getNewBiddings(8);
+    
+    ?>
+    <?php  foreach($newBidding as $val){ ?>  
+                            <li class="">
+                                    <p class="p1"><?php echo areaInt::getInstance()->getAreaName($val['area_id']);?></p>
+                                    <p class="p2"><?php echo $val['building_name'];?></p>
+                                    <p class="p3"><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['type_root']);?>招标</p>
+                                    <p class="p4"><?php echo $val['area']?>㎡</p>
+                                    <p class="p5"><?php echo category::getInstance()->getCategoryName($__CATEGORY_TYPE['bidding'],$val['budget_id']);?></p>
+                                    <p class="p6"><?php echo date('Y-m-d',$val['create_time']);?></p>
+                                    <p class="p7"><?php echo isset($__DECORATE_TYPE[$val['way']]) ? $__DECORATE_TYPE[$val['way']] :'' ;?></p>
+                                    <p class="p8"><a target="_blank"  href="<?php echo mkUrl::linkTo('tenders','detail',array('id'=>$val['id']));?>" >[详情]</a></p>
+                            </li>
+<?php }?>		
+                           
+
+
+
+
+
+                        </ul>
+                    </div>
+
+                    <div class="index_lc_right">
+                        <div class="box_form">
+                           <form action="<?php echo mkUrl::linkTo('tenders','save2');?>" target="hiden_frm" method="post" name="telorders">
+                                <input type="text"  class="text" name="mobile" id="mobile">
+                                <input name="Submit2" type="image" class="btns" value="提交" src="<?php echo URL;?>themes/v3.0/images/sq.gif" />
+                            </form>
+                        </div>
+                        <div class="form_table">
+                            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td colspan="3" align="center">
+                                        <p>严格审核正规品牌装饰企业</p></td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/lc/b1.gif" width="87" height="42" border="0" /></a></td>
+                                    <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/lc/b2.gif" width="87" height="42" border="0" /></a></td>
+                                    <td align="center"><a href="#"><img src="<?php echo URL;?>themes/v3.0/images/lc/b3.gif" width="87" height="42" border="0" /></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                     <?php foreach(recommend::getInstance()->load('index-company-zhaobiao',6) as $val){ ?>
+                    <div class="lc_lig">
+                        <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>">
+                            <img width="227" alt="<?php echo $val['title'];?>" height="84" src="<?php echo URL,$val['face_pic'];?>" /></a>
+                    </div>
+                <?php }?>
+                   
+                </div>
+                <div class="clear"></div>
+                <div class="index_dh">
+                    <div class="dh dh2">
+                        <p><a href="<?php echo mkUrl::linkTo('tenders','liangfang');?>">免费量房</a> |　<A href="<?php echo mkUrl::linkTo('tenders','sheji');?>">设计</A> | <a href="<?php echo mkUrl::linkTo('tenders','fangan');?>">免费3套方案</a></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="index_box">
+                    <div class="gs_left">
+                        <div class="title">
+                            <p>热门装修风格</p><a href="<?php echo mkUrl::linkTo('case');?>">更多</a>
+                        </div>
+                        <?php $recommend = recommend::getInstance()->load('index-company-left01',1);?>
+	
+                          <?php if(isset($recommend[0])){ ?>
+                        <div class="box1">
+                            
+                            <div class="img">
+                                <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><img  width="233" height="141" src="<?php echo URL,$recommend[0]['face_pic'];?>" /></a>
+                            </div>
+                            <div class="msg">
+                                <p> <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo mb_substr($recommend[0]['title'],0,15);?></a></p>
+
+                                <p><a href="<?php echo mkUrl::linkTo('case');?>">我要参与</a></p>
+                            </div>
+                        </div>
+                        <?php }?>
+                        
+                        <div class="title">
+                            <p>最新加盟公司</p><a href="<?php echo mkUrl::linkTo('gs');?>">更多</a>
+                        </div>
+                        <ul>
+                            <?php foreach(recommend::getInstance()->load('index-company-new01',3) as $val){ ?>
+                                    <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></li>
+                             <?php }?> 
+                        </ul>
+                        <div class="ruzhu">
+                            <a href="<?php echo mkUrl::linkTo('register','main',array('type'=>2));?>"><img src="<?php echo URL;?>themes/v3.0/images/ruzhu.gif"></a>
+                        </div>
+                    </div>
+
+                    <div class="gs_center">
+                        <div class="title">
+                            <p>口碑装修公司</p>
+                            <a href="<?php echo mkUrl::linkTo('gs');?>">更多</a>
+                        </div>
+
+                        <div class="title1"> <p>装修资讯</p> </div>
+                        <ul>
+                            
+                              <?php foreach(recommend::getInstance()->load('index-company-zx001',10) as $val){ ?>
+                                    <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></li>
+                             <?php }?> 
+                   
+                        </ul>
+  <?php foreach(recommend::getInstance()->load('index-company-kb01',6) as $val){ ?>
+                        <div class="p_img">
+                            <div class="img"><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img border="0" src="<?php echo URL,$val['face_pic'];?>"></a></div>
+                            <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,12);?></a></p>
+                        </div>
+
+  <?php }?> 
+                       
+
+                    </div>
+
+                    <div class="gs_right">
+                        <div class="title">
+                            <p>人气设计师</p> <a href="<?php echo mkUrl::linkTo('sjs');?>">更多</a>
+                        </div>
+
+                       
+
+ <?php
+ import::getMdl('designer');
+ foreach(recommend::getInstance()->load('index-designer-001',4) as $val){ 
+    $designer = designerMdl::getInstance()->getDesigner($val['mdl_id']);
+    if(!empty($designer)){
+ ?>
+                     
+                        <div class="sj_list">
+                            <div class="img">
+                               <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img border="0" src="<?php echo URL,$val['face_pic'];?>"></a>
+                            </div>
+                            <div class="info">
+                                <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></p>
+                                <p>经验：<?php  echo isset($__WORK[$designer['from_time']])?$__WORK[$designer['from_time']] : '';?></p>
+                                <p>风格：<?php echo $designer['style']; ?></p>
+                                <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img src="<?php echo URL;?>themes/v3.0/images/xiangqing.gif"></a>&nbsp;&nbsp;<a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img src="<?php echo URL;?>themes/v3.0/images/yuyue.gif"></a></p>
+                            </div>
+                        </div>
+ <?php }}?> 
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="index_dh">
+                    <div class="dh dh3">
+                        <p><a href="<?php echo mkUrl::linkTo('tenders','liangfang');?>">免费量房</a> |　<A href="<?php echo mkUrl::linkTo('tenders','sheji');?>">设计</A> | <a href="<?php echo mkUrl::linkTo('tenders','fangan');?>">免费3套方案</a></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="index_box">
+                    <div class="sj_left">
+                        <div class="title">
+                            <p>最新加盟商家</p><a href="<?php echo mkUrl::linkTo('material');?>">更多</a>
+                        </div>
+                        <ul>
+                         <?php
+ import::getMdl('company');
+ foreach(recommend::getInstance()->load('index-material-zx01',6) as $val){ 
+    $company = companyMdl::getInstance()->getCompany2($val['mdl_id']);
+    if(!empty($company)){
+ ?>   
+                            <li class="sj_left_li">
+                                <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a>
+                                <span>
+                                    <a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img border="0" src="<?php echo URL,$val['face_pic'];?>"></a>
+                                    <p>人气：<font><?php echo $company['pv'];?></font></p>
+                                    <p>点评：<font><?php echo  round($company['average_score']/10,1);?></font></p>
+                                    <p>电话：<?php echo $company['tel'];?></p>
+                                </span>
+                            </li>
+<?php }}?> 
+                    
+<script>
+    $(document).ready(function(){
+        $(".sj_left_li").mouseover(function(){
+            var index = $(this).index();
+            $(".sj_left_li").each(function(a){
+                if(a == index){
+                    $(this).addClass('cur');
+                }else{
+                    $(this).removeClass('cur');
+                }
+            });
+        });
+        $(".sj_left_li").eq(0).mouseover();
+    });
+</script>
+                      
+                           
+
+
+
+                        </ul>
+
+                        <div class="ruzhu">
+                            <a href="<?php echo mkUrl::linkTo('register','main',array('type'=>3));?>"><img src="<?php echo URL;?>themes/v3.0/images/jc_ruzhu.gif"></a>
+                        </div>
+                    </div>
+
+                    <div class="sj_center">
+                        <div class="title">
+                            <p>口碑建材公司</p>
+                            <a href="<?php echo mkUrl::linkTo('material');?>">更多</a>
+                        </div>
+
+                        <div class="title1"> <p>商家资讯</p> 
+                        </div>
+                        <ul>
+                                <?php foreach(recommend::getInstance()->load('index-material-sjzx',10) as $val){ ?>
+                                    <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></li>
+                             <?php }?> 
+                        </ul>
+
+                       <?php foreach(recommend::getInstance()->load('index-material-zxxgs',6) as $val){ ?>
+                        <div class="p_img">
+                            <div class="img"><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img border="0" src="<?php echo URL,$val['face_pic'];?>"></a></div>
+                            <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,12);?></a></p>
+                        </div>
+
+  <?php }?> 
+
+                   
+
+
+                    </div>
+
+                    <div class="sj_right">
+                        <div class="title"> <p>正在活动的商家</p> <a href="<?php echo mkUrl::linkTo('material');?>">更多</a></div>
+
+                        
+                       <?php foreach(recommend::getInstance()->load('index-material-huodong',4) as $val){ ?>
+                        <div class="p_img">
+                            <div class="img"><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img border="0" src="<?php echo URL,$val['face_pic'];?>"></a></div>
+                            <p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,12);?></a></p>
+                        </div>
+
+  <?php }?> 
+
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="nav_jc">
+                         <?php $i=0;  foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ $i++; if($i> 11) break; ?>
+                              <a title="<?php echo $v;?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>"><?php echo $v;?></a>
+                        <?php }?>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div id="p_main">
+                        <div class="sj_p_left">
+                            <div class="t1">
+                              <?php $i=0;  foreach( category::getInstance()->getChildCol($__CATEGORY_TYPE['products'],0) as $k=>$v){ $i++; if($i> 10) break; ?>
+                                    <a title="<?php echo $v;?>" target="_blank" href="<?php echo mkUrl::linkTo('mall','list',array('category'=>$k));?>"><?php echo $v;?></a>
+                              <?php }?>
+                            </div>
+
+                            <div class="p_list">
+
+                                  <?php foreach(recommend::getInstance()->load('index-products-01',10) as $val){ ?>
+                                <div class="list">
+                                    <div class="img"><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>">
+                        <img alt="<?php echo $val['title'];?>"  src="<?php echo URL,$val['face_pic'];?>" border="0" />
+                       </a>
+                                        <b></b>
+                                    </div>
+
+                                    <p class="p1"><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></p>
+                                   <?php $local = json_decode($val['description'],true);?>
+                            <?php if(!empty($local)){ ?>
+                                    <p>市场价：<del>￥<?php echo empty($local['market_price']) ? '面议': round($local['market_price']/100,2);?></del></p>
+                                    <p>特价：<font>￥<?php echo empty($local['mall_price']) ? '面议': round($local['mall_price']/100,2);?></font></p>
+                                      <?php }?>
+                                </div>
+                                   <?php }?>
+
+                             
+
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="sj_p_right">
+                            <div class="title"> <p>正在活动的商品</p> <a href="<?php echo mkUrl::linkTo('mall');?>">更多</a></div>
+                            <div class="box">
+
+
+                                <ul>
+                                     <?php foreach(recommend::getInstance()->load('index-products-02',5) as $val){ ?>
+                                    <li>
+                                        <div class="img"><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>">
+                        <img alt="<?php echo $val['title'];?>"  src="<?php echo URL,$val['face_pic'];?>" border="0" />
+                       </a></div>
+                                         <p ><a title="<?php echo $val['title'];?>" target="_blank" href="<?php echo $val['link'];?>"><?php echo $val['title'];?></a></p>
+                                   <?php $local = json_decode($val['description'],true);?>
+                            <?php if(!empty($local)){ ?>
+                                      <p>市场价：<del>￥<?php echo empty($local['market_price']) ? '面议': round($local['market_price']/100,2);?></del></p>
+                                    <p>特价：<font>￥<?php echo empty($local['mall_price']) ? '面议': round($local['mall_price']/100,2);?></font></p>
+                                      <?php }?>
+                                    </li>
+
+                                   <?php }?>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+                <div class="index_dh">
+                    <div class="dh dh4">
+                        <p><a href="<?php echo mkUrl::linkTo('tenders','liangfang');?>">免费量房</a> |　<A href="<?php echo mkUrl::linkTo('tenders','sheji');?>">设计</A> | <a href="<?php echo mkUrl::linkTo('tenders','fangan');?>">免费3套方案</a></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="index_box">
+                    <div class="z_box">
+                        <div class="title">
+                            <p>装修学堂</p>
+                            <a href="<?php echo mkUrl::linkTo('content');?>" class="more">浏览全部</a>
+                            <span>
+                                <?php foreach(category::getInstance()->getChildCol($__CATEGORY_TYPE['contents'],$__PINDAO_ROOT['jj']) as $k=>$v){ ?>
+     
+       <a  title="<?php echo $v;?>" class="a" href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>$k));?>"><?php echo $v;?></a>
+     |
+        <?php }?>
+                            </span>
+
+                        </div>
+                        <div class="z_box_left">
+ <?php $recommend = recommend::getInstance()->load('index-xt-left',12); ?>
+           <?php if(isset($recommend[0])){ ?>
+                            <div class="list_img">
+                                <div class="img">
+                           
+            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                <img alt="<?php echo $recommend[0]['title'];?>" src="<?php echo URL,$recommend[0]['face_pic'];?>" border="0" /></a> 
+                                               
+	
+                                </div>
+                                <p> <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" ><?php echo $recommend[0]['title'];?></a></p>
+                            </div>
+         <?php }?>
+
+                            <div class="list_img">
+                                  <?php if(isset($recommend[1])){ ?>
+                               <div class="img">
+	 
+            <a target="_blank" href="<?php echo $recommend[1]['link'];?>" title="<?php echo $recommend[1]['title'];?>" >
+                <img alt="<?php echo $recommend[1]['title'];?>" src="<?php echo URL,$recommend[1]['face_pic'];?>" border="0" /></a> 
+                     </div>                          
+	<p><?php echo $recommend[1]['title'];?></p>
+         <?php }?>
+	
+                            </div>
+
+
+                            <ul>
+
+                         <?php for($i=2;$i<12;$i++){
+                    if(isset($recommend[$i])){
+                ?>
+                <li>					
+                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                        <?php echo mb_substr($recommend[$i]['title'],0,14);?>
+                    </a>
+                </li>
+                <?php }}?>
+
+
+                            </ul>
+
+                        </div>
+
+
+
+                        <div class="z_box_center">
+                             <?php $recommend = recommend::getInstance()->load('index-xt-zj',11); ?>
+                            <div class="title_box">
+                              <?php if(isset($recommend[0])){ ?>
+            <a target="_blank" href="<?php echo $recommend[0]['link'];?>" title="<?php echo $recommend[0]['title'];?>" >
+                <?php echo $recommend[0]['title'];?>
+              </a> 
+                                               
+	
+                                <p><?php echo mb_substr($recommend[0]['description'],0,40);?></p>
+                                
+         <?php }?>
+                            </div>
+
+                            <ul class="l_t1">
+
+		 <?php for($i=1;$i<10;$i++){
+                    if(isset($recommend[$i])){
+                ?>
+                         <li>					
+                    <a target="_blank" href="<?php echo $recommend[$i]['link'];?>" title="<?php echo $recommend[$i]['title'];?>" >
+                        <?php echo mb_substr($recommend[$i]['title'],0,20);?>
+                    </a>
+                </li>
+                <?php }}?>
+                            </ul>
+
+                        </div>
+
+                        <div class="z_box_right">
+                            <div class="z_box_right_table">
+                                <table width="100%" height="143" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center">
+                                        <a href="<?php echo mkUrl::linkTo('tools','diban');?>" target="_blank">
+                                        <img src="<?php echo URL;?>themes/v3.0/images/tool/1.gif" width="69" height="63" />
+                                        </a>
+                                        </td>
+                                        <td align="center">
+                                        <a href="<?php echo mkUrl::linkTo('tools','dizhuan');?>" target="_blank">
+                                        <img src="<?php echo URL;?>themes/v3.0/images/tool/2.gif" width="69" height="63" />
+                                        </a>
+                                        </td>
+                                        <td align="center">
+                                         <a href="<?php echo mkUrl::linkTo('tools','qiangzhuan');?>" target="_blank">
+                                        <img src="<?php echo URL;?>themes/v3.0/images/tool/3.gif" width="69" height="63" />
+                                         </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td align="center">
+                                        <a href="<?php echo mkUrl::linkTo('tools','chuanlian');?>" target="_blank">
+                                        <img src="<?php echo URL;?>themes/v3.0/images/tool/4.gif" width="69" height="63" />
+                                        </a>
+                                        </td>
+                                        <td align="center">
+                                        <a href="<?php echo mkUrl::linkTo('tools','main');?>" target="_blank">
+                                        <img src="<?php echo URL;?>themes/v3.0/images/tool/5.gif" width="69" height="63" />
+                                        </a></td>
+                                        <td align="center">
+                                        <a href="<?php echo mkUrl::linkTo('tools','bizhi');?>" target="_blank">
+                                        <img src="<?php echo URL;?>themes/v3.0/images/tool/6.gif" width="69" height="63" />
+                                        </a></td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                            <ul>
+                             <?php foreach(recommend::getInstance()->load('index-tooldown-01',4) as $val){ ?>
+                                <li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></li>
+                            <?php }?> 
+                            </ul>
+                            <div class="z_box_right_table">
+                                <table width="100%" height="143" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center"><a href="<?php echo mkUrl::linkTo('tenders');?>"><img src="<?php echo URL;?>themes/v3.0/images/pei.gif" width="222" height="126" border="0" /></a></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="al_t">
+                        <p>装修案例图库</p>
+                        <a class="more" href="<?php echo mkUrl::linkTo('case');?>">浏览全部</a>
+                        <span>
+                          <?php foreach(recommend::getInstance()->load('index-casemenu-01',4) as $val){ ?>
+<a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a>|
+                            <?php }?> 
+                        </span>
+
+                    </div>
+
+                    <div class="al_left">
+                     <?php pluginsRecommendLunBo('index-case-left01',325,357);?>
+                        
+                    </div>
+
+                    <div class="al_right">
+                        
+       
+                              
+                 <?php foreach(recommend::getInstance()->load('index-case-right01',8) as $val){ ?>
+		<div class="list">
+			<div class="img"><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><img alt="<?php echo $val['title'];?>" src="<?php echo URL,$val['face_pic'];?>" border="0" /></a></div>
+			<p><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,14);?></a></p>
+		</div>
+                <?php }?> 
+                        
+                        
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="zx_new">
+                        <div class="zx_new_list">
+                            <div class="title">
+                                <p>装修风水</p>
+                                <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>153));?>">更多</a>
+                            </div>
+
+                            <ul>
+   <?php foreach(recommend::getInstance()->load('index-down-news1',10) as $val){ ?>
+			<li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,20);?></a></li>
+		 <?php }?> 
+
+                            </ul>
+
+                        </div>
+
+
+                        <div class="zx_new_list">
+                            <div class="title">
+                                <p>装修流程</p>
+                                  <a href="<?php echo mkUrl::linkTo('content','list',array('cate_id'=>5));?>">更多</a>
+                            </div>
+
+                            <ul>
+
+                            <?php foreach(recommend::getInstance()->load('index-down-news2',10) as $val){ ?>
+			<li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,20);?></a></li>
+		 <?php }?> 
+
+
+                            </ul>
+
+                        </div>
+
+                        <div style="border:none;" class="zx_new_list">
+                            <div class="title">
+                                <p>装修问答</p>
+                                   <a href="<?php echo mkUrl::linkTo('ask');?>">更多</a>
+                            </div>
+
+                            <ul>
+
+ <?php foreach(recommend::getInstance()->load('index-down-ask',10) as $val){ ?>
+			<li><a target="_blank" title="<?php echo $val['title'];?>" href="<?php echo $val['link'];?>"><?php echo mb_substr($val['title'],0,20);?></a></li>
+		 <?php }?> 
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+        <?php  require TEMPLATE_PATH.'public/link.html';?>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+    <?php  require TEMPLATE_PATH.'public/root.html';?>
+
+    </body>
+</html>

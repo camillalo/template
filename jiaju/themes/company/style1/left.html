@@ -1,0 +1,146 @@
+ <div id="leftbox">
+                <div class="title title1" title="公司基本信息">公司基本信息
+                </div>
+                <table id="info" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td width="7" class="icon td1">                
+                            </td>
+                            <td width="89" class="td2">
+                                认证情况：                            </td>
+                            <td width="159" colspan="2" class="td3">
+                                <?php if($is_authentication === 1) echo '已认证'; else echo '未验证';?>       
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="icon t2">
+                            </td>
+                            <td>
+                                会员等级：
+                            </td>
+                            <td colspan="2">
+                                <?php if(empty($rank)) { ?>
+                                普通会员
+                                <?php }else{ ?>
+                                <img src="<?php echo URL,$rank['icon'];?>" />
+                                <?php }?>
+                            </td>
+                        </tr>
+                        <?php if((int)$company['type'] === $__USER_TYPE['company']){?>
+                        <tr>
+                            <td class="icon t3">
+                            </td>
+                            <td>
+                                免费量房：
+                            </td>
+                            <td colspan="2">
+                               <?php if(isset($__WHETHER[$company['free_room']])) echo $__WHETHER[$company['free_room']]; else echo '否';?>
+                            </td>
+                        </tr>
+                        <?php }?>
+                        
+                        <tr>
+                            <td class="icon t4">
+                            </td>
+                            <td>
+                                先行赔付：
+                            </td>
+                            
+                            <td colspan="2">
+                                <?php 
+                                    import::getMdl('security');
+                                    $money = securityMdl::getInstance()->checkIsSecurity($company_id);
+                                    if(!empty($money)){
+                                ?>
+                                支持
+                                <?php }else { ?>
+                                   不支持
+                                 <?php }?>  
+                            </td>
+                        </tr>
+                        
+                     <?php  if((int)$company['type'] === $__USER_TYPE['company']){ ?>
+                        <tr>
+                            <td colspan="4" class="pingfen">
+                                用户评分：
+                                <span class="fenshu">
+                                    <?php echo round($company['average_score']/10,1);?>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="pingfen">
+                                总体感觉： <?php if($company['average_score']>45){?>太棒啦 <?php }elseif($company['average_score']>25){ ?>一般<?php }else{ ?>差
+                                <?php }?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="star3">
+                                    服务：<?php echo isset($dianping['s']) ? round($dianping['s'],1) : 0;?>
+                                </span>
+                            </td>
+                             <td colspan="2">
+                                <span class="star3">
+                                    售后：<?php echo isset($dianping['sa']) ? round($dianping['sa'],1) : 0;?>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="star3">
+                                    设计：<?php echo isset($dianping['d']) ? round($dianping['d'],1) : 0;?>
+                                </span>
+                            </td>
+                            <td colspan="2">
+                                <span class="star3">
+                                    施工：<?php echo isset($dianping['p']) ? round($dianping['p'],1) : 0;?>
+                                </span>
+                            </td>
+                        </tr>
+          
+                        <tr>
+                            <td colspan="4">
+                                <div id="tishi">
+                                    <p>
+                                        以上4项，每项满分为5星
+                                    </p>
+                                    <p>
+                                        已有<?php echo $company['comment_num'];?>位网友为此公司打分
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php }?>
+                    </tbody>
+                </table>
+                
+     
+     <div class="title title2" title="在线客服">在线客服</div>
+     
+     <div id="kefu">
+			
+            <?php foreach($qqs as $val){ ?>
+            <p>
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?php echo $val['qq'];?>&amp;site=qq&amp;menu=yes" style="margin-right:5px;">
+                    <img border="0" src="http://wpa.qq.com/pa?p=2:<?php echo $val['qq'];?>:46" alt="点击在线咨询" title="点击在线咨询" style="vertical-align: 0px;">
+                </a>
+                在线客服:<?php echo $val['name'];?>
+            </p> 
+            <?php }?>
+    </div>
+     
+      <div class="title title2" title="联系方式">联系方式</div>
+     
+     <div id="kefu">
+         <?php if(!empty($defaultCompanyAddr)){?>
+            <p><span>联系人：</span><?php echo $defaultCompanyAddr['contact'];?></p>
+            <p><span>电话：</span><?php echo $defaultCompanyAddr['tel'];?></p>
+            <p><span>手机：</span><?php echo $defaultCompanyAddr['mobile'];?></p>  
+            <p><span>传真：</span><?php echo $defaultCompanyAddr['fax'];?></p>
+            <p style="height: 60px;"><span>地址：</span><?php echo $defaultCompanyAddr['addr'];?></p>
+          <?php }?>
+        </div>
+     
+     
+</div>

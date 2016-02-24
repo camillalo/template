@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><?php if(isset($title)){ echo $title; ?>-<?php }?><?php echo  isset($__SETTING['title']) ? $__SETTING['title'] : $__SETTING['site_name'] ;?></title>
+        <meta name="keywords" content="<?php if(isset($keyword)){ echo $keyword; } else echo $__SETTING['keyword'];?>" />
+        <meta name="description" content="<?php if(isset($description)){ echo $description; } else echo $__SETTING['description'];?>" />
+        <?php echo isset($__SETTING['qqhtml']) ? stripslashes($__SETTING['qqhtml']) : '';?>
+        <?php  require TEMPLATE_PATH.'public/css_js.html';?>	
+        <link href="<?php echo URL;?>themes/v3.0/css/tools.css" rel="stylesheet" type="text/css" />
+
+
+    </head>
+    
+    <SCRIPT language=JavaScript>
+<!--
+<!-- 计算墙砖公式主程序 -->
+function IsDigit(cCheck)
+{
+ return ((('0'<=cCheck) && (cCheck<='9'))||cCheck=='.');
+ }
+function CheckNum(charValue,alertValue,obj)
+{
+	for(var iIndex=0;iIndex<charValue.length;iIndex++)
+	{
+		var cCheck=charValue.charAt(iIndex);
+		if(!IsDigit(cCheck))
+		{
+		alert(alertValue);
+		obj.focus();
+		return false;
+		}
+	}
+}
+function wall_brick(form)
+{
+ //检查输入
+ if(checkInput(form)==false) return;
+ var room_long=0,room_width=0,room_height=0,door_height=0,door_width=0,door_num=0;
+ var window_height=0,window_width=0,window_num=0,brick_long=0,brick_width=0;
+ var bricknum=0;
+ var rate=1.05;
+ //给各个变量赋值
+ room_long=form.room_long.value*1000;
+ room_width=form.room_width.value*1000;
+ room_height=form.room_height.value*1000;
+ 
+ door_height=form.door_height.value*1000;
+ door_width=form.door_width.value*1000;
+ door_num=form.door_num.value;
+ 
+ window_height=form.window_height.value*1000;
+ window_width=form.window_width.value*1000;
+ window_num=form.window_num.value;
+ 
+ brick_long=form.brick_long.value;
+ brick_width=form.brick_width.value;
+ 
+ //开始计算
+ //用砖数量（块数）=[（房间的长度÷砖长）×（房间高度÷砖宽）×2+ 
+ //（房间的宽度÷砖长）×（房间高度÷砖宽）×2—（窗户的长度÷砖长）×
+ //（窗户的宽度÷砖宽）×个数—（门的长度÷砖长）×（门的宽度÷砖宽）×个数]×1.05
+ bricknum=(room_long/brick_long)*(room_height/brick_width)*2;
+ bricknum= parseFloat(bricknum)+parseFloat((room_width/brick_long)*(room_height/brick_width) *2);
+ bricknum=parseFloat(bricknum)- parseFloat((window_height/brick_long)*(window_width/brick_width)*window_num);
+ bricknum=parseFloat(bricknum)-parseFloat((door_height/brick_long)*(door_width/brick_width)*door_num);
+ bricknum=Math.round(bricknum*1.05);
+ 
+//form.wallbricknum.value=bricknum;
+ document.getElementById("rt").innerHTML=bricknum+"块";
+}
+function checkInput(wallbrickfrm)
+{
+	if(wallbrickfrm.room_long.value==""){
+		alert("请输入房间长度");
+		wallbrickfrm.room_long.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.room_long.value,"房间长度只能输入数字格式！",wallbrickfrm.room_long)==false)
+	return false;
+
+	if(wallbrickfrm.room_width.value==""){
+		alert("请输入房间宽度");
+		wallbrickfrm.room_width.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.room_width.value,"房间宽度只能输入数字格式！",wallbrickfrm.room_width)==false)
+	return false;
+	if(wallbrickfrm.room_height.value==""){
+		alert("请输入房间高度");
+		wallbrickfrm.room_height.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.room_height.value,"房间高度只能输入数字格式！",wallbrickfrm.room_height)==false)
+	return false;
+	if(wallbrickfrm.door_height.value==""){
+		alert("请输入房门高度");
+		wallbrickfrm.door_height.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.door_height.value,"房门高度只能输入数字格式！",wallbrickfrm.door_height)==false)
+	return false;
+	if(wallbrickfrm.door_width.value==""){
+		alert("请输入房门宽度");
+		wallbrickfrm.door_width.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.door_width.value,"房门宽度只能输入数字格式！",wallbrickfrm.door_width)==false)
+	return false;
+
+	if(wallbrickfrm.door_num.value==""){
+		alert("请输入房门扇数");
+		wallbrickfrm.door_num.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.door_num.value,"房门扇数只能输入数字格式！",wallbrickfrm.door_num)==false)
+	return false;
+		
+	if(wallbrickfrm.window_height.value==""){
+		alert("请输入窗户高度");
+		wallbrickfrm.window_height.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.window_height.value,"窗户高度只能输入数字格式！",wallbrickfrm.window_height)==false)
+	return false;
+	if(wallbrickfrm.window_width.value==""){
+		alert("请输入窗户宽度");
+		wallbrickfrm.window_width.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.window_width.value,"窗户宽度只能输入数字格式！",wallbrickfrm.window_width)==false)
+	return false;
+	if(wallbrickfrm.window_num.value==""){
+		alert("请输入窗户扇数");
+		wallbrickfrm.window_num.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.window_num.value,"窗户扇数只能输入数字格式！",wallbrickfrm.window_num)==false)
+	return false;
+		
+	if(wallbrickfrm.brick_long.value==""){
+		alert("请输入墙砖长度");
+		wallbrickfrm.brick_long.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.brick_long.value,"墙砖长度只能输入数字格式！",wallbrickfrm.brick_long)==false)
+	return false;
+	if(wallbrickfrm.brick_width.value==""){
+		alert("请输入墙砖宽度");
+		wallbrickfrm.brick_width.focus();
+		return false;
+		}
+	if(CheckNum(wallbrickfrm.brick_width.value,"墙砖宽度只能输入数字格式！",wallbrickfrm.brick_width)==false)
+	return false;
+}
+function autoinput(form)
+{
+	//alert(form.bricktype.value);
+	switch(parseInt(form.bricktype.value))
+	{
+		case 0:
+		     form.brick_long.value=200;
+			 form.brick_width.value=200;
+		     break;
+		case 1:
+		     form.brick_long.value=300;
+			 form.brick_width.value=300;
+		     break;
+		case 2:
+			 form.brick_long.value=400;
+			 form.brick_width.value=400;
+		     break;
+		case 3:
+			 form.brick_long.value=500;
+			 form.brick_width.value=500;
+		     break;
+		case 4:
+			 form.brick_long.value=600;
+			 form.brick_width.value=600;
+			 break;
+		case 5:
+			 form.brick_long.value=300;
+			 form.brick_width.value=200;
+			 break;
+		case 6:
+			 form.brick_long.value=250;
+			 form.brick_width.value=330;
+			 break;
+		case 7:
+			 form.brick_long.value=300;
+			 form.brick_width.value=450;
+			
+	}
+}
+</SCRIPT>
+
+
+
+    <body>
+        <div class="w_980">
+            <?php  require TEMPLATE_PATH.'public/top.html';?>	
+            <?php  require TEMPLATE_PATH.'public/logo.html';?>	
+            <?php  require TEMPLATE_PATH.'public/menu.html';?>
+           <?php  require TEMPLATE_PATH.'public/notice.html';?>
+            
+        </div>
+        <div class="clear"></div>
+
+        <div class="w_980">
+        
+        <div class="user_main">
+  
+               <div class="user_left">
+                    <div class="title">工具箱</div>
+                    
+               <?php  foreach($tools_array as $key=> $val) { ?>
+                      <div class="dalei">
+                        <a <?php if($_GET['act'] == $key){ ?> style="color:#be0033;" <?php }?>
+                            title="<?php echo $__SETTING['site_name'],$val['title'];?>" 
+                            href="<?php echo mkUrl::linkTo('tools',$key);?>"><?php echo $val;?></a>
+                        </div>  
+                    
+                    <?php }?>
+
+
+                  
+                                    
+               </div>
+               <div class="user_right">
+                 <div class="user_center"> 
+                     
+                        <div class="artCon">
+                        
+                        <table width="100%" height="530" cellspacing="0" cellpadding="0" border="0">
+            <tbody><tr>
+              <td height="30" bgcolor="#f4f4f4" align="center"><strong><?php echo $title;?></strong></td>
+            </tr>
+            <tr>
+              <td valign="top" align="center"><br>
+               <form action="" method="post" name="form2">
+                <table width="90%" cellspacing="0" cellpadding="4" border="0" bgcolor="#FFFFFF">
+               
+                  <tbody><tr bgcolor="#eeeeee">
+                    <td height="30" align="left" colspan="2"><span class="STYLE4">1、<span class="STYLE2">请输入居室信息</span></span></td>
+                  </tr>
+                  <tr>
+                    <td width="25%" align="left">房间长度</td>
+                    <td width="75%" align="left"><input name="room_long" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房间宽度</td>
+                    <td align="left"><input name="room_width" class="cold">
+        米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房间高度</td>
+                    <td align="left"><input name="room_height" class="cold">
+                      米</td>
+                  </tr>
+                  <tr bgcolor="#eeeeee">
+                    <td height="30" align="left" colspan="2"><span class="STYLE4">2、<span class="STYLE2">请输入<font color="#003333">室内门窗信息</font></span></span></td>
+                  </tr>
+                  <tr>
+                    <td align="left">房门长度</td>
+                    <td align="left"><input name="door_height" class="cold">
+                      米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">窗户高度</td>
+                    <td align="left"><input name="window_height" class="cold">
+米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房门宽度</td>
+                    <td align="left"><input name="door_width" class="cold">
+米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">窗户宽度</td>
+                    <td align="left"><input name="window_width" class="cold">
+米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">房门扇数</td>
+                    <td align="left"><input name="door_num" class="cold">
+                      个</td>
+                  </tr>
+                  <tr>
+                    <td align="left">窗户扇数</td>
+                    <td align="left"><input name="window_num" class="cold">
+                      个</td>
+                  </tr>
+                  <tr bgcolor="#eeeeee">
+                    <td height="30" align="left" colspan="2"><font color="#003333">3、请输入配备的单块墙砖信息</font></td>
+                    </tr>
+                  <tr>
+                    <td align="left">墙砖长度</td>
+                    <td align="left"><input name="brick_long" class="cold">
+                      毫米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">墙砖宽度</td>
+                    <td align="left"><input name="brick_width" class="cold">
+                      毫米</td>
+                  </tr>
+                  <tr>
+                    <td align="left">或选择标准规格的墙砖</td>
+                    <td align="left"><select name="bricktype" onchange="autoinput(this.form)" style="FONT-SIZE: 9pt" class="cold">
+                      <option selected="" value="0">200x200</option>
+                      <option value="1">300x300</option>
+                      <option value="2">400x400</option>
+                      <option value="3">500x500</option>
+                      <option value="4">600x600</option>
+                      <option value="5">300x200</option>
+                      <option value="6">250x330</option>
+                      <option value="7">300x450</option>
+                    </select>
+                      毫米</td>
+                  </tr>
+                 
+                  <tr>
+                    <td align="left" class="zk">计算的结果：你需要</td>
+                    <td align="left">&nbsp;<span style="color:#ff0000; font-size:20px; font-weight:bold;" id="rt" class="redb"></span></td>
+                  </tr>
+                  <tr>
+                    <td align="left">&nbsp;</td>
+                    <td align="left"><input type="button" onclick="wall_brick(this.form)" value="  计算  " name="Submit">
+                        <input type="reset" value="重新输入" name="Submit"></td>
+                  </tr>
+                
+              </tbody></table>
+              </form>
+              </td>
+            </tr></tbody></table>
+          
+</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+
+        <div class="clear"></div>
+
+    <?php  require TEMPLATE_PATH.'public/root.html';?>
+
+    </body>
+</html>
